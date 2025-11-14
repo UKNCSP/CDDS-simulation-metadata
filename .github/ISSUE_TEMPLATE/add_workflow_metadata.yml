@@ -59,7 +59,7 @@ body:
   - type: input #CONDITIONAL ON BRANCH METHOD
     id: parent_experiment_id
     attributes:
-      label: Parent Experiemnt ID
+      label: Parent Experiment ID
       description: Parent experiment identifier
       placeholder: "e.g. piControl-spinup"
 
@@ -87,7 +87,7 @@ body:
   - type: input #CONDITIONAL ON BRANCH METHOD
     id: parent_variant_label
     attributes:
-      label: Parent Varient Label
+      label: Parent Variant Label
       description: Label of the specific variant of the parent experiment 
       placeholder: "e.g. r1i1p1f2"
 
@@ -147,8 +147,8 @@ body:
   - type: input 
     id: variant_label
     attributes:
-      label: Varient label
-      description: Varient label
+      label: Variant label
+      description: Variant label
       placeholder: "e.g. r1i1p1f2"
     validations:
       required: true

@@ -4,7 +4,7 @@ This script takes the body of an issue and uses its content to generate and stru
 
 import os
 import re
-import metomi.isodatetime.parsers as parse
+from metomi.isodatetime.parsers import TimePointParser
 from pathlib import Path
 import sys
 
@@ -34,17 +34,17 @@ def create_meta_dict(match):
         "branch_method": "branch_method",
         "child_branch_date": "branch_date_in_child",
         "parent_branch_date": "branch_date_in_parent",
-        "parent_experiemnt_id": "parent_experiemnt_id",
+        "parent_experiment_id": "parent_experiment_id",
         "parent_activity_id_(mip)": "parent_mip",
         "parent_model_id": "parent_model_id",
         "parent_time_units": "parent_time_units",
-        "parent_varient_label": "parent_varient_label",
+        "parent_variant_label": "parent_variant_label",
         "calendar_type": "calendar",
         "experiment_id": "experiment_id",
         "institution_id": "institution_id",
         "activity_id_(mip)": "mip",
         "mip_era": "mip_era",
-        "varient_label": "varient_label",
+        "variant_label": "variant_label",
         "model_id": "model_id",
         "start_date": "start_date",
         "end_date": "end_date",
@@ -93,20 +93,23 @@ def validate_meta_content(meta_dict, warnings):
         "'mass_ensamble_member' must be identified.")
 
     parent_reliant_fields = ["branch_date_in_child", "branch_date_in_parent", "parent_experiment_id", "parent_mip", 
-                             "parent_model_mip", "paernt_time_units", "parent_varient_label"]
+                             "parent_model_mip", "paernt_time_units", "parent_variant_label"]
     if meta_dict["branch_method"] == "standard":
         for field in parent_reliant_fields:
             if meta_dict[field] == "_No response_":
                 list_warnings(warnings, f"WARNING: Missing required parent reliant field: {field}.")
 
     # Confirm that input fields are correctly formatted
+    parser = TimePointParser()
     date_formatted_fields = ["base_date", "start_date", "end_date"]
     if meta_dict["branch_method"] == "standard":
         date_formatted_fields.append("branch_date_in_child", "branch_date_in_parent")
     for field in date_formatted_fields:
         try:
-            parse.TimePointParser().parse(field)
+            parser.parse(meta_dict[field])
         except Exception:
+            list_warnings(warnings, f"WARNING: {field} is incorrectly formatted: use the format yyyy-mm-ddTHH:MM:SSZ.")
+        if not meta_dict[field].endswith("Z"):
             list_warnings(warnings, f"WARNING: {field} is incorrectly formatted: use the format yyyy-mm-ddTHH:MM:SSZ.")
 
     workflow_id_format = r"^[a-z]{1,2}-[a-z]{2}\d{3}$"
