@@ -1,3 +1,6 @@
+# (C) British Crown Copyright 2025, Met Office.
+# Please see LICENSE.md for license details.
+
 name: "Process new metadata entry"
 on: 
   issues:
@@ -34,10 +37,10 @@ jobs:
         id: exists
         run: |
           if git ls-tree -r HEAD --name-only | grep -q "${{ steps.create-file.outputs.filename }}"; then
-            echo "exists=true" >> GITHUB_OUTPUT
+            echo "exists=true" >> $GITHUB_OUTPUT
             echo "exists=true"
           else
-            echo "exists=false" >> GITHUB_OUTPUT
+            echo "exists=false" >> $GITHUB_OUTPUT
             echo "exists=false"
           fi
 
@@ -50,18 +53,19 @@ jobs:
           git add *.cfg
           git commit -m "New workflow metadata file added from issue #${{ github.event.issue.number }}"
           git push origin main
+          
       - name: check diff
         id: diff
-        if: ${{ steps.exists.outputs.exists }} == 'true'
+        if: steps.exists.outputs.exists == 'true'
         run: |
           if git diff --quiet HEAD -- ${{ steps.create-file.outputs.filename}}; then
-            echo "changed=false" >> GITHUB_OUTPUT
+            echo "changed=false" >> $GITHUB_OUTPUT
           else
-            echo "changed=true" >> GITHUB_OUTPUT
+            echo "changed=true" >> $GITHUB_OUTPUT
           fi
 
       - name: create PR 
-        if: ${{ steps.diff.outputs.changed }} == 'true'
+        if: steps.diff.outputs.changed == 'true'
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: | 
@@ -81,7 +85,7 @@ jobs:
                     -----------------------------------------------------
                     User: ${{ github.actor }} 
                     Issue title: ${{ github.event.issue.title }}
-                    Issue ID: #${{ github.event.issue.number }}
+                    Issue ID: ${{ github.event.issue.number }}
                     Filename: ${{ steps.create-file.outputs.filename }}"  \
             --base main \
             --head $(git rev-parse --abbrev-ref HEAD)

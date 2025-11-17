@@ -1,3 +1,5 @@
+# (C) British Crown Copyright 2025, Met Office.
+# Please see LICENSE.md for license details.
 """
 This script takes the body of an issue and uses its content to generate and structured metadata configuration file.
 """
@@ -93,7 +95,7 @@ def validate_meta_content(meta_dict, warnings):
         "'mass_ensamble_member' must be identified.")
 
     parent_reliant_fields = ["branch_date_in_child", "branch_date_in_parent", "parent_experiment_id", "parent_mip", 
-                             "parent_model_mip", "paernt_time_units", "parent_variant_label"]
+                             "parent_model_id", "parent_time_units", "parent_variant_label"]
     if meta_dict["branch_method"] == "standard":
         for field in parent_reliant_fields:
             if meta_dict[field] == "_No response_":
@@ -103,7 +105,8 @@ def validate_meta_content(meta_dict, warnings):
     parser = TimePointParser()
     date_formatted_fields = ["base_date", "start_date", "end_date"]
     if meta_dict["branch_method"] == "standard":
-        date_formatted_fields.append("branch_date_in_child", "branch_date_in_parent")
+        date_formatted_fields.append("branch_date_in_child")
+        date_formatted_fields.append("branch_date_in_parent")
     for field in date_formatted_fields:
         try:
             parser.parse(meta_dict[field])
@@ -226,7 +229,7 @@ def main():
         print("Validating issue form inputs...  FAILED")
         for warning in warnings:
             print(f" - {warning}")
-        sys.exit()
+        sys.exit(1)
 
 
 if __name__ == "__main__":
