@@ -12,6 +12,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      issues: write
 
     steps:
       - uses: actions/checkout@v3
@@ -53,6 +54,16 @@ jobs:
           git add *.cfg
           git commit -m "New workflow metadata file added from issue #${{ github.event.issue.number }}"
           git push origin main
+
+          gh issue comment "$NUMBER" --body "$BODY"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NUMBER: ${{ github.event.issue.number }}
+          BODY: >
+            Your metadata file has been succesfully added to the repository as: 
+            ${{ steps.create-file.outputs.filename }}
+
+            Thank you for your contribution.
           
       - name: check diff
         id: diff
@@ -66,8 +77,6 @@ jobs:
 
       - name: create PR 
         if: steps.diff.outputs.changed == 'true'
-        env: 
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: | 
           branch="update-metadata-${{ github.run_id }}"
           git checkout -b "$branch"
@@ -89,3 +98,27 @@ jobs:
                     Filename: ${{ steps.create-file.outputs.filename }}"  \
             --base main \
             --head $(git rev-parse --abbrev-ref HEAD)
+
+          gh issue comment "$NUMBER" --body "$BODY"
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NUMBER: ${{ github.event.issue.number }}
+          BODY: >
+            A different version of this metadata file already exists, you can view the existing file here: 
+            ${{ steps.create-file.outputs.filename }}.
+
+            A pull request has been opened to review your changes. 
+
+            Thank you for your contribution.
+        
+      - name: notify user of duplicate
+        if: steps.diff.outputs.changed == 'false'
+        run: gh issue comment "$NUMBER" --body "$BODY"
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NUMBER: ${{ github.event.issue.number }}
+          BODY: >
+            This metadata file already exists, you can view the existing file here: 
+            ${{ steps.create-file.outputs.filename }}.
+
+            Thank you for your contribution.
