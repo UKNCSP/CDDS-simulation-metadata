@@ -106,11 +106,69 @@ body:
     validations:
       required: true
 
+  - type: dropdown
+    id: calendar
+    attributes:
+      label: Calendar Type
+      description: Type of calendar used.
+      options:
+        - "360_day"
+        - "gregorian"
+      default: 0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: institution_id
+    attributes:
+      label: Institution ID
+      description: Institution identifier.
+      options:
+        - "MOHC"
+        - "NERC"
+      default: 0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: mip_era
+    attributes:
+      label: MIP Era
+      description: MIP era.
+      options:
+        - "CMIP7"
+      default: 0
+    validations:
+      required: true
+
+  - type: input 
+    id: atmos_timestep
+    attributes:
+      label: Atmospheric Timestep
+      description: Atmospheric timestep in seconds. This is usually 1200 for n=96, 900 for n=216 and 600 for n=512.
+      placeholder: "e.g. 1200"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: mass_data_class
+    attributes:
+      label: Mass Data Class
+      description: Root of the location of input dataset on MASS. For data classes using the "ens" root, a mass ensemble ID is required. Please see below.
+      options:
+        - "crum"
+        - "ens"
+      default: 0
+    validations:
+      required: true
+
   - type: markdown
     attributes:
       value: |
-
-        # The fields below are required only if the selected branch method is "standard", for "no parent" branches, please disregard this section...
+        \n
+        -----------------------------------------------------------------------------------------
+        
+        The fields below are required only if the selected branch method is "standard", for "no parent" branches, please disregard this section...
 
         -----------------------------------------------------------------------------------------
 
@@ -173,67 +231,13 @@ body:
         
         -----------------------------------------------------------------------------------------
 
-  - type: dropdown
-    id: calendar
-    attributes:
-      label: Calendar Type
-      description: Type of calendar used.
-      options:
-        - "360_day"
-        - "gregorian"
-      default: 0
-    validations:
-      required: true
-
-  - type: dropdown
-    id: institution_id
-    attributes:
-      label: Institution ID
-      description: Institution identifier.
-      options:
-        - "MOHC"
-        - "NERC"
-      default: 0
-    validations:
-      required: true
-
-  - type: dropdown
-    id: mip_era
-    attributes:
-      label: MIP Era
-      description: MIP era.
-      options:
-        - "CMIP7"
-      default: 0
-    validations:
-      required: true
-
-  - type: input 
-    id: atmos_timestep
-    attributes:
-      label: Atmospheric Timestep
-      description: Atmospheric timestep in seconds. This is usually 1200 for n=96, 900 for n=216 and 600 for n=512.
-      placeholder: "e.g. 1200"
-    validations:
-      required: true
-
-  - type: dropdown
-    id: mass_data_class
-    attributes:
-      label: Mass Data Class
-      description: Root of the location of input dataset on MASS.
-      options:
-        - "crum"
-        - "ens"
-      default: 0
-    validations:
-      required: true
-
   - type: markdown
     attributes:
       value: |
+        \n
+        -----------------------------------------------------------------------------------------
 
-        # The field below is required only if the selected mass data class is "ens", for "crum" data classes, please disregard this section...
+        The field below is required only if the selected mass data class is "ens", for "crum" data classes, please disregard this section...
 
         -----------------------------------------------------------------------------------------
 
