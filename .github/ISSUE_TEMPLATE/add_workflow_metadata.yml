@@ -110,7 +110,7 @@ body:
     attributes:
       value: |
 
-        The fields below are required only if the selected branch method is "standard", for "no parent" branches, please disregard this section...
+        # The fields below are required only if the selected branch method is "standard", for "no parent" branches, please disregard this section...
 
         -----------------------------------------------------------------------------------------
 
@@ -233,7 +233,7 @@ body:
     attributes:
       value: |
 
-        #The field below is required only if the selected mass data class is "ens", for "crum" data classes, please disregard this section...
+        # The field below is required only if the selected mass data class is "ens", for "crum" data classes, please disregard this section...
 
         -----------------------------------------------------------------------------------------
 
