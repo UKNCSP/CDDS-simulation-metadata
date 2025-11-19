@@ -8,7 +8,6 @@ import os
 import re
 from metomi.isodatetime.parsers import TimePointParser
 from metomi.isodatetime.data import Calendar
-from datetime import datetime
 from pathlib import Path
 import sys
 
@@ -95,7 +94,14 @@ def set_calendar(calendar_type: str) -> None:
         sys.exit(1)
 
 
-def normalise_time_fields(field: str) -> str: # update for metomi isodatetime 
+def normalise_time_fields(field: str) -> str: # Update for metomi isodatetime.
+    """
+    Reformats datetime fields with valid yet incomplete input to yyyy-mm-ddTHH:MM:SSZ formatting.
+
+        :param field: The datetime string to be reformatted.
+        :returns: Normalised datetime string of format yyyy-mm-ddTHH:MM:SSZ.
+    """
+    # Define expected pattern for splitting.
     pattern = re.compile(
         r'(\d{4})'           
         r'(?:-(\d{2}))?'       
@@ -108,7 +114,7 @@ def normalise_time_fields(field: str) -> str: # update for metomi isodatetime
     match = pattern.findall(field)
     if match:
         year, month, day, hour, minute, second = match[0]
-        # Convert empty strings to None
+    # Populate incomplete entries.
     norm = {
             "YYYY": year,
             "MM": month or "01",
@@ -117,8 +123,8 @@ def normalise_time_fields(field: str) -> str: # update for metomi isodatetime
             "mm": minute or "00",
             "ss": second or "00"
         }
+    # Reformat string.
     normalised_time_str = "{YYYY}-{MM}-{DD}T{hh}:{mm}:{ss}Z".format(**norm)
-    print(f"THE COMPLETE TIMESTRING FOR {field} IS {normalised_time_str}")
 
     return normalised_time_str
 
@@ -132,7 +138,7 @@ def validate_meta_content(meta_dict: dict, warnings: list) -> list[str]:
         :returns: An updated list of warnings.
     """
 
-    # Confirm that conditional fields are present
+    # Confirm that conditional fields are present.
     if meta_dict["mass_data_class"] == "ens" and meta_dict["mass_ensemble_member"] == "_No response_":
         list_warnings(warnings, "WARNING: Missing required field... Where 'mass_data_class' is 'ens', " \
         "'mass_ensamble_member' must be identified.")
@@ -144,7 +150,7 @@ def validate_meta_content(meta_dict: dict, warnings: list) -> list[str]:
             if meta_dict[field] == "_No response_":
                 list_warnings(warnings, f"WARNING: Missing required parent reliant field: {field}.")
 
-    # Confirm that input fields are correctly formatted
+    # Confirm that input fields are correctly formatted.
     set_calendar(meta_dict["calendar"])
     parser = TimePointParser()
     date_formatted_fields = ["base_date", "start_date", "end_date"]
@@ -152,17 +158,15 @@ def validate_meta_content(meta_dict: dict, warnings: list) -> list[str]:
         date_formatted_fields.append("branch_date_in_child")
         date_formatted_fields.append("branch_date_in_parent")
     for field in date_formatted_fields:
-        try:
-            parser.parse(meta_dict[field])
-        except ValueError:
+        if bool(parser.parse(meta_dict[field])) == "false":
             list_warnings(warnings, f"WARNING: {field} is incorrectly formatted: use the format yyyy-mm-ddTHH:MM:SSZ.")
-        # Confirm that end_time is not earlier than start_time
+        # Confirm that end_time is not earlier than start_time.
         if parser.parse(meta_dict["end_date"]) < parser.parse(meta_dict["start_date"]):
             list_warnings(warnings, f"WARNING: end date cannot be earlier than start date.")
-        # Convert all accepted fields to yyyy-mm-ddTHH:MM:SSZ format
+        # Convert all accepted fields to yyyy-mm-ddTHH:MM:SSZ format.
         meta_dict[field] = normalise_time_fields(meta_dict[field])
 
-    # Confirm workflow ID formatting
+    # Confirm workflow ID formatting.
     workflow_id_format = r"^[a-z]{1,2}-[a-z]{2}\d{3}$"
     if bool(re.match(workflow_id_format, meta_dict["model_workflow_id"])) == False:
         list_warnings(warnings, "WARNING: model_workflow_id is incorrectly formatted, please use the format a-bc123 " \
@@ -205,7 +209,7 @@ def sort_to_categories(meta_dict: dict) -> dict:
     misc_dict = {}
     organised_metadata = {}
 
-    # Categorise keys into sections that match the request.cfg mapping
+    # Categorise keys into sections that match the request.cfg mapping.
     metadata_section = ["base_date", "branch_date_in_child", "branch_date_in_parent", "branch_method", "calendar", 
                 "experiment_id", "institution_id", "mip", "mip_era", "parent_experiment_id", "parent_mip", 
                 "parent_model_id", "parent_time_units", "parent_variant_label", "variant_label", "model_id"]
@@ -219,7 +223,7 @@ def sort_to_categories(meta_dict: dict) -> dict:
         elif key in misc_section:
             misc_dict[key] = value
 
-    # Re map organised keys as nested dictionaries
+    # Re map organised keys as nested dictionaries.
     organised_metadata["[metadata]"] = metadata_dict
     organised_metadata["[data]"] = data_dict
     organised_metadata["[misc]"] = misc_dict
@@ -252,16 +256,16 @@ def main() -> None:
     issue = get_issue()
     issue_body = issue['body']
     
-    # Find key-value pairs and map them to dictionary format
+    # Find key-value pairs and map them to dictionary format.
     match = re.findall(r"### (.+?)\n\s*\n?(.+)", issue_body)
     meta_dict = create_meta_dict(match)
     print("Extracting issue body...  SUCCESSFUL")
 
-    #validate and organise dictionary content
+    #validate and organise dictionary content.
     warnings = validate_meta_content(meta_dict, warnings)
     organised_metadata = sort_to_categories(meta_dict)
 
-    # Create output file
+    # Create output file.
     filename, warnings = create_filename(meta_dict, warnings)
 
     if not warnings:
