@@ -7,6 +7,8 @@ This script takes the body of an issue and uses its content to generate and stru
 import os
 import re
 from metomi.isodatetime.parsers import TimePointParser
+from metomi.isodatetime.data import Calendar
+from datetime import datetime
 from pathlib import Path
 import sys
 
@@ -78,7 +80,48 @@ def list_warnings(warnings: list, warning: str) -> list[str]:
     warnings.append(warning)
 
     return warnings
-    
+
+
+def set_calendar(calendar_type: str) -> None:
+    """ 
+    Set the metomi.isodatetime calendar based on a request.json file.
+
+        :param calendar_type: The type of calendar used.
+    """
+    if calendar_type == "360_day" or calendar_type == "gregorian" :
+        Calendar.default().set_mode(calendar_type)
+    else:
+        print("WARNING: Incompatable calendar detected. Unable to set calendar type with isodatetime.")
+        sys.exit(1)
+
+
+def normalise_time_fields(field: str) -> str: # update for metomi isodatetime 
+    pattern = re.compile(
+        r'(\d{4})'           
+        r'(?:-(\d{2}))?'       
+        r'(?:-(\d{2}))?'      
+        r'(?:T(\d{2}))?'       
+        r'(?::(\d{2}))?'   
+        r'(?::(\d{2}))?'        
+        r'(?:Z)?'                
+    )
+    match = pattern.findall(field)
+    if match:
+        year, month, day, hour, minute, second = match[0]
+        # Convert empty strings to None
+    norm = {
+            "YYYY": year,
+            "MM": month or "01",
+            "DD": day or "01",
+            "hh": hour or "00",
+            "mm": minute or "00",
+            "ss": second or "00"
+        }
+    normalised_time_str = "{YYYY}-{MM}-{DD}T{hh}:{mm}:{ss}Z".format(**norm)
+    print(f"THE COMPLETE TIMESTRING FOR {field} IS {normalised_time_str}")
+
+    return normalised_time_str
+
 
 def validate_meta_content(meta_dict: dict, warnings: list) -> list[str]:
     """
@@ -102,6 +145,7 @@ def validate_meta_content(meta_dict: dict, warnings: list) -> list[str]:
                 list_warnings(warnings, f"WARNING: Missing required parent reliant field: {field}.")
 
     # Confirm that input fields are correctly formatted
+    set_calendar(meta_dict["calendar"])
     parser = TimePointParser()
     date_formatted_fields = ["base_date", "start_date", "end_date"]
     if meta_dict["branch_method"] == "standard":
@@ -110,11 +154,15 @@ def validate_meta_content(meta_dict: dict, warnings: list) -> list[str]:
     for field in date_formatted_fields:
         try:
             parser.parse(meta_dict[field])
-        except Exception:
+        except ValueError:
             list_warnings(warnings, f"WARNING: {field} is incorrectly formatted: use the format yyyy-mm-ddTHH:MM:SSZ.")
-        if not meta_dict[field].endswith("Z"):
-            list_warnings(warnings, f"WARNING: {field} is incorrectly formatted: use the format yyyy-mm-ddTHH:MM:SSZ.")
+        # Confirm that end_time is not earlier than start_time
+        if parser.parse(meta_dict["end_date"]) < parser.parse(meta_dict["start_date"]):
+            list_warnings(warnings, f"WARNING: end date cannot be earlier than start date.")
+        # Convert all accepted fields to yyyy-mm-ddTHH:MM:SSZ format
+        meta_dict[field] = normalise_time_fields(meta_dict[field])
 
+    # Confirm workflow ID formatting
     workflow_id_format = r"^[a-z]{1,2}-[a-z]{2}\d{3}$"
     if bool(re.match(workflow_id_format, meta_dict["model_workflow_id"])) == False:
         list_warnings(warnings, "WARNING: model_workflow_id is incorrectly formatted, please use the format a-bc123 " \
@@ -215,7 +263,7 @@ def main() -> None:
 
     # Create output file
     filename, warnings = create_filename(meta_dict, warnings)
-    
+
     if not warnings:
         print("Validating issue form inputs...  SUCCESSFUL")
         output_dir = Path("workflow_metadata")
