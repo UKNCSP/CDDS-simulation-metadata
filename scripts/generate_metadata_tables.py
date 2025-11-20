@@ -93,7 +93,7 @@ def generate_html(table: str) -> None:
     output_directory = Path("metadata_tables")
     output_directory.mkdir(parents=True, exist_ok=True)
 
-    output_filepath = output_directory / f"metadata.html"
+    output_filepath = output_directory / f"index.html"
 
     with open(output_filepath, 'w') as f:
         f.write(html)
