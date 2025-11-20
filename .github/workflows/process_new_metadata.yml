@@ -8,6 +8,7 @@ on:
 
 jobs:
   process-metadata:
+    if: contains(github.event.issue.labels.*.name, 'metadata_entry')
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -63,7 +64,7 @@ jobs:
             echo "exists=false"
           fi
 
-      - name: commit new file
+      - name: commit new file and close issue
         if: steps.exists.outputs.exists == 'false'
         run: |
           git config user.name "github-actions"
@@ -73,10 +74,12 @@ jobs:
           git commit -m "New workflow metadata file added from issue #${{ github.event.issue.number }}"
           git push origin main
 
-          gh issue comment "$NUMBER" --body "$BODY"
+          gh issue comment "$ISSUE" --body "$BODY"
+          gh issue close --repo "$REPO" --comment "Closing issue $ISSUE" "$ISSUE"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NUMBER: ${{ github.event.issue.number }}
+          REPO: ${{ github.repository }}
+          ISSUE: ${{ github.event.issue.number }}
           BODY: >
             Your metadata file has been succesfully added to the repository as: 
             ${{ steps.create-file.outputs.filename }}
@@ -96,7 +99,7 @@ jobs:
       - name: create PR 
         if: steps.diff.outputs.changed == 'true'
         run: | 
-          branch="update-metadata-${{ github.run_id }}"
+          branch="update-metadata-${{ github.event.issue.number }}"
           git checkout -b "$branch"
           
           git config user.name "github-actions"
@@ -129,12 +132,15 @@ jobs:
 
             Thank you for your contribution.
         
-      - name: notify user of duplicate
+      - name: notify user of duplicate and close issue
         if: steps.diff.outputs.changed == 'false'
-        run: gh issue comment "$NUMBER" --body "$BODY"
+        run: |
+          gh issue comment "$ISSUE" --body "$BODY"
+          gh issue close --repo "$REPO" --comment "Closing issue $ISSUE" "$ISSUE"
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NUMBER: ${{ github.event.issue.number }}
+          REPO: ${{ github.repository }}
+          ISSUE: ${{ github.event.issue.number }}
           BODY: >
             This metadata file already exists, you can view the existing file here: 
             ${{ steps.create-file.outputs.filename }}.
