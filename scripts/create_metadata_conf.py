@@ -64,6 +64,9 @@ def create_meta_dict(match: list) -> dict:
     # Re map keys to correct CV format
     for old_key, new_key in meta_fields.items():
         meta_dict[new_key] = meta_dict.pop(old_key)
+    for key, value in meta_dict.items():
+        if meta_dict[key] == "_No response_":
+            meta_dict[key] = ""
 
     return meta_dict
 
