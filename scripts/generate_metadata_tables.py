@@ -10,6 +10,7 @@ from configparser import ConfigParser
 from constants import (HEADINGS, HEADER_ROW_TEMPLATE, ROW_TEMPLATE, CELL_TEMPLATE, TABLE_TEMPLATE, BGCOLORS, 
                        GITURL_MAPPING, HEADER, FOOTER, HYPERLINK)
 
+
 def get_mappings() -> list[str]:
     """
     Read all of the mappings for a given model and return them as a list of lists.
@@ -31,12 +32,14 @@ def get_mappings() -> list[str]:
         table_data.append([
             data["model_workflow_id"],
             metadata['model_id'],
+            data["mass_data_class"],
             metadata['mip'],
             metadata['institution_id'],
             metadata['experiment_id'],
             metadata['variant_label'],
             data['start_date'],
-            data['end_date']
+            data['end_date'],
+            str(Path(cfg_file).stem)
         ])
         print("SUCCESSFUL...")
     table_data = [HEADINGS] + table_data
@@ -64,13 +67,15 @@ def build_table(table_data: list) -> str:
                 filter_row_html += CELL_TEMPLATE.format(cell_type, '')
             html += HEADER_ROW_TEMPLATE.format(BGCOLORS[i % len(BGCOLORS)], row_html, filter_row_html)
             continue
-        for entry in row:
-            if entry == table_data[i][0]:
-                row_html += CELL_TEMPLATE.format(cell_type, HYPERLINK.format(GITURL_MAPPING.format(entry), entry))
-            else:
-                row_html += CELL_TEMPLATE.format(cell_type, entry)
+        else:
+            filename = row.pop()
+            for entry in row:
+                if entry == table_data[i][0]:
+                    row_html += CELL_TEMPLATE.format(cell_type, HYPERLINK.format(GITURL_MAPPING.format(filename), entry))
+                else:
+                    row_html += CELL_TEMPLATE.format(cell_type, entry)
 
-        html += ROW_TEMPLATE.format(BGCOLORS[i % len(BGCOLORS)], row_html)
+            html += ROW_TEMPLATE.format(BGCOLORS[i % len(BGCOLORS)], row_html)
 
     table_html = TABLE_TEMPLATE.format(html)
     print("SUCCESSFUL...")
@@ -86,7 +91,7 @@ def generate_html(table: str) -> None:
     """
     print("Building full HTML...")
     html = (HEADER +
-            '<h2>Variable Metadata (Generated with CDDS)</h2>' +
+            '<h2>CMIP7 Workflow Metadata</h2>' +
             '<p> </p>' + '<p>Use the search box to filter rows, e.g. search for "MOHC" or "NERC".</p>' +
             table + FOOTER)
     

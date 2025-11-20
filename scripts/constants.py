@@ -1,7 +1,7 @@
 # (C) British Crown Copyright 2025, Met Office.
 # Please see LICENSE.md for license details.
-HEADINGS = ['model_workflow_id', 'model_id', 'mip', 'institution_id', 'experiment_id', 'variant_label', 'start_date', 
-            'end_date']
+HEADINGS = ['Model Workflow ID', 'Model ID', 'Mass Data Class', 'MIP', 'Institution ID', 'Experiment ID', 
+            'Variant Label', 'Start Date', 'End Date']
 HEADER_ROW_TEMPLATE = ('  <thead>\n   <tr bgcolor="{0}">\n{1}   </tr>\n   \
                        <tr class="filters">\n{2}   </tr>\n   </thead>\n')
 ROW_TEMPLATE = '  <tr bgcolor="{0}">\n{1}  </tr>\n'
