@@ -142,7 +142,7 @@ def validate_meta_content(meta_dict: dict, warnings: list) -> list[str]:
     """
 
     # Confirm that conditional fields are present.
-    if meta_dict["mass_data_class"] == "ens" and meta_dict["mass_ensemble_member"] == "_No response_":
+    if meta_dict["mass_data_class"] == "ens" and not meta_dict["mass_ensemble_member"]:
         list_warnings(warnings, "WARNING: Missing required field... Where 'mass_data_class' is 'ens', " \
         "'mass_ensamble_member' must be identified.")
 
@@ -150,7 +150,7 @@ def validate_meta_content(meta_dict: dict, warnings: list) -> list[str]:
                              "parent_model_id", "parent_time_units", "parent_variant_label"]
     if meta_dict["branch_method"] == "standard":
         for field in parent_reliant_fields:
-            if meta_dict[field] == "_No response_":
+            if not meta_dict[field]:
                 list_warnings(warnings, f"WARNING: Missing required parent reliant field: {field}.")
 
     # Confirm that input fields are correctly formatted.
