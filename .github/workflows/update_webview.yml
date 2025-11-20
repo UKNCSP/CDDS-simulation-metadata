@@ -3,9 +3,10 @@
 
 name: "Generate and deploy webview"
 on:
-  push:
-    paths:
-      - 'workflow_metadata/**.cfg'
+  workflow_run:
+    workflows: ["Process new metadata entry"]
+    types:
+      - completed
   workflow_dispatch:
   
 jobs:
