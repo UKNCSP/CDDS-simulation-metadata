@@ -96,7 +96,7 @@ jobs:
       - name: create PR 
         if: steps.diff.outputs.changed == 'true'
         run: | 
-          branch="update-metadata-${{ github.run_id }}"
+          branch="update-metadata-#{{ github.event.issue.number }}"
           git checkout -b "$branch"
           
           git config user.name "github-actions"
