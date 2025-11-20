@@ -5,7 +5,7 @@ name: "Generate and deploy webview"
 on:
   push:
     paths:
-      - 'metadata_tables/*.html'
+      - 'workflow_metadata/*.cfg'
   workflow_dispatch:
   
 jobs:
