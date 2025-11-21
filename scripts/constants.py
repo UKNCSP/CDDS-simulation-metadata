@@ -10,7 +10,6 @@ TABLE_TEMPLATE = '<table border=1, id="table_id", class="display">\n{}</table>\n
 GITURL_MAPPING = 'https://github.com/UKNCSP/CDDS-simulation-metadata/tree/main/workflow_metadata/{}.cfg'
 HYPERLINK = '<a href="{0}">{1}</a>'
 BGCOLORS = ['#E0EEFF', '#FFFFFF']
-
 HEADER = """
 <html>
 <head>
@@ -118,3 +117,16 @@ $(document).ready(function () {
 FOOTER = """
 </body>
 </html>"""
+
+SECTIONS = ['metadata', 'data', 'misc']
+METADATA = ['base_date', 'branch_method', 'branch_date_in_child', 'branch_date_in_parent', 'parent_experiment_id', 
+            'parent_mip', 'parent_model_id', 'parent_time_units', 'parent_variant_label', 'calendar', 'experiment_id', 
+            'institution_id', 'mip', 'mip_era', 'variant_label', 'model_id']
+DATA = ['start_date', 'end_date', 'mass_data_class', 'mass_ensemble_member', 'model_workflow_id']
+MISC = ['atmos_timestep']
+REQUIRED = ['base_date', 'branch_method', 'calendar', 'experiment_id', 'institution_id', 'mip', 'mip_era', 
+            'variant_label', 'model_id', 'start_date', 'end_date', 'mass_data_class', 'model_workflow_id', 
+            'atmos_timestep']
+PARENT_REQUIRED = ['branch_date_in_child', 'branch_date_in_parent', 'parent_experiment_id', 'parent_mip', 
+                   'parent_model_id', 'parent_time_units', 'parent_variant_label']
+DATETIME_FIELDS = ['base_date', 'start_date', 'end_date']
