@@ -174,6 +174,17 @@ def validate_meta_content(meta_dict: dict, warnings: list) -> list[str]:
     if bool(re.match(workflow_id_format, meta_dict["model_workflow_id"])) == False:
         list_warnings(warnings, "WARNING: model_workflow_id is incorrectly formatted, please use the format a-bc123 " \
         "OR ab-cd123.")
+    
+    # Confirm variant label formatting
+    variant_label_format = r"^(r\d+)(i\d+[a-e]{0,1})(p\d+)(f\d+)$"
+    if bool(re.match(variant_label_format, meta_dict["variant_label"])) == False:
+        list_warnings(warnings, "WARNING: variant label is incorrectly formatted.")
+          
+    # Confirm that atmospheric timestep is an integer
+    if meta_dict["amtos_timestep"]:
+        value = meta_dict["amtos_timestep"]
+        if not isinstance(value, int) or value < 0: 
+            list_warnings(warnings, "WARNING: atmospheric timestep is invalid.")
 
     return warnings
 
