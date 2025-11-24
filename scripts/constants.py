@@ -130,3 +130,8 @@ REQUIRED = ['base_date', 'branch_method', 'calendar', 'experiment_id', 'institut
 PARENT_REQUIRED = ['branch_date_in_child', 'branch_date_in_parent', 'parent_experiment_id', 'parent_mip', 
                    'parent_model_id', 'parent_time_units', 'parent_variant_label']
 DATETIME_FIELDS = ['base_date', 'start_date', 'end_date']
+REGEX_FORMAT = {
+    "datetime": r"^(?:\d{4})-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01])T(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\dZ$",
+    "model_workflow_id": r"^[a-z]{1,2}-[a-z]{2}\d{3}$",
+    "variant_label": r"^(r\d+)(i\d+[a-e]{0,1})(p\d+)(f\d+)$"
+}
