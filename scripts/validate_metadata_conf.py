@@ -74,6 +74,8 @@ def validate_structure(config: configparser, result: dict, file: str) -> dict:
         missing_sections = list(SECTIONS - sections_in_config)
 
     # Verify the correct keys are in the correct section
+    missing_keys = []
+    unexpected_keys = []
     for section in SECTIONS:
         keys = set(config[section].keys()) if section in config else set()
         target = set(SECTION_DICT[section])
