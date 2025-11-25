@@ -1,0 +1,170 @@
+atmos/areacella_ti-u-hxy-u@fx
+atmos/cl_tavg-al-hxy-u@mon:ap5
+atmos/cli_tavg-al-hxy-u@mon:ap5
+atmos/clivi_tavg-u-hxy-u@mon:ap5
+atmos/clt_tavg-u-hxy-u@day:ap6
+atmos/clt_tavg-u-hxy-u@mon:ap5
+atmos/clw_tavg-al-hxy-u@mon:ap5
+atmos/clwvi_tavg-u-hxy-u@mon:ap5
+atmos/evspsbl_tavg-u-hxy-u@mon:ap5
+atmos/hfls_tavg-u-hxy-u@mon:ap5
+atmos/hfss_tavg-u-hxy-u@mon:ap5
+atmos/hur_tavg-p19-hxy-air@mon:ap5
+atmos/hur_tavg-p19-hxy-u@day:ap6
+atmos/hurs_tavg-h2m-hxy-u@6hr:ap7
+atmos/hurs_tavg-h2m-hxy-u@day:ap6
+atmos/hurs_tavg-h2m-hxy-u@mon:ap5
+atmos/hus_tavg-p19-hxy-u@day:ap6
+atmos/hus_tavg-p19-hxy-u@mon:ap5
+atmos/huss_tavg-h2m-hxy-u@day:ap6
+atmos/huss_tavg-h2m-hxy-u@mon:ap5
+atmos/huss_tpt-h2m-hxy-u@3hr:ap8
+atmos/pr_tavg-u-hxy-u@1hr:ap9
+atmos/pr_tavg-u-hxy-u@3hr:ap8
+atmos/pr_tavg-u-hxy-u@day:ap6
+atmos/pr_tavg-u-hxy-u@mon:ap5
+atmos/prc_tavg-u-hxy-u@mon:ap5
+atmos/prsn_tavg-u-hxy-u@mon:ap5
+atmos/prw_tavg-u-hxy-u@mon:ap5
+atmos/ps_tavg-u-hxy-u@day:ap6
+atmos/ps_tavg-u-hxy-u@mon:ap5
+atmos/psl_tavg-u-hxy-u@day:ap6
+atmos/psl_tavg-u-hxy-u@mon:ap5
+atmos/rlds_tavg-u-hxy-u@mon:ap5
+atmos/rldscs_tavg-u-hxy-u@mon:ap5
+atmos/rlus_tavg-u-hxy-u@mon:ap5
+atmos/rluscs_tavg-u-hxy-u@mon:ap5
+atmos/rlut_tavg-u-hxy-u@mon:ap5
+atmos/rlutcs_tavg-u-hxy-u@mon:ap5
+atmos/rsds_tavg-u-hxy-u@day:ap6
+atmos/rsds_tavg-u-hxy-u@mon:ap5
+atmos/rsdscs_tavg-u-hxy-u@mon:ap5
+atmos/rsdt_tavg-u-hxy-u@mon:ap5
+atmos/rsus_tavg-u-hxy-u@mon:ap5
+atmos/rsuscs_tavg-u-hxy-u@mon:ap5
+atmos/rsut_tavg-u-hxy-u@mon:ap5
+atmos/rsutcs_tavg-u-hxy-u@mon:ap5
+atmos/sfcWind_tavg-h10m-hxy-u@day:ap6
+atmos/sfcWind_tavg-h10m-hxy-u@mon:ap5
+atmos/sftlf_ti-u-hxy-u@fx
+atmos/ta_tavg-p19-hxy-air@day:ap6
+atmos/ta_tavg-p19-hxy-air@mon:ap5
+atmos/ta_tpt-p3-hxy-air@6hr:ap7
+atmos/tas_tavg-h2m-hxy-u@day:ap6
+atmos/tas_tavg-h2m-hxy-u@mon:ap5
+atmos/tas_tmax-h2m-hxy-u@day:ap6
+atmos/tas_tmaxavg-h2m-hxy-u@mon:ap6
+atmos/tas_tmin-h2m-hxy-u@day:ap6
+atmos/tas_tminavg-h2m-hxy-u@mon:ap6
+atmos/tas_tpt-h2m-hxy-u@3hr:ap8
+atmos/tauu_tavg-u-hxy-u@mon:ap5
+atmos/tauv_tavg-u-hxy-u@mon:ap5
+atmos/ts_tavg-u-hxy-u@mon:ap5
+atmos/ua_tavg-p19-hxy-air@day:ap6
+atmos/ua_tavg-p19-hxy-air@mon:ap5
+atmos/ua_tpt-p3-hxy-air@6hr:ap7
+atmos/uas_tavg-h10m-hxy-u@day:ap6
+atmos/uas_tavg-h10m-hxy-u@mon:ap5
+atmos/uas_tpt-h10m-hxy-u@3hr
+atmos/va_tavg-p19-hxy-air@day:ap6
+atmos/va_tavg-p19-hxy-air@mon:ap5
+atmos/va_tpt-p3-hxy-air@6hr:ap7
+atmos/vas_tavg-h10m-hxy-u@day:ap6
+atmos/vas_tavg-h10m-hxy-u@mon:ap5
+atmos/vas_tpt-h10m-hxy-u@3hr
+atmos/wap_tavg-p19-hxy-air@mon:ap5
+atmos/wap_tavg-p19-hxy-u@day:ap6
+atmos/zg_tavg-p19-hxy-air@day:ap6
+atmos/zg_tavg-p19-hxy-air@mon:ap5
+land/evspsblsoi_tavg-u-hxy-lnd@mon:ap5
+land/evspsblveg_tavg-u-hxy-lnd@mon:ap5
+land/lai_tavg-u-hxy-lnd@mon:ap5
+land/mrro_tavg-u-hxy-lnd@mon:ap5
+land/mrros_tavg-u-hxy-lnd@mon:ap5
+land/mrso_tavg-u-hxy-lnd@mon:ap5
+land/mrsofc_ti-u-hxy-lnd@fx
+land/mrsol_tavg-d10cm-hxy-lnd@mon:ap5
+land/orog_ti-u-hxy-u@fx
+land/rootd_ti-u-hxy-lnd@fx
+land/sftgif_ti-u-hxy-u@fx
+land/slthick_ti-sl-hxy-lnd@fx
+landIce/mrfso_tavg-u-hxy-lnd@mon:ap5
+landIce/snc_tavg-u-hxy-lnd@mon:ap5
+landIce/snw_tavg-u-hxy-lnd@mon:ap5
+ocean/areacello_ti-u-hxy-u@fx
+ocean/basin_ti-u-hxy-u@fx
+ocean/bigthetao_tavg-ol-hxy-sea@mon
+ocean/deptho_ti-u-hxy-sea@fx
+ocean/hfds_tavg-u-hxy-sea@mon
+ocean/hfgeou_ti-u-hxy-sea@fx
+ocean/masscello_tavg-ol-hxy-sea@mon
+#ocean/masscello_ti-ol-hxy-sea@fx # do-not-produce
+ocean/mlotst_tavg-u-hxy-sea@mon
+ocean/sftof_ti-u-hxy-u@fx
+ocean/so_tavg-ol-hxy-sea@mon
+ocean/sos_tavg-u-hxy-sea@day
+ocean/sos_tavg-u-hxy-sea@mon
+ocean/tauuo_tavg-u-hxy-sea@mon
+ocean/tauvo_tavg-u-hxy-sea@mon
+ocean/thetao_tavg-ol-hxy-sea@mon
+ocean/thkcello_tavg-ol-hxy-sea@mon
+#ocean/thkcello_ti-ol-hxy-sea@fx # do-not-produce
+ocean/tos_tavg-u-hxy-sea@day
+ocean/tos_tavg-u-hxy-sea@mon
+ocean/umo_tavg-ol-hxy-sea@mon
+ocean/uo_tavg-ol-hxy-sea@mon
+ocean/vmo_tavg-ol-hxy-sea@mon
+ocean/vo_tavg-ol-hxy-sea@mon
+ocean/wmo_tavg-ol-hxy-sea@mon
+ocean/wo_tavg-ol-hxy-sea@mon
+ocean/zos_tavg-u-hxy-sea@day
+ocean/zos_tavg-u-hxy-sea@mon
+ocean/zostoga_tavg-u-hm-sea@mon
+seaIce/siconc_tavg-u-hxy-u@day
+seaIce/siconc_tavg-u-hxy-u@mon
+seaIce/simass_tavg-u-hxy-si@mon
+seaIce/sithick_tavg-u-hxy-si@mon
+seaIce/sitimefrac_tavg-u-hxy-sea@mon
+seaIce/siu_tavg-u-hxy-si@mon
+seaIce/siv_tavg-u-hxy-si@mon
+seaIce/snd_tavg-u-hxy-sn@mon
+seaIce/ts_tavg-u-hxy-si@mon:ap5
+atmos/evspsbl_tavg-u-hxy-lnd@day:ap6
+atmos/hurs_tmax-h2m-hxy-u@day:ap6
+atmos/hurs_tmin-h2m-hxy-u@day:ap6
+atmos/rlds_tavg-u-hxy-u@day:ap6
+atmos/rlus_tavg-u-hxy-u@day:ap6
+land/evspsblpot_tavg-u-hxy-lnd@day:ap6
+#aerosol/o3_tmax-h2m-hxy-u@day:ap6 # priority=medium
+#aerosol/sfpm1_tavg-h2m-hxy-u@day # do-not-produce
+#aerosol/sfpm10_tavg-h2m-hxy-u@day:ap6 # priority=medium
+#aerosol/sfpm25_tavg-h2m-hxy-u@day:ap6 # priority=medium
+#atmos/rsdsdiff_tavg-u-hxy-u@day:ap6 # priority=medium
+#land/irrDem_tavg-u-hxy-u@day # do-not-produce
+#land/irrGw_tavg-u-hxy-u@day # do-not-produce
+#land/irrLut_tavg-u-hxy-u@day # do-not-produce
+#land/irrSurf_tavg-u-hxy-u@day # do-not-produce
+#land/mrso_tavg-u-hxy-lnd@day:ap6 # priority=medium
+#land/rzwc_tavg-u-hxy-lnd@day # do-not-produce
+#atmos/co2_tavg-h2m-hxy-u@mon:ap5 # priority=low
+#atmos/hurs_tavg-h2m-hxy-u@1hr:ap9 # priority=low
+#atmos/hurs_tmin-h2m-hxy-crp@day:ap6 # priority=low
+#atmos/pr_tavg-u-hxy-crp@day # do-not-produce
+#atmos/rsds_tavg-u-hxy-u@1hr:ap9 # priority=low
+#atmos/sfcWind_tavg-h10m-hxy-u@1hr:ap9 # priority=low
+#atmos/sfcWind_tmax-h10m-hxy-u@day:ap6 # priority=low
+#atmos/tas_tmax-h2m-hxy-crp@day # priority=low
+#atmos/tas_tmin-h2m-hxy-crp@day # priority=low
+#atmosChem/emich4_tavg-u-hxy-u@mon:ap4 # priority=low
+#land/c3PftFrac_tavg-u-hxy-u@mon:ap5 # priority=low
+#land/c4PftFrac_tavg-u-hxy-u@mon:ap5 # priority=low
+#land/cropFracC3_tavg-u-hxy-u@mon:ap5 # priority=low
+#land/cropFracC4_tavg-u-hxy-u@mon:ap5 # priority=low
+#land/cSoil_tavg-u-hxy-lnd@mon:ap5 # priority=low
+#land/fHarvestToAtmos_tavg-u-hxy-lnd@mon:ap5 # priority=low
+#land/irrLut_tavg-u-hxy-multi@mon # do-not-produce
+#land/lai_tavg-u-hxy-lnd@day # do-not-produce
+#land/pastureFrac_tavg-u-hxy-u@mon:ap5 # priority=low
+#land/pastureFracC3_tavg-u-hxy-u@mon:ap5 # priority=low
+#land/pastureFracC4_tavg-u-hxy-u@mon:ap5 # priority=low
+#land/tas_tavg-u-hxy-u@1hr # do-not-produce
