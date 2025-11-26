@@ -1,3 +1,4 @@
+<!--(C) British Crown Copyright 2025, Met Office. Please see LICENSE.md for license details.--> 
 # Validating CDDS Workflow Metadata Configuration files
 
 ## Validating metadata files
@@ -25,7 +26,3 @@ The 'validate_metadata_files.yml' workflow is designed to scan all cfg files com
 | 'variant_label' formatting | 'variant_label' | Ensure that the input variant label follows the valid regex formatting. |
 | 'atmos_timestep' formatting | 'atmos_timestep' | Ensure that the input atmospheric timestep is a non-zero positive integer. |
 | Blank field formatting | All | Ensure that no field has the value "_No response_": these fields should instead be left blank. |
-
-
-(C) British Crown Copyright 2025, Met Office.
-Please see LICENSE.md for license details.

@@ -1,3 +1,4 @@
+<!--(C) British Crown Copyright 2025, Met Office. Please see LICENSE.md for license details.--> 
 # CDDS Workflow Metadata Configuration files
 
 ## Creating metadata files
@@ -28,7 +29,3 @@ The 'process_new_metadata.yml' GitHub action workflow maintains and edits the da
 | 'model_workflow_id' formatting | 'model_workflow_id' | Ensures the input workflow ID follows the valid 'a-bc123' OR 'ab-cd123' formatting. |
 | 'variant_label' formatting | 'variant_label' | Ensure that the input variant label follows the valid regex formatting. |
 | 'atmos_timestep' formatting | 'atmos_timestep' | Ensure that the input atmospheric timestep is a non-zero positive integer. |
-
-
-(C) British Crown Copyright 2025, Met Office.
-Please see LICENSE.md for license details.
