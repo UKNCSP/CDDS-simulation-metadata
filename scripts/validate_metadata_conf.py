@@ -26,7 +26,7 @@ def get_metadata_files() -> list[str]:
     """
     Creates a list of all existing cfg files to be checked.
 
-        :returns: List of cfg files to be checked.
+    :returns: List of cfg files to be checked.
     """
     glob_string = Path("workflow_metadata/*.cfg")
     cfg_files = glob.glob(str(glob_string))
@@ -34,46 +34,44 @@ def get_metadata_files() -> list[str]:
     return cfg_files
 
 
-def validate_structure(config: configparser, file: str, failures: int) -> int:
+def validate_structure(config: configparser) -> int:
     """
     Validates the structure of a single .cfg file.
 
-        :param config: The config parser.
-        :param file: The cfg file to be checked.
-        :param failures: The number of files that have failed validations.
-        :returns: The number of files that have failed validations.
+    :param config: The config parser.
+    :param file: The cfg file to be checked.
+    :param failures: The number of files that have failed validations.
+    :returns: The number of files that have failed validations.
     """
+    failures = 0
     # Verify the correct sections are present in the correct order
     missing_sections = []
     unexpected_sections = []
     if not config.sections() == SECTIONS:
-        print(
-            f"--> WARNING: {str(Path(file).stem)}.cfg does not contain the required sections."
-        )
+        print("--> WARNING: File does not contain the required sections.")
         unexpected_sections = [s for s in config.sections() if s not in SECTIONS]
         missing_sections = [s for s in SECTIONS if s not in config.sections()]
         if unexpected_sections:
             print(f"    --> UNEXPECTED SECTIONS: [{', '.join(unexpected_sections)}]")
         if missing_sections:
-            print(f"    --> MISSING SECTION: [{', '.join(missing_sections)}]")
-        failures += 1
+            print(f"    --> MISSING SECTIONS: [{', '.join(missing_sections)}]")
+        failures = 1
 
     # Verify the correct keys are in the correct section
     missing_keys = []
     unexpected_keys = []
+    SECTION_DICT = {
+        "metadata": METADATA,
+        "data": DATA,
+        "misc": MISC
+    }
     for section in SECTIONS:
         try:
             keys = list(config[section].keys())
         except KeyError:
-            pass
+            keys = []
 
-        if section == "metadata":
-            target = METADATA
-        elif section == "data":
-            target = DATA
-        elif section == "misc":
-            target = MISC
-
+        target = SECTION_DICT[section]
         missing_keys = [k for k in target if k not in keys]
         if section not in missing_sections:
             unexpected_keys = [k for k in keys if k not in target]
@@ -83,55 +81,57 @@ def validate_structure(config: configparser, file: str, failures: int) -> int:
                 print(f"    --> MISSING KEYS: {', '.join(missing_keys)}")
             if unexpected_keys:
                 print(f"    --> UNEXPECTED KEYS: {', '.join(unexpected_keys)}")
-            failures += 1
+            failures = 1
 
     return failures
 
 
-def Validate_required_fields(config: configparser, failures: int) -> int:
+def validate_required_fields(config: configparser) -> int:
     """
     Validates the contents of the required fields for a single .cfg file.
 
-        :param config: The config parser.
-        :param failures: The number of files that have failed validations.
-        :returns: The number of files that have failed validations.
+    :param config: The config parser.
+    :param failures: The number of files that have failed validations.
+    :returns: The number of files that have failed validations.
     """
+    failures = 0
     # Verify that all required fields are not None
     for section in config.sections():
         for key, value in config[section].items():
             if key in REQUIRED and not value:
                 print(f"--> WARNING: {key} is a required field and cannot be empty.")
-                failures += 1
+                failures = 1
 
             if key == "branch_method" and value == "standard":
                 for parent_key in PARENT_REQUIRED:
                     if config[section].get(parent_key) in (None, ""):
                         print(f"--> WARNING: {parent_key} is a required field and cannot be empty.")
-                        failures += 1
+                        failures = 1
             elif key == "branch_method" and value == "no parent":
                 for parent_key in PARENT_REQUIRED:
                     if config[section].get(parent_key) not in (None, ""):
-                        print(f"--> WARNING: {parent_key} is not required when using no parent branch method.")
-                        failures += 1
+                        print(f"--> WARNING: {parent_key} is not required when using 'no parent' branch method.")
+                        failures = 1
 
             if key == "mass_data_class" and value == "ens" and not config[section].get("mass_ensemble_member"):
                 print("--> WARNING: mass_ensemble_member is a required field and cannot be empty.")
-                failures += 1
+                failures = 1
             if key == "mass_data_class" and value == "crum" and config[section].get("mass_ensemble_member"):
                 print("--> WARNING: mass_ensemble_member is not needed when using 'crum' mass data class.")
-                failures += 1
+                failures = 1
 
     return failures
 
 
-def validate_field_inputs(config: configparser, failures: int) -> int:
+def validate_field_inputs(config: configparser) -> int:
     """
     Validates the inputs of a single .cfg file.
 
-        :param config: The config parser.
-        :param failures: The number of files that have failed validations.
-        :returns: The number of files that have failed validations.
+    :param config: The config parser.
+    :param failures: The number of files that have failed validations.
+    :returns: The number of files that have failed validations.
     """
+    failures = 0
     for section in config.sections():
         for key, value in config[section].items():
             # Verify datetime inputs
@@ -141,35 +141,35 @@ def validate_field_inputs(config: configparser, failures: int) -> int:
             if key in DATETIME_FIELDS:
                 if not re.compile(REGEX_FORMAT["datetime"]).fullmatch(value):
                     print(f"--> WARNING: {key} is an invalid datetime format.")
-                    failures += 1
+                    failures = 1
 
             # Verify workflow model ID structure
             if key == "model_workflow_id":
                 if not re.compile(REGEX_FORMAT["model_workflow_id"]).fullmatch(value):
                     print(f"--> WARNING: {key} is incorrectly formatted.")
-                    failures += 1
+                    failures = 1
 
             # Verify variant label structure
             if key == "variant_label":
                 if not re.compile(REGEX_FORMAT["variant_label"]).fullmatch(value):
                     print(f"--> WARNING: {key} is incorrectly formatted.")
-                    failures += 1
+                    failures = 1
 
             # Verify that atmospheric timestep is an integer
             if key == "atmos_timestep":
                 if not value.isdigit() or int(value) < 0:
                     print(f"--> WARNING: {key} is invalid.")
-                    failures += 1
+                    failures = 1
 
             # Verify that no fields have the value "_No response_"
             if value == "_No response_":
                 print(f"--> WARNING: {key} contains invalid entry ('_No response_').")
-                failures += 1
+                failures = 1
 
     return failures
 
 
-def main():
+def main() -> None:
     """
     Holds the main body of the script.
     """
@@ -181,9 +181,12 @@ def main():
         failures = 0
         config.read(file)
         print(f"\nChecking {str(Path(file).stem)}.cfg")
-        failures = validate_structure(config, file, failures)
-        failures = Validate_required_fields(config, failures)
-        failures = validate_field_inputs(config, failures)
+
+        validators = [validate_structure(config),
+                      validate_required_fields(config),
+                      validate_field_inputs(config)]
+        for v in validators:
+            failures += v
 
         if failures != 0:
             failed_files.append(file)

@@ -1,6 +1,6 @@
 # (C) British Crown Copyright 2025, Met Office.
 # Please see LICENSE.md for license details.
-HEADINGS = ['Model Workflow ID', 'Model ID', 'Mass Data Class', 'MIP', 'Institution ID', 'Experiment ID', 
+HEADINGS = ['Model Workflow ID', 'Model ID', 'Mass Data Class', 'MIP', 'Institution ID', 'Experiment ID',
             'Variant Label', 'Start Date', 'End Date']
 HEADER_ROW_TEMPLATE = ('  <thead>\n   <tr bgcolor="{0}">\n{1}   </tr>\n   \
                        <tr class="filters">\n{2}   </tr>\n   </thead>\n')
@@ -119,15 +119,15 @@ FOOTER = """
 </html>"""
 
 SECTIONS = ['metadata', 'data', 'misc']
-METADATA = ['base_date', 'branch_method', 'branch_date_in_child', 'branch_date_in_parent', 'parent_experiment_id', 
-            'parent_mip', 'parent_model_id', 'parent_time_units', 'parent_variant_label', 'calendar', 'experiment_id', 
+METADATA = ['base_date', 'branch_method', 'branch_date_in_child', 'branch_date_in_parent', 'parent_experiment_id',
+            'parent_mip', 'parent_model_id', 'parent_time_units', 'parent_variant_label', 'calendar', 'experiment_id',
             'institution_id', 'mip', 'mip_era', 'variant_label', 'model_id']
 DATA = ['start_date', 'end_date', 'mass_data_class', 'mass_ensemble_member', 'model_workflow_id']
 MISC = ['atmos_timestep']
-REQUIRED = ['base_date', 'branch_method', 'calendar', 'experiment_id', 'institution_id', 'mip', 'mip_era', 
-            'variant_label', 'model_id', 'start_date', 'end_date', 'mass_data_class', 'model_workflow_id', 
+REQUIRED = ['base_date', 'branch_method', 'calendar', 'experiment_id', 'institution_id', 'mip', 'mip_era',
+            'variant_label', 'model_id', 'start_date', 'end_date', 'mass_data_class', 'model_workflow_id',
             'atmos_timestep']
-PARENT_REQUIRED = ['branch_date_in_child', 'branch_date_in_parent', 'parent_experiment_id', 'parent_mip', 
+PARENT_REQUIRED = ['branch_date_in_child', 'branch_date_in_parent', 'parent_experiment_id', 'parent_mip',
                    'parent_model_id', 'parent_time_units', 'parent_variant_label']
 DATETIME_FIELDS = ['base_date', 'start_date', 'end_date']
 REGEX_FORMAT = {
