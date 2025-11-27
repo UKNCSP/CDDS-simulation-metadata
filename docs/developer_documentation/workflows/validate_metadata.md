@@ -3,7 +3,7 @@
 
 ## Validating metadata files
 
-The 'validate_metadata_files.yml' workflow is designed to scan all cfg files committed from the 'process_new_metadata.yml' workflow and verify their structure and content on a nightly basis. Although 'process_new_metadata.yml' encorporates robust sanity checking at the submission level, this workflow serves as an additional level of quality assurance.
+The 'validate_metadata_files.yml' workflow is designed to scan all cfg files committed from the 'process_new_metadata.yml' workflow and verify their structure and content on a nightly basis. Although 'process_new_metadata.yml' incorporates robust sanity checking at the submission level, this workflow serves as an additional level of quality assurance. Note that this script has approximately O(n) (linear) efficiency and has been found through testing to validate at a rate of approximately 0.003 seconds per configuration file.
 
 ## The workflow components
 
