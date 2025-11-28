@@ -13,8 +13,6 @@ import re
 import sys
 from pathlib import Path
 
-from typing import TypedDict
-
 from constants import (
     DATA,
     DATETIME_FIELDS,
@@ -25,24 +23,13 @@ from constants import (
     REQUIRED,
     SECTIONS,
 )
+from custom_classes import VALIDATION_DATA
 
 REGEX_DICT = {
     "datetime_pattern": re.compile(REGEX_FORMAT["datetime"]),
     "workflow_pattern": re.compile(REGEX_FORMAT["model_workflow_id"]),
     "variant_pattern": re.compile(REGEX_FORMAT["variant_label"]),
 }
-
-
-class validation_data(TypedDict, total=False):
-    file: str
-    failures: bool
-    missing_sections: list[str]
-    unexpected_sections: list[str]
-    missing_keys: list[str]
-    unexpected_keys: list[str]
-    missing_values: list[str]
-    unexpected_values: list[str]
-    invalid_values: list[str]
 
 
 def get_metadata_files() -> list[str]:
@@ -58,8 +45,8 @@ def get_metadata_files() -> list[str]:
 
 
 def validate_structure(
-    config: configparser, result: dict[str, validation_data], file: str
-) -> dict[str, validation_data]:
+    config: configparser, result: dict[str, VALIDATION_DATA], file: str
+) -> dict[str, VALIDATION_DATA]:
     """
     Validates the structure of a single .cfg file.
 
@@ -99,8 +86,8 @@ def validate_structure(
 
 
 def validate_required_fields(
-    config: configparser, result: dict[str, validation_data], file: str
-) -> dict[str, validation_data]:
+    config: configparser, result: dict[str, VALIDATION_DATA], file: str
+) -> dict[str, VALIDATION_DATA]:
     """
     Validates the contents of the required fields for a single .cfg file.
 
@@ -145,8 +132,8 @@ def validate_required_fields(
 
 
 def validate_field_inputs(
-    config: configparser, result: dict[str, validation_data], file: str
-) -> dict[str, validation_data]:
+    config: configparser, result: dict[str, VALIDATION_DATA], file: str
+) -> dict[str, VALIDATION_DATA]:
     """
     Validates the inputs of a single .cfg file.
 
@@ -195,7 +182,7 @@ def validate_field_inputs(
     return result
 
 
-def create_failure_report(result: dict[str, validation_data]) -> None:
+def create_failure_report(result: dict[str, VALIDATION_DATA]) -> None:
     """
     Prints back any validation errors to the user .
 
