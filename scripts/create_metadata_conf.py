@@ -11,24 +11,25 @@ from metomi.isodatetime.data import Calendar
 from pathlib import Path
 import sys
 
-def get_issue():
+
+def get_issue() -> dict[str]:
     """
     Extracts information from the submitted issue.
 
-        :returns: Issue body as a dictionary.
+    :returns: Issue body as a dictionary.
     """
     return {
         'body': os.environ.get('ISSUE_BODY'),
     }
 
 
-def create_meta_dict(match: list) -> dict:
+def create_meta_dict(match: list[str]) -> dict[str]:
     """
-    Generates a dictionary format from the loaded issue body and cleans the key-value pairs to ensure consistent 
+    Generates a dictionary format from the loaded issue body and cleans the key-value pairs to ensure consistent
     formatting prior to sanity checks.
 
-        :param match: The identified key value pairs from the issue body.
-        :returns: Dictionary containing the grid parameters from the issue form.
+    :param match: The identified key value pairs from the issue body.
+    :returns: Dictionary containing the grid parameters from the issue form.
     """
     meta_dict = {}
     meta_fields = {
@@ -61,6 +62,7 @@ def create_meta_dict(match: list) -> dict:
     for key, value in match:
         clean = key.strip().lower().replace(" ", "_")
         meta_dict[clean] = value.strip()
+
     # Re map keys to correct CV format
     for old_key, new_key in meta_fields.items():
         meta_dict[new_key] = meta_dict.pop(old_key)
@@ -75,9 +77,9 @@ def list_warnings(warnings: list, warning: str) -> list[str]:
     """
     Creates a list of warnings.
 
-        :param warnings: The current list of warnings.
-        :param warning: The new warning to add to the list.
-        :returns: An updated list of warnings.
+    :param warnings: The current list of warnings.
+    :param warning: The new warning to add to the list.
+    :returns: An updated list of warnings.
     """
     warnings.append(warning)
 
@@ -85,34 +87,33 @@ def list_warnings(warnings: list, warning: str) -> list[str]:
 
 
 def set_calendar(calendar_type: str) -> None:
-    """ 
+    """
     Set the metomi.isodatetime calendar based on a request.json file.
 
-        :param calendar_type: The type of calendar used.
+    :param calendar_type: The type of calendar used.
     """
-    if calendar_type == "360_day" or calendar_type == "gregorian" :
+    if calendar_type == "360_day" or calendar_type == "gregorian":
         Calendar.default().set_mode(calendar_type)
     else:
-        print("WARNING: Incompatable calendar detected. Unable to set calendar type with isodatetime.")
+        print("WARNING: Incompatible calendar detected. Unable to set calendar type with isodatetime.")
         sys.exit(1)
 
 
-def normalise_time_fields(field: str) -> str: # Update for metomi isodatetime.
+def normalise_time_fields(field: str) -> str:
     """
     Reformats datetime fields with valid yet incomplete input to yyyy-mm-ddTHH:MM:SSZ formatting.
 
-        :param field: The datetime string to be reformatted.
-        :returns: Normalised datetime string of format yyyy-mm-ddTHH:MM:SSZ.
+    :param field: The datetime string to be reformatted.
+    :returns: Normalised datetime string of format yyyy-mm-ddTHH:MM:SSZ.
     """
     # Define expected pattern for splitting.
     pattern = re.compile(
-        r'(\d{4})'           
-        r'(?:-(\d{2}))?'       
-        r'(?:-(\d{2}))?'      
-        r'(?:T(\d{2}))?'       
-        r'(?::(\d{2}))?'   
-        r'(?::(\d{2}))?'        
-        r'(?:Z)?'                
+        r'(\d{4})'
+        r'(?:-(\d{2}))?'
+        r'(?:T(\d{2}))?'
+        r'(?::(\d{2}))?'
+        r'(?::(\d{2}))?'
+        r'(?:Z)?'
     )
     match = pattern.findall(field)
     if match:
@@ -132,21 +133,21 @@ def normalise_time_fields(field: str) -> str: # Update for metomi isodatetime.
     return normalised_time_str
 
 
-def validate_meta_content(meta_dict: dict, warnings: list) -> list[str]:
+def validate_meta_content(meta_dict: dict[str], warnings: list[str]) -> list[str]:
     """
-    Vaidates the metadta dictionary contents.
+    Validates the metadata dictionary contents.
 
-        :param meta_dict: Dictionary containing the grid parameters from the issue form.
-        :param warnings: The current list of warnings.
-        :returns: An updated list of warnings.
+    :param meta_dict: Dictionary containing the grid parameters from the issue form.
+    :param warnings: The current list of warnings.
+    :returns: An updated list of warnings.
     """
 
     # Confirm that conditional fields are present.
     if meta_dict["mass_data_class"] == "ens" and not meta_dict["mass_ensemble_member"]:
-        list_warnings(warnings, "WARNING: Missing required field... Where 'mass_data_class' is 'ens', " \
-        "'mass_ensamble_member' must be identified.")
+        list_warnings(warnings, "WARNING: Missing required field... Where 'mass_data_class' is 'ens', "
+                                "'mass_ensemble_member' must be identified.")
 
-    parent_reliant_fields = ["branch_date_in_child", "branch_date_in_parent", "parent_experiment_id", "parent_mip", 
+    parent_reliant_fields = ["branch_date_in_child", "branch_date_in_parent", "parent_experiment_id", "parent_mip",
                              "parent_model_id", "parent_time_units", "parent_variant_label"]
     if meta_dict["branch_method"] == "standard":
         for field in parent_reliant_fields:
@@ -165,38 +166,38 @@ def validate_meta_content(meta_dict: dict, warnings: list) -> list[str]:
             list_warnings(warnings, f"WARNING: {field} is incorrectly formatted: use the format yyyy-mm-ddTHH:MM:SSZ.")
         # Confirm that end_time is not earlier than start_time.
         if parser.parse(meta_dict["end_date"]) < parser.parse(meta_dict["start_date"]):
-            list_warnings(warnings, f"WARNING: end date cannot be earlier than start date.")
+            list_warnings(warnings, "WARNING: end date cannot be earlier than start date.")
         # Convert all accepted fields to yyyy-mm-ddTHH:MM:SSZ format.
         meta_dict[field] = normalise_time_fields(meta_dict[field])
 
     # Confirm workflow ID formatting.
     workflow_id_format = r"^[a-z]{1,2}-[a-z]{2}\d{3}$"
-    if bool(re.match(workflow_id_format, meta_dict["model_workflow_id"])) == False:
-        list_warnings(warnings, "WARNING: model_workflow_id is incorrectly formatted, please use the format a-bc123 " \
-        "OR ab-cd123.")
-    
+    if bool(re.match(workflow_id_format, meta_dict["model_workflow_id"])) is False:
+        list_warnings(warnings, "WARNING: model_workflow_id is incorrectly formatted, please use the format a-bc123 "
+                                "OR ab-cd123.")
+
     # Confirm variant label formatting
     variant_label_format = r"^(r\d+)(i\d+[a-e]{0,1})(p\d+)(f\d+)$"
-    if bool(re.match(variant_label_format, meta_dict["variant_label"])) == False:
+    if bool(re.match(variant_label_format, meta_dict["variant_label"])) is False:
         list_warnings(warnings, "WARNING: variant label is incorrectly formatted.")
-          
+
     # Confirm that atmospheric timestep is an integer
     if meta_dict["amtos_timestep"]:
         value = meta_dict["amtos_timestep"]
-        if not isinstance(value, int) or value < 0: 
+        if not isinstance(value, int) or value < 0:
             list_warnings(warnings, "WARNING: atmospheric timestep is invalid.")
 
     return warnings
 
 
-def create_filename(meta_dict: dict, warnings: list) -> tuple[str, list[str]]:
+def create_filename(meta_dict: dict[str], warnings: list[str]) -> tuple[str, list[str]]:
     """
     Generates a filename based off of the input model workflow id and mass ensemble member.
 
-        :param meta_dict: Dictionary containing the grid parameters from the issue form.
-        :param warnings: The current list of warnings.
-        :returns: New metadata filename and an updated list of warnings.
-        :raises KeyError: If required key cannot be found.
+    :param meta_dict: Dictionary containing the grid parameters from the issue form.
+    :param warnings: The current list of warnings.
+    :returns: New metadata filename and an updated list of warnings.
+    :raises KeyError: If required key cannot be found.
     """
     try:
         model_workflow_id = meta_dict["model_workflow_id"]
@@ -211,12 +212,12 @@ def create_filename(meta_dict: dict, warnings: list) -> tuple[str, list[str]]:
     return filename, warnings
 
 
-def sort_to_categories(meta_dict: dict) -> dict:
+def sort_to_categories(meta_dict: dict[str]) -> dict[str]:
     """
     Sorts metadata dictionary into appropriate categories.
 
-        :param meta_dict: Dictionary containing the metadata form contents.
-        :returns: Organised metadata dictionary.
+    :param meta_dict: Dictionary containing the metadata form contents.
+    :returns: Organised metadata dictionary.
     """
     metadata_dict = {}
     data_dict = {}
@@ -224,10 +225,10 @@ def sort_to_categories(meta_dict: dict) -> dict:
     organised_metadata = {}
 
     # Categorise keys into sections that match the request.cfg mapping.
-    metadata_section = ["base_date", "branch_date_in_child", "branch_date_in_parent", "branch_method", "calendar", 
-                "experiment_id", "institution_id", "mip", "mip_era", "parent_experiment_id", "parent_mip", 
-                "parent_model_id", "parent_time_units", "parent_variant_label", "variant_label", "model_id"]
-    data_section = ["end_date", "start_date", "mass_data_class", "mass_ensemble_member", "model_workflow_id"] 
+    metadata_section = ["base_date", "branch_date_in_child", "branch_date_in_parent", "branch_method", "calendar",
+                        "experiment_id", "institution_id", "mip", "mip_era", "parent_experiment_id", "parent_mip",
+                        "parent_model_id", "parent_time_units", "parent_variant_label", "variant_label", "model_id"]
+    data_section = ["end_date", "start_date", "mass_data_class", "mass_ensemble_member", "model_workflow_id"]
     misc_section = ["atmos_timestep"]
     for key, value in meta_dict.items():
         if key in metadata_section:
@@ -245,12 +246,12 @@ def sort_to_categories(meta_dict: dict) -> dict:
     return organised_metadata
 
 
-def format_cfg_file(output_file: Path, organised_metadata: dict) -> None:
+def format_cfg_file(output_file: Path, organised_metadata: dict[str]) -> None:
     """
     Write the required metadata to a structured output file.
 
-        :param output_file: The complete path of the output file.
-        :param organised_metadata: Organised metadata dictionary.
+    :param output_file: The complete path of the output file.
+    :param organised_metadata: Organised metadata dictionary.
     """
     with open(output_file, "w") as f:
         for key, value in organised_metadata.items():
@@ -269,13 +270,13 @@ def main() -> None:
 
     issue = get_issue()
     issue_body = issue['body']
-    
+
     # Find key-value pairs and map them to dictionary format.
     match = re.findall(r"### (.+?)\n\s*\n?(.+)", issue_body)
     meta_dict = create_meta_dict(match)
     print("Extracting issue body...  SUCCESSFUL")
 
-    #validate and organise dictionary content.
+    # Validate and organise dictionary content.
     warnings = validate_meta_content(meta_dict, warnings)
     organised_metadata = sort_to_categories(meta_dict)
 
