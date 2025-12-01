@@ -37,6 +37,7 @@ def get_metadata_files() -> list[str]:
     Creates a list of all existing cfg files to be checked.
 
     :returns: List of cfg files to be checked.
+    :rtype: list[str]
     """
     glob_string = Path("workflow_metadata/*.cfg")
     cfg_files = glob.glob(str(glob_string))
@@ -51,11 +52,14 @@ def validate_structure(
     Validates the structure of a single .cfg file.
 
     :param config: The config parser.
+    :type config: configparser
     :param result: The dictionary containing the details of any validation failures.
+    :type result: dict[str, VALIDATION_DATA]
     :param file: The file being validated.
+    :type file: str
     :returns: The dictionary containing the details of any validation failures.
+    :rtype: dict[str, VALIDATION_DATA]
     """
-
     file_results = result[file]
     sections_in_config = set(config.sections())
     SECTION_DICT = {"metadata": METADATA, "data": DATA, "misc": MISC}
@@ -92,9 +96,13 @@ def validate_required_fields(
     Validates the contents of the required fields for a single .cfg file.
 
     :param config: The config parser.
+    :type config: configparser
     :param result: The dictionary containing the details of any validation failures.
+    :type result: dict[str, VALIDATION_DATA]
     :param file: The file being validated.
+    :type file: str
     :returns: The dictionary containing the details of any validation failures.
+    :rtype: dict[str, VALIDATION_DATA]
     """
     file_results = result[file]
     missing_values = set()
@@ -138,9 +146,13 @@ def validate_field_inputs(
     Validates the inputs of a single .cfg file.
 
     :param config: The config parser.
+    :type config: configparser
     :param result: The dictionary containing the details of any validation failures.
+    :type result: dict[str, VALIDATION_DATA]
     :param file: The file being validated.
+    :type file: str
     :returns: The dictionary containing the details of any validation failures.
+    :rtype: dict[str, VALIDATION_DATA]
     """
     file_results = result[file]
     invalid_values = set()
@@ -187,6 +199,7 @@ def create_failure_report(result: dict[str, VALIDATION_DATA]) -> None:
     Prints back any validation errors to the user .
 
     :param result: The dictionary containing the details of any validation failures.
+    :type result: dict[str, VALIDATION_DATA]
     """
     success = True
     print("\nFILE VALIDATION FAILURE REPORT:\n")
