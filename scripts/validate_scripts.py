@@ -14,6 +14,7 @@ def glob_files() -> list[str]:
     Creates a list of all python files in the repository.
 
     :returns: A list of all python files in the repository.
+    :rtype: list[str]
     """
     glob_string = Path("**/*.py")
     files = glob.glob(str(glob_string))
@@ -21,14 +22,18 @@ def glob_files() -> list[str]:
     return files
 
 
-def check_file(file: str, style_guide: pycodestyle.StyleGuide, count: int):
+def check_file(file: str, style_guide: pycodestyle.StyleGuide, count: int) -> int:
     """
     Applies a pycodestyle check to a single file.
 
     :param file: The file to be checked.
+    :type file: str
     :param style_guide: The style guide format to be applied during the check.
+    :type style_guide: pycodestyle.StyleGuide
     :param count: The number of files that have passed the style guide check.
+    :type count: int
     :returns: The number of files that have passed the style guide check.
+    :rtype: int
     """
     print(f"\nChecking {file}...")
 
