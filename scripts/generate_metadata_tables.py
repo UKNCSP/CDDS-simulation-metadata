@@ -16,6 +16,7 @@ def get_mappings() -> list[list[str]]:
     Read all mappings for a given model and return them as a list of lists.
 
     :returns: Table data as a list of lists, where the sub lists contain data matching the HEADINGS fields.
+    :rtype: list[list[str]]
     """
     glob_string = Path("workflow_metadata/*.cfg")
     cfg_files = glob.glob(str(glob_string))
@@ -49,10 +50,12 @@ def get_mappings() -> list[list[str]]:
 
 def build_table(table_data: list[list[str]]) -> str:
     """
-    Build the HTML for table showing the supplied table_data
+    Build the HTML for table showing the supplied table_data.
 
     :param table_data: The data to populate the table with.
+    :type table_data: list[list[str]]
     :returns: The table_data formatted as a HTML table.
+    :rtype: str
     """
     print("Building HTML table...")
     html = ''
@@ -88,6 +91,7 @@ def generate_html(table_html: str) -> None:
     Generates full HTML file.
 
     :param table: The HTML table.
+    :type table: str
     """
     print("Building full HTML...")
     html = (HEADER +
