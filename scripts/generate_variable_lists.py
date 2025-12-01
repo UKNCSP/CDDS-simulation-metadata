@@ -23,7 +23,9 @@ def open_source_jsons(path: Path) -> Union[VARIABLE_DATA, list[VARIABLE_MAPPING]
     Opens and reads a single JSON file.
 
     :param path: The path of the file to be opened.
+    :type path: Path
     :returns: The JSON file content.
+    :rtype: Union[VARIABLE_DATA, list[VARIABLE_MAPPING]]
     :raises FileNotFoundError: If the file does not exist at the given path.
     :raises PermissionError: If read access is denied.
     :raises IsADirectoryError: If given path is a directory and not a file.
@@ -50,22 +52,26 @@ def get_priority_labels(experiment_dict: VARIABLE_DATA, experiment: str) -> tupl
     Creates a list of variables for each priority group for a single experiment.
 
     :param experiment_dict: The dictionary containing all experiments and their associated variables.
+    :type experiment_dict: VARIABLE_DATA
     :param experiment: The experiment whose variables are being updated.
+    :type experiment: str
     :returns: A pair of dictionaries containing the variables with their associated priority and the varaibles with
               their associated label as a result of their priority.
+    :rtype: tuple[dict[str, set], dict[str, str]]
     """
     priority_labels = {}
-    exp_data = experiment_dict["experiment"][experiment]
+    experiment_data = experiment_dict["experiment"][experiment]
     priority_dict = {
-        "core": set(exp_data.get("Core", [])),
-        "high": set(exp_data.get("High", [])),
-        "med": set(exp_data.get("Medium", [])),
-        "low": set(exp_data.get("Low", [])),
+        "core": set(experiment_data.get("Core", [])),
+        "high": set(experiment_data.get("High", [])),
+        "med": set(experiment_data.get("Medium", [])),
+        "low": set(experiment_data.get("Low", [])),
     }
-    for level, items in priority_dict.items():
-        if level in ("med", "low"):
-            for item in items:
-                priority_labels[item] = (f" # priority={'medium' if level == 'med' else 'low'}")
+    
+    for key, value in priority_dict.items():
+        if key in ("med", "low"):
+            for v in value:
+                priority_labels[v] = (f" # priority={'medium' if key == 'med' else 'low'}")
 
     return priority_dict, priority_labels
 
@@ -77,9 +83,13 @@ def update_variable_priority(
     Update the variables for a single experiment with priority comments.
 
     :param experiment_dict: The dictionary containing all experiments and their associated variables.
+    :type experiment_dict: VARIABLE_DATA
     :param experiment: The experiment whose variables are being updated.
+    :type experiment: str
     :param variable_dict: An empty dictionary to populate with the updated variable data.
+    :type variable_dict: dict[None]
     :returns: A dictionary of variable name and priority level key-value pairs for a single experiment.
+    :rtype: dict[str, str]
     """
     priority_dict, priority_labels = get_priority_labels(experiment_dict, experiment)
 
@@ -98,8 +108,11 @@ def match_variables_with_mappings(
     Verify the production status of each variable for each variable for a single experiment.
 
     :param mappings_dict: The dictionary containing mapping information for all variables.
+    :type mappings_dict: list[VARIABLE_MAPPING]
     :param variable_dict: The dictionary of name and priority level key-value pairs for a single experiment.
+    :type variable_dict: dict[str, str]
     :returns: An updated dictionary containing production status for variables marked "do-not-produce".
+    :rtype: dict[str, str]
     """
     # Loop over all variables to find those labelled as "do-not-produce" and mark them as such.
     for map in mappings_dict:
@@ -119,7 +132,9 @@ def get_variable_streams(mappings_dict: list[VARIABLE_MAPPING]) -> dict[str, str
     Creates a dictionary for variables and their associated output stream.
 
     :param mappings_dict: The dictionary containing mapping information for all variables.
+    :type mappings_dict: list[VARIABLE_MAPPING]
     :returns: A dictionary containing variables and their associated output stream.
+    :rtype: dict[str, str]
     """
     streams = {}
 
@@ -147,9 +162,12 @@ def reformat_varaible_names(mappings_dict: list[VARIABLE_MAPPING], variable_dict
     realm/variable_branding@frequency:stream for a single experiment.
 
     :param mappings_dict: The dictionary containing mapping information for all variables.
+    :type mappings_dict: list[VARIABLE_MAPPING]
     :param variable_dict: An updated dictionary containing production status for variables marked "do-not-produce".
+    :type variable_dict: VARIABLE_DATA
     :returns: An updated dictionary containing the reformatted variable names as keys and priority/production status
               as values.
+    :rtype: dict[str, str]
     :raises KeyError: If the original variable name cannot be split into parts as expected.
     """
     renamed_variable_dict = {}
@@ -179,7 +197,9 @@ def format_outfile_content(renamed_variable_dict: dict[str, str]) -> list[str]:
 
     :param renamed_variable_dict: An updated dictionary containing the reformatted variable names as keys and
                                   priority/production status as values.
+    :type renamed_variable_dict: dict[str, str]
     :returns: A list of lines to populate the plain text file with.
+    :rtype: list[str]
     """
     lines = []
     for key, value in renamed_variable_dict.items():
@@ -197,18 +217,20 @@ def sorted_lines(lines: list[str]) -> list[str]:
     Sorts the variables for a single experiment in order of priority.
 
     :param lines: The unordered variables with the appropriate comments.
+    :type lines: list[str]
     :returns: A list of sorted variables with the appropriate comments in order of priority.
+    :rtype: list[str]
     """
     order = {"# priority=medium": 1, "# priority=low": 2, "# do-not-produce": 3}
     filtered_lines = []
 
     for line in set(lines):
-        if not line.startswith("#") or any(tag in line for tag in order):
+        if not line.startswith("#") or any(name in line for name in order):
             filtered_lines.append(line)
 
     sorted_lines = sorted(
         filtered_lines,
-        key=lambda line: order.get(next((tag for tag in order if tag in line), None), 0),
+        key=lambda line: order.get(next((name for name in order if name in line), None), 0),
     )
 
     return sorted_lines
@@ -219,9 +241,12 @@ def save_file(outdir: Path, experiment: str, variable_dict: dict[str, str]) -> N
     Saves a single file to a plain text format.
 
     :param outdir: The output directory.
+    :type outdir: Path
     :param experiment: The experiment whose variables are being saved.
+    :type experiment: str
     :param variable_dict: The final dictionary containing the reformatted variable names as keys and priority/production
                           status as values.
+    :type variable_dict: dict[str, str]
     """
     outfile = outdir / f"{experiment}.txt"
     with open(outfile, "w") as f:
@@ -234,9 +259,7 @@ def generate_variable_lists() -> None:
     Generates the variable list files for all experiments.
     """
     # Call required source files.
-    experiment_dict = open_source_jsons(
-        Path("reference_information/dr-1.2.2.2_all.json")
-    )
+    experiment_dict = open_source_jsons(Path("reference_information/dr-1.2.2.2_all.json"))
     mappings_dict = open_source_jsons(Path("reference_information/mappings.json"))
 
     # Create output file path.
