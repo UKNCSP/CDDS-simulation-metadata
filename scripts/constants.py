@@ -135,3 +135,29 @@ REGEX_FORMAT = {
     "model_workflow_id": r"^[a-z]{1,2}-[a-z]{2}\d{3}$",
     "variant_label": r"^(r\d+)(i\d+[a-e]{0,1})(p\d+)(f\d+)$"
 }
+
+META_FIELDS = {
+        "issue_type": "issue_type",
+        "base_date": "base_date",
+        "branch_method": "branch_method",
+        "child_branch_date": "branch_date_in_child",
+        "parent_branch_date": "branch_date_in_parent",
+        "parent_experiment_id": "parent_experiment_id",
+        "parent_activity_id_(mip)": "parent_mip",
+        "parent_model_id": "parent_model_id",
+        "parent_time_units": "parent_time_units",
+        "parent_variant_label": "parent_variant_label",
+        "calendar_type": "calendar",
+        "experiment_id": "experiment_id",
+        "institution_id": "institution_id",
+        "activity_id_(mip)": "mip",
+        "mip_era": "mip_era",
+        "variant_label": "variant_label",
+        "model_id": "model_id",
+        "start_date": "start_date",
+        "end_date": "end_date",
+        "mass_data_class": "mass_data_class",
+        "mass_ensemble_member_id": "mass_ensemble_member",
+        "model_workflow_id": "model_workflow_id",
+        "atmospheric_timestep": "atmos_timestep"
+    }
