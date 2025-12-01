@@ -48,6 +48,7 @@ def get_issue() -> dict[str, str]:
     Extracts the issue body from the submitted issue form.
 
     :returns: The issue body as a dictionary.
+    :rtype: dict[str, str]
     """
     return {
         "body": os.environ.get("ISSUE_BODY"),
@@ -59,7 +60,9 @@ def normalise_datetime(field: str) -> str:
     Populates undefined datetime fields with default values to match yyyy-mm-ddTHH:MM:SSZ formatting.
 
     :param field: The datetime string to be reformatted.
+    :type field: str
     :returns: The normalised datetime string in the of format yyyy-mm-ddTHH:MM:SSZ.
+    :rtype: str
     """
     match = ACCEPTED_DATETIME_PATTERNS.findall(field)
     if match:
@@ -84,7 +87,9 @@ def process_metadata(match: list[tuple[str]]) -> dict[str, str]:
     Generates a dictionary from the loaded issue body and cleans the contents to ensure consistent formatting.
 
     :param match: The identified key-value pairs from the issue body.
+    :type match: list[tuple[str]]
     :returns: A cleaned dictionary containing the metadata keys and values from the issue form.
+    :rtype: dict[str, str]
     """
     meta_dict = {}
 
@@ -112,7 +117,9 @@ def set_calendar(calendar_type: str) -> dict[str, str]:
     Sets the metomi.isodatetime calendar.
 
     :param calendar_type: The type of calendar used.
+    :type calendar: str
     :returns: A dictionary containing any errors caused by user input from the form.
+    :rtype: dict[str, str]
     """
     errors = {}
 
@@ -130,7 +137,9 @@ def validate_meta_content(meta_dict: dict[str, str]) -> dict[str, str]:
     Validates the metadata dictionary contents.
 
     :param meta_dict: A cleaned dictionary containing the metadata keys and values from the issue form.
+    :type meta_dict: dict[str, str]
     :returns: A dictionary containing any errors caused by user input from the form.
+    :rtype: dict[str, str]
     """
     errors = set_calendar(meta_dict["calendar"])
     # Confirm that conditional fields are present.
@@ -186,7 +195,9 @@ def format_warning_message(errors: dict[str, str]) -> str:
     Formats the a human readable warning message to be returned to the user.
 
     :param errors: A dictionary containing any errors caused by user input from the form.
+    :type errors: dict[str, str]
     :returns: A human readable message detailing all warnings.
+    :rtype: str
     """
     warnings = []
     for key, value in errors.items():
@@ -205,7 +216,9 @@ def create_filename(meta_dict: dict[str, str]) -> str:
     Generates a filename based off of the input model workflow id and mass ensemble member.
 
     :param meta_dict: A cleaned dictionary containing the metadata keys and values from the issue form.
+    :type meta_dict: dict[str, str]
     :returns: The name of the metadata configuration file.
+    :rtype: str
     """
     model_workflow_id = meta_dict["model_workflow_id"]
     if meta_dict["mass_data_class"] == "ens":
@@ -222,7 +235,9 @@ def sort_to_categories(meta_dict: dict[str, str]) -> dict[dict[str, str]]:
     Sorts the metadata dictionary into appropriate categories as nested dictionaries.
 
     :param meta_dict: A cleaned dictionary containing the metadata keys and values from the issue form.
+    :type meta_dict: dict[str, str]
     :returns: A cleaned, organised dictionary containing the validated metadata keys and values from the issue form.
+    :rtype: dict[dict[str, str]]
     """
     metadata_dict = {}
     data_dict = {}
@@ -251,8 +266,10 @@ def format_cfg_file(output_file: Path, organised_metadata: dict[str, str]) -> No
     Writes the cleaned, organised and validated metadata to a structured configuration file.
 
     :param output_file: The complete path of the output file.
+    :type output_file: Path
     :param organised_metadata: A cleaned, organised dictionary containing the validated metadata keys and values from
                                the issue form.
+    :type organised_metadata: dict[str, str]
     """
     with open(output_file, "w") as f:
         for key, value in organised_metadata.items():
