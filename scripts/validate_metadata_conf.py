@@ -13,6 +13,7 @@ import re
 import sys
 from pathlib import Path
 
+import metomi.isodatetime.parsers as parse
 from constants import (
     DATA,
     DATETIME_FIELDS,
@@ -24,9 +25,9 @@ from constants import (
     SECTIONS,
 )
 from custom_classes import VALIDATION_DATA
+from metomi.isodatetime.exceptions import ISO8601SyntaxError, IsodatetimeError
 
 REGEX_DICT = {
-    "datetime_pattern": re.compile(REGEX_FORMAT["datetime"]),
     "workflow_pattern": re.compile(REGEX_FORMAT["model_workflow_id"]),
     "variant_pattern": re.compile(REGEX_FORMAT["variant_label"]),
 }
@@ -156,16 +157,18 @@ def validate_field_inputs(
     """
     file_results = result[file]
     invalid_values = set()
+    parser = parse.TimePointParser()
     for section in config.sections():
         for key, value in config[section].items():
             # Verify datetime inputs
             if key == "branch_method" and value == "standard":
                 DATETIME_FIELDS.add("branch_date_in_child")
                 DATETIME_FIELDS.add("branch_date_in_parent")
-            if key in DATETIME_FIELDS and not REGEX_DICT["datetime_pattern"].fullmatch(
-                value
-            ):
-                invalid_values.add(key)
+            if key in DATETIME_FIELDS:
+                try: 
+                    parser.parse(value)
+                except (IsodatetimeError, ISO8601SyntaxError):
+                    invalid_values.add(key)
 
             # Verify workflow model ID structure
             if key == "model_workflow_id" and not REGEX_DICT[
@@ -196,7 +199,7 @@ def validate_field_inputs(
 
 def create_failure_report(result: dict[str, VALIDATION_DATA]) -> None:
     """
-    Prints back any validation errors to the user .
+    Prints back any validation errors to the user.
 
     :param result: The dictionary containing the details of any validation failures.
     :type result: dict[str, VALIDATION_DATA]
