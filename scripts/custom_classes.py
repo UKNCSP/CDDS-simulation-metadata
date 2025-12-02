@@ -2,17 +2,46 @@
 # Please see LICENSE.md for license details.
 
 from typing import Any, TypedDict
+from dataclasses import dataclass
 
-HEADER = TypedDict("Header", {
-    "Description": str,
-    "Opportunities supported": list[str],
-    "Priority levels supported": list[str],
-    "Experiments included": list[str],
-    "dreq content version": str,
-    "dreq content file": str,
-    "dreq content sha256 hash": str,
-    "dreq api version": str,
-}, total=True)
+@dataclass
+class Header():
+    description: str
+    opportunities_supported: list[str]
+    priority_levels_supported: list[str]
+    experiments_included: list[str]
+    dreq_content_version: str
+    dreq_content_file: str
+    dreq_content_sha256_hash: str
+    dreq_api_version: str
+
+@dataclass
+class VariablePriorities():
+    core: list[str]
+    high: list[str]
+    medium: list[str]
+    low: list[str]
+
+@dataclass 
+class Experiment():
+    name: dict[str, VariablePriorities]
+
+@dataclass
+class DRExperimentMetadata():
+    header: dict[Header]
+    experiment: dict[Experiment]
+
+
+
+
+
+
+
+
+
+
+
+
 
 DATA_REQUEST_INFO = TypedDict("DataRequestInfo", {
     "Branded variable name": str,
@@ -59,6 +88,3 @@ VARIABLE_MAPPING = TypedDict("VariableMapping", {
 }, total=False)
 
 
-class VARIABLE_DATA(TypedDict, total=True):
-    header: HEADER
-    experiment: dict[str, dict[str, list[str]]]
