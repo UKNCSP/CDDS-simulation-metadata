@@ -165,7 +165,7 @@ def validate_field_inputs(
                 DATETIME_FIELDS.add("branch_date_in_child")
                 DATETIME_FIELDS.add("branch_date_in_parent")
             if key in DATETIME_FIELDS:
-                try: 
+                try:
                     parser.parse(value)
                 except (IsodatetimeError, ISO8601SyntaxError):
                     invalid_values.add(key)
