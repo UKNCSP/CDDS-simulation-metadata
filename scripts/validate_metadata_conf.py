@@ -24,7 +24,6 @@ from constants import (
     REQUIRED,
     SECTIONS,
 )
-from custom_classes import VALIDATION_DATA
 from metomi.isodatetime.exceptions import ISO8601SyntaxError, IsodatetimeError
 
 REGEX_DICT = {
@@ -46,20 +45,18 @@ def get_metadata_files() -> list[str]:
     return cfg_files
 
 
-def validate_structure(
-    config: configparser, result: dict[str, VALIDATION_DATA], file: str
-) -> dict[str, VALIDATION_DATA]:
+def validate_structure(config: configparser, result: dict, file: str) -> dict:
     """
     Validates the structure of a single .cfg file.
 
     :param config: The config parser.
     :type config: configparser
     :param result: The dictionary containing the details of any validation failures.
-    :type result: dict[str, VALIDATION_DATA]
+    :type result: dict
     :param file: The file being validated.
     :type file: str
     :returns: The dictionary containing the details of any validation failures.
-    :rtype: dict[str, VALIDATION_DATA]
+    :rtype: dict
     """
     file_results = result[file]
     sections_in_config = set(config.sections())
@@ -90,20 +87,18 @@ def validate_structure(
     return result
 
 
-def validate_required_fields(
-    config: configparser, result: dict[str, VALIDATION_DATA], file: str
-) -> dict[str, VALIDATION_DATA]:
+def validate_required_fields(config: configparser, result: dict, file: str) -> dict:
     """
     Validates the contents of the required fields for a single .cfg file.
 
     :param config: The config parser.
     :type config: configparser
     :param result: The dictionary containing the details of any validation failures.
-    :type result: dict[str, VALIDATION_DATA]
+    :type result: dict
     :param file: The file being validated.
     :type file: str
     :returns: The dictionary containing the details of any validation failures.
-    :rtype: dict[str, VALIDATION_DATA]
+    :rtype: dict
     """
     file_results = result[file]
     missing_values = set()
@@ -140,20 +135,18 @@ def validate_required_fields(
     return result
 
 
-def validate_field_inputs(
-    config: configparser, result: dict[str, VALIDATION_DATA], file: str
-) -> dict[str, VALIDATION_DATA]:
+def validate_field_inputs(config: configparser, result: dict, file: str) -> dict:
     """
     Validates the inputs of a single .cfg file.
 
     :param config: The config parser.
     :type config: configparser
     :param result: The dictionary containing the details of any validation failures.
-    :type result: dict[str, VALIDATION_DATA]
+    :type result: dict
     :param file: The file being validated.
     :type file: str
     :returns: The dictionary containing the details of any validation failures.
-    :rtype: dict[str, VALIDATION_DATA]
+    :rtype: dict
     """
     file_results = result[file]
     invalid_values = set()
@@ -171,15 +164,11 @@ def validate_field_inputs(
                     invalid_values.add(key)
 
             # Verify workflow model ID structure
-            if key == "model_workflow_id" and not REGEX_DICT[
-                "workflow_pattern"
-            ].fullmatch(value):
+            if key == "model_workflow_id" and not REGEX_DICT["workflow_pattern"].fullmatch(value):
                 invalid_values.add(key)
 
             # Verify variant label structure
-            if key == "variant_label" and not REGEX_DICT["variant_pattern"].fullmatch(
-                value
-            ):
+            if key == "variant_label" and not REGEX_DICT["variant_pattern"].fullmatch(value):
                 invalid_values.add(key)
 
             # Verify that atmospheric timestep is an integer
@@ -197,12 +186,12 @@ def validate_field_inputs(
     return result
 
 
-def create_failure_report(result: dict[str, VALIDATION_DATA]) -> None:
+def create_failure_report(result: dict) -> None:
     """
     Prints back any validation errors to the user.
 
     :param result: The dictionary containing the details of any validation failures.
-    :type result: dict[str, VALIDATION_DATA]
+    :type result: dict
     """
     success = True
     print("\nFILE VALIDATION FAILURE REPORT:\n")
