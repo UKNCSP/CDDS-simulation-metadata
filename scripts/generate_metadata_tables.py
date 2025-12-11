@@ -118,4 +118,3 @@ def generate_html(table_html: str) -> None:
 
 if __name__ == "__main__":
     generate_html(build_table(get_mappings()))
-    
