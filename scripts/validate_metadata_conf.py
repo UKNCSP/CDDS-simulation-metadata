@@ -1,7 +1,6 @@
 # (C) British Crown Copyright 2025, Met Office.
 # Please see LICENSE.md for license details.
-"""
-Scan workflow metadata files and validate their structure and contents.
+"""Scan workflow metadata files and validate their structure and contents.
 
 This script checks for missing sections, unexpected keys, and invalid values
 in workflow configuration files.
@@ -13,8 +12,7 @@ import re
 import sys
 from pathlib import Path
 
-from typing import TypedDict
-
+import metomi.isodatetime.parsers as parse
 from constants import (
     DATA,
     DATETIME_FIELDS,
@@ -25,31 +23,21 @@ from constants import (
     REQUIRED,
     SECTIONS,
 )
+from metomi.isodatetime.exceptions import ISO8601SyntaxError, IsodatetimeError
 
 REGEX_DICT = {
-    "datetime_pattern": re.compile(REGEX_FORMAT["datetime"]),
     "workflow_pattern": re.compile(REGEX_FORMAT["model_workflow_id"]),
     "variant_pattern": re.compile(REGEX_FORMAT["variant_label"]),
 }
 
 
-class validation_data(TypedDict, total=False):
-    file: str
-    failures: bool
-    missing_sections: list[str]
-    unexpected_sections: list[str]
-    missing_keys: list[str]
-    unexpected_keys: list[str]
-    missing_values: list[str]
-    unexpected_values: list[str]
-    invalid_values: list[str]
-
-
 def get_metadata_files() -> list[str]:
-    """
-    Creates a list of all existing cfg files to be checked.
+    """Creates a list of all existing cfg files to be checked.
 
-    :returns: List of cfg files to be checked.
+    Returns
+    -------
+    list[str]
+        List of cfg files to be checked.
     """
     glob_string = Path("workflow_metadata/*.cfg")
     cfg_files = glob.glob(str(glob_string))
@@ -57,18 +45,23 @@ def get_metadata_files() -> list[str]:
     return cfg_files
 
 
-def validate_structure(
-    config: configparser, result: dict[str, validation_data], file: str
-) -> dict[str, validation_data]:
-    """
-    Validates the structure of a single .cfg file.
+def validate_structure(config: configparser, result: dict, file: str) -> dict:
+    """Validates the structure of a single .cfg file.
 
-    :param config: The config parser.
-    :param result: The dictionary containing the details of any validation failures.
-    :param file: The file being validated.
-    :returns: The dictionary containing the details of any validation failures.
-    """
+    Parameters
+    ----------
+    config : configparser
+        The config parser.
+    result : dict
+        The dictionary containing the details of any validation failures.
+    file : str
+        The file being validated.
 
+    Returns
+    -------
+    dict
+        The dictionary containing the details of any validation failures.
+    """
     file_results = result[file]
     sections_in_config = set(config.sections())
     SECTION_DICT = {"metadata": METADATA, "data": DATA, "misc": MISC}
@@ -98,16 +91,22 @@ def validate_structure(
     return result
 
 
-def validate_required_fields(
-    config: configparser, result: dict[str, validation_data], file: str
-) -> dict[str, validation_data]:
-    """
-    Validates the contents of the required fields for a single .cfg file.
+def validate_required_fields(config: configparser, result: dict, file: str) -> dict:
+    """Validates the contents of the required fields for a single .cfg file.
 
-    :param config: The config parser.
-    :param result: The dictionary containing the details of any validation failures.
-    :param file: The file being validated.
-    :returns: The dictionary containing the details of any validation failures.
+    Parameters
+    ----------
+    config : configparser
+        The config parser.
+    result : dict
+        The dictionary containing the details of any validation failures.
+    file : str
+        The file being validated.
+
+    Returns
+    -------
+    dict
+        The dictionary containing the details of any validation failures.
     """
     file_results = result[file]
     missing_values = set()
@@ -144,40 +143,44 @@ def validate_required_fields(
     return result
 
 
-def validate_field_inputs(
-    config: configparser, result: dict[str, validation_data], file: str
-) -> dict[str, validation_data]:
-    """
-    Validates the inputs of a single .cfg file.
+def validate_field_inputs(config: configparser, result: dict, file: str) -> dict:
+    """Validates the inputs of a single .cfg file.
 
-    :param config: The config parser.
-    :param result: The dictionary containing the details of any validation failures.
-    :param file: The file being validated.
-    :returns: The dictionary containing the details of any validation failures.
+    Parameters
+    ----------
+    config : configparser
+        The config parser.
+    result : dict
+        The dictionary containing the details of any validation failures.
+    file : str
+        The file being validated.
+
+    Returns
+    -------
+    dict
+        The dictionary containing the details of any validation failures.
     """
     file_results = result[file]
     invalid_values = set()
+    parser = parse.TimePointParser()
     for section in config.sections():
         for key, value in config[section].items():
             # Verify datetime inputs
             if key == "branch_method" and value == "standard":
                 DATETIME_FIELDS.add("branch_date_in_child")
                 DATETIME_FIELDS.add("branch_date_in_parent")
-            if key in DATETIME_FIELDS and not REGEX_DICT["datetime_pattern"].fullmatch(
-                value
-            ):
-                invalid_values.add(key)
+            if key in DATETIME_FIELDS:
+                try:
+                    parser.parse(value)
+                except (IsodatetimeError, ISO8601SyntaxError):
+                    invalid_values.add(key)
 
             # Verify workflow model ID structure
-            if key == "model_workflow_id" and not REGEX_DICT[
-                "workflow_pattern"
-            ].fullmatch(value):
+            if key == "model_workflow_id" and not REGEX_DICT["workflow_pattern"].fullmatch(value):
                 invalid_values.add(key)
 
             # Verify variant label structure
-            if key == "variant_label" and not REGEX_DICT["variant_pattern"].fullmatch(
-                value
-            ):
+            if key == "variant_label" and not REGEX_DICT["variant_pattern"].fullmatch(value):
                 invalid_values.add(key)
 
             # Verify that atmospheric timestep is an integer
@@ -195,11 +198,13 @@ def validate_field_inputs(
     return result
 
 
-def create_failure_report(result: dict[str, validation_data]) -> None:
-    """
-    Prints back any validation errors to the user .
+def create_failure_report(result: dict) -> None:
+    """Prints back any validation errors to the user.
 
-    :param result: The dictionary containing the details of any validation failures.
+    Parameters
+    ----------
+    result : dict
+        The dictionary containing the details of any validation failures.
     """
     success = True
     print("\nFILE VALIDATION FAILURE REPORT:\n")
@@ -221,9 +226,7 @@ def create_failure_report(result: dict[str, validation_data]) -> None:
 
 
 def main() -> None:
-    """
-    Holds the main body of the script.
-    """
+    """Holds the main body of the script."""
     result = {}
 
     cfg_files = get_metadata_files()
@@ -251,3 +254,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+    
