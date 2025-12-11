@@ -15,21 +15,31 @@ from itertools import chain
 from pathlib import Path
 from typing import Union
 
-from custom_classes import VARIABLE_DATA, VARIABLE_MAPPING
 
-
-def open_source_jsons(path: Path) -> Union[VARIABLE_DATA, list[VARIABLE_MAPPING]]:
+def open_source_jsons(path: Path) -> Union[dict, list[dict]]:
     """
     Opens and reads a single JSON file.
 
-    :param path: The path of the file to be opened.
-    :type path: Path
-    :returns: The JSON file content.
-    :rtype: Union[VARIABLE_DATA, list[VARIABLE_MAPPING]]
-    :raises FileNotFoundError: If the file does not exist at the given path.
-    :raises PermissionError: If read access is denied.
-    :raises IsADirectoryError: If given path is a directory and not a file.
-    :raises json.JSONDecodeError: If the JSON file structure is invalid.
+    Parameters
+    ----------
+    path: Path
+        The path of the file to be opened.
+
+    Returns
+    -------
+    Union[dict, list[dict]]
+        The JSON file content.
+
+    Raises
+    ------
+    FileNotFoundError
+        If the file does not exist at the given path.
+    PermissionError
+        If read access is denied.
+    IsADirectoryError
+        If given path is a directory and not a file.
+    json.JSONDecodeError
+        If the JSON file structure is invalid.
     """
     try:
         with open(path, "r") as f:
@@ -47,17 +57,22 @@ def open_source_jsons(path: Path) -> Union[VARIABLE_DATA, list[VARIABLE_MAPPING]
     return file
 
 
-def get_priority_labels(experiment_dict: VARIABLE_DATA, experiment: str) -> tuple[dict[str, set], dict[str, str]]:
+def get_priority_labels(experiment_dict: dict, experiment: str) -> tuple[dict[str, set], dict[str, str]]:
     """
     Creates a list of variables for each priority group for a single experiment.
 
-    :param experiment_dict: The dictionary containing all experiments and their associated variables.
-    :type experiment_dict: VARIABLE_DATA
-    :param experiment: The experiment whose variables are being updated.
-    :type experiment: str
-    :returns: A pair of dictionaries containing the variables with their associated priority and the varaibles with
-              their associated label as a result of their priority.
-    :rtype: tuple[dict[str, set], dict[str, str]]
+    Parameters
+    ----------
+    experiment_dict: dict
+        The dictionary containing all experiments and their associated variables.
+    experiment: str
+        The experiment whose variables are being updated.
+
+    Returns
+    -------
+    tuple[dict[str, set], dict[str, str]]
+        A pair of dictionaries containing the variables with their associated priority and the varaibles with their
+        associated label as a result of their priority.
     """
     priority_labels = {}
     experiment_data = experiment_dict["experiment"][experiment]
@@ -67,7 +82,7 @@ def get_priority_labels(experiment_dict: VARIABLE_DATA, experiment: str) -> tupl
         "med": set(experiment_data.get("Medium", [])),
         "low": set(experiment_data.get("Low", [])),
     }
-    
+
     for key, value in priority_dict.items():
         if key in ("med", "low"):
             for v in value:
@@ -76,20 +91,23 @@ def get_priority_labels(experiment_dict: VARIABLE_DATA, experiment: str) -> tupl
     return priority_dict, priority_labels
 
 
-def update_variable_priority(
-    experiment_dict: VARIABLE_DATA, experiment: str, variable_dict: dict[None]
-) -> dict[str, str]:
+def update_variable_priority(experiment_dict: dict, experiment: str, variable_dict: dict) -> dict[str, str]:
     """
     Update the variables for a single experiment with priority comments.
 
-    :param experiment_dict: The dictionary containing all experiments and their associated variables.
-    :type experiment_dict: VARIABLE_DATA
-    :param experiment: The experiment whose variables are being updated.
-    :type experiment: str
-    :param variable_dict: An empty dictionary to populate with the updated variable data.
-    :type variable_dict: dict[None]
-    :returns: A dictionary of variable name and priority level key-value pairs for a single experiment.
-    :rtype: dict[str, str]
+    Parameters
+    ----------
+    experiment_dict: dict
+        The dictionary containing all experiments and their associated variables.
+    experiment: str
+        The experiment whose variables are being updated.
+    variable_dict: dict
+        An empty dictionary to populate with the updated variable data.
+
+    Returns
+    -------
+    dict[str, str]
+        A dictionary of variable name and priority level key-value pairs for a single experiment.
     """
     priority_dict, priority_labels = get_priority_labels(experiment_dict, experiment)
 
@@ -101,18 +119,21 @@ def update_variable_priority(
     return variable_dict
 
 
-def match_variables_with_mappings(
-    mappings_dict: list[VARIABLE_MAPPING], variable_dict: dict[str, str]
-) -> dict[str, str]:
+def match_variables_with_mappings(mappings_dict: list[dict], variable_dict: dict[str, str]) -> dict[str, str]:
     """
     Verify the production status of each variable for each variable for a single experiment.
 
-    :param mappings_dict: The dictionary containing mapping information for all variables.
-    :type mappings_dict: list[VARIABLE_MAPPING]
-    :param variable_dict: The dictionary of name and priority level key-value pairs for a single experiment.
-    :type variable_dict: dict[str, str]
-    :returns: An updated dictionary containing production status for variables marked "do-not-produce".
-    :rtype: dict[str, str]
+    Parameters
+    ----------
+    mappings_dict: list[dict]
+        The dictionary containing mapping information for all variables.
+    ariable_dict: dict[str, str]
+        The dictionary of name and priority level key-value pairs for a single experiment.
+
+    Returns
+    -------
+    dict[str, str]
+        An updated dictionary containing production status for variables marked "do-not-produce".
     """
     # Loop over all variables to find those labelled as "do-not-produce" and mark them as such.
     for map in mappings_dict:
@@ -127,14 +148,19 @@ def match_variables_with_mappings(
     return variable_dict
 
 
-def get_variable_streams(mappings_dict: list[VARIABLE_MAPPING]) -> dict[str, str]:
+def get_variable_streams(mappings_dict: list[dict]) -> dict[str, str]:
     """
     Creates a dictionary for variables and their associated output stream.
 
-    :param mappings_dict: The dictionary containing mapping information for all variables.
-    :type mappings_dict: list[VARIABLE_MAPPING]
-    :returns: A dictionary containing variables and their associated output stream.
-    :rtype: dict[str, str]
+    Parameters
+    ----------
+    mappings_dict: list[dict]
+        The dictionary containing mapping information for all variables.
+
+    Returns
+    -------
+    dict[str, str]
+        A dictionary containing variables and their associated output stream.
     """
     streams = {}
 
@@ -156,19 +182,28 @@ def get_variable_streams(mappings_dict: list[VARIABLE_MAPPING]) -> dict[str, str
     return streams
 
 
-def reformat_varaible_names(mappings_dict: list[VARIABLE_MAPPING], variable_dict: VARIABLE_DATA) -> dict[str, str]:
+def reformat_varaible_names(mappings_dict: list[dict], variable_dict: dict) -> dict[str, str]:
     """
     Reformats the name of each variable from realm.variable.branding.frequency.region to
     realm/variable_branding@frequency:stream for a single experiment.
 
-    :param mappings_dict: The dictionary containing mapping information for all variables.
-    :type mappings_dict: list[VARIABLE_MAPPING]
-    :param variable_dict: An updated dictionary containing production status for variables marked "do-not-produce".
-    :type variable_dict: VARIABLE_DATA
-    :returns: An updated dictionary containing the reformatted variable names as keys and priority/production status
-              as values.
-    :rtype: dict[str, str]
-    :raises KeyError: If the original variable name cannot be split into parts as expected.
+    Parameters
+    ----------
+    mappings_dict: list[dict]
+        The dictionary containing mapping information for all variables.
+    variable_dict: dict
+        An updated dictionary containing production status for variables marked "do-not-produce".
+
+    Returns
+    -------
+    dict[str, str]
+        An updated dictionary containing the reformatted variable names as keys and priority/production status as
+        values.
+
+    Raises
+    ------
+    KeyError
+        If the original variable name cannot be split into parts as expected.
     """
     renamed_variable_dict = {}
     streams = get_variable_streams(mappings_dict)
@@ -195,11 +230,16 @@ def format_outfile_content(renamed_variable_dict: dict[str, str]) -> list[str]:
     """
     Reformats the key value pairs into single line plain text for a single experiment.
 
-    :param renamed_variable_dict: An updated dictionary containing the reformatted variable names as keys and
-                                  priority/production status as values.
-    :type renamed_variable_dict: dict[str, str]
-    :returns: A list of lines to populate the plain text file with.
-    :rtype: list[str]
+    Parameters
+    ----------
+    renamed_variable_dict: dict[str, str]
+        An updated dictionary containing the reformatted variable names as keys and priority/production status as
+        values.
+
+    Returns
+    -------
+    list[str]
+        A list of lines to populate the plain text file with.
     """
     lines = []
     for key, value in renamed_variable_dict.items():
@@ -216,10 +256,15 @@ def sorted_lines(lines: list[str]) -> list[str]:
     """
     Sorts the variables for a single experiment in order of priority.
 
-    :param lines: The unordered variables with the appropriate comments.
-    :type lines: list[str]
-    :returns: A list of sorted variables with the appropriate comments in order of priority.
-    :rtype: list[str]
+    Parameters
+    ----------
+    lines: list[str]
+        The unordered variables with the appropriate comments.
+
+    Returns
+    -------
+    list[str]
+        A list of sorted variables with the appropriate comments in order of priority.
     """
     order = {"# priority=medium": 1, "# priority=low": 2, "# do-not-produce": 3}
     filtered_lines = []
@@ -240,13 +285,14 @@ def save_file(outdir: Path, experiment: str, variable_dict: dict[str, str]) -> N
     """
     Saves a single file to a plain text format.
 
-    :param outdir: The output directory.
-    :type outdir: Path
-    :param experiment: The experiment whose variables are being saved.
-    :type experiment: str
-    :param variable_dict: The final dictionary containing the reformatted variable names as keys and priority/production
-                          status as values.
-    :type variable_dict: dict[str, str]
+    Parameters
+    ----------
+    outdir: Path
+        The output directory.
+    experiment: str
+        The experiment whose variables are being saved.
+    variable_dict: dict[str, str]
+        The final dictionary containing the reformatted variable names as keys and priority/production status as values.
     """
     outfile = outdir / f"{experiment}.txt"
     with open(outfile, "w") as f:
