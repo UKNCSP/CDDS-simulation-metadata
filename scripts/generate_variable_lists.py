@@ -4,8 +4,8 @@
 This script generates the variable lists for each CMIP experiment for each data request version.
 
 This script scans two source files containing CMIP experiments, their associated variables and the variable metadata
-such as priority level and production labels. Each varaible is labelled with the required properties and commented as
-necessary. Each variable list is then saved to a plain text file containing the variables for that experiment.
+such as priority level and production labels. Each variable is labelled accordingly and commented out as necessary.
+Each variable list is then saved to a plain text file containing the variables for that experiment.
 """
 
 import json
@@ -14,6 +14,8 @@ import re
 from itertools import chain
 from pathlib import Path
 from typing import Union
+
+IGNORED_PRIORITIES = ("med", "low")
 
 
 def open_source_jsons(path: Path) -> Union[dict, list[dict]]:
@@ -48,6 +50,27 @@ def open_source_jsons(path: Path) -> Union[dict, list[dict]]:
     return file
 
 
+def extract_mapping_information(map: dict) -> dict:
+    """Returns the title, labels and stash entries (if available) mapping information for a single variable.
+
+    Parameters
+    ----------
+    map: dict
+        The dictionary of mapping information for a single variable.
+
+    Returns
+    -------
+    dict
+        The title, labels and stash entries for a single variable.
+    """
+
+    return {
+        "labels": map.get("labels", []),
+        "stash_entries": map.get("STASH entries", []),
+        "title": map.get("title", ""),
+    }
+
+
 def get_grouped_priority_labels(experiment_dict: dict, experiment: str) -> dict[str, set]:
     """Creates a dictionary of labels grouped by priority (core, high, med, low) for a single experiment.
 
@@ -64,14 +87,13 @@ def get_grouped_priority_labels(experiment_dict: dict, experiment: str) -> dict[
         A dictionary of labels grouped by priority (core, high, med, low).
     """
     experiment_data = experiment_dict["experiment"][experiment]
-    priority_dict = {
+
+    return {
         "core": set(experiment_data.get("Core", [])),
         "high": set(experiment_data.get("High", [])),
         "med": set(experiment_data.get("Medium", [])),
         "low": set(experiment_data.get("Low", [])),
     }
-
-    return priority_dict
 
 
 def set_priority_comments(experiment_dict: dict, experiment: str) -> dict[str, str]:
@@ -92,14 +114,14 @@ def set_priority_comments(experiment_dict: dict, experiment: str) -> dict[str, s
     priority_comments = {}
     priority_dict = get_grouped_priority_labels(experiment_dict, experiment)
     for level, variables in priority_dict.items():
-        if level in ("med", "low"):
+        if level in IGNORED_PRIORITIES:
             for var in variables:
                 priority_comments[var] = f" # priority={'medium' if level == 'med' else 'low'}"
 
     return priority_comments
 
 
-def get_all_priority_labels(experiment_dict: dict, experiment: str) -> chain:
+def get_all_variables(experiment_dict: dict, experiment: str) -> chain:
     """Creates a chain of all variables used for a single experiment.
 
     Parameters
@@ -115,12 +137,11 @@ def get_all_priority_labels(experiment_dict: dict, experiment: str) -> chain:
         A chain of all priority labels.
     """
     priority_dict = get_grouped_priority_labels(experiment_dict, experiment)
-    all_labels = chain(priority_dict["core"], priority_dict["high"], priority_dict["med"], priority_dict["low"])
 
-    return all_labels
+    return chain(priority_dict["core"], priority_dict["high"], priority_dict["med"], priority_dict["low"])
 
 
-def update_variable_priority(experiment_dict: dict, experiment: str, variable_dict: dict) -> dict[str, str]:
+def update_variables_with_priority(experiment_dict: dict, experiment: str, variable_dict: dict) -> dict[str, str]:
     """Update the variables for a single experiment with priority comments.
 
     Parameters
@@ -130,7 +151,7 @@ def update_variable_priority(experiment_dict: dict, experiment: str, variable_di
     experiment: str
         The experiment whose variables are being updated.
     variable_dict: dict
-        An empty dictionary to populate with the updated variable data.
+        A dictionary to populate with the updated variable data.
 
     Returns
     -------
@@ -138,23 +159,42 @@ def update_variable_priority(experiment_dict: dict, experiment: str, variable_di
         A dictionary of variable name and priority level key-value pairs for a single experiment.
     """
     priority_comments = set_priority_comments(experiment_dict, experiment)
+    all_labels = get_all_variables(experiment_dict, experiment)
 
     # Check all labels against their priority status and label accordingly.
-    for var in get_all_priority_labels(experiment_dict, experiment):
+    for var in all_labels:
         comment = priority_comments.get(var, "")
         variable_dict[var] = comment
 
     return variable_dict
 
 
-def match_variables_with_mappings(mappings_dict: list[dict], variable_dict: dict[str, str]) -> dict[str, str]:
-    """Verify the production status of each variable for each variable for a single experiment.
+def extract_variable_from_title(map: dict) -> str:
+    """Returns the variable name from the given title within the mapping dictionary for a single variable.
+
+    Parameters
+    ----------
+    map: dict
+        The mapping dictionary for a single variable.
+
+    Returns
+    -------
+    str
+        The variable name.
+    """
+    title = extract_mapping_information(map)["title"]
+
+    return re.search(r"Variable\s+([^\s(]+)", title).group(1)
+
+
+def identify_not_produced(mappings_dict: list[dict], variable_dict: dict[str, str]) -> dict[str, str]:
+    """Identify all variables marked as "do not produce" in a single experiment.
 
     Parameters
     ----------
     mappings_dict: list[dict]
         The dictionary containing mapping information for all variables.
-    ariable_dict: dict[str, str]
+    variable_dict: dict[str, str]
         The dictionary of name and priority level key-value pairs for a single experiment.
 
     Returns
@@ -164,9 +204,8 @@ def match_variables_with_mappings(mappings_dict: list[dict], variable_dict: dict
     """
     # Loop over all variables to find those labelled as "do-not-produce" and mark them as such.
     for map in mappings_dict:
-        title = map.get("title", "")
-        labels = map.get("labels", [])
-        var = re.search(r"Variable\s+([^\s(]+)", title).group(1)
+        labels = extract_mapping_information(map)["labels"]
+        var = extract_variable_from_title(map)
 
         # Overriding any existing "priority" value in the dict is acceptable since do-not-produce takes precedence.
         if "do-not-produce" in labels:
@@ -175,7 +214,7 @@ def match_variables_with_mappings(mappings_dict: list[dict], variable_dict: dict
     return variable_dict
 
 
-def get_variable_streams(mappings_dict: list[dict]) -> dict[str, str]:
+def get_streams(mappings_dict: list[dict]) -> dict[str, str]:
     """Creates a dictionary for variables and their associated output stream for a single experiment.
 
     Parameters
@@ -192,19 +231,17 @@ def get_variable_streams(mappings_dict: list[dict]) -> dict[str, str]:
 
     # Access stash entries for each variable and check if it contains values.
     for map in mappings_dict:
-        title = map.get("title", "")
-        variable = re.search(r"Variable\s+([^\s(]+)", title).group(1)
-        stash_entries = map.get("STASH entries", [])
+        var = extract_variable_from_title(map)
+        stash_entries = extract_mapping_information(map)["stash_entries"]
+        stream = ""
 
         # If stash entries contains any values get the usage profile.
         if stash_entries:
             usage_profile = stash_entries[0].get("usage_profile", "")
             # Map usage profile to stream.
             stream = usage_profile.replace("UP", "ap") if usage_profile else ""
-        else:
-            stream = ""
 
-        streams[variable] = stream
+        streams[var] = stream
 
     return streams
 
@@ -232,7 +269,7 @@ def reformat_varaible_names(mappings_dict: list[dict], variable_dict: dict) -> d
         If the original variable name cannot be split into parts as expected.
     """
     renamed_variable_dict = {}
-    streams = get_variable_streams(mappings_dict)
+    streams = get_streams(mappings_dict)
 
     # Reformat all original variable names to realm/variable_branding@frequency:stream.
     for var, comment in variable_dict.items():
@@ -274,30 +311,30 @@ def format_outfile_content(renamed_variable_dict: dict[str, str]) -> list[str]:
     return lines
 
 
-def sort_variables(lines: list[str]) -> list[str]:
-    """Sorts the variables for a single experiment in order of priority.
+def sort_key(line: str) -> tuple[dict[str, int], int]:
+    """The custom sort function passed to the sorted() function to define the variable order for a single experiment.
 
     Parameters
     ----------
-    lines: list[str]
-        The unordered variables with the appropriate comments.
+    line: str
+        A single line containing a single variable name and associated comments.
 
     Returns
     -------
-    list[str]
-        A list of sorted variables with the appropriate comments in order of priority.
+    tuple[dict[str, int], int]
+        The order of each label based on priority, variables with no specified priority will be assigned order 0 so that
+        they appear at the top of the variable list.
     """
     order = {"# priority=medium": 1, "# priority=low": 2, "# do-not-produce": 3}
 
-    sorted_lines = sorted(
-        lines,
-        key=lambda line: order.get(next((var for var in order if var in line), None), 0), #return value of each item one by one for each variable in line in order defined by orders REWRITE ME
-    )
+    for label in order:
+        if label in line:
+            return order[label]
 
-    return sorted_lines
+    return 0
 
 
-def save_file(outdir: Path, experiment: str, variable_dict: dict[str, str]) -> None:
+def save_outfile(outdir: Path, experiment: str, renamed_variable_dict: dict[str, str]) -> None:
     """Saves a single file to a plain text format.
 
     Parameters
@@ -306,12 +343,15 @@ def save_file(outdir: Path, experiment: str, variable_dict: dict[str, str]) -> N
         The output directory.
     experiment: str
         The experiment whose variables are being saved.
-    variable_dict: dict[str, str]
-        The final dictionary containing the reformatted variable names as keys and priority/production status as values.
+    renamed_variable_dict: dict[str, str]
+        An updated dictionary containing the reformatted variable names as keys and priority/production status as
+        values.
     """
     outfile = outdir / f"{experiment}.txt"
+    lines = format_outfile_content(renamed_variable_dict)
+
     with open(outfile, "w") as f:
-        for line in sort_variables(format_outfile_content(variable_dict)):
+        for line in sorted(lines, key=sort_key):
             f.write(line)
 
 
@@ -329,18 +369,17 @@ def generate_variable_lists() -> None:
 
     # Loop over all listed experiments.
     for experiment in experiment_dict["experiment"]:
-        if experiment == "1pctCO2": #remove me after testing
-            variable_dict = {}
-            
-            functions = [
-                update_variable_priority(experiment_dict, experiment, variable_dict),
-                match_variables_with_mappings(mappings_dict, variable_dict),
-                reformat_varaible_names(mappings_dict, variable_dict),
-            ]
-            for f in functions:
-                variable_dict = f
+        variable_dict = {}
 
-            save_file(outdir, experiment, variable_dict)
+        functions = [
+            update_variables_with_priority(experiment_dict, experiment, variable_dict),
+            identify_not_produced(mappings_dict, variable_dict),
+            reformat_varaible_names(mappings_dict, variable_dict),
+        ]
+        for f in functions:
+            variable_dict = f
+
+        save_outfile(outdir, experiment, variable_dict)
 
     print(f"SUCCESSFULLY GENERATED {len(experiment_dict['experiment'])} FILES")
 
