@@ -5,6 +5,7 @@ name: "Validate Metadata"
 on:
   schedule: 
     - cron: 0 0 * * *
+  workflow_dispatch:
 
 jobs:
   validate-metadata:
@@ -17,6 +18,10 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: 3.11
-      
+
+      - name: install dependencies
+        run: |
+          pip install metomi-isodatetime
+
       - name: validate metadata
         run: python scripts/validate_metadata_conf.py
