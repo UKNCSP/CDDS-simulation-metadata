@@ -38,7 +38,7 @@ def set_arg_parser() -> argparse.Namespace:
                                 "variable such as the associated title, labels and stash entries."
                                 "e.g. reference_information/mappings.json)")
     parser.add_argument("mappings", help=mapping_info_description)
-  
+
     return parser.parse_args()
 
 
