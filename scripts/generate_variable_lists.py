@@ -17,8 +17,7 @@ from typing import Union
 
 
 def open_source_jsons(path: Path) -> Union[dict, list[dict]]:
-    """
-    Opens and reads a single JSON file.
+    """Opens and reads a single JSON file.
 
     Parameters
     ----------
@@ -34,10 +33,6 @@ def open_source_jsons(path: Path) -> Union[dict, list[dict]]:
     ------
     FileNotFoundError
         If the file does not exist at the given path.
-    PermissionError
-        If read access is denied.
-    IsADirectoryError
-        If given path is a directory and not a file.
     json.JSONDecodeError
         If the JSON file structure is invalid.
     """
@@ -47,19 +42,14 @@ def open_source_jsons(path: Path) -> Union[dict, list[dict]]:
 
     except FileNotFoundError:
         print(f"File not found: {path}.")
-    except PermissionError:
-        print(f"Read access denied for {path}.")
-    except IsADirectoryError:
-        print(f"{path} is a directory, not a file.")
-    except json.JSONDecodeError as e:
-        print(f"Invalid JSON formatting: {e}")
+    except json.JSONDecodeError as err:
+        print(f"Invalid JSON formatting: {err}")
 
     return file
 
 
-def get_priority_labels(experiment_dict: dict, experiment: str) -> tuple[dict[str, set], dict[str, str]]:
-    """
-    Creates a list of variables for each priority group for a single experiment.
+def get_grouped_priority_labels(experiment_dict: dict, experiment: str) -> dict[str, set]:
+    """Creates a dictionary of labels grouped by priority (core, high, med, low) for a single experiment.
 
     Parameters
     ----------
@@ -70,11 +60,9 @@ def get_priority_labels(experiment_dict: dict, experiment: str) -> tuple[dict[st
 
     Returns
     -------
-    tuple[dict[str, set], dict[str, str]]
-        A pair of dictionaries containing the variables with their associated priority and the varaibles with their
-        associated label as a result of their priority.
+    dict[str, set]
+        A dictionary of labels grouped by priority (core, high, med, low).
     """
-    priority_labels = {}
     experiment_data = experiment_dict["experiment"][experiment]
     priority_dict = {
         "core": set(experiment_data.get("Core", [])),
@@ -83,17 +71,57 @@ def get_priority_labels(experiment_dict: dict, experiment: str) -> tuple[dict[st
         "low": set(experiment_data.get("Low", [])),
     }
 
-    for key, value in priority_dict.items():
-        if key in ("med", "low"):
-            for v in value:
-                priority_labels[v] = (f" # priority={'medium' if key == 'med' else 'low'}")
+    return priority_dict
 
-    return priority_dict, priority_labels
+
+def set_priority_comments(experiment_dict: dict, experiment: str) -> dict[str, str]:
+    """Sets the comment to be appended to each variable based off of their priority level for a single experiment.
+
+    Parameters
+    ----------
+    experiment_dict: dict
+        The dictionary containing all experiments and their associated variables.
+    experiment: str
+        The experiment whose variables are being updated.
+
+    Returns
+    -------
+    dict[str, str]
+        A dictionary of comments created based on priority level.
+    """
+    priority_comments = {}
+    priority_dict = get_grouped_priority_labels(experiment_dict, experiment)
+    for level, variables in priority_dict.items():
+        if level in ("med", "low"):
+            for var in variables:
+                priority_comments[var] = f" # priority={'medium' if level == 'med' else 'low'}"
+
+    return priority_comments
+
+
+def get_all_priority_labels(experiment_dict: dict, experiment: str) -> chain:
+    """Creates a chain of all variables used for a single experiment.
+
+    Parameters
+    ----------
+    experiment_dict: dict
+        The dictionary containing all experiments and their associated variables.
+    experiment: str
+        The experiment whose variables are being updated.
+
+    Returns
+    -------
+    chain
+        A chain of all priority labels.
+    """
+    priority_dict = get_grouped_priority_labels(experiment_dict, experiment)
+    all_labels = chain(priority_dict["core"], priority_dict["high"], priority_dict["med"], priority_dict["low"])
+
+    return all_labels
 
 
 def update_variable_priority(experiment_dict: dict, experiment: str, variable_dict: dict) -> dict[str, str]:
-    """
-    Update the variables for a single experiment with priority comments.
+    """Update the variables for a single experiment with priority comments.
 
     Parameters
     ----------
@@ -109,19 +137,18 @@ def update_variable_priority(experiment_dict: dict, experiment: str, variable_di
     dict[str, str]
         A dictionary of variable name and priority level key-value pairs for a single experiment.
     """
-    priority_dict, priority_labels = get_priority_labels(experiment_dict, experiment)
+    priority_comments = set_priority_comments(experiment_dict, experiment)
 
     # Check all labels against their priority status and label accordingly.
-    for variable in chain(priority_dict["core"], priority_dict["high"], priority_dict["med"], priority_dict["low"]):
-        priority = priority_labels.get(variable, "")
-        variable_dict[variable] = priority
+    for var in get_all_priority_labels(experiment_dict, experiment):
+        comment = priority_comments.get(var, "")
+        variable_dict[var] = comment
 
     return variable_dict
 
 
 def match_variables_with_mappings(mappings_dict: list[dict], variable_dict: dict[str, str]) -> dict[str, str]:
-    """
-    Verify the production status of each variable for each variable for a single experiment.
+    """Verify the production status of each variable for each variable for a single experiment.
 
     Parameters
     ----------
@@ -139,18 +166,17 @@ def match_variables_with_mappings(mappings_dict: list[dict], variable_dict: dict
     for map in mappings_dict:
         title = map.get("title", "")
         labels = map.get("labels", [])
-        variable = re.search(r"Variable\s+([^\s(]+)", title).group(1)
+        var = re.search(r"Variable\s+([^\s(]+)", title).group(1)
 
         # Overriding any existing "priority" value in the dict is acceptable since do-not-produce takes precedence.
         if "do-not-produce" in labels:
-            variable_dict[variable] = " # do-not-produce"
+            variable_dict[var] = " # do-not-produce"
 
     return variable_dict
 
 
 def get_variable_streams(mappings_dict: list[dict]) -> dict[str, str]:
-    """
-    Creates a dictionary for variables and their associated output stream.
+    """Creates a dictionary for variables and their associated output stream for a single experiment.
 
     Parameters
     ----------
@@ -167,7 +193,6 @@ def get_variable_streams(mappings_dict: list[dict]) -> dict[str, str]:
     # Access stash entries for each variable and check if it contains values.
     for map in mappings_dict:
         title = map.get("title", "")
-        stream = ""
         variable = re.search(r"Variable\s+([^\s(]+)", title).group(1)
         stash_entries = map.get("STASH entries", [])
 
@@ -176,15 +201,16 @@ def get_variable_streams(mappings_dict: list[dict]) -> dict[str, str]:
             usage_profile = stash_entries[0].get("usage_profile", "")
             # Map usage profile to stream.
             stream = usage_profile.replace("UP", "ap") if usage_profile else ""
-        # Create a local dictionary to pair variables and their streams.
+        else:
+            stream = ""
+
         streams[variable] = stream
 
     return streams
 
 
 def reformat_varaible_names(mappings_dict: list[dict], variable_dict: dict) -> dict[str, str]:
-    """
-    Reformats the name of each variable from realm.variable.branding.frequency.region to
+    """Reformats the name of each variable from realm.variable.branding.frequency.region to
     realm/variable_branding@frequency:stream for a single experiment.
 
     Parameters
@@ -209,26 +235,25 @@ def reformat_varaible_names(mappings_dict: list[dict], variable_dict: dict) -> d
     streams = get_variable_streams(mappings_dict)
 
     # Reformat all original variable names to realm/variable_branding@frequency:stream.
-    for key, value in variable_dict.items():
-        parts = key.split(".")
+    for var, comment in variable_dict.items():
+        parts = var.split(".")
         if len(parts) < 4:
-            raise KeyError(f"{key} has unexpected format. Expected: realm.variable.branding.frequency.region")
+            raise KeyError(f"{var} has unexpected format. Expected: realm.variable.branding.frequency.region")
 
         realm, variable, branding, frequency = parts[:4]
-        stream = streams.get(key, "")
+        stream = streams.get(var, "")
         var_with_stream = f"{realm}/{variable}_{branding}@{frequency}:{stream}"
         var_without_stream = f"{realm}/{variable}_{branding}@{frequency}"
 
         # Create new dictionary with the reformatted variable names to avoid key errors in the original dict.
         new_varaible_name = var_with_stream if stream else var_without_stream
-        renamed_variable_dict[new_varaible_name] = value
+        renamed_variable_dict[new_varaible_name] = comment
 
     return renamed_variable_dict
 
 
 def format_outfile_content(renamed_variable_dict: dict[str, str]) -> list[str]:
-    """
-    Reformats the key value pairs into single line plain text for a single experiment.
+    """Reformats the key value pairs into single line plain text for a single experiment.
 
     Parameters
     ----------
@@ -242,19 +267,15 @@ def format_outfile_content(renamed_variable_dict: dict[str, str]) -> list[str]:
         A list of lines to populate the plain text file with.
     """
     lines = []
-    for key, value in renamed_variable_dict.items():
-        if value:
-            line = f"#{key}{value}\n"
-        else:
-            line = f"{key}{value}\n"
+    for var, comment in renamed_variable_dict.items():
+        line = f"#{var}{comment}\n" if comment else f"{var}{comment}\n"
         lines.append(line)
 
     return lines
 
 
-def sorted_lines(lines: list[str]) -> list[str]:
-    """
-    Sorts the variables for a single experiment in order of priority.
+def sort_variables(lines: list[str]) -> list[str]:
+    """Sorts the variables for a single experiment in order of priority.
 
     Parameters
     ----------
@@ -267,23 +288,17 @@ def sorted_lines(lines: list[str]) -> list[str]:
         A list of sorted variables with the appropriate comments in order of priority.
     """
     order = {"# priority=medium": 1, "# priority=low": 2, "# do-not-produce": 3}
-    filtered_lines = []
-
-    for line in set(lines):
-        if not line.startswith("#") or any(name in line for name in order):
-            filtered_lines.append(line)
 
     sorted_lines = sorted(
-        filtered_lines,
-        key=lambda line: order.get(next((name for name in order if name in line), None), 0),
+        lines,
+        key=lambda line: order.get(next((var for var in order if var in line), None), 0), #return value of each item one by one for each variable in line in order defined by orders REWRITE ME
     )
 
     return sorted_lines
 
 
 def save_file(outdir: Path, experiment: str, variable_dict: dict[str, str]) -> None:
-    """
-    Saves a single file to a plain text format.
+    """Saves a single file to a plain text format.
 
     Parameters
     ----------
@@ -296,7 +311,7 @@ def save_file(outdir: Path, experiment: str, variable_dict: dict[str, str]) -> N
     """
     outfile = outdir / f"{experiment}.txt"
     with open(outfile, "w") as f:
-        for line in sorted_lines(format_outfile_content(variable_dict)):
+        for line in sort_variables(format_outfile_content(variable_dict)):
             f.write(line)
 
 
@@ -314,16 +329,18 @@ def generate_variable_lists() -> None:
 
     # Loop over all listed experiments.
     for experiment in experiment_dict["experiment"]:
-        variable_dict = {}
-        functions = [
-            update_variable_priority(experiment_dict, experiment, variable_dict),
-            match_variables_with_mappings(mappings_dict, variable_dict),
-            reformat_varaible_names(mappings_dict, variable_dict),
-        ]
-        for f in functions:
-            variable_dict = f
+        if experiment == "1pctCO2": #remove me after testing
+            variable_dict = {}
+            
+            functions = [
+                update_variable_priority(experiment_dict, experiment, variable_dict),
+                match_variables_with_mappings(mappings_dict, variable_dict),
+                reformat_varaible_names(mappings_dict, variable_dict),
+            ]
+            for f in functions:
+                variable_dict = f
 
-        save_file(outdir, experiment, variable_dict)
+            save_file(outdir, experiment, variable_dict)
 
     print(f"SUCCESSFULLY GENERATED {len(experiment_dict['experiment'])} FILES")
 
