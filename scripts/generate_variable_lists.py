@@ -17,6 +17,7 @@ from typing import Union
 import argparse
 
 IGNORED_PRIORITIES = ("med", "low")
+PRIORITY_ORDER = {"# priority=medium": 1, "# priority=low": 2, "# do-not-produce": 3}
 
 
 def set_arg_parser() -> argparse.Namespace:
@@ -74,12 +75,12 @@ def open_source_jsons(path: Path) -> Union[dict, list[dict]]:
     return file
 
 
-def extract_mapping_information(map: dict) -> dict:
+def extract_mapping_information(mapping: dict) -> dict:
     """Returns the title, labels and stash entries (if available) mapping information for a single variable.
 
     Parameters
     ----------
-    map: dict
+    mapping: dict
         The dictionary of mapping information for a single variable.
 
     Returns
@@ -89,9 +90,9 @@ def extract_mapping_information(map: dict) -> dict:
     """
 
     return {
-        "labels": map.get("labels", []),
-        "stash_entries": map.get("STASH entries", []),
-        "title": map.get("title", ""),
+        "labels": mapping.get("labels", []),
+        "stash_entries": mapping.get("STASH entries", []),
+        "title": mapping.get("title", ""),
     }
 
 
@@ -139,8 +140,8 @@ def set_priority_comments(experiment_dict: dict, experiment: str) -> dict[str, s
     priority_dict = get_grouped_priority_labels(experiment_dict, experiment)
     for level, variables in priority_dict.items():
         if level in IGNORED_PRIORITIES:
-            for var in variables:
-                priority_comments[var] = f" # priority={'medium' if level == 'med' else 'low'}"
+            for variable in variables:
+                priority_comments[variable] = f" # priority={'medium' if level == 'med' else 'low'}"
 
     return priority_comments
 
@@ -186,19 +187,19 @@ def update_variables_with_priority(experiment_dict: dict, experiment: str, varia
     all_labels = get_all_variables(experiment_dict, experiment)
 
     # Check all labels against their priority status and label accordingly.
-    for var in all_labels:
-        comment = priority_comments.get(var, "")
-        variable_dict[var] = comment
+    for variable in all_labels:
+        comment = priority_comments.get(variable, "")
+        variable_dict[variable] = comment
 
     return variable_dict
 
 
-def extract_variable_from_title(map: dict) -> str:
+def extract_variable_from_title(mapping: dict) -> str:
     """Returns the variable name from the given title within the mapping dictionary for a single variable.
 
     Parameters
     ----------
-    map: dict
+    mapping: dict
         The mapping dictionary for a single variable.
 
     Returns
@@ -206,7 +207,7 @@ def extract_variable_from_title(map: dict) -> str:
     str
         The variable name.
     """
-    title = extract_mapping_information(map)["title"]
+    title = extract_mapping_information(mapping)["title"]
 
     return re.search(r"Variable\s+([^\s(]+)", title).group(1)
 
@@ -227,13 +228,13 @@ def identify_not_produced(mappings_dict: list[dict], variable_dict: dict[str, st
         An updated dictionary containing production status for variables marked "do-not-produce".
     """
     # Loop over all variables to find those labelled as "do-not-produce" and mark them as such.
-    for map in mappings_dict:
-        labels = extract_mapping_information(map)["labels"]
-        var = extract_variable_from_title(map)
+    for mapping in mappings_dict:
+        labels = extract_mapping_information(mapping)["labels"]
+        variable = extract_variable_from_title(mapping)
 
         # Overriding any existing "priority" value in the dict is acceptable since do-not-produce takes precedence.
         if "do-not-produce" in labels:
-            variable_dict[var] = " # do-not-produce"
+            variable_dict[variable] = " # do-not-produce"
 
     return variable_dict
 
@@ -254,9 +255,9 @@ def get_streams(mappings_dict: list[dict]) -> dict[str, str]:
     streams = {}
 
     # Access stash entries for each variable and check if it contains values.
-    for map in mappings_dict:
-        var = extract_variable_from_title(map)
-        stash_entries = extract_mapping_information(map)["stash_entries"]
+    for mapping in mappings_dict:
+        variable = extract_variable_from_title(mapping)
+        stash_entries = extract_mapping_information(mapping)["stash_entries"]
         stream = ""
 
         # If stash entries contains any values get the usage profile.
@@ -265,12 +266,12 @@ def get_streams(mappings_dict: list[dict]) -> dict[str, str]:
             # Map usage profile to stream.
             stream = usage_profile.replace("UP", "ap") if usage_profile else ""
 
-        streams[var] = stream
+        streams[variable] = stream
 
     return streams
 
 
-def reformat_varaible_names(mappings_dict: list[dict], variable_dict: dict) -> dict[str, str]:
+def reformat_variable_names(mappings_dict: list[dict], variable_dict: dict) -> dict[str, str]:
     """Reformats the name of each variable from realm.variable.branding.frequency.region to
     realm/variable_branding@frequency:stream for a single experiment.
 
@@ -296,19 +297,19 @@ def reformat_varaible_names(mappings_dict: list[dict], variable_dict: dict) -> d
     streams = get_streams(mappings_dict)
 
     # Reformat all original variable names to realm/variable_branding@frequency:stream.
-    for var, comment in variable_dict.items():
-        parts = var.split(".")
+    for variable, comment in variable_dict.items():
+        parts = variable.split(".")
         if len(parts) < 4:
-            raise KeyError(f"{var} has unexpected format. Expected: realm.variable.branding.frequency.region")
+            raise KeyError(f"{variable} has unexpected format. Expected: realm.variable.branding.frequency.region")
 
-        realm, variable, branding, frequency = parts[:4]
-        stream = streams.get(var, "")
-        var_with_stream = f"{realm}/{variable}_{branding}@{frequency}:{stream}"
-        var_without_stream = f"{realm}/{variable}_{branding}@{frequency}"
+        realm, variable_name, branding, frequency = parts[:4]
+        stream = streams.get(variable, "")
+        var_with_stream = f"{realm}/{variable_name}_{branding}@{frequency}:{stream}"
+        var_without_stream = f"{realm}/{variable_name}_{branding}@{frequency}"
 
         # Create new dictionary with the reformatted variable names to avoid key errors in the original dict.
-        new_varaible_name = var_with_stream if stream else var_without_stream
-        renamed_variable_dict[new_varaible_name] = comment
+        new_variable_name = var_with_stream if stream else var_without_stream
+        renamed_variable_dict[new_variable_name] = comment
 
     return renamed_variable_dict
 
@@ -328,8 +329,8 @@ def format_outfile_content(renamed_variable_dict: dict[str, str]) -> list[str]:
         A list of lines to populate the plain text file with.
     """
     lines = []
-    for var, comment in renamed_variable_dict.items():
-        line = f"#{var}{comment}\n" if comment else f"{var}{comment}\n"
+    for variable, comment in renamed_variable_dict.items():
+        line = f"#{variable}{comment}\n" if comment else f"{variable}{comment}\n"
         lines.append(line)
 
     return lines
@@ -349,11 +350,9 @@ def sort_key(line: str) -> tuple[dict[str, int], int]:
         The order of each label based on priority, variables with no specified priority will be assigned order 0 so that
         they appear at the top of the variable list.
     """
-    order = {"# priority=medium": 1, "# priority=low": 2, "# do-not-produce": 3}
-
-    for label in order:
+    for label in PRIORITY_ORDER:
         if label in line:
-            return order[label]
+            return PRIORITY_ORDER[label]
 
     return 0
 
@@ -399,7 +398,7 @@ def generate_variable_lists() -> None:
         functions = [
             update_variables_with_priority(experiment_dict, experiment, variable_dict),
             identify_not_produced(mappings_dict, variable_dict),
-            reformat_varaible_names(mappings_dict, variable_dict),
+            reformat_variable_names(mappings_dict, variable_dict),
         ]
         for f in functions:
             variable_dict = f
