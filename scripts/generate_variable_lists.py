@@ -10,7 +10,6 @@ Each variable list is then saved to a plain text file containing the variables f
 
 import json
 import os
-import re
 from itertools import chain
 from pathlib import Path
 from typing import Union
@@ -73,27 +72,6 @@ def open_source_jsons(path: Path) -> Union[dict, list[dict]]:
         print(f"Invalid JSON formatting: {err}")
 
     return file
-
-
-def extract_mapping_information(mapping: dict) -> dict:
-    """Returns the title, labels and stash entries (if available) mapping information for a single variable.
-
-    Parameters
-    ----------
-    mapping: dict
-        The dictionary of mapping information for a single variable.
-
-    Returns
-    -------
-    dict
-        The title, labels and stash entries for a single variable.
-    """
-
-    return {
-        "labels": mapping.get("labels", []),
-        "stash_entries": mapping.get("STASH entries", []),
-        "title": mapping.get("title", ""),
-    }
 
 
 def get_grouped_priority_labels(experiment_dict: dict, experiment: str) -> dict[str, set]:
@@ -194,24 +172,6 @@ def update_variables_with_priority(experiment_dict: dict, experiment: str, varia
     return variable_dict
 
 
-def extract_variable_from_title(mapping: dict) -> str:
-    """Returns the variable name from the given title within the mapping dictionary for a single variable.
-
-    Parameters
-    ----------
-    mapping: dict
-        The mapping dictionary for a single variable.
-
-    Returns
-    -------
-    str
-        The variable name.
-    """
-    title = extract_mapping_information(mapping)["title"]
-
-    return re.search(r"Variable\s+([^\s(]+)", title).group(1)
-
-
 def identify_not_produced(mappings_dict: list[dict], variable_dict: dict[str, str]) -> dict[str, str]:
     """Identify all variables marked as "do not produce" in a single experiment.
 
@@ -227,10 +187,9 @@ def identify_not_produced(mappings_dict: list[dict], variable_dict: dict[str, st
     dict[str, str]
         An updated dictionary containing production status for variables marked "do-not-produce".
     """
-    # Loop over all variables to find those labelled as "do-not-produce" and mark them as such.
     for mapping in mappings_dict:
-        labels = extract_mapping_information(mapping)["labels"]
-        variable = extract_variable_from_title(mapping)
+        labels = mapping.get("labels")
+        variable = mapping.get("branded_variable")
 
         # Overriding any existing "priority" value in the dict is acceptable since do-not-produce takes precedence.
         if "do-not-produce" in labels:
@@ -241,12 +200,10 @@ def identify_not_produced(mappings_dict: list[dict], variable_dict: dict[str, st
 
 def get_streams(mappings_dict: list[dict]) -> dict[str, str]:
     """Creates a dictionary for variables and their associated output stream for a single experiment.
-
     Parameters
     ----------
     mappings_dict: list[dict]
         The dictionary containing mapping information for all variables.
-
     Returns
     -------
     dict[str, str]
@@ -256,16 +213,8 @@ def get_streams(mappings_dict: list[dict]) -> dict[str, str]:
 
     # Access stash entries for each variable and check if it contains values.
     for mapping in mappings_dict:
-        variable = extract_variable_from_title(mapping)
-        stash_entries = extract_mapping_information(mapping)["stash_entries"]
-        stream = ""
-
-        # If stash entries contains any values get the usage profile.
-        if stash_entries:
-            usage_profile = stash_entries[0].get("usage_profile", "")
-            # Map usage profile to stream.
-            stream = usage_profile.replace("UP", "ap") if usage_profile else ""
-
+        variable = mapping.get("branded_variable")
+        stream = mapping.get("stream")
         streams[variable] = stream
 
     return streams
@@ -304,11 +253,10 @@ def reformat_variable_names(mappings_dict: list[dict], variable_dict: dict) -> d
 
         realm, variable_name, branding, frequency = parts[:4]
         stream = streams.get(variable, "")
-        var_with_stream = f"{realm}/{variable_name}_{branding}@{frequency}:{stream}"
-        var_without_stream = f"{realm}/{variable_name}_{branding}@{frequency}"
+        new_variable_name = (f"{realm}/{variable_name}_{branding}@{frequency}:{stream}" if stream else
+                             f"{realm}/{variable_name}_{branding}@{frequency}")
 
         # Create new dictionary with the reformatted variable names to avoid key errors in the original dict.
-        new_variable_name = var_with_stream if stream else var_without_stream
         renamed_variable_dict[new_variable_name] = comment
 
     return renamed_variable_dict
