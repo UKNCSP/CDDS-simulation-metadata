@@ -169,8 +169,7 @@ def update_variables_with_priority(experiment_dict: dict, experiment: str, varia
 
     # Check all labels against their priority status and comment accordingly.
     for variable in all_labels:
-        comment = priority_comments.get(variable, "")
-        variable_dict[variable] = comment
+        variable_dict[variable] = priority_comments.get(variable, "")
 
     return variable_dict
 
@@ -201,7 +200,8 @@ def get_mapping(mappings_dict: list[dict], variable: str) -> dict:
 def identify_not_produced(
     experiment_dict: dict, experiment: str, mappings_dict: list[dict], variable_dict: dict[str, str]
 ) -> dict[str, str]:
-    """Identify all variables marked as "do not produce" in a single experiment.
+    """Identify all variables marked as "do not produce" in a single experiment. Overriding any existing "priority"
+    value in the dict is acceptable since do-not-produce takes precedence.
 
     Parameters
     ----------
@@ -224,7 +224,6 @@ def identify_not_produced(
         mapping = get_mapping(mappings_dict, variable)
         labels = mapping.get("labels")
 
-        # Overriding any existing "priority" value in the dict is acceptable since do-not-produce takes precedence.
         if "do-not-produce" in labels:
             variable_dict[variable] = " # do-not-produce"
 
@@ -254,8 +253,7 @@ def get_streams(experiment_dict: dict, experiment: str, mappings_dict: list[dict
     all_labels = get_all_variables(experiment_dict, experiment)
     for variable in all_labels:
         mapping = get_mapping(mappings_dict, variable)
-        stream = mapping.get("stream")
-        streams[variable] = stream
+        streams[variable] = mapping.get("stream")
 
     return streams
 
@@ -302,11 +300,8 @@ def reformat_variable_names(
 
         # Filter out any non global variables
         if region in ("glb", "GLB"):
-            new_variable_name = (
-                f"{realm}/{variable_name}_{branding}@{frequency}:{stream}"
-                if stream
-                else f"{realm}/{variable_name}_{branding}@{frequency}"
-            )
+            new_variable_name = (f"{realm}/{variable_name}_{branding}@{frequency}:{stream}" if stream else
+                                 f"{realm}/{variable_name}_{branding}@{frequency}")
 
             # Create new dictionary with the reformatted variable names to avoid key errors in the original dict.
             renamed_variable_dict[new_variable_name] = comment
@@ -330,8 +325,7 @@ def format_outfile_content(renamed_variable_dict: dict[str, str]) -> list[str]:
     """
     lines = []
     for variable, comment in renamed_variable_dict.items():
-        line = f"#{variable}{comment}\n" if comment else f"{variable}{comment}\n"
-        lines.append(line)
+        lines.append(f"#{variable}{comment}\n" if comment else f"{variable}{comment}\n")
 
     return lines
 
