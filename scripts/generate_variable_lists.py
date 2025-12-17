@@ -9,6 +9,11 @@ Each variable list is then saved to a plain text file containing the variables f
 
 THIS SCRIPT CURRENTLY CONSIDERS GLOBAL VARIABLES ONLY. NON-GLOBAL VARIABLES ARE FILTERED OUT WITHIN THE FUNCTION
 format_variable_names().
+
+Example command line usage:
+"python scripts/generate_variable_lists.py reference_information/dr-1.2.2.2_all.json reference_information/mappings.json
+1pctCO2 1pctCO2-rad 1pctCO2-bgc"
+
 """
 
 import argparse
@@ -31,16 +36,19 @@ def set_arg_parser() -> argparse.Namespace:
         The argument parser to handle source file paths.
 
     """
-    parser = argparse.ArgumentParser(description="Open source files")
+    parser = argparse.ArgumentParser(description="Generate a variable list (global variables only) for a given list"
+                                     "experiments using provided data request and mapping information")
 
-    experiment_info_description = ("The path to the file containing all included experiemnts and their associated"
+    dr_info_description = ("The path to the file containing all included experiments and their associated"
                                    "variables grouped by priority e.g. reference_information/dr-1.2.2.2_all.json")
-    parser.add_argument("experiments", help=experiment_info_description)
+    parser.add_argument("dr_info", help=dr_info_description)
 
     mapping_info_description = ("The path to the file containing mapping information associated with each individual"
                                 "variable such as the associated title, labels and stash entries."
                                 "e.g. reference_information/mappings.json)")
     parser.add_argument("mappings", help=mapping_info_description)
+
+    parser.add_argument("experiments", help="The experiments to generate variable lists for.", nargs="+")
 
     return parser.parse_args()
 
@@ -122,7 +130,7 @@ def set_priority_comments(experiment_dict: dict, experiment: str) -> dict[str, s
     for level, variables in priority_dict.items():
         if level in IGNORED_PRIORITIES:
             for variable in variables:
-                priority_comments[variable] = f" # priority={'medium' if level == 'med' else 'low'}"
+                priority_comments[variable] = f" # priority={"medium" if level == "med" else "low"}"
 
     return priority_comments
 
@@ -378,15 +386,15 @@ def generate_variable_lists() -> None:
     """
     # Call required source files.
     args = set_arg_parser()
-    experiment_dict = open_source_jsons(Path(args.experiments))
+    experiment_dict = open_source_jsons(Path(args.dr_info))
     mappings_dict = open_source_jsons(Path(args.mappings))
 
     # Create output file path.
-    outdir = Path(f"variables_glb/{experiment_dict['Header']['dreq content version']}")
+    outdir = Path(f"variables_glb/{experiment_dict["Header"]["dreq content version"]}")
     os.makedirs(outdir, exist_ok=True)
 
     # Loop over all listed experiments.
-    for experiment in experiment_dict["experiment"]:
+    for experiment in args.experiments:
         variable_dict = {}
 
         functions = [
@@ -399,7 +407,7 @@ def generate_variable_lists() -> None:
 
         save_outfile(outdir, experiment, variable_dict)
 
-    print(f"SUCCESSFULLY GENERATED {len(experiment_dict['experiment'])} FILES")
+    print(f"SUCCESSFULLY GENERATED {len(args.experiments)} FILES")
 
 
 if __name__ == "__main__":
