@@ -36,15 +36,15 @@ def set_arg_parser() -> argparse.Namespace:
         The argument parser to handle source file paths.
 
     """
-    parser = argparse.ArgumentParser(description="Generate a variable list (global variables only) for a given list"
+    parser = argparse.ArgumentParser(description="Generate a variable list (global variables only) for a given list "
                                      "experiments using provided data request and mapping information")
 
-    dr_info_description = ("The path to the file containing all included experiments and their associated"
-                                   "variables grouped by priority e.g. reference_information/dr-1.2.2.2_all.json")
+    dr_info_description = ("The path to the file containing all included experiments and their associated "
+                           "variables grouped by priority e.g. reference_information/dr-1.2.2.2_all.json")
     parser.add_argument("dr_info", help=dr_info_description)
 
-    mapping_info_description = ("The path to the file containing mapping information associated with each individual"
-                                "variable such as the associated title, labels and stash entries."
+    mapping_info_description = ("The path to the file containing mapping information associated with each individual "
+                                "variable such as the associated title, labels and stash entries. "
                                 "e.g. reference_information/mappings.json)")
     parser.add_argument("mappings", help=mapping_info_description)
 
