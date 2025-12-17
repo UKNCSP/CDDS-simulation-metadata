@@ -6,6 +6,9 @@ This script generates the variable lists for each CMIP experiment for each data 
 This script scans two source files containing CMIP experiments, their associated variables and the variable metadata
 such as priority level and production labels. Each variable is labelled accordingly and commented out as necessary.
 Each variable list is then saved to a plain text file containing the variables for that experiment.
+
+THIS SCRIPT CURRENTLY CONSIDERS GLOBAL VARIABLES ONLY. NON-GLOBAL VARIABLES ARE FILTERED OUT WITHIN THE FUNCTION
+format_variable_names().
 """
 
 import argparse
@@ -385,7 +388,7 @@ def generate_variable_lists() -> None:
     mappings_dict = open_source_jsons(Path(args.mappings))
 
     # Create output file path.
-    outdir = Path(f"variables/{experiment_dict['Header']['dreq content version']}")
+    outdir = Path(f"variables_glb/{experiment_dict['Header']['dreq content version']}")
     os.makedirs(outdir, exist_ok=True)
 
     # Loop over all listed experiments.
