@@ -8,12 +8,12 @@ such as priority level and production labels. Each variable is labelled accordin
 Each variable list is then saved to a plain text file containing the variables for that experiment.
 """
 
+import argparse
 import json
 import os
 from itertools import chain
 from pathlib import Path
 from typing import Union
-import argparse
 
 IGNORED_PRIORITIES = ("med", "low")
 PRIORITY_ORDER = {"# priority=medium": 1, "# priority=low": 2, "# do-not-produce": 3}
@@ -164,7 +164,7 @@ def update_variables_with_priority(experiment_dict: dict, experiment: str, varia
     priority_comments = set_priority_comments(experiment_dict, experiment)
     all_labels = get_all_variables(experiment_dict, experiment)
 
-    # Check all labels against their priority status and label accordingly.
+    # Check all labels against their priority status and comment accordingly.
     for variable in all_labels:
         comment = priority_comments.get(variable, "")
         variable_dict[variable] = comment
@@ -172,11 +172,40 @@ def update_variables_with_priority(experiment_dict: dict, experiment: str, varia
     return variable_dict
 
 
-def identify_not_produced(mappings_dict: list[dict], variable_dict: dict[str, str]) -> dict[str, str]:
+def get_mapping(mappings_dict: list[dict], variable: str) -> dict:
+    """Identifies the correct dictionary within the mappings.json to read from.
+
+    Parameters
+    ----------
+    mappings_dict: list[dict]
+        The dictionary containing mapping information for all variables.
+    variable: str
+        The variable whose mapping information is required.
+
+    Returns
+    -------
+    dict
+        The mapping information for a single variable.
+    """
+    for mapping in mappings_dict:
+        if variable == mapping["branded_variable"]:
+            mapping = mapping
+            break
+
+    return mapping
+
+
+def identify_not_produced(
+    experiment_dict: dict, experiment: str, mappings_dict: list[dict], variable_dict: dict[str, str]
+) -> dict[str, str]:
     """Identify all variables marked as "do not produce" in a single experiment.
 
     Parameters
     ----------
+    experiment_dict: dict
+        The dictionary containing all experiments and their associated variables.
+    experiment: str
+        The experiment whose variables are being updated.
     mappings_dict: list[dict]
         The dictionary containing mapping information for all variables.
     variable_dict: dict[str, str]
@@ -187,9 +216,10 @@ def identify_not_produced(mappings_dict: list[dict], variable_dict: dict[str, st
     dict[str, str]
         An updated dictionary containing production status for variables marked "do-not-produce".
     """
-    for mapping in mappings_dict:
+    all_labels = get_all_variables(experiment_dict, experiment)
+    for variable in all_labels:
+        mapping = get_mapping(mappings_dict, variable)
         labels = mapping.get("labels")
-        variable = mapping.get("branded_variable")
 
         # Overriding any existing "priority" value in the dict is acceptable since do-not-produce takes precedence.
         if "do-not-produce" in labels:
@@ -198,12 +228,18 @@ def identify_not_produced(mappings_dict: list[dict], variable_dict: dict[str, st
     return variable_dict
 
 
-def get_streams(mappings_dict: list[dict]) -> dict[str, str]:
+def get_streams(experiment_dict: dict, experiment: str, mappings_dict: list[dict]) -> dict[str, str]:
     """Creates a dictionary for variables and their associated output stream for a single experiment.
+
     Parameters
     ----------
+    experiment_dict: dict
+        The dictionary containing all experiments and their associated variables.
+    experiment: str
+        The experiment whose variables are being updated.
     mappings_dict: list[dict]
         The dictionary containing mapping information for all variables.
+
     Returns
     -------
     dict[str, str]
@@ -212,20 +248,27 @@ def get_streams(mappings_dict: list[dict]) -> dict[str, str]:
     streams = {}
 
     # Access stash entries for each variable and check if it contains values.
-    for mapping in mappings_dict:
-        variable = mapping.get("branded_variable")
+    all_labels = get_all_variables(experiment_dict, experiment)
+    for variable in all_labels:
+        mapping = get_mapping(mappings_dict, variable)
         stream = mapping.get("stream")
         streams[variable] = stream
 
     return streams
 
 
-def reformat_variable_names(mappings_dict: list[dict], variable_dict: dict) -> dict[str, str]:
+def reformat_variable_names(
+    experiment_dict: dict, experiment: str, mappings_dict: list[dict], variable_dict: dict
+) -> dict[str, str]:
     """Reformats the name of each variable from realm.variable.branding.frequency.region to
     realm/variable_branding@frequency:stream for a single experiment.
 
     Parameters
     ----------
+    experiment_dict: dict
+        The dictionary containing all experiments and their associated variables.
+    experiment: str
+        The experiment whose variables are being updated.
     mappings_dict: list[dict]
         The dictionary containing mapping information for all variables.
     variable_dict: dict
@@ -243,21 +286,27 @@ def reformat_variable_names(mappings_dict: list[dict], variable_dict: dict) -> d
         If the original variable name cannot be split into parts as expected.
     """
     renamed_variable_dict = {}
-    streams = get_streams(mappings_dict)
+    streams = get_streams(experiment_dict, experiment, mappings_dict)
 
     # Reformat all original variable names to realm/variable_branding@frequency:stream.
     for variable, comment in variable_dict.items():
         parts = variable.split(".")
-        if len(parts) < 4:
+        if len(parts) < 5:
             raise KeyError(f"{variable} has unexpected format. Expected: realm.variable.branding.frequency.region")
 
-        realm, variable_name, branding, frequency = parts[:4]
+        realm, variable_name, branding, frequency, region = parts[:5]
         stream = streams.get(variable, "")
-        new_variable_name = (f"{realm}/{variable_name}_{branding}@{frequency}:{stream}" if stream else
-                             f"{realm}/{variable_name}_{branding}@{frequency}")
 
-        # Create new dictionary with the reformatted variable names to avoid key errors in the original dict.
-        renamed_variable_dict[new_variable_name] = comment
+        # Filter out any non global variables
+        if region in ("glb", "GLB"):
+            new_variable_name = (
+                f"{realm}/{variable_name}_{branding}@{frequency}:{stream}"
+                if stream
+                else f"{realm}/{variable_name}_{branding}@{frequency}"
+            )
+
+            # Create new dictionary with the reformatted variable names to avoid key errors in the original dict.
+            renamed_variable_dict[new_variable_name] = comment
 
     return renamed_variable_dict
 
@@ -345,8 +394,8 @@ def generate_variable_lists() -> None:
 
         functions = [
             update_variables_with_priority(experiment_dict, experiment, variable_dict),
-            identify_not_produced(mappings_dict, variable_dict),
-            reformat_variable_names(mappings_dict, variable_dict),
+            identify_not_produced(experiment_dict, experiment, mappings_dict, variable_dict),
+            reformat_variable_names(experiment_dict, experiment, mappings_dict, variable_dict),
         ]
         for f in functions:
             variable_dict = f
