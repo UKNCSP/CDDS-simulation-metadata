@@ -1,0 +1,70 @@
+# (C) British Crown Copyright 2026, Met Office.
+# Please see LICENSE.md for license details.
+name: "Request A Change To The Known Issues Dictionary"
+description: Request A Change To The Known Issues Dictionary
+title: "Request A Change To The Known Issues Dictionary: <insert variable name here>"
+labels: ['update_known_issues']
+body:
+
+  - type: markdown
+    attributes:
+      value: |
+        # Request a change to the known issues dictionary for CMIP7 variables
+
+  - type: dropdown
+    id: instruction
+    attributes:
+      label: Add or Delete
+      description: Are you requesting the addition of a new variable to the known issues dictionary or the deletion of a previously problematic variable that has now been resolved.
+      options:
+        - "Add"
+        - "Delete"
+      default: 0
+    validations:
+      required: true
+
+  - type: input 
+    id: source_id
+    attributes:
+      label: Source ID
+      description: Short name identifying the model (known as source ID or Model ID).
+      placeholder: "e.g. UKESM1"
+    validations:
+      required: true
+  
+  - type: input 
+    id: experiment_id
+    attributes:
+      label: Experiment ID
+      description: Experiment identifier.
+      placeholder: "e.g. piControl"
+    validations:
+      required: true
+
+  - type: input 
+    id: variant_label
+    attributes:
+      label: Variant label
+      description: Variant label.
+      placeholder: "e.g. r1i1p1f2"
+    validations:
+      required: true
+
+  - type: input 
+    id: variable
+    attributes:
+      label: Variable
+      description: The variable that you wish to be added or deleted. 
+      placeholder: "e.g. atmos/evspsbl_tavg-u-hxy-u@mon"
+    validations:
+      required: true
+  
+  - type: textarea
+    id: explanation
+    attributes:
+      label: Reason for addition / deletion
+      description: Please explain briefly why you are requesting that this variable be added or deleted from the known issues dictionary. Do not include any information that could be considered sensitive.
+      placeholder: "The issue with this variable has been resolved..."
+    validations:
+      required: true
+

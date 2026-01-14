@@ -1,4 +1,4 @@
-# (C) British Crown Copyright 2025, Met Office.
+# (C) British Crown Copyright 2026, Met Office.
 # Please see LICENSE.md for license details.
 """
 This script generates the variable lists for each CMIP experiment for each data request version.
@@ -24,7 +24,7 @@ from pathlib import Path
 from typing import Union
 
 IGNORED_PRIORITIES = ("med", "low")
-PRIORITY_ORDER = {"# priority=medium": 1, "# priority=low": 2, "# do-not-produce": 3}
+PRIORITY_ORDER = {"# priority=medium": 1, "# priority=low": 2, "# do-not-produce": 3, "# known-issue": 4}
 
 
 def set_arg_parser() -> argparse.Namespace:
@@ -130,7 +130,7 @@ def set_priority_comments(experiment_dict: dict, experiment: str) -> dict[str, s
     for level, variables in priority_dict.items():
         if level in IGNORED_PRIORITIES:
             for variable in variables:
-                priority_comments[variable] = f" # priority={"medium" if level == "med" else "low"}"
+                priority_comments[variable] = f" # priority={'medium' if level == 'med' else 'low'}"
 
     return priority_comments
 
@@ -317,6 +317,39 @@ def reformat_variable_names(
     return renamed_variable_dict
 
 
+def identify_known_issues(experiment: str, renamed_variable_dict: dict[str, str]) -> dict[str, str]:
+    """Identify all variables marked as "known issues" in a single experiment. This function is capable of flagging a
+    variable as a known issue regardless of whether a stream is provided within the known issues dictionary or not.
+
+    Parameters
+    ----------
+    experiment: str
+        The experiment whose variables are being updated.
+    renamed_variable_dict: dict[str, str]
+        An updated dictionary containing the reformatted variable names as keys and priority/production status as
+        values.
+
+    Returns
+    -------
+    dict[str, str]
+        An updated dictionary containing the reformatted variable names as keys and priority/production/issue status as
+        values.
+    """
+    known_issues_dict = open_source_jsons(Path('reference_information/known_issues.json'))
+    for variable in renamed_variable_dict.keys():
+        for source_id, experiment_id in known_issues_dict.items():
+            if any(value in list(known_issues_dict[source_id].keys()) for value in (experiment, "*")):
+                try:
+                    variant_dict = known_issues_dict[source_id][experiment]
+                except KeyError:
+                    variant_dict = known_issues_dict[source_id]["*"]
+                for variant_label, variable_list in variant_dict.items():
+                    if any(value in variable_list for value in (variable, variable.split(":")[0])):
+                        renamed_variable_dict[variable] = " # known-issue"
+
+    return renamed_variable_dict
+
+
 def format_outfile_content(renamed_variable_dict: dict[str, str]) -> list[str]:
     """Reformats the key value pairs into single line plain text for a single experiment.
 
@@ -390,7 +423,7 @@ def generate_variable_lists() -> None:
     mappings_dict = open_source_jsons(Path(args.mappings))
 
     # Create output file path.
-    outdir = Path(f"variables_glb/{experiment_dict["Header"]["dreq content version"]}")
+    outdir = Path(f"variables_glb/{experiment_dict['Header']['dreq content version']}")
     os.makedirs(outdir, exist_ok=True)
 
     # Loop over all listed experiments.
@@ -404,6 +437,7 @@ def generate_variable_lists() -> None:
         ]
         for f in functions:
             variable_dict = f
+        variable_dict = identify_known_issues(experiment, variable_dict)
 
         save_outfile(outdir, experiment, variable_dict)
 
