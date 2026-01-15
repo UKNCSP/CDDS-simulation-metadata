@@ -16,7 +16,7 @@ from constants import VALID_SOURCE_IDS, VALID_EXPERIMENT_IDS
 
 
 def arg_parser() -> argparse.Namespace:
-    """Creates an argument parser to take source file paths from the command line.
+    """Creates an argument parser to take user inputs from the command line.
 
     Returns
     -------
@@ -24,13 +24,12 @@ def arg_parser() -> argparse.Namespace:
         The argument parser to handle source file paths.
     """
     parser = argparse.ArgumentParser(description=("This is a command line tool to append or remove an item from the "
-                                                  "known issues dictionary. To append a value to the known_issues.json "
-                                                  "file."))
+                                                  "known_issues.json file."))
 
     parser.add_argument("source_id", help="The source id.")
-    parser.add_argument("experiment_id", help=("The experiment id. To append to ALL experiment IDs, input * upon "
+    parser.add_argument("experiment_id", help=("The experiment id. To append to ALL experiment IDs, input '*' upon "
                                                "triggering the script."))
-    parser.add_argument("variant_label", help=("The variant_label. To append to ALL variant labels, input * upon "
+    parser.add_argument("variant_label", help=("The variant_label. To append to ALL variant labels, input '*' upon "
                                                "triggering the script."))
     parser.add_argument("variable", help="The variable.")
 
@@ -38,7 +37,7 @@ def arg_parser() -> argparse.Namespace:
 
 
 def open_json(source_path: str) -> dict:
-    """Opens the source json file and returns the contents as a dictionary.
+    """Opens a single json file and returns the contents as a dictionary.
 
     Parameters
     ----------
@@ -64,8 +63,8 @@ def open_json(source_path: str) -> dict:
 
 
 def verify_user_input(args: argparse.Namespace) -> int:
-    """Verifies the user input for source id, experiment id, variant labels and variable against a list of valid values.
-    If an exact match is not found then a closest match suggestion is given to the user.
+    """Verifies the user input for source id, experiment id and variant label against a list of valid values or regular
+    expression. If an exact match is not found then a closest match suggestion is given to the user.
 
     Parameters
     ----------
@@ -121,6 +120,7 @@ def confirm_input_with_user(args: argparse.Namespace, instruction: str) -> None:
     information = (f"Variable: {args.variable}\nSource ID (Model ID): {args.source_id}\nExperiment ID: "
                    f"{args.experiment_id}\nVariant label: {args.variant_label}")
     print(f"\nYou are attempting to {instruction.upper()} the following information...\n{information}")
+
     response = input("Continue? [Y/N] ")
     if response == "N":
         ("Aborting...")
@@ -131,8 +131,8 @@ def confirm_input_with_user(args: argparse.Namespace, instruction: str) -> None:
 
 
 def check_if_input_already_exists(source_dict: dict, args: argparse.Namespace) -> int:
-    """Checks if the entry already exists and hence is a known issue. If the entry is found to already exist the script
-    is exited to avoid duplicate entries.
+    """Checks if the entry already exists and hence is a known issue. If the entry already exists the script returns an
+    exit code 1 and 0 if it does not. This is used later to determine if the requested add or remove action is possible.
 
     Parameters
     ----------
@@ -193,6 +193,11 @@ def remove_from_issues_dict(source_dict: dict, args: argparse.Namespace) -> None
         The dictionary of known issues.
     args: argparse.Namespace
         The argument parser.
+
+    Returns
+    -------
+    dict
+        The updated dictionary after removing the entry.
     """
     source_dict[args.source_id][args.experiment_id][args.variant_label].remove(args.variable)
 
@@ -215,7 +220,7 @@ if __name__ == "__main__":
             print("\nThis entry does not exist and hence cannot be deleted.")
             sys.exit()
 
-    if instruction == "remove":
+    elif instruction == "remove":
         if existance == 1:
             updated_dict = remove_from_issues_dict(source_dict, args)
             print("\nEntry successfully deleted")
