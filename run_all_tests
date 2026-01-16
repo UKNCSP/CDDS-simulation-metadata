@@ -56,7 +56,8 @@ def check_ruff_compliance():
 
 
 def check_mypy_compliance(arguments, exit_code):
-    command = ['mypy', CDDS_SIM_META_DIR, '--show-error-codes', '--no-strict-optional', '--config-file', f'{CDDS_SIM_META_DIR}/mypy.ini']
+    command = ['mypy', CDDS_SIM_META_DIR, '--show-error-codes', '--no-strict-optional', '--config-file',
+                f'{CDDS_SIM_META_DIR}/mypy.ini']
     process = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     if process.returncode == 0:
         info = process.stdout.decode('utf-8').split('\n')
