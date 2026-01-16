@@ -62,7 +62,7 @@ def open_json(source_path: str) -> dict:
     return source_dict
 
 
-def verify_user_input(args: argparse.Namespace) -> int:
+def verify_user_input(args: argparse.Namespace) -> None:
     """Verifies the user input for source id, experiment id and variant label against a list of valid values or regular
     expression. If an exact match is not found then a closest match suggestion is given to the user.
 
@@ -79,6 +79,7 @@ def verify_user_input(args: argparse.Namespace) -> int:
     user_inputs = [args.source_id, args.experiment_id]
     valid_inputs = [VALID_SOURCE_IDS, VALID_EXPERIMENT_IDS]
 
+    # Confirm that source id and experiment id are recognised and valid
     for user_input, valid_input_list in zip(user_inputs, valid_inputs):
         if user_input not in valid_input_list:
             guess = get_close_matches(user_input, valid_input_list)
@@ -86,6 +87,7 @@ def verify_user_input(args: argparse.Namespace) -> int:
             msg = f"'{user_input}' not recognised, did you mean '{guess[0]}'?" if guess else std_msg
             raise ValueError(f"Invalid input value. {msg}")
 
+    # Confirm that the variant label matches the expected regular expression
     regex_check = re.search(r"^(r\d+)(i\d+[a-e]{0,1})(p\d+)(f\d+)$", args.variant_label)
     if args.variant_label != "*" and regex_check is None:
         raise ValueError(f"Invalid input value. Variant label '{args.variant_label}' does not follow the expected "
@@ -125,6 +127,8 @@ def confirm_input_with_user(args: argparse.Namespace, instruction: str) -> None:
     if response == "N":
         ("Aborting...")
         sys.exit()
+
+    # Recursively trigger the function if an invalid input is given by the user.
     if response not in ["Y", "N"]:
         print("Input not recognised")
         confirm_input_with_user(args)
@@ -184,7 +188,7 @@ def append_to_issues_dict(source_dict: dict, args: argparse.Namespace) -> dict:
     return source_dict
 
 
-def remove_from_issues_dict(source_dict: dict, args: argparse.Namespace) -> None:
+def remove_from_issues_dict(source_dict: dict, args: argparse.Namespace) -> dict:
     """Deletes the input entry from the known issues JSON.
 
     Parameters
