@@ -58,9 +58,9 @@ def main() -> None:
     for file in files:
         count = check_file(file, style_guide, count)
 
-    print("\n" + "="*60)
+    print("\n" + "=" * 60)
     print(f"{count}/{len(files)} scripts successfully validated...")
-    print("="*60)
+    print("=" * 60)
 
 
 if __name__ == "__main__":

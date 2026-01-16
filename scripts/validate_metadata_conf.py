@@ -45,7 +45,7 @@ def get_metadata_files() -> list[str]:
     return cfg_files
 
 
-def validate_structure(config: configparser, result: dict, file: str) -> dict:
+def validate_structure(config: configparser.ConfigParser, result: dict, file: str) -> dict:
     """Validates the structure of a single .cfg file.
 
     Parameters
@@ -91,7 +91,7 @@ def validate_structure(config: configparser, result: dict, file: str) -> dict:
     return result
 
 
-def validate_required_fields(config: configparser, result: dict, file: str) -> dict:
+def validate_required_fields(config: configparser.ConfigParser, result: dict, file: str) -> dict:
     """Validates the contents of the required fields for a single .cfg file.
 
     Parameters
@@ -143,7 +143,7 @@ def validate_required_fields(config: configparser, result: dict, file: str) -> d
     return result
 
 
-def validate_field_inputs(config: configparser, result: dict, file: str) -> dict:
+def validate_field_inputs(config: configparser.ConfigParser, result: dict, file: str) -> dict:
     """Validates the inputs of a single .cfg file.
 
     Parameters

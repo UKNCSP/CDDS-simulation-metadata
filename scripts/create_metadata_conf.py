@@ -95,12 +95,12 @@ def normalise_datetime(datetime: str, errors: dict[str, str], key: str) -> tuple
     return normalised_str, errors
 
 
-def process_metadata(match: list[tuple[str]]) -> dict[str, str]:
+def process_metadata(match: list) -> dict[str, str]:
     """Generates a dictionary from the loaded issue body and cleans the contents to ensure consistent formatting.
 
     Parameters
     ----------
-    match : list[tuple[str]]
+    match: list
         The identified key-value pairs from the issue body.
 
     Returns
@@ -211,9 +211,9 @@ def format_warning_message(errors: dict[str, str]) -> str:
         warning = clean_key + " warning " + "(" + clean_value + ")."
         warnings.append(warning)
 
-    warnings = "\n".join(warnings)
+    warning_str = "\n".join(warnings)
 
-    return warnings
+    return warning_str
 
 
 def create_filename(meta_dict: dict[str, str]) -> str:
@@ -239,7 +239,7 @@ def create_filename(meta_dict: dict[str, str]) -> str:
     return filename
 
 
-def sort_to_categories(meta_dict: dict[str, str]) -> dict[dict[str, str]]:
+def sort_to_categories(meta_dict: dict[str, str]) -> dict:
     """Sorts the metadata dictionary into appropriate categories as nested dictionaries.
 
     Parameters
@@ -249,7 +249,7 @@ def sort_to_categories(meta_dict: dict[str, str]) -> dict[dict[str, str]]:
 
     Returns
     -------
-    dict[dict[str, str]]
+    dict
         A cleaned, organised dictionary containing the validated metadata keys and values from the issue form.
     """
     metadata_dict = {}

@@ -1,0 +1,109 @@
+#!/usr/bin/env python3.10
+# (C) British Crown Copyright 2026, Met Office.
+"""Run all the tests in the CDDS packages."""
+import argparse
+import datetime
+import os
+import subprocess
+import sys
+
+from timeit import default_timer as timer
+from datetime import timedelta
+
+CDDS_SIM_META_DIR = os.path.dirname(os.path.realpath(__file__))
+LOG_NAME = os.path.join(CDDS_SIM_META_DIR, 'cdds_sim_metadata_test_failures.log')
+
+
+def _red(text):
+    """Returns text in red"""
+    return '\033[31m{}\033[0m'.format(text)
+
+
+def _green(text):
+    """Returns text in green"""
+    return '\033[32m{}\033[0m'.format(text)
+
+
+def parse_arguments():
+    parser = argparse.ArgumentParser(description='Run all tests configuration')
+    parser.add_argument('-v', '--stdout_verbose', dest='stdout_verbose', action='store_true', help='Verbose stdout')
+    return parser.parse_args()
+
+
+def check_ruff_compliance():
+    """Runs 'ruff check' to verify code quality against the rules defined in ruff.toml (replaces the need for
+    pycodestyle checks).
+    """
+    exit_code = 0
+    command = ['ruff', 'check']
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdoutdata, stderrdata = process.communicate()
+    if process.returncode == 0:
+        info = stdoutdata.decode('utf-8').split('\n')
+        msg = info[-2].replace('=', '').strip()
+        print(_green('{} success! [{}]'.format(' ' * 3, msg)))
+    else:
+        exit_code = 1
+        print(_red('{} failed!\n!!! Please see "{}" for more details'.format(' ' * 3, LOG_NAME)))
+        current_date = datetime.datetime.now()
+        msg = '{}: {}: {}\n\n'.format(current_date, 'ruff', command)
+        with open(LOG_NAME, 'a') as file_handle:
+            file_handle.write(msg)
+            file_handle.write(stdoutdata.decode('utf-8'))
+            file_handle.write(stderrdata.decode('utf-8'))
+            file_handle.write('\n')
+
+    return exit_code
+
+
+def check_mypy_compliance(arguments, exit_code):
+    command = ['mypy', CDDS_SIM_META_DIR, '--show-error-codes', '--no-strict-optional', '--config-file', f'{CDDS_SIM_META_DIR}/mypy.ini']
+    process = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    if process.returncode == 0:
+        info = process.stdout.decode('utf-8').split('\n')
+        msg = info[-2].replace('=', '').strip()
+        print(_green('{} success! [{}]'.format(' ' * 3, msg)))
+
+    else:
+        exit_code = 1
+        print(_red('{} failed!\n!!! Please see "{}" for more details'.format(' ' * 3, LOG_NAME)))
+        current_date = datetime.datetime.now()
+        msg = '{}: {}\n\n'.format(current_date, command)
+        with open(LOG_NAME, 'a') as file_handle:
+            file_handle.write(msg)
+            file_handle.write(process.stdout.decode('utf-8'))
+            file_handle.write(process.stderr.decode('utf-8'))
+            file_handle.write('\n')
+    if arguments.stdout_verbose and os.path.exists(LOG_NAME):
+        with open(LOG_NAME, 'r') as fh:
+            for line in fh.readlines():
+                print(line.strip())
+
+    return exit_code
+
+
+def main():
+    """Run all the tests in the CDDS packages."""
+    arguments = parse_arguments()
+    start = timer()
+
+    print('\nRunning ruff...')
+    exit_code = check_ruff_compliance()
+
+    print('\nRunning mypy...')
+    exit_code = check_mypy_compliance(arguments, exit_code)
+
+    end = timer()
+    elapsed_time = timedelta(seconds=end - start)
+    print('\n{}'.format('+' * 46))
+    print('Elapsed time: {}'.format(elapsed_time))
+    if exit_code == 0:
+        smiling_face = u'\U0001f604'
+        print('{} {}'.format(_green('All tests succeed.'), smiling_face))
+    else:
+        sad_face = u'\U0001F627'
+        print('{} {}'.format(_red('Some tests failed.'), sad_face))
+
+
+if __name__ == '__main__':
+    sys.exit(main())
