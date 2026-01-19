@@ -12,8 +12,6 @@ import sys
 from difflib import get_close_matches
 import re
 
-from constants import VALID_SOURCE_IDS, VALID_EXPERIMENT_IDS
-
 
 def arg_parser() -> argparse.Namespace:
     """Creates an argument parser to take user inputs from the command line.
@@ -62,6 +60,37 @@ def open_json(source_path: str) -> dict:
     return source_dict
 
 
+def get_valid_source_ids() -> set:
+    """Returns a set of all valid source IDs (also known as models) from the mappings file in reference information.
+
+    Returns
+    -------
+    set
+        A unique set of all valid source IDs.
+    """
+    valid_source_ids = set()
+    mappings = open_json(Path("reference_information/mappings.json"))
+    for dictionary in mappings:
+        valid_source_ids.add(dictionary["model"])
+
+    return valid_source_ids
+
+
+def get_valid_experiment_ids() -> list:
+    """ Returns a list of all valid experiment IDs from the data request information file in reference information.
+
+    Returns
+    -------
+    list
+        A list of all valid experiment IDs.
+    """
+    data_req_info = open_json(Path("reference_information/dr-1.2.2.2_all.json"))
+    valid_experiment_ids = data_req_info["Header"]["Experiments included"]
+    print(valid_experiment_ids)
+
+    return valid_experiment_ids
+
+
 def verify_user_input(args: argparse.Namespace) -> None:
     """Verifies the user input for source id, experiment id and variant label against a list of valid values or regular
     expression. If an exact match is not found then a closest match suggestion is given to the user.
@@ -77,7 +106,7 @@ def verify_user_input(args: argparse.Namespace) -> None:
         If an invalid entry is provided as an argument by the user.
     """
     user_inputs = [args.source_id, args.experiment_id]
-    valid_inputs = [VALID_SOURCE_IDS, VALID_EXPERIMENT_IDS]
+    valid_inputs = [get_valid_source_ids(), get_valid_experiment_ids()]
 
     # Confirm that source id and experiment id are recognised and valid
     for user_input, valid_input_list in zip(user_inputs, valid_inputs):
