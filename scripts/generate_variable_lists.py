@@ -53,26 +53,8 @@ def set_arg_parser() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def open_source_jsons(path: Path) -> Union[dict, list[dict]]:
-    """Opens and reads a single JSON file.
-
-    Parameters
-    ----------
-    path: Path
-        The path of the file to be opened.
-
-    Returns
-    -------
-    Union[dict, list[dict]]
-        The JSON file content.
-
-    Raises
-    ------
-    FileNotFoundError
-        If the file does not exist at the given path.
-    json.JSONDecodeError
-        If the JSON file structure is invalid.
-    """
+def _open_source_jsons(path):
+    """Opens and reads a single JSON file."""
     try:
         with open(path, "r") as f:
             file = json.load(f)
@@ -130,7 +112,7 @@ def set_priority_comments(experiment_dict: dict, experiment: str) -> dict[str, s
     for level, variables in priority_dict.items():
         if level in IGNORED_PRIORITIES:
             for variable in variables:
-                priority_comments[variable] = f" # priority={"medium" if level == "med" else "low"}"
+                priority_comments[variable] = f" # priority={'medium' if level == 'med' else 'low'}"
 
     return priority_comments
 
@@ -338,20 +320,8 @@ def format_outfile_content(renamed_variable_dict: dict[str, str]) -> list[str]:
     return lines
 
 
-def sort_key(line: str) -> tuple[dict[str, int], int]:
-    """The custom sort function passed to the sorted() function to define the variable order for a single experiment.
-
-    Parameters
-    ----------
-    line: str
-        A single line containing a single variable name and associated comments.
-
-    Returns
-    -------
-    tuple[dict[str, int], int]
-        The order of each label based on priority, variables with no specified priority will be assigned order 0 so that
-        they appear at the top of the variable list.
-    """
+def _sort_key(line):
+    """The custom sort function passed to the sorted() function to define the variable order for a single experiment."""
     for label in PRIORITY_ORDER:
         if label in line:
             return PRIORITY_ORDER[label]
@@ -376,7 +346,7 @@ def save_outfile(outdir: Path, experiment: str, renamed_variable_dict: dict[str,
     lines = format_outfile_content(renamed_variable_dict)
 
     with open(outfile, "w") as f:
-        for line in sorted(lines, key=sort_key):
+        for line in sorted(lines, key=_sort_key):
             f.write(line)
 
 
@@ -386,11 +356,11 @@ def generate_variable_lists() -> None:
     """
     # Call required source files.
     args = set_arg_parser()
-    experiment_dict = open_source_jsons(Path(args.dr_info))
-    mappings_dict = open_source_jsons(Path(args.mappings))
+    experiment_dict = _open_source_jsons(Path(args.dr_info))
+    mappings_dict = _open_source_jsons(Path(args.mappings))
 
     # Create output file path.
-    outdir = Path(f"variables_glb/{experiment_dict["Header"]["dreq content version"]}")
+    outdir = Path(f"variables_glb/{experiment_dict['Header']['dreq content version']}")
     os.makedirs(outdir, exist_ok=True)
 
     # Loop over all listed experiments.
