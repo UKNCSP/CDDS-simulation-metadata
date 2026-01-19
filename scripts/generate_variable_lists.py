@@ -350,6 +350,37 @@ def identify_known_issues(experiment: str, renamed_variable_dict: dict[str, str]
     return renamed_variable_dict
 
 
+def process_variable_dict(experiment_dict: dict, experiment: str, mappings_dict: dict) -> dict:
+    """Processes the variable dictionary against all functions to get a complete dictionary of renamed variables and
+    their associated status.
+
+    Parameters
+    ----------
+    experiment_dict: dict
+        The dictionary containing all experiments and their associated variables.
+    experiment: str
+        The experiment whose variables are being updated.
+    mappings_dict: list[dict]
+        The dictionary containing mapping information for all variables.
+    variable_dict: dict
+        An empty dictionary.
+
+    Returns
+    -------
+    dict[str, str]
+        An updated dictionary containing the reformatted variable names and their associated status.
+    """
+    variable_dict = {}
+
+    update_variables_with_priority(experiment_dict, experiment, variable_dict)
+    functions = [identify_not_produced, reformat_variable_names]
+    for f in functions:
+        variable_dict = f(experiment_dict, experiment, mappings_dict, variable_dict)
+    variable_dict = identify_known_issues(experiment, variable_dict)
+
+    return variable_dict
+
+
 def format_outfile_content(renamed_variable_dict: dict[str, str]) -> list[str]:
     """Reformats the key value pairs into single line plain text for a single experiment.
 
@@ -428,16 +459,8 @@ def generate_variable_lists() -> None:
 
     # Loop over all listed experiments.
     for experiment in args.experiments:
-        variable_dict = {}
 
-        functions = [
-            update_variables_with_priority(experiment_dict, experiment, variable_dict),
-            identify_not_produced(experiment_dict, experiment, mappings_dict, variable_dict),
-            reformat_variable_names(experiment_dict, experiment, mappings_dict, variable_dict),
-        ]
-        for f in functions:
-            variable_dict = f
-        variable_dict = identify_known_issues(experiment, variable_dict)
+        variable_dict = process_variable_dict(experiment_dict, experiment, mappings_dict)
 
         save_outfile(outdir, experiment, variable_dict)
 
