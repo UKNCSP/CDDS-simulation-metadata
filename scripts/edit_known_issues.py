@@ -69,7 +69,7 @@ def get_valid_source_ids() -> set:
         A unique set of all valid source IDs.
     """
     valid_source_ids = set()
-    mappings = open_json(Path("reference_information/mappings.json"))
+    mappings = open_json("reference_information/mappings.json")
     for dictionary in mappings:
         valid_source_ids.add(dictionary["model"])
 
@@ -84,7 +84,7 @@ def get_valid_experiment_ids() -> list:
     list
         A list of all valid experiment IDs.
     """
-    data_req_info = open_json(Path("reference_information/dr-1.2.2.2_all.json"))
+    data_req_info = open_json("reference_information/dr-1.2.2.2_all.json")
     valid_experiment_ids = data_req_info["Header"]["Experiments included"]
     print(valid_experiment_ids)
 
@@ -160,7 +160,7 @@ def confirm_input_with_user(args: argparse.Namespace, instruction: str) -> None:
     # Recursively trigger the function if an invalid input is given by the user.
     if response not in ["Y", "N"]:
         print("Input not recognised")
-        confirm_input_with_user(args)
+        confirm_input_with_user(args, instruction)
 
 
 def check_if_input_already_exists(source_dict: dict, args: argparse.Namespace) -> int:
@@ -239,7 +239,7 @@ def remove_from_issues_dict(source_dict: dict, args: argparse.Namespace) -> dict
 
 if __name__ == "__main__":
     args = arg_parser()
-    source_dict = open_json(Path("reference_information/known_issues.json"))
+    source_dict = open_json("reference_information/known_issues.json")
     instruction = get_add_or_delete_instructions()
     verify_user_input(args)
     confirm_input_with_user(args, instruction)

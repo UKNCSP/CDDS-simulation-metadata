@@ -317,7 +317,7 @@ def identify_known_issues(experiment: str, renamed_variable_dict: dict[str, str]
         An updated dictionary containing the reformatted variable names as keys and priority/production/issue status as
         values.
     """
-    known_issues_dict = open_source_jsons(Path('reference_information/known_issues.json'))
+    known_issues_dict = _open_source_jsons(Path('reference_information/known_issues.json'))
     for variable in renamed_variable_dict.keys():
         for source_id, experiment_id in known_issues_dict.items():
             if any(value in list(known_issues_dict[source_id].keys()) for value in (experiment, "*")):
@@ -332,7 +332,7 @@ def identify_known_issues(experiment: str, renamed_variable_dict: dict[str, str]
     return renamed_variable_dict
 
 
-def process_variable_dict(experiment_dict: dict, experiment: str, mappings_dict: dict) -> dict:
+def process_variable_dict(experiment_dict: dict, experiment: str, mappings_dict: list[dict]) -> dict:
     """Processes the variable dictionary against all functions to get a complete dictionary of renamed variables and
     their associated status.
 
