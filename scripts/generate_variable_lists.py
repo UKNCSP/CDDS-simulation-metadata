@@ -22,8 +22,6 @@ from itertools import chain
 from pathlib import Path
 from typing import Union
 
-IGNORED_PRIORITIES = ("med", "low")
-
 
 def set_arg_parser() -> argparse.Namespace:
     """Creates an argument parser to take source file paths from the command line.
@@ -157,7 +155,7 @@ def set_priority_comments(experiment_dict: dict, experiment: str) -> dict:
     for level, variables in priority_dict.items():
         for variable in variables:
             priority_comments[variable] = ([f" # priority={'medium' if level == 'med' else 'low'}"]
-                                           if level in IGNORED_PRIORITIES else [])
+                                           if level in ("med", "low") else [])
 
     return priority_comments
 
