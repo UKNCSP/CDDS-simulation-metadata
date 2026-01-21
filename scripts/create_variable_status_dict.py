@@ -78,9 +78,9 @@ def get_variable_status(mappings_dict: list[dict], model: str) -> dict:
     variable_status_dict = {}
     for mapping in mappings_dict:
         if mapping["model"] == model:
-            if "approved" in mapping["labels"] and "CMIP7" in mapping["labels"]:
+            if "approved" in mapping["labels"]:
                 variable_status_dict[(mapping["branded_variable"])] = "approved"
-            elif "do-not-produce" in mapping["labels"] and "CMIP7" in mapping["labels"]:
+            elif "do-not-produce" in mapping["labels"]:
                 variable_status_dict[(mapping["branded_variable"])] = "do-not-produce"
             else:
                 variable_status_dict[(mapping["branded_variable"])] = "embargoed"
@@ -105,10 +105,7 @@ def save_json(model: str, dictionary: dict) -> None:
         json.dump(dictionary, fh, indent=4)
 
 
-def _process_override(mappings_dict: list[dict]):
-    """
-    Docstring for process_override
-    """
+def _process_override(mappings_dict):
     model = input("Input the model for whos variables status you wish to override: ")
     all_models = get_all_models(mappings_dict)
     if model not in all_models:
@@ -155,8 +152,10 @@ def _optional_override(mappings_dict):
         pass
 
 
-def generate_variable_status_dictionaries():
-    """Main body"""
+def generate_variable_status_dictionaries() -> None:
+    """The main function responsible for generating the variable status dictionary for each model found in the
+    mappings.json.
+    """
     mappings_dict = open_json(Path("reference_information/mappings.json"))
     all_models = get_all_models(mappings_dict)
     for model in all_models:

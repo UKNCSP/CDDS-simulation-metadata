@@ -1,4 +1,4 @@
-# (C) British Crown Copyright 2025, Met Office.
+# (C) British Crown Copyright 2026, Met Office.
 # Please see LICENSE.md for license details.
 """
 This script generates the variable lists for each CMIP experiment for each data request version.
@@ -12,7 +12,7 @@ format_variable_names().
 
 Example command line usage:
 "python scripts/generate_variable_lists.py reference_information/dr-1.2.2.2_all.json reference_information/mappings.json
-1pctCO2 1pctCO2-rad 1pctCO2-bgc"
+1pctCO2 UKESM1-3"
 """
 
 import argparse
@@ -47,7 +47,9 @@ def set_arg_parser() -> argparse.Namespace:
                                 "e.g. reference_information/mappings.json)")
     parser.add_argument("mappings", help=mapping_info_description)
 
-    parser.add_argument("experiments", help="The experiments to generate variable lists for.", nargs="+")
+    parser.add_argument("experiment", help="The experiment to generate a variable lists for.")
+
+    parser.add_argument("model", help="The model associated with the experiment that has been run")
 
     return parser.parse_args()
 
@@ -102,11 +104,38 @@ def get_grouped_priority_labels(experiment_dict: dict, experiment: str) -> dict[
     experiment_data = experiment_dict["experiment"][experiment]
 
     return {
-        "core": set(experiment_data.get("Core", [])),
-        "high": set(experiment_data.get("High", [])),
-        "med": set(experiment_data.get("Medium", [])),
-        "low": set(experiment_data.get("Low", [])),
+        "core": experiment_data.get("Core", []),
+        "high": experiment_data.get("High", []),
+        "med": experiment_data.get("Medium", []),
+        "low": experiment_data.get("Low", []),
     }
+
+
+def standardise_grouped_priority_labels(experiment_dict: dict, experiment: str):
+    """Creates a standardised dictionary of variable names grouped by priority (core, high, med, low) for a single
+    experiment.
+
+    Parameters
+    ----------
+    experiment_dict: dict
+        The dictionary containing all experiments and their associated variables.
+    experiment: str
+        The experiment whose variables are being updated.
+
+    Returns
+    -------
+    dict[str, set]
+        A dictionary of standardised variable names grouped by priority (core, high, med, low).
+    """
+    unstandardised_groups = get_grouped_priority_labels(experiment_dict, experiment)
+    standardised_groups = {}
+    for group, variable_list in unstandardised_groups.items():
+        standardised_variable_list = []
+        for variable in variable_list:
+            standardised_variable_list.append(variable.replace(".GLB", ".glb"))
+        standardised_groups[group] = standardised_variable_list
+
+    return standardised_groups
 
 
 def set_priority_comments(experiment_dict: dict, experiment: str) -> dict[str, str]:
@@ -125,11 +154,11 @@ def set_priority_comments(experiment_dict: dict, experiment: str) -> dict[str, s
         A dictionary of comments created based on priority level.
     """
     priority_comments = {}
-    priority_dict = get_grouped_priority_labels(experiment_dict, experiment)
+    priority_dict = standardise_grouped_priority_labels(experiment_dict, experiment)
     for level, variables in priority_dict.items():
-        if level in IGNORED_PRIORITIES:
-            for variable in variables:
-                priority_comments[variable] = f" # priority={'medium' if level == 'med' else 'low'}"
+        for variable in variables:
+            priority_comments[variable] = ([f" # priority={'medium' if level == 'med' else 'low'}"]
+                                           if level in IGNORED_PRIORITIES else [])
 
     return priority_comments
 
@@ -149,36 +178,9 @@ def get_all_variables(experiment_dict: dict, experiment: str) -> chain:
     chain
         A chain of all priority labels.
     """
-    priority_dict = get_grouped_priority_labels(experiment_dict, experiment)
+    priority_dict = standardise_grouped_priority_labels(experiment_dict, experiment)
 
     return chain(priority_dict["core"], priority_dict["high"], priority_dict["med"], priority_dict["low"])
-
-
-def update_variables_with_priority(experiment_dict: dict, experiment: str, variable_dict: dict) -> dict[str, str]:
-    """Update the variables for a single experiment with priority comments.
-
-    Parameters
-    ----------
-    experiment_dict: dict
-        The dictionary containing all experiments and their associated variables.
-    experiment: str
-        The experiment whose variables are being updated.
-    variable_dict: dict
-        A dictionary to populate with the updated variable data.
-
-    Returns
-    -------
-    dict[str, str]
-        A dictionary of variable name and priority level key-value pairs for a single experiment.
-    """
-    priority_comments = set_priority_comments(experiment_dict, experiment)
-    all_labels = get_all_variables(experiment_dict, experiment)
-
-    # Check all labels against their priority status and comment accordingly.
-    for variable in all_labels:
-        variable_dict[variable] = priority_comments.get(variable, "")
-
-    return variable_dict
 
 
 def get_mapping(mappings_dict: list[dict], variable: str) -> dict:
@@ -204,35 +206,13 @@ def get_mapping(mappings_dict: list[dict], variable: str) -> dict:
     return mapping
 
 
-def identify_not_produced(
-    experiment_dict: dict, experiment: str, mappings_dict: list[dict], variable_dict: dict[str, str]
-) -> dict[str, str]:
-    """Identify all variables marked as "do not produce" in a single experiment. Overriding any existing "priority"
-    value in the dict is acceptable since do-not-produce takes precedence.
-
-    Parameters
-    ----------
-    experiment_dict: dict
-        The dictionary containing all experiments and their associated variables.
-    experiment: str
-        The experiment whose variables are being updated.
-    mappings_dict: list[dict]
-        The dictionary containing mapping information for all variables.
-    variable_dict: dict[str, str]
-        The dictionary of name and priority level key-value pairs for a single experiment.
-
-    Returns
-    -------
-    dict[str, str]
-        An updated dictionary containing production status for variables marked "do-not-produce".
+def update_status_from_model(model, variable_dict):
     """
-    all_labels = get_all_variables(experiment_dict, experiment)
-    for variable in all_labels:
-        mapping = get_mapping(mappings_dict, variable)
-        labels = mapping.get("labels")
-
-        if "do-not-produce" in labels:
-            variable_dict[variable] = " # do-not-produce"
+    """
+    model_status_dict = open_source_jsons(Path(f"reference_information/{model}_variable_status.json"))
+    for variable, comment in variable_dict.items():
+        if ".glb" in variable and variable in list(model_status_dict.keys()):
+            variable_dict[variable].insert(0, f" # {model_status_dict[variable]}")
 
     return variable_dict
 
@@ -306,7 +286,7 @@ def reformat_variable_names(
         stream = streams.get(variable, "")
 
         # Filter out any non global variables
-        if region in ("glb", "GLB"):
+        if region in ("glb"):
             new_variable_name = (f"{realm}/{variable_name}_{branding}@{frequency}:{stream}" if stream else
                                  f"{realm}/{variable_name}_{branding}@{frequency}")
 
@@ -332,7 +312,12 @@ def format_outfile_content(renamed_variable_dict: dict[str, str]) -> list[str]:
     """
     lines = []
     for variable, comment in renamed_variable_dict.items():
-        lines.append(f"#{variable}{comment}\n" if comment else f"{variable}{comment}\n")
+        if comment == " # approved":
+            lines.append(f"{variable}{' '.join(comment)}\n")
+        elif comment:
+            lines.append(f"#{variable}{' '.join(comment)}\n")
+        elif not comment:
+            lines.append(f"{variable}\n")
 
     return lines
 
@@ -351,10 +336,16 @@ def sort_key(line: str) -> tuple[dict[str, int], int]:
         The order of each label based on priority, variables with no specified priority will be assigned order 0 so that
         they appear at the top of the variable list.
     """
-    for label in PRIORITY_ORDER:
-        if label in line:
-            return PRIORITY_ORDER[label]
+    if "do-not-produce" in line:
+        return 4
+    elif "embargoed" in line:
+        return 3
+    elif "priority=low" in line:
+        return 2
+    elif "priority=medium" in line:
+        return 1
 
+    # Should only return zero if the variable has only the status approved or if there is no status listed
     return 0
 
 
@@ -392,21 +383,15 @@ def generate_variable_lists() -> None:
     outdir = Path(f"variables_glb/{experiment_dict['Header']['dreq content version']}")
     os.makedirs(outdir, exist_ok=True)
 
-    # Loop over all listed experiments.
-    for experiment in args.experiments:
-        variable_dict = {}
+    variable_dict = {}
 
-        functions = [
-            update_variables_with_priority(experiment_dict, experiment, variable_dict),
-            identify_not_produced(experiment_dict, experiment, mappings_dict, variable_dict),
-            reformat_variable_names(experiment_dict, experiment, mappings_dict, variable_dict),
-        ]
-        for f in functions:
-            variable_dict = f
+    variable_dict = set_priority_comments(experiment_dict, args.experiment)
+    variable_dict = update_status_from_model(args.model, variable_dict)
+    variable_dict = reformat_variable_names(experiment_dict, args.experiment, mappings_dict, variable_dict)
 
-        save_outfile(outdir, experiment, variable_dict)
+    save_outfile(outdir, args.experiment, variable_dict)
 
-    print(f"SUCCESSFULLY GENERATED {len(args.experiments)} FILES")
+    print(f"SUCCESSFULLY GENERATED VARIABLE LIST FOR {args.experiment}")
 
 
 if __name__ == "__main__":
