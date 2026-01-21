@@ -111,7 +111,7 @@ def get_grouped_priority_labels(experiment_dict: dict, experiment: str) -> dict[
     }
 
 
-def standardise_grouped_priority_labels(experiment_dict: dict, experiment: str):
+def standardise_grouped_priority_labels(experiment_dict: dict, experiment: str) -> dict:
     """Creates a standardised dictionary of variable names grouped by priority (core, high, med, low) for a single
     experiment.
 
@@ -124,7 +124,7 @@ def standardise_grouped_priority_labels(experiment_dict: dict, experiment: str):
 
     Returns
     -------
-    dict[str, set]
+    dict
         A dictionary of standardised variable names grouped by priority (core, high, med, low).
     """
     unstandardised_groups = get_grouped_priority_labels(experiment_dict, experiment)
@@ -138,7 +138,7 @@ def standardise_grouped_priority_labels(experiment_dict: dict, experiment: str):
     return standardised_groups
 
 
-def set_priority_comments(experiment_dict: dict, experiment: str) -> dict[str, str]:
+def set_priority_comments(experiment_dict: dict, experiment: str) -> dict:
     """Sets the comment to be appended to each variable based off of their priority level for a single experiment.
 
     Parameters
@@ -150,8 +150,8 @@ def set_priority_comments(experiment_dict: dict, experiment: str) -> dict[str, s
 
     Returns
     -------
-    dict[str, str]
-        A dictionary of comments created based on priority level.
+    dict
+        A dictionary of variables and their comments created based on priority level.
     """
     priority_comments = {}
     priority_dict = standardise_grouped_priority_labels(experiment_dict, experiment)
@@ -206,8 +206,20 @@ def get_mapping(mappings_dict: list[dict], variable: str) -> dict:
     return mapping
 
 
-def update_status_from_model(model, variable_dict):
-    """
+def update_status_from_model(model: str, variable_dict: dict) -> dict:
+    """Annotates each global variable with its production status (i.e. approved, embargoed or do not produce).
+
+    Parameters
+    ----------
+    model: str
+        The model associated with the experiment that has been run.
+    variable_dict: dict
+        A dictionary of variables and their comments created based on priority level.
+
+    Returns
+    -------
+    dict
+        An updated dictionary of variables and their comments created based on priority level and production status.
     """
     model_status_dict = open_source_jsons(Path(f"reference_information/{model}_variable_status.json"))
     for variable, comment in variable_dict.items():
@@ -322,7 +334,7 @@ def format_outfile_content(renamed_variable_dict: dict[str, str]) -> list[str]:
     return lines
 
 
-def sort_key(line: str) -> tuple[dict[str, int], int]:
+def sort_key(line: str) -> int:
     """The custom sort function passed to the sorted() function to define the variable order for a single experiment.
 
     Parameters
@@ -332,7 +344,7 @@ def sort_key(line: str) -> tuple[dict[str, int], int]:
 
     Returns
     -------
-    tuple[dict[str, int], int]
+    int
         The order of each label based on priority, variables with no specified priority will be assigned order 0 so that
         they appear at the top of the variable list.
     """
