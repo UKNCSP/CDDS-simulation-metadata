@@ -53,7 +53,7 @@ def set_arg_parser() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def _open_source_jsons(path):
+def _read_json(path):
     """Opens and reads a single JSON file."""
     try:
         with open(path, "r") as f:
@@ -317,7 +317,7 @@ def identify_known_issues(experiment: str, renamed_variable_dict: dict[str, str]
         An updated dictionary containing the reformatted variable names as keys and priority/production/issue status as
         values.
     """
-    known_issues_dict = _open_source_jsons(Path('reference_information/known_issues.json'))
+    known_issues_dict = _read_json(Path('reference_information/known_issues.json'))
     for variable in renamed_variable_dict.keys():
         for source_id, experiment_id in known_issues_dict.items():
             if any(value in list(known_issues_dict[source_id].keys()) for value in (experiment, "*")):
@@ -420,8 +420,8 @@ def generate_variable_lists() -> None:
     """
     # Call required source files.
     args = set_arg_parser()
-    experiment_dict = _open_source_jsons(Path(args.dr_info))
-    mappings_dict = _open_source_jsons(Path(args.mappings))
+    experiment_dict = _read_json(Path(args.dr_info))
+    mappings_dict = _read_json(Path(args.mappings))
 
     # Create output file path.
     outdir = Path(f"variables_glb/{experiment_dict['Header']['dreq content version']}")

@@ -237,7 +237,8 @@ def remove_from_issues_dict(source_dict: dict, args: argparse.Namespace) -> dict
     return source_dict
 
 
-if __name__ == "__main__":
+def main():
+    """Holds the main body of the script"""
     args = arg_parser()
     source_dict = open_json("reference_information/known_issues.json")
     instruction = get_add_or_delete_instructions()
@@ -263,3 +264,7 @@ if __name__ == "__main__":
 
     with open(Path("reference_information/known_issues.json"), "w") as outfile:
         json.dump(updated_dict, outfile, indent=4)
+
+
+if __name__ == "__main__":
+    main()
