@@ -23,7 +23,6 @@ from pathlib import Path
 from typing import Union
 
 IGNORED_PRIORITIES = ("med", "low")
-PRIORITY_ORDER = {"# priority=medium": 1, "# priority=low": 2, "# do-not-produce": 3}
 
 
 def set_arg_parser() -> argparse.Namespace:
