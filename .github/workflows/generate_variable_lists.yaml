@@ -44,9 +44,7 @@ jobs:
       - name: create variable list
         id: create-variable-list
         run: |
-          DATA_REQ=(ls -v reference_information/dr-*_all.json | tail -n 1)
-          MAPPINGS=reference_information/mappings.json
-          python scripts/generate_variable_lists.py "$DATA_REQ" "$MAPPINGS" "${{ steps.get-commit.outputs.experiment }}" "${{ steps.get-commit.outputs.model }}"
+          python scripts/generate_variable_lists.py "${{ steps.get-commit.outputs.experiment }}" "${{ steps.get-commit.outputs.model }}"
 
       - name: commit and push
         run: |
