@@ -1,4 +1,4 @@
-# (C) British Crown Copyright 2025, Met Office.
+# (C) British Crown Copyright 2026, Met Office.
 # Please see LICENSE.md for license details.
 HEADINGS = ['Model Workflow ID', 'Model ID', 'Mass Data Class', 'MIP', 'Institution ID', 'Experiment ID',
             'Variant Label', 'Start Date', 'End Date']
