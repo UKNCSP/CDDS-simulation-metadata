@@ -12,6 +12,10 @@ from datetime import timedelta
 
 CDDS_SIM_META_DIR = os.path.dirname(os.path.realpath(__file__))
 LOG_NAME = os.path.join(CDDS_SIM_META_DIR, 'cdds_sim_metadata_test_failures.log')
+ROOT_COMMAND = 'pytest -s'
+TESTS_TO_RUN = {
+    'tests/test_scripts': ['--doctest-modules'],
+}
 
 
 def _red(text):
@@ -76,6 +80,37 @@ def check_ruff_compliance() -> int:
     return exit_code
 
 
+def run_unit_tests(exit_code) -> int:
+    for package, tests in TESTS_TO_RUN.items():
+        print('\nExecuting tests for {}:'.format(package))
+        for test in tests:
+            command = ROOT_COMMAND.split()
+            command.append(package)
+            if test:
+                command.extend(test.split(' ', 1))
+            command_str = ' '.join(command)
+            print('--> {} {}'.format(command_str, (46 - len(command_str)) * '.'), end=''),
+            sys.stdout.flush()
+            process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            stdoutdata, stderrdata = process.communicate()
+            if process.returncode == 0:
+                info = stdoutdata.decode('utf-8').split('\n')
+                msg = info[-2].replace('=', '').strip()
+                print(_green('{} success! [{}]'.format(' ' * 3, msg)))
+            else:
+                exit_code = 1
+                print(_red('{} failed!\n!!! Please see "{}" for more details'.format(' ' * 3, LOG_NAME)))
+                current_date = datetime.datetime.now()
+                msg = '{}: {}: {}\n\n'.format(current_date, package, command)
+                with open(LOG_NAME, 'a') as file_handle:
+                    file_handle.write(msg)
+                    file_handle.write(stdoutdata.decode('utf-8'))
+                    file_handle.write(stderrdata.decode('utf-8'))
+                    file_handle.write('\n')
+
+    return exit_code
+
+
 def check_mypy_compliance(arguments: argparse.Namespace, exit_code: int) -> int:
     """Runs 'mypy' to verify typing against the rules defined in mypy.ini
 
@@ -91,8 +126,8 @@ def check_mypy_compliance(arguments: argparse.Namespace, exit_code: int) -> int:
     int
         The exit code determined by the process output. 0 for a test pass and 1 for a test fail.
     """
-    command = ['mypy', CDDS_SIM_META_DIR, '--show-error-codes', '--no-strict-optional', '--config-file',
-                f'{CDDS_SIM_META_DIR}/mypy.ini']
+    command = ['mypy', CDDS_SIM_META_DIR, '--show-error-codes', '--no-namespace-packages', '--no-strict-optional',
+               '--config-file', f'{CDDS_SIM_META_DIR}/mypy.ini']
     process = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     if process.returncode == 0:
@@ -121,6 +156,9 @@ def main():
 
     print('\nRunning ruff...')
     exit_code = check_ruff_compliance()
+
+    print('\nRunning unit tests...')
+    exit_code = run_unit_tests(exit_code)
 
     print('\nRunning mypy...')
     exit_code = check_mypy_compliance(arguments, exit_code)

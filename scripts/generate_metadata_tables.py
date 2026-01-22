@@ -5,7 +5,7 @@
 from pathlib import Path
 import glob
 from configparser import ConfigParser
-from constants import (HEADINGS, HEADER_ROW_TEMPLATE, ROW_TEMPLATE, CELL_TEMPLATE, TABLE_TEMPLATE, BGCOLORS,
+from scripts.constants import (HEADINGS, HEADER_ROW_TEMPLATE, ROW_TEMPLATE, CELL_TEMPLATE, TABLE_TEMPLATE, BGCOLORS,
                        GITURL_MAPPING, HEADER, FOOTER, HYPERLINK)
 
 

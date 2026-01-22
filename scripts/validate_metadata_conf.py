@@ -13,7 +13,7 @@ import sys
 from pathlib import Path
 
 import metomi.isodatetime.parsers as parse
-from constants import (
+from scripts.constants import (
     DATA,
     DATETIME_FIELDS,
     METADATA,
