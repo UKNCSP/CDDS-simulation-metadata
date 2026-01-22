@@ -17,11 +17,11 @@ Example command line usage:
 """
 
 import argparse
-import json
 import os
 from itertools import chain
 from pathlib import Path
-from typing import Union
+
+from common import read_json
 
 IGNORED_PRIORITIES = ("med", "low")
 PRIORITY_ORDER = {"# priority=medium": 1, "# priority=low": 2, "# do-not-produce": 3, "# known-issue": 4}
@@ -51,20 +51,6 @@ def set_arg_parser() -> argparse.Namespace:
     parser.add_argument("experiments", help="The experiments to generate variable lists for.", nargs="+")
 
     return parser.parse_args()
-
-
-def _read_json(path):
-    """Opens and reads a single JSON file."""
-    try:
-        with open(path, "r") as f:
-            file = json.load(f)
-
-    except FileNotFoundError:
-        print(f"File not found: {path}.")
-    except json.JSONDecodeError as err:
-        print(f"Invalid JSON formatting: {err}")
-
-    return file
 
 
 def get_grouped_priority_labels(experiment_dict: dict, experiment: str) -> dict[str, set]:
@@ -317,7 +303,7 @@ def identify_known_issues(experiment: str, renamed_variable_dict: dict[str, str]
         An updated dictionary containing the reformatted variable names as keys and priority/production/issue status as
         values.
     """
-    known_issues_dict = _read_json(Path('reference_information/known_issues.json'))
+    known_issues_dict = read_json(Path('reference_information/known_issues.json'))
     for variable in renamed_variable_dict.keys():
         for source_id, experiment_id in known_issues_dict.items():
             if any(value in list(known_issues_dict[source_id].keys()) for value in (experiment, "*")):
@@ -420,8 +406,8 @@ def generate_variable_lists() -> None:
     """
     # Call required source files.
     args = set_arg_parser()
-    experiment_dict = _read_json(Path(args.dr_info))
-    mappings_dict = _read_json(Path(args.mappings))
+    experiment_dict = read_json(Path(args.dr_info))
+    mappings_dict = read_json(Path(args.mappings))
 
     # Create output file path.
     outdir = Path(f"variables_glb/{experiment_dict['Header']['dreq content version']}")

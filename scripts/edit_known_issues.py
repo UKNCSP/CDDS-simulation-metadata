@@ -12,6 +12,12 @@ import sys
 from difflib import get_close_matches
 import re
 
+from common import read_json
+
+MAPPING_FILE_LOCATION = Path("reference_information/mappings.json")
+DR_FILE_LOCATION = Path("reference_information/dr-1.2.2.2_all.json")
+KNOWN_ISSUES_DICT_FILE_LOCATION = Path("reference_information/known_issues.json")
+
 
 def arg_parser() -> argparse.Namespace:
     """Creates an argument parser to take user inputs from the command line.
@@ -34,32 +40,6 @@ def arg_parser() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def open_json(source_path: str) -> dict:
-    """Opens a single json file and returns the contents as a dictionary.
-
-    Parameters
-    ----------
-    source_path: str
-        The path to the source JSON file.
-
-    Returns
-    -------
-    dict
-        The JSON file contents as a dictionary.
-    """
-    try:
-        with open(Path(source_path), 'r') as f:
-            source_dict = json.load(f)
-    except FileNotFoundError:
-        print(f"{source_path} does not exist. Please check the file path that you have provided.")
-        sys.exit(1)
-    except json.JSONDecodeError as e:
-        print(f"This json file is invalid: {e}")
-        sys.exit()
-
-    return source_dict
-
-
 def get_valid_source_ids() -> set:
     """Returns a set of all valid source IDs (also known as models) from the mappings file in reference information.
 
@@ -69,7 +49,7 @@ def get_valid_source_ids() -> set:
         A unique set of all valid source IDs.
     """
     valid_source_ids = set()
-    mappings = open_json("reference_information/mappings.json")
+    mappings = read_json(MAPPING_FILE_LOCATION)
     for dictionary in mappings:
         valid_source_ids.add(dictionary["model"])
 
@@ -84,7 +64,7 @@ def get_valid_experiment_ids() -> list:
     list
         A list of all valid experiment IDs.
     """
-    data_req_info = open_json("reference_information/dr-1.2.2.2_all.json")
+    data_req_info = read_json(DR_FILE_LOCATION)
     valid_experiment_ids = data_req_info["Header"]["Experiments included"]
     print(valid_experiment_ids)
 
@@ -240,7 +220,7 @@ def remove_from_issues_dict(source_dict: dict, args: argparse.Namespace) -> dict
 def main():
     """Holds the main body of the script"""
     args = arg_parser()
-    source_dict = open_json("reference_information/known_issues.json")
+    source_dict = read_json(KNOWN_ISSUES_DICT_FILE_LOCATION)
     instruction = get_add_or_delete_instructions()
     verify_user_input(args)
     confirm_input_with_user(args, instruction)
