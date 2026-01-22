@@ -66,7 +66,6 @@ def get_valid_experiment_ids() -> list:
     """
     data_req_info = read_json(DR_FILE_LOCATION)
     valid_experiment_ids = data_req_info["Header"]["Experiments included"]
-    print(valid_experiment_ids)
 
     return valid_experiment_ids
 
