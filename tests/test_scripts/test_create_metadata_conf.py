@@ -3,7 +3,8 @@ from pathlib import Path
 import json
 from textwrap import dedent
 
-from scripts.create_metadata_conf import set_calendar, process_metadata, validate_meta_content, format_warning_message, sort_to_categories
+from scripts.create_metadata_conf import (set_calendar, process_metadata, validate_meta_content, format_warning_message,
+                                          sort_to_categories)
 
 
 class TestSetCalendar(unittest.TestCase):
