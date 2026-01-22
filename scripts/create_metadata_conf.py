@@ -1,4 +1,4 @@
-# (C) British Crown Copyright 2025, Met Office.
+# (C) British Crown Copyright 2026, Met Office.
 # Please see LICENSE.md for license details.
 """This script takes the body of an issue and uses its content to generate a structured metadata configuration file.
 
