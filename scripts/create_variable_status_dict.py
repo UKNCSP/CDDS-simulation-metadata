@@ -8,15 +8,13 @@ accepted status' are "approved", "do-not-produce" and "embargoed".
 
 In the absence of a manual override, the variable status' are drawn from the mappings JSON and labelled appropriately.
 """
-from pathlib import Path
+
 import json
 from difflib import get_close_matches
 import sys
 
 from scripts.common import read_json
-
-REF_INFO_DIR = Path("reference_information")
-MAPPINGS_FILE_LOCATION = REF_INFO_DIR / "mappings.json"
+from scripts.constants import REF_INFO_DIR, MAPPINGS_FILE_LOCATION
 
 
 def get_all_models(mappings_dict: list[dict]) -> set:

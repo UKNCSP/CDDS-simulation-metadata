@@ -11,8 +11,7 @@ THIS SCRIPT CURRENTLY CONSIDERS GLOBAL VARIABLES ONLY. NON-GLOBAL VARIABLES ARE 
 format_variable_names().
 
 Example command line usage:
-"python scripts/generate_variable_lists.py reference_information/dr-1.2.2.2_all.json reference_information/mappings.json
-1pctCO2 UKESM1-3"
+"python scripts/generate_variable_lists.py 1pctCO2 UKESM1-3"
 """
 
 import argparse
@@ -20,7 +19,8 @@ import os
 from itertools import chain
 from pathlib import Path
 
-from common import read_json
+from scripts.common import read_json
+from scripts.constants import REF_INFO_DIR, MAPPINGS_FILE_LOCATION, KNOWN_ISSUES_DICT_FILE_LOCATION, DR_FILE_LOCATION
 
 
 def set_arg_parser() -> argparse.Namespace:
@@ -33,20 +33,10 @@ def set_arg_parser() -> argparse.Namespace:
 
     """
     parser = argparse.ArgumentParser(description="Generate a variable list (global variables only) for a given list "
-                                     "experiments using provided data request and mapping information")
-
-    dr_info_description = ("The path to the file containing all included experiments and their associated "
-                           "variables grouped by priority e.g. reference_information/dr-1.2.2.2_all.json")
-    parser.add_argument("dr_info", help=dr_info_description)
-
-    mapping_info_description = ("The path to the file containing mapping information associated with each individual "
-                                "variable such as the associated title, labels and stash entries. "
-                                "e.g. reference_information/mappings.json)")
-    parser.add_argument("mappings", help=mapping_info_description)
+                                     "experiments using provided data request and mapping information.")
 
     parser.add_argument("experiment", help="The experiment to generate a variable lists for.")
-
-    parser.add_argument("model", help="The model associated with the experiment that has been run")
+    parser.add_argument("model", help="The model associated with the experiment that has been run.")
 
     return parser.parse_args()
 
@@ -186,7 +176,7 @@ def update_status_from_model(model: str, variable_dict: dict) -> dict:
     dict
         An updated dictionary of variables and their comments created based on priority level and production status.
     """
-    model_status_dict = read_json(Path(f"reference_information/{model}_variable_status.json"))
+    model_status_dict = read_json(REF_INFO_DIR / f"{model}_variable_status.json")
     for variable, comment in variable_dict.items():
         if ".glb" in variable and variable in list(model_status_dict.keys()):
             variable_dict[variable].insert(0, f" # {model_status_dict[variable]}")
@@ -291,7 +281,7 @@ def identify_known_issues(experiment: str, renamed_variable_dict: dict[str, str]
         An updated dictionary containing the reformatted variable names as keys and priority/production/issue status as
         values.
     """
-    known_issues_dict = read_json(Path('reference_information/known_issues.json'))
+    known_issues_dict = read_json(KNOWN_ISSUES_DICT_FILE_LOCATION)
     for variable in renamed_variable_dict.keys():
         for source_id, experiment_id in known_issues_dict.items():
             if any(value in list(known_issues_dict[source_id].keys()) for value in (experiment, "*")):
@@ -306,35 +296,31 @@ def identify_known_issues(experiment: str, renamed_variable_dict: dict[str, str]
     return renamed_variable_dict
 
 
-# def process_variable_dict(experiment_dict: dict, experiment: str, mappings_dict: list[dict]) -> dict:
-#     """Processes the variable dictionary against all functions to get a complete dictionary of renamed variables and
-#     their associated status.
+def process_variable_dict(experiment_dict: dict, experiment: str, model: str, mappings_dict: list[dict]) -> dict:
+    """Processes the variable dictionary against all functions to get a complete dictionary of renamed variables and
+    their associated status.
 
-#     Parameters
-#     ----------
-#     experiment_dict: dict
-#         The dictionary containing all experiments and their associated variables.
-#     experiment: str
-#         The experiment whose variables are being updated.
-#     mappings_dict: list[dict]
-#         The dictionary containing mapping information for all variables.
-#     variable_dict: dict
-#         An empty dictionary.
+    Parameters
+    ----------
+    experiment_dict: dict
+        The dictionary containing all experiments and their associated variables.
+    experiment: str
+        The experiment whose variables are being updated.
+    mappings_dict: list[dict]
+        The dictionary containing mapping information for all variables.
 
-#     Returns
-#     -------
-#     dict[str, str]
-#         An updated dictionary containing the reformatted variable names and their associated status.
-#     """
-#     variable_dict = {}
+    Returns
+    -------
+    dict
+        An updated dictionary containing the reformatted variable names and their associated status.
+    """
+    variable_dict = {}
+    variable_dict = set_priority_comments(experiment_dict, experiment)
+    variable_dict = update_status_from_model(model, variable_dict)
+    variable_dict = reformat_variable_names(experiment_dict, experiment, mappings_dict, variable_dict)
+    variable_dict = identify_known_issues(experiment, variable_dict)
 
-#     update_variables_with_priority(experiment_dict, experiment, variable_dict)
-#     functions = [identify_not_produced, reformat_variable_names]
-#     for f in functions:
-#         variable_dict = f(experiment_dict, experiment, mappings_dict, variable_dict)
-#     variable_dict = identify_known_issues(experiment, variable_dict)
-
-#     return variable_dict
+    return variable_dict
 
 
 def format_outfile_content(renamed_variable_dict: dict[str, str]) -> list[str]:
@@ -386,7 +372,6 @@ def sort_key(line: str) -> int:
     elif "priority=medium" in line:
         return 1
 
-    # Should only return zero if the variable has only the status approved or if there is no status listed
     return 0
 
 
@@ -417,19 +402,15 @@ def generate_variable_lists() -> None:
     """
     # Call required source files.
     args = set_arg_parser()
-    experiment_dict = read_json(Path(args.dr_info))
-    mappings_dict = read_json(Path(args.mappings))
+    experiment_dict = read_json(DR_FILE_LOCATION)
+    mappings_dict = read_json(MAPPINGS_FILE_LOCATION)
 
     # Create output file path.
     outdir = Path(f"variables_glb/{experiment_dict['Header']['dreq content version']}")
     os.makedirs(outdir, exist_ok=True)
 
-    variable_dict = {}
-
-    variable_dict = set_priority_comments(experiment_dict, args.experiment)
-    variable_dict = update_status_from_model(args.model, variable_dict)
-    variable_dict = reformat_variable_names(experiment_dict, args.experiment, mappings_dict, variable_dict)
-
+    # Process and save the variable dictionary.
+    variable_dict = process_variable_dict(experiment_dict, args.experiment, args. model, mappings_dict)
     save_outfile(outdir, args.experiment, variable_dict)
 
     print(f"SUCCESSFULLY GENERATED VARIABLE LIST FOR {args.experiment}")
