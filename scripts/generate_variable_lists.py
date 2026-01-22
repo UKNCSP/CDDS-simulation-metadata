@@ -112,7 +112,7 @@ def set_priority_comments(experiment_dict: dict, experiment: str) -> dict:
     priority_dict = standardise_grouped_priority_labels(experiment_dict, experiment)
     for level, variables in priority_dict.items():
         for variable in variables:
-            priority_comments[variable] = ([f" # priority={'medium' if level == 'med' else 'low'}"]
+            priority_comments[variable] = ([f"priority={'medium' if level == 'med' else 'low'}"]
                                            if level in ("med", "low") else [])
 
     return priority_comments
@@ -179,9 +179,9 @@ def update_status_from_model(model: str, variable_dict: dict) -> dict:
     model_status_dict = read_json(REF_INFO_DIR / f"{model}_variable_status.json")
     for variable, comment in variable_dict.items():
         if variable in list(model_status_dict.keys()):
-            variable_dict[variable].insert(0, f" # {model_status_dict[variable]}")
+            variable_dict[variable].insert(0, f"{model_status_dict[variable]}")
         else:
-            variable_dict[variable].insert(0, " # no-mapping-found")
+            variable_dict[variable].insert(0, "no-mapping-found")
 
     return variable_dict
 
@@ -293,7 +293,7 @@ def identify_known_issues(experiment: str, renamed_variable_dict: dict[str, str]
                     variant_dict = known_issues_dict[source_id]["*"]
                 for variant_label, variable_list in variant_dict.items():
                     if any(value in variable_list for value in (variable, variable.split(":")[0])):
-                        renamed_variable_dict[variable] = " # known-issue"
+                        renamed_variable_dict[variable] = "known-issue"
 
     return renamed_variable_dict
 
@@ -346,10 +346,10 @@ def format_outfile_content(renamed_variable_dict: dict[str, str]) -> list[str]:
     """
     lines = []
     for variable, comment in renamed_variable_dict.items():
-        if comment == " # approved":
-            lines.append(f"{variable}{' '.join(comment)}\n")
+        if comment == "approved":
+            lines.append(f"{variable}  # {', '.join(comment)}\n")
         elif comment:
-            lines.append(f"#{variable}{' '.join(comment)}\n")
+            lines.append(f"#{variable}  # {', '.join(comment)}\n")
         elif not comment:
             raise RuntimeError(f"An unrecognised variable '{variable}' with no model variable status was discovered "
                                "during processing. This likely means that a variable cannot be produced within the "
