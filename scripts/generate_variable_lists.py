@@ -8,7 +8,7 @@ such as priority level and production labels. Each variable is labelled accordin
 Each variable list is then saved to a plain text file containing the variables for that experiment.
 
 THIS SCRIPT CURRENTLY CONSIDERS GLOBAL VARIABLES ONLY. NON-GLOBAL VARIABLES ARE FILTERED OUT WITHIN THE FUNCTION
-format_variable_names().
+reformat_variable_names().
 
 Example command line usage:
 "python scripts/generate_variable_lists.py 1pctCO2 UKESM1-3"
@@ -178,8 +178,10 @@ def update_status_from_model(model: str, variable_dict: dict) -> dict:
     """
     model_status_dict = read_json(REF_INFO_DIR / f"{model}_variable_status.json")
     for variable, comment in variable_dict.items():
-        if ".glb" in variable and variable in list(model_status_dict.keys()):
+        if variable in list(model_status_dict.keys()):
             variable_dict[variable].insert(0, f" # {model_status_dict[variable]}")
+        else:
+            variable_dict[variable].insert(0, " # no-mapping-found")
 
     return variable_dict
 
@@ -253,7 +255,7 @@ def reformat_variable_names(
         stream = streams.get(variable, "")
 
         # Filter out any non global variables
-        if region in ("glb"):
+        if region == "glb":
             new_variable_name = (f"{realm}/{variable_name}_{branding}@{frequency}:{stream}" if stream else
                                  f"{realm}/{variable_name}_{branding}@{frequency}")
 
@@ -336,6 +338,11 @@ def format_outfile_content(renamed_variable_dict: dict[str, str]) -> list[str]:
     -------
     list[str]
         A list of lines to populate the plain text file with.
+
+    Raises
+    ------
+    RuntimeError
+        If a variable has no comment.
     """
     lines = []
     for variable, comment in renamed_variable_dict.items():
@@ -344,7 +351,9 @@ def format_outfile_content(renamed_variable_dict: dict[str, str]) -> list[str]:
         elif comment:
             lines.append(f"#{variable}{' '.join(comment)}\n")
         elif not comment:
-            lines.append(f"{variable}\n")
+            raise RuntimeError(f"An unrecognised variable '{variable}' with no model variable status was discovered "
+                               "during processing. This likely means that a variable cannot be produced within the "
+                               "given model but has bypassed the filtering process.")
 
     return lines
 
@@ -364,6 +373,8 @@ def sort_key(line: str) -> int:
         they appear at the top of the variable list.
     """
     if "do-not-produce" in line:
+        return 5
+    elif "no-mapping-found" in line:
         return 4
     elif "embargoed" in line:
         return 3
