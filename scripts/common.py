@@ -3,7 +3,7 @@ import json
 import sys
 
 
-def read_json(source_path: Path) -> dict:
+def read_json(source_path: Path):
     """Opens a single json file and returns the contents as a dictionary.
 
     Parameters
