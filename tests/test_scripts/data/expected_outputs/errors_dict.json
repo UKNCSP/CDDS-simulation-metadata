@@ -1,0 +1,9 @@
+{
+  "missing_parent_field": "Missing required parent field: parent_mip",
+  "missing_required_field": "Missing field experiment_id",
+  "label_format": "Variant label is incorrectly formatted: expected r1i1p1f2 like format",
+  "unexpected_mass_field": "Unexpected field: mass_data_class",
+  "workflow_id_format": "Model workflow ID is incorrectly formatted: expected a-bc123",
+  "timestep_logic": "Atmospheric timestep is invalid",
+  "datetime_logic": "End date cannot be earlier than start date"
+}
