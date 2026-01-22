@@ -3,7 +3,7 @@
 """This script generates the variable status dictionaries for each model/source ID.
 
 This script is intended for command line usage in which the user will be given the option to manually override an entire
-model varaibles status file with a given status. e.g. override all variables in UKESM1 with the status "embargoed". The
+model variables status file with a given status. e.g. override all variables in UKESM1 with the status "embargoed". The
 accepted status' are "approved", "do-not-produce" and "embargoed".
 
 In the absence of a manual override, the variable status' are drawn from the mappings JSON and labelled appropriately.
@@ -68,7 +68,7 @@ def get_variable_status(mappings_dict: list[dict], model: str) -> dict:
 
 
 def get_model_to_override(mappings_dict: list[dict]) -> str:
-    """Returns the model whos variable status dictionary the user wishes to override.
+    """Returns the model whose variable status dictionary the user wishes to override.
 
     Parameters
     ----------
@@ -80,10 +80,10 @@ def get_model_to_override(mappings_dict: list[dict]) -> str:
     model: str
         The model to override.
     """
-    model = input("Input the model for whos variables you wish to override: ")
+    model = input("Input the model for whose variables you wish to override: ")
     all_models = get_all_models(mappings_dict)
     if model not in all_models:
-        print(f"Model not regognised, did you mean {get_close_matches(model, all_models)[0]}?")
+        print(f"Model not recognised, did you mean {get_close_matches(model, all_models)[0]}?")
         get_model_to_override(mappings_dict)
 
     return model
@@ -99,7 +99,7 @@ def get_overriding_status() -> str:
     """
     status = input(f"What status would you like to assign all of the variables with? ")
     if status not in ["approved", "do-not-produce", "embargoed"]:
-        print(f"Status '{status}' not regognised, please choose from 'approved', 'do-not-produce' or 'embargoed'")
+        print(f"Status '{status}' not recognised, please choose from 'approved', 'do-not-produce' or 'embargoed'")
         get_overriding_status()
 
     return status
@@ -172,7 +172,7 @@ def process_override(mappings_dict) -> None:
     model = get_model_to_override(mappings_dict)
     status = get_overriding_status()
 
-    confirmation = input(f"Overide all variables in {model} as {status}, proceed? [Y/N] ")
+    confirmation = input(f"Override all variables in {model} as {status}, proceed? [Y/N] ")
     if confirmation not in ["Y", "y", "N", "n"]:
         print("Input not recognised")
         process_override(mappings_dict)
