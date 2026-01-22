@@ -1,7 +1,12 @@
 # (C) British Crown Copyright 2026, Met Office.
 # Please see LICENSE.md for license details.
-"""
-This script generates the variable status dictionaries for each model/source.
+"""This script generates the variable status dictionaries for each model/source ID.
+
+This script is intended for command line usage in which the user will be given the option to manually override an entire
+model varaibles status file with a given status. e.g. override all variables in UKESM1 with the status "embargoed". The
+accepted status' are "approved", "do-not-produce" and "embargoed".
+
+In the absence of a manual override, the variable status' are drawn from the mappings JSON and labelled appropriately.
 """
 from pathlib import Path
 import json
