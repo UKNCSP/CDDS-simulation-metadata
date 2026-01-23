@@ -161,6 +161,38 @@ def get_mapping(mappings_dict: list[dict], variable: str) -> dict:
     return mapping
 
 
+def check_alias_dictionary(model: str) -> str:
+    """If the model variable status file cannot be directly found, an alias list is checked to account for the crossover
+    in naming convention between models. This function ensures that the script does not fail incorrectly and that each
+    model points to the correct variable status file.
+
+    Parameters
+    ----------
+    model: str
+        The model associated with the experiment that has been run.
+
+    Returns
+    -------
+    str
+        The corrected model based off of the model alias dictionary.
+
+    Raises
+    ------
+    RuntimeError
+        If no corrected model alias can be found.
+    """
+    correct_model = ""
+    alias_dict = read_json(REF_INFO_DIR / "model_id_alias.json")
+    for accepted_model, alias in alias_dict.items():
+        if model in alias:
+            correct_model = accepted_model
+
+    if not correct_model:
+        raise RuntimeError("The provided model cannot be found and has no known aliases.")
+
+    return correct_model
+
+
 def update_status_from_model(model: str, variable_dict: dict) -> dict:
     """Annotates each global variable with its production status (i.e. approved, embargoed or do not produce).
 
@@ -176,7 +208,12 @@ def update_status_from_model(model: str, variable_dict: dict) -> dict:
     dict
         An updated dictionary of variables and their comments created based on priority level and production status.
     """
-    model_status_dict = read_json(REF_INFO_DIR / f"{model}_variable_status.json")
+    try:
+        model_status_dict = read_json(REF_INFO_DIR / f"{model}_variable_status.json")
+    except FileNotFoundError:
+        model = check_alias_dictionary(model)
+        model_status_dict = read_json(REF_INFO_DIR / f"{model}_variable_status.json")
+
     for variable, comment in variable_dict.items():
         if variable in list(model_status_dict.keys()):
             variable_dict[variable].insert(0, f"{model_status_dict[variable]}")
@@ -372,9 +409,9 @@ def sort_key(line: str) -> int:
         The order of each label based on priority, variables with no specified priority will be assigned order 0 so that
         they appear at the top of the variable list.
     """
-    if "do-not-produce" in line:
+    if "no-mapping-found" in line:
         return 5
-    elif "no-mapping-found" in line:
+    elif "do-not-produce" in line:
         return 4
     elif "embargoed" in line:
         return 3
@@ -386,7 +423,7 @@ def sort_key(line: str) -> int:
     return 0
 
 
-def save_outfile(outdir: Path, experiment: str, renamed_variable_dict: dict[str, str]) -> None:
+def save_outfile(outdir: Path, experiment: str, model: str, renamed_variable_dict: dict[str, str]) -> None:
     """Saves a single file to a plain text format.
 
     Parameters
@@ -395,11 +432,13 @@ def save_outfile(outdir: Path, experiment: str, renamed_variable_dict: dict[str,
         The output directory.
     experiment: str
         The experiment whose variables are being saved.
+    model: str
+        The model associated with the experiment that has been run.
     renamed_variable_dict: dict[str, str]
         An updated dictionary containing the reformatted variable names as keys and priority/production status as
         values.
     """
-    outfile = outdir / f"{experiment}.txt"
+    outfile = outdir / f"{experiment}_{model}.txt"
     lines = format_outfile_content(renamed_variable_dict)
 
     with open(outfile, "w") as f:
@@ -422,7 +461,7 @@ def generate_variable_lists() -> None:
 
     # Process and save the variable dictionary.
     variable_dict = process_variable_dict(experiment_dict, args.experiment, args. model, mappings_dict)
-    save_outfile(outdir, args.experiment, variable_dict)
+    save_outfile(outdir, args.experiment, args.model, variable_dict)
 
     print(f"SUCCESSFULLY GENERATED VARIABLE LIST FOR {args.experiment}")
 
