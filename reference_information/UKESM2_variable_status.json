@@ -1,5 +1,5 @@
 {
     "aerosol.h2o.tavg-al-hxy-u.mon.glb": "embargoed",
-    "aerosol.dryno3.tavg-u-hxy-u.mon.glb": "embargoed",
-    "atmosChem.drynh4.tavg-u-hxy-u.mon.glb": "embargoed"
+    "aerosol.dryno3.tavg-u-hxy-u.mon.glb": "do-not-produce",
+    "atmosChem.drynh4.tavg-u-hxy-u.mon.glb": "do-not-produce"
 }

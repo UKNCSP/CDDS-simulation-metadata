@@ -440,8 +440,8 @@ def save_outfile(outdir: Path, experiment: str, model: str, renamed_variable_dic
     """
     outfile = outdir / f"{experiment}_{model}.txt"
     lines = format_outfile_content(renamed_variable_dict)
-
     with open(outfile, "w") as f:
+        f.write("# Note: only global variables are currently producible by CDDS\n")
         for line in sorted(lines, key=sort_key):
             f.write(line)
 
@@ -456,7 +456,7 @@ def generate_variable_lists() -> None:
     mappings_dict = read_json(MAPPINGS_FILE_LOCATION)
 
     # Create output file path.
-    outdir = Path(f"variables_glb/{experiment_dict['Header']['dreq content version']}")
+    outdir = Path(f"variables/{experiment_dict['Header']['dreq content version']}")
     os.makedirs(outdir, exist_ok=True)
 
     # Process and save the variable dictionary.
