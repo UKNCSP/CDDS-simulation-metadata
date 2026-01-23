@@ -1,0 +1,37 @@
+<table border=1, id="table_id", class="display">
+  <thead>
+   <tr bgcolor="#E0EEFF">
+     <th>Model Workflow ID</th>
+     <th>Model ID</th>
+     <th>Mass Data Class</th>
+     <th>MIP</th>
+     <th>Institution ID</th>
+     <th>Experiment ID</th>
+     <th>Variant Label</th>
+     <th>Start Date</th>
+     <th>End Date</th>
+   </tr>
+                          <tr class="filters">
+     <th></th>
+     <th></th>
+     <th></th>
+     <th></th>
+     <th></th>
+     <th></th>
+     <th></th>
+     <th></th>
+     <th></th>
+   </tr>
+   </thead>
+  <tr bgcolor="#FFFFFF">
+     <td><a href="https://github.com/UKNCSP/CDDS-simulation-metadata/tree/main/workflow_metadata/u-dv623.cfg">u-dv623</a></td>
+     <td>UKCM2-LL</td>
+     <td>crum</td>
+     <td>CMIP</td>
+     <td>MOHC</td>
+     <td>1pctCO2</td>
+     <td>r2i1p1f1</td>
+     <td>1850-01-01T00:00:00Z</td>
+     <td>2000-01-01T00:00:00Z</td>
+  </tr>
+</table>
