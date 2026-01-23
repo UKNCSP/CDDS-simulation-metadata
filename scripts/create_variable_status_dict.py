@@ -55,9 +55,7 @@ def get_variable_status(mappings_dict: list[dict], model: str) -> dict:
     variable_status_dict = {}
     for mapping in mappings_dict:
         if mapping["model"] == model:
-            if "approved" in mapping["labels"]:
-                variable_status_dict[(mapping["branded_variable"])] = "approved"
-            elif "do-not-produce" in mapping["labels"]:
+            if "do-not-produce" in mapping["labels"]:
                 variable_status_dict[(mapping["branded_variable"])] = "do-not-produce"
             else:
                 variable_status_dict[(mapping["branded_variable"])] = "embargoed"
@@ -103,6 +101,28 @@ def get_overriding_status() -> str:
     return status
 
 
+def sort_key(line: str) -> int:
+    """The custom sort function passed to the sorted() function to define the variable order for a single experiment.
+
+    Parameters
+    ----------
+    line: str
+        A single line containing a single variable name and associated comments.
+
+    Returns
+    -------
+    int
+        The order of each label based on priority, variables with no specified priority will be assigned order 0 so that
+        they appear at the top of the variable list.
+    """
+    if "do-not-produce" in line:
+        return 2
+    elif "embargoed" in line:
+        return 1
+
+    return 0
+
+
 def save_json(model: str, dictionary: dict) -> None:
     """Saves a single dictionary to JSON format.
 
@@ -115,7 +135,7 @@ def save_json(model: str, dictionary: dict) -> None:
     """
     outfile_path = REF_INFO_DIR / f"{model}_variable_status.json"
     with open(outfile_path, "w") as fh:
-        json.dump(dictionary, fh, indent=4)
+        json.dump(dict(sorted(dictionary.items(), key=sort_key)), fh, indent=4)
 
 
 def get_repeat_override_request(mappings_dict: list[dict]) -> None:
