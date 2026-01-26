@@ -3,6 +3,8 @@ from pathlib import Path
 
 from scripts.generate_metadata_tables import build_table
 
+TEST_DATA_DIR = Path("tests/test_scripts/data")
+
 
 class TestBuildTable(unittest.TestCase):
 
@@ -11,7 +13,7 @@ class TestBuildTable(unittest.TestCase):
                         'Variant Label', 'Start Date', 'End Date'],
                         ['u-dv623', 'UKCM2-LL', 'crum', 'CMIP', 'MOHC', '1pctCO2', 'r2i1p1f1', '1850-01-01T00:00:00Z',
                         '2000-01-01T00:00:00Z', 'u-dv623']]
-        with open(Path("tests/test_scripts/data/html_table.txt"), "r") as fh:
+        with open(Path(TEST_DATA_DIR / "html_table.txt"), "r") as fh:
             expected = fh.read()
 
         table = build_table(table_data)

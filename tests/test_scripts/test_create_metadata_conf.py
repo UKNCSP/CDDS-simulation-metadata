@@ -6,6 +6,8 @@ from textwrap import dedent
 from scripts.create_metadata_conf import (set_calendar, process_metadata, validate_meta_content, format_warning_message,
                                           sort_to_categories)
 
+TEST_DATA_DIR = Path("tests/test_scripts/data")
+
 
 class TestSetCalendar(unittest.TestCase):
 
@@ -34,7 +36,7 @@ class TestProcessMetadata(unittest.TestCase):
                  ('Parent Activity ID (MIP)', 'CMIP'), ('Parent Model ID', 'UKCM2-LL'),
                  ('Parent Time Units', 'days since 1850-01-01'), ('Parent Variant Label', 'r1i1p1f1'),
                  ('Mass Ensemble Member ID', '_No response_')]
-        with open(Path("tests/test_scripts/data/process_metadata.json"), "r") as fh:
+        with open(Path(TEST_DATA_DIR / "process_metadata.json"), "r") as fh:
             expected = json.load(fh)
 
         processed_metadata = process_metadata(match)
@@ -45,7 +47,7 @@ class TestProcessMetadata(unittest.TestCase):
 class TestValidateMetaContent(unittest.TestCase):
 
     def test_successful_validation(self):
-        with open(Path("tests/test_scripts/data/valid_meta_dict.json"), "r") as fh:
+        with open(Path(TEST_DATA_DIR / "valid_meta_dict.json"), "r") as fh:
             valid_meta_dict = json.load(fh)
 
         errors = validate_meta_content(valid_meta_dict)
@@ -53,9 +55,9 @@ class TestValidateMetaContent(unittest.TestCase):
         self.assertEqual(errors, {}, msg)
 
     def test_unsuccessful_validation(self):
-        with open(Path("tests/test_scripts/data/faulty_meta_dict.json"), "r") as fh:
+        with open(Path(TEST_DATA_DIR / "faulty_meta_dict.json"), "r") as fh:
             faulty_meta_dict = json.load(fh)
-        with open(Path("tests/test_scripts/data/errors_dict.json"), "r") as fh:
+        with open(Path(TEST_DATA_DIR / "errors_dict.json"), "r") as fh:
             expected = json.load(fh)
 
         errors = validate_meta_content(faulty_meta_dict)
@@ -66,7 +68,7 @@ class TestValidateMetaContent(unittest.TestCase):
 class TestFormatWarningMessage(unittest.TestCase):
 
     def test_format_warning_message(self):
-        with open(Path("tests/test_scripts/data/errors_dict.json"), "r") as fh:
+        with open(Path(TEST_DATA_DIR / "errors_dict.json"), "r") as fh:
             errors_dict = json.load(fh)
         expected = ("Missing parent field warning (missing required parent field: parent mip).\nMissing required field "
         "warning (missing field experiment id).\nLabel format warning (variant label is incorrectly formatted: "
@@ -84,9 +86,9 @@ class TestFormatWarningMessage(unittest.TestCase):
 class TestSortToCategories(unittest.TestCase):
 
     def test_sort_to_categories(self):
-        with open(Path("tests/test_scripts/data/valid_meta_dict.json"), "r") as fh:
+        with open(Path(TEST_DATA_DIR / "valid_meta_dict.json"), "r") as fh:
             meta_dict = json.load(fh)
-        with open(Path("tests/test_scripts/data/organised_categories.json"), "r") as fh:
+        with open(Path(TEST_DATA_DIR / "organised_categories.json"), "r") as fh:
             expected = json.load(fh)
 
         sorted_dict = sort_to_categories(meta_dict)
