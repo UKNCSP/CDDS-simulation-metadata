@@ -240,9 +240,10 @@ def create_failure_report(result: dict) -> None:
 
 def main() -> None:
     """Holds the main body of the script."""
+    result = {}
     cfg_files = get_metadata_files()
+
     for file in cfg_files:
-        result = {}
         result[file] = {
             "file": file,
             "failures": False,
@@ -257,7 +258,7 @@ def main() -> None:
         for validator in validators:
             result = validator(config, result, file)
 
-        create_failure_report(result)
+    create_failure_report(result)
 
 
 if __name__ == "__main__":
