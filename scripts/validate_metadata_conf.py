@@ -40,7 +40,7 @@ def get_metadata_files() -> list[str]:
     list[str]
         List of cfg files to be checked.
     """
-    glob_string = Path("workflow_metadata/*.cfg")
+    glob_string = Path("*.cfg")
     cfg_files = glob.glob(str(glob_string))
 
     return cfg_files
@@ -89,6 +89,10 @@ def validate_structure(config: configparser.ConfigParser, result: dict, file: st
     for section in missing_sections:
         for key in list(SECTION_DICT[section]):
             missing_keys.append(key)
+
+    for section in unexpected_sections:
+        for key in list(config[section]):
+            unexpected_keys.append(key)
 
     if any([missing_sections, unexpected_sections, missing_keys, unexpected_keys]):
         file_results["failures"] = True
@@ -216,7 +220,7 @@ def create_failure_report(result: dict) -> None:
         The dictionary containing the details of any validation failures.
     """
     success = True
-    print("\nFILE VALIDATION FAILURE REPORT:\n")
+    print("\nFILE VALIDATION FAILURE REPORT:")
     for f in result.values():
         if f["failures"]:
             success = False
@@ -236,10 +240,9 @@ def create_failure_report(result: dict) -> None:
 
 def main() -> None:
     """Holds the main body of the script."""
-    result = {}
-
     cfg_files = get_metadata_files()
     for file in cfg_files:
+        result = {}
         result[file] = {
             "file": file,
             "failures": False,
@@ -250,15 +253,11 @@ def main() -> None:
         config.read(file)
 
         # Perform validation
-        validators = [
-            validate_structure(config, result, file),
-            validate_required_fields(config, result, file),
-            validate_field_inputs(config, result, file),
-        ]
-        for v in validators:
-            result = v
+        validators = [validate_structure, validate_required_fields, validate_field_inputs]
+        for validator in validators:
+            result = validator(config, result, file)
 
-    create_failure_report(result)
+        create_failure_report(result)
 
 
 if __name__ == "__main__":
