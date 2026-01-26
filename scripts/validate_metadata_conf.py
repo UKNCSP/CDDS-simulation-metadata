@@ -40,7 +40,7 @@ def get_metadata_files() -> list[str]:
     list[str]
         List of cfg files to be checked.
     """
-    glob_string = Path("*.cfg")
+    glob_string = Path("workflow_metadata/*.cfg")
     cfg_files = glob.glob(str(glob_string))
 
     return cfg_files
