@@ -13,7 +13,7 @@ import sys
 from pathlib import Path
 
 import metomi.isodatetime.parsers as parse
-from constants import (
+from scripts.constants import (
     DATA,
     DATETIME_FIELDS,
     METADATA,
@@ -29,6 +29,7 @@ REGEX_DICT = {
     "workflow_pattern": re.compile(REGEX_FORMAT["model_workflow_id"]),
     "variant_pattern": re.compile(REGEX_FORMAT["variant_label"]),
 }
+SECTION_DICT = {"metadata": METADATA, "data": DATA, "misc": MISC}
 
 
 def get_metadata_files() -> list[str]:
@@ -62,26 +63,34 @@ def validate_structure(config: configparser.ConfigParser, result: dict, file: st
     dict
         The dictionary containing the details of any validation failures.
     """
-    file_results = result[file]
-    sections_in_config = set(config.sections())
-    SECTION_DICT = {"metadata": METADATA, "data": DATA, "misc": MISC}
+    missing_sections = []
+    unexpected_sections = []
+    missing_keys = []
+    unexpected_keys = []
 
-    # Verify the correct sections are present in the correct order
-    unexpected_sections = set()
-    missing_sections = set()
-    if sections_in_config != SECTIONS:
-        unexpected_sections = list(sections_in_config - SECTIONS)
-        missing_sections = list(SECTIONS - sections_in_config)
+    file_results = result[file]
+    config_sections = config.sections()
+
+    # Verify the correct sections are present
+    if config.sections != SECTION_DICT.keys():
+        missing_sections = list(set(SECTION_DICT.keys()) - set(config_sections))
+        unexpected_sections = list(set(config_sections) - set(SECTION_DICT.keys()))
 
     # Verify the correct keys are in the correct section
-    for section in SECTIONS:
-        keys = set(config[section].keys()) if section in config else set()
-        target = set(SECTION_DICT[section])
+    for section in config_sections:
+        if section in SECTION_DICT.keys():
+            expected_keys = SECTION_DICT[section]
+            existing_keys = config[section].keys()
+            for key in list(set(expected_keys) - set(existing_keys)):
+                missing_keys.append(key)
+            for key in list(set(existing_keys) - set(expected_keys)):
+                unexpected_keys.append(key)
 
-        missing_keys = target - keys
-        unexpected_keys = keys - target if section not in missing_sections else set()
+    for section in missing_sections:
+        for key in list(SECTION_DICT[section]):
+            missing_keys.append(key)
 
-    if any([missing_keys, unexpected_keys, unexpected_sections, missing_sections]):
+    if any([missing_sections, unexpected_sections, missing_keys, unexpected_keys]):
         file_results["failures"] = True
         file_results["missing_sections"] = list(missing_sections)
         file_results["unexpected_sections"] = list(unexpected_sections)
