@@ -169,3 +169,4 @@ REF_INFO_DIR = Path("reference_information")
 MAPPINGS_FILE_LOCATION = REF_INFO_DIR / "mappings.json"
 KNOWN_ISSUES_DICT_FILE_LOCATION = REF_INFO_DIR / "known_issues.json"
 DR_FILE_LOCATION = REF_INFO_DIR / "dr-1.2.2.3_all.json"
+APPROVED_VARIABLES_FILE_LOCATION = REF_INFO_DIR / "approved_variables.txt"

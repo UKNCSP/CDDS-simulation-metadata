@@ -12,9 +12,10 @@ In the absence of a manual override, the variable status' are drawn from the map
 import json
 from difflib import get_close_matches
 import sys
+from pathlib import Path
 
 from scripts.common import read_json
-from scripts.constants import REF_INFO_DIR, MAPPINGS_FILE_LOCATION
+from scripts.constants import REF_INFO_DIR, MAPPINGS_FILE_LOCATION, APPROVED_VARIABLES_FILE_LOCATION
 
 
 def get_all_models(mappings_dict: list[dict]) -> set:
@@ -32,9 +33,31 @@ def get_all_models(mappings_dict: list[dict]) -> set:
     """
     models = set()
     for mapping in mappings_dict:
-        models.add(mapping["model"])
+        model_list = mapping["models_in_stash"]
+        for model in model_list:
+            models.add(model)
 
     return models
+
+
+def get_all_variables(mappings_dict: list[dict]) -> set:
+    """Gets a list of all variables.
+
+    Parameters
+    ----------
+    mappings_dict: list[dict]
+        The dictionary containing the mapping and model information for all variables.
+
+    Returns
+    -------
+    set
+        A unique set of all variables that exist in the mappings dictionary.
+    """
+    variables = set()
+    for mapping in mappings_dict:
+        variables.add(mapping["branded_variable"])
+
+    return variables
 
 
 def get_variable_status(mappings_dict: list[dict], model: str) -> dict:
@@ -47,18 +70,60 @@ def get_variable_status(mappings_dict: list[dict], model: str) -> dict:
     model: str
         The model.
 
-    Return
-    ------
+    Returns
+    -------
     dict
         A dictionary of each variable in a model and its associated status.
     """
     variable_status_dict = {}
     for mapping in mappings_dict:
-        if mapping["model"] == model:
+        if model in mapping["models_in_stash"]:
             if "do-not-produce" in mapping["labels"]:
                 variable_status_dict[(mapping["branded_variable"])] = "do-not-produce"
             else:
                 variable_status_dict[(mapping["branded_variable"])] = "embargoed"
+        else:
+            variable_status_dict[(mapping["branded_variable"])] = "do-not-produce (not available with this model)"
+
+    return variable_status_dict
+
+
+def get_approved_variables(approved_variable_list_file: Path) -> list:
+    """Gets each approved variable from the approved variable file and returns them as a list.
+
+    Parameters
+    ----------
+    approved_variable_list_file: Path
+        The path to the appproved variable list file.
+
+    Returns
+    -------
+    list
+        A list of all approved variables.
+    """
+    with open(approved_variable_list_file, "r") as fh:
+        approved_variables = [line.rstrip() for line in fh]
+
+    return approved_variables
+
+
+def mark_approved_variables(variable_status_dict: dict):
+    """Overrides the current listed status with approved if the variable is in the approved list for a single model.
+
+    Parameters
+    ----------
+    variable_status_dict: dict
+        A dictionary of each variable in a model and its associated status.
+
+    Returns
+    -------
+    dict
+        A dictionary of each variable in a model and its associated status.
+    """
+    approved_variables = get_approved_variables(APPROVED_VARIABLES_FILE_LOCATION)
+    for variable, status in variable_status_dict.items():
+        if variable in approved_variables and status is not "do-not-produce (not available with this model)":
+            variable_status_dict[variable] = "approved"
 
     return variable_status_dict
 
@@ -101,28 +166,6 @@ def get_overriding_status() -> str:
     return status
 
 
-def sort_key(line: str) -> int:
-    """The custom sort function passed to the sorted() function to define the variable order for a single experiment.
-
-    Parameters
-    ----------
-    line: str
-        A single line containing a single variable name and associated comments.
-
-    Returns
-    -------
-    int
-        The order of each label based on priority, variables with no specified priority will be assigned order 0 so that
-        they appear at the top of the variable list.
-    """
-    if "do-not-produce" in line:
-        return 2
-    elif "embargoed" in line:
-        return 1
-
-    return 0
-
-
 def save_json(model: str, dictionary: dict) -> None:
     """Saves a single dictionary to JSON format.
 
@@ -135,7 +178,7 @@ def save_json(model: str, dictionary: dict) -> None:
     """
     outfile_path = REF_INFO_DIR / f"{model}_variable_status.json"
     with open(outfile_path, "w") as fh:
-        json.dump(dict(sorted(dictionary.items(), key=sort_key)), fh, indent=4)
+        json.dump(dict(sorted(dictionary.items(), key=lambda x: x[0])), fh, indent=4)
 
 
 def get_repeat_override_request(mappings_dict: list[dict]) -> None:
@@ -211,8 +254,10 @@ def generate_variable_status_dictionaries() -> None:
     """
     mappings_dict = read_json(MAPPINGS_FILE_LOCATION)
     all_models = get_all_models(mappings_dict)
+    get_all_variables(mappings_dict)
     for model in all_models:
         variable_status_dict = get_variable_status(mappings_dict, model)
+        variable_status_dict = mark_approved_variables(variable_status_dict)
         save_json(model, variable_status_dict)
         print(f"Processing variables for {model}..... Done")
 
