@@ -31,6 +31,11 @@ jobs:
         run: |
           FILE=$(git show --name-only --pretty="" HEAD | head -n 1)
           echo "last committed file --> $FILE"
+
+          WORKFLOW_ID_LINE=$(grep "model_workflow_id = ")
+          read _ _ WORKFLOW_ID <<< "$WORKFLOW_ID_LINE"
+          echo "workflow_id=$WORKFLOW_ID" >> $GITHUB_OUTPUT
+
           EXPERIMENT_LINE=$(grep -v "parent_experiment_id = " $FILE | grep "experiment_id = ")
           read _ _ EXPERIMENT <<< "$EXPERIMENT_LINE"
           echo "experiment=$EXPERIMENT" >> $GITHUB_OUTPUT
@@ -44,7 +49,7 @@ jobs:
       - name: create variable list
         id: create-variable-list
         run: |
-          python scripts/generate_variable_lists.py "${{ steps.get-commit.outputs.experiment }}" "${{ steps.get-commit.outputs.model }}"
+          python scripts/generate_variable_lists.py "${{ steps.get-commit.outputs.workflow_id }}" "${{ steps.get-commit.outputs.experiment }}" "${{ steps.get-commit.outputs.model }}"
 
       - name: commit and push
         run: |
