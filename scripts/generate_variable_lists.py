@@ -11,7 +11,7 @@ THIS SCRIPT CURRENTLY CONSIDERS GLOBAL VARIABLES ONLY. NON-GLOBAL VARIABLES ARE 
 reformat_variable_names().
 
 Example command line usage:
-"python scripts/generate_variable_lists.py 1pctCO2 UKESM1-3"
+"python scripts/generate_variable_lists.py a-bc123 1pctCO2 UKESM1-3"
 """
 
 import argparse
@@ -34,7 +34,7 @@ def set_arg_parser() -> argparse.Namespace:
     """
     parser = argparse.ArgumentParser(description="Generate a variable list (global variables only) for a given list "
                                      "experiments using provided data request and mapping information.")
-
+    parser.add_argument("workflow_id", help="The workflow ID associated with this workflow.")
     parser.add_argument("experiment", help="The experiment to generate a variable lists for.")
     parser.add_argument("model", help="The model associated with the experiment that has been run.")
 
@@ -220,7 +220,7 @@ def update_status_from_model(model: str, variable_dict: dict) -> dict:
         else:
             variable_dict[variable].insert(0, "no-mapping-found")
 
-    return variable_dict
+    return variable_dict, model
 
 
 def get_streams(experiment_dict: dict, experiment: str, mappings_dict: list[dict]) -> dict[str, str]:
@@ -355,11 +355,11 @@ def process_variable_dict(experiment_dict: dict, experiment: str, model: str, ma
     """
     variable_dict = {}
     variable_dict = set_priority_comments(experiment_dict, experiment)
-    variable_dict = update_status_from_model(model, variable_dict)
+    variable_dict, model = update_status_from_model(model, variable_dict)
     variable_dict = reformat_variable_names(experiment_dict, experiment, mappings_dict, variable_dict)
     variable_dict = identify_known_issues(experiment, variable_dict)
 
-    return variable_dict
+    return variable_dict, model
 
 
 def format_outfile_content(renamed_variable_dict: dict[str, str]) -> list[str]:
@@ -383,7 +383,7 @@ def format_outfile_content(renamed_variable_dict: dict[str, str]) -> list[str]:
     """
     lines = []
     for variable, comment in renamed_variable_dict.items():
-        if comment == "approved":
+        if "approved" in comment:
             lines.append(f"{variable}  # {', '.join(comment)}\n")
         elif comment:
             lines.append(f"#{variable}  # {', '.join(comment)}\n")
@@ -423,13 +423,17 @@ def sort_key(line: str) -> int:
     return 0
 
 
-def save_outfile(outdir: Path, experiment: str, model: str, renamed_variable_dict: dict[str, str]) -> None:
+def save_outfile(
+        outdir: Path, workflow_id: str, experiment: str, model: str, renamed_variable_dict: dict[str, str]
+    ) -> None:
     """Saves a single file to a plain text format.
 
     Parameters
     ----------
     outdir: Path
         The output directory.
+    workflow_id: str
+        The workflow ID associated with this workflow.
     experiment: str
         The experiment whose variables are being saved.
     model: str
@@ -438,7 +442,7 @@ def save_outfile(outdir: Path, experiment: str, model: str, renamed_variable_dic
         An updated dictionary containing the reformatted variable names as keys and priority/production status as
         values.
     """
-    outfile = outdir / f"{experiment}_{model}.txt"
+    outfile = outdir / f"{workflow_id}_{experiment}_{model}.txt"
     lines = format_outfile_content(renamed_variable_dict)
     with open(outfile, "w") as f:
         f.write("# Note: only global variables are currently producible by CDDS\n")
@@ -460,8 +464,8 @@ def generate_variable_lists() -> None:
     os.makedirs(outdir, exist_ok=True)
 
     # Process and save the variable dictionary.
-    variable_dict = process_variable_dict(experiment_dict, args.experiment, args. model, mappings_dict)
-    save_outfile(outdir, args.experiment, args.model, variable_dict)
+    variable_dict, model = process_variable_dict(experiment_dict, args.experiment, args. model, mappings_dict)
+    save_outfile(outdir, args.workflow_id, args.experiment, model, variable_dict)
 
     print(f"SUCCESSFULLY GENERATED VARIABLE LIST FOR {args.experiment}")
 
