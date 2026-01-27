@@ -10,8 +10,9 @@ In the absence of a manual override, the variable status' are drawn from the map
 """
 
 import json
-from difflib import get_close_matches
 import sys
+
+from difflib import get_close_matches
 from pathlib import Path
 
 from scripts.common import read_json
@@ -38,26 +39,6 @@ def get_all_models(mappings_dict: list[dict]) -> set:
             models.add(model)
 
     return models
-
-
-def get_all_variables(mappings_dict: list[dict]) -> set:
-    """Gets a list of all variables.
-
-    Parameters
-    ----------
-    mappings_dict: list[dict]
-        The dictionary containing the mapping and model information for all variables.
-
-    Returns
-    -------
-    set
-        A unique set of all variables that exist in the mappings dictionary.
-    """
-    variables = set()
-    for mapping in mappings_dict:
-        variables.add(mapping["branded_variable"])
-
-    return variables
 
 
 def get_variable_status(mappings_dict: list[dict], model: str) -> dict:
@@ -122,7 +103,7 @@ def mark_approved_variables(variable_status_dict: dict):
     """
     approved_variables = get_approved_variables(APPROVED_VARIABLES_FILE_LOCATION)
     for variable, status in variable_status_dict.items():
-        if variable in approved_variables and status is not "do-not-produce (not available with this model)":
+        if variable in approved_variables and status != "do-not-produce (not available with this model)":
             variable_status_dict[variable] = "approved"
 
     return variable_status_dict
@@ -254,7 +235,6 @@ def generate_variable_status_dictionaries() -> None:
     """
     mappings_dict = read_json(MAPPINGS_FILE_LOCATION)
     all_models = get_all_models(mappings_dict)
-    get_all_variables(mappings_dict)
     for model in all_models:
         variable_status_dict = get_variable_status(mappings_dict, model)
         variable_status_dict = mark_approved_variables(variable_status_dict)
