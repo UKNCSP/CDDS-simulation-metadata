@@ -194,7 +194,7 @@ def check_alias_dictionary(model: str) -> str:
     return correct_model
 
 
-def update_status_from_model(model: str, variable_dict: dict) -> dict:
+def update_status_from_model(model: str, variable_dict: dict) -> tuple[dict, str]:
     """Annotates each global variable with its production status (i.e. approved, embargoed or do not produce).
 
     Parameters
@@ -206,8 +206,9 @@ def update_status_from_model(model: str, variable_dict: dict) -> dict:
 
     Returns
     -------
-    dict
+    tuple[dict, str]
         An updated dictionary of variables and their comments created based on priority level and production status.
+        The updated model ID after checking the alias dictionary.
     """
     try:
         model_status_dict = read_json(REF_INFO_DIR / f"{model}_variable_status.json")
@@ -336,7 +337,9 @@ def identify_known_issues(experiment: str, renamed_variable_dict: dict[str, str]
     return renamed_variable_dict
 
 
-def process_variable_dict(experiment_dict: dict, experiment: str, model: str, mappings_dict: list[dict]) -> dict:
+def process_variable_dict(
+        experiment_dict: dict, experiment: str, model: str, mappings_dict: list[dict]
+    ) -> tuple[dict, str]:
     """Processes the variable dictionary against all functions to get a complete dictionary of renamed variables and
     their associated status.
 
