@@ -18,6 +18,7 @@ import argparse
 import os
 from itertools import chain
 from pathlib import Path
+import fnmatch
 
 from scripts.common import read_json
 from scripts.constants import REF_INFO_DIR, MAPPINGS_FILE_LOCATION, KNOWN_ISSUES_DICT_FILE_LOCATION, DR_FILE_LOCATION
@@ -409,10 +410,10 @@ def sort_key(line: str) -> int:
         The order of each label based on priority, variables with no specified priority will be assigned order 0 so that
         they appear at the top of the variable list.
     """
-    if "no-mapping-found" in line:
-        return 5
-    elif "do-not-produce" in line:
+    if "do-not-produce (not available with this model)" in line:
         return 4
+    elif "do-not-produce" in line:
+        return 5
     elif "embargoed" in line:
         return 3
     elif "priority=low" in line:
