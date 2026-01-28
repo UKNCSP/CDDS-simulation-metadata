@@ -34,7 +34,9 @@ def get_all_models(mappings_dict: list[dict]) -> set:
     """
     models = set()
     for mapping in mappings_dict:
-        model_list = mapping["models_in_stash"]
+        stash_model_list = mapping["models_in_stash"]
+        xios_model_list = list(mapping["XIOS entries"].keys())
+        model_list = stash_model_list + xios_model_list
         for model in model_list:
             models.add(model)
 
@@ -58,7 +60,7 @@ def get_variable_status(mappings_dict: list[dict], model: str) -> dict:
     """
     variable_status_dict = {}
     for mapping in mappings_dict:
-        if model in mapping["models_in_stash"]:
+        if model in mapping["models_in_stash"] or model in mapping["XIOS entries"].keys():
             if "do-not-produce" in mapping["labels"]:
                 variable_status_dict[(mapping["branded_variable"])] = "do-not-produce"
             else:
