@@ -90,7 +90,7 @@ def get_approved_variables(approved_variable_list_file: Path) -> list:
     return approved_variables
 
 
-def mark_approved_variables(variable_status_dict: dict):
+def mark_approved_variables(variable_status_dict: dict) -> dict:
     """Overrides the current listed status with approved if the variable is in the approved list for a single model.
 
     Parameters
@@ -202,7 +202,7 @@ def request_override(mappings_dict: list[dict]) -> None:
         sys.exit()
 
 
-def process_override(mappings_dict) -> None:
+def process_override(mappings_dict: list[dict]) -> None:
     """Processes the override if requested. The requested override information is printed back to the user for
     confirmation and, upon approval, the requested file is adjusted as requested. This override affects every variables
     within the chosen model variable status file. The option is given to the user to override any number of the model

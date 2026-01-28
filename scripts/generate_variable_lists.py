@@ -18,7 +18,6 @@ import argparse
 import os
 from itertools import chain
 from pathlib import Path
-import fnmatch
 
 from scripts.common import read_json
 from scripts.constants import REF_INFO_DIR, MAPPINGS_FILE_LOCATION, KNOWN_ISSUES_DICT_FILE_LOCATION, DR_FILE_LOCATION
@@ -42,7 +41,7 @@ def set_arg_parser() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def get_grouped_priority_labels(experiment_dict: dict, experiment: str) -> dict[str, set]:
+def get_grouped_priority_labels(experiment_dict: dict, experiment: str) -> dict:
     """Creates a dictionary of labels grouped by priority (core, high, med, low) for a single experiment.
 
     Parameters
@@ -54,7 +53,7 @@ def get_grouped_priority_labels(experiment_dict: dict, experiment: str) -> dict[
 
     Returns
     -------
-    dict[str, set]
+    dict
         A dictionary of labels grouped by priority (core, high, med, low).
     """
     experiment_data = experiment_dict["experiment"][experiment]
@@ -254,8 +253,8 @@ def get_streams(experiment_dict: dict, experiment: str, mappings_dict: list[dict
 
 
 def reformat_variable_names(
-    experiment_dict: dict, experiment: str, mappings_dict: list[dict], variable_dict: dict
-) -> dict[str, str]:
+        experiment_dict: dict, experiment: str, mappings_dict: list[dict], variable_dict: dict
+    ) -> dict[str, str]:
     """Reformats the name of each variable from realm.variable.branding.frequency.region to
     realm/variable_branding@frequency:stream for a single experiment.
 
@@ -354,8 +353,9 @@ def process_variable_dict(
 
     Returns
     -------
-    dict
+    tuple[dict, str]
         An updated dictionary containing the reformatted variable names and their associated status.
+        The updated model ID.
     """
     variable_dict = {}
     variable_dict = set_priority_comments(experiment_dict, experiment)
