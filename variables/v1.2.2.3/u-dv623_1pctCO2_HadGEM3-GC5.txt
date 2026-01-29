@@ -77,7 +77,6 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #atmos/zg_tavg-p19-hxy-air@mon:ap5  # embargoed
 #land/evspsblsoi_tavg-u-hxy-lnd@mon:ap5  # embargoed
 #land/evspsblveg_tavg-u-hxy-lnd@mon:ap5  # embargoed
-#land/lai_tavg-u-hxy-lnd@mon:ap5  # embargoed
 #land/mrro_tavg-u-hxy-lnd@mon:ap5  # embargoed
 #land/mrros_tavg-u-hxy-lnd@mon:ap5  # embargoed
 #land/mrso_tavg-u-hxy-lnd@mon:ap5  # embargoed
@@ -119,26 +118,17 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #aerosol/abs550aer_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/abs550dust_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/airmass_tavg-al-hxy-u@mon:ap4  # embargoed
-#aerosol/bry_tavg-p39-hy-air@mon:ap4  # embargoed
-#aerosol/c2h6_tavg-al-hxy-u@mon:ap4  # embargoed
-#aerosol/c3h6_tavg-al-hxy-u@mon:ap4  # embargoed
-#aerosol/c3h8_tavg-al-hxy-u@mon:ap4  # embargoed
 #aerosol/ccldncl_tavg-u-hxy-ccl@mon:ap5  # embargoed
 #aerosol/cdnc_tavg-al-hxy-u@mon:ap4  # embargoed
-#aerosol/ch3coch3_tavg-al-hxy-u@mon:ap4  # embargoed
 #aerosol/cheaqpso4_tavg-al-hxy-u@mon:ap4  # embargoed
 #aerosol/chegpso4_tavg-al-hxy-u@mon:ap4  # embargoed
 #aerosol/chepsoa_tavg-u-hxy-u@mon:ap4  # embargoed
-#aerosol/cly_tavg-p39-hy-air@mon:ap4  # embargoed
-#aerosol/co_tavg-al-hxy-u@mon:ap4  # embargoed
-#aerosol/co_tavg-h2m-hxy-u@day:ap6  # embargoed
 #aerosol/cod_tavg-u-hxy-u@day:ap6  # embargoed
 #aerosol/cod_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/conccn_tavg-al-hxy-u@mon:ap5  # embargoed
 #aerosol/conccn_tpt-u-hs-u@3hr:apT  # embargoed
 #aerosol/depdust_tavg-u-hxy-u@mon:ap5  # embargoed
 #aerosol/drydust_tavg-u-hxy-u@mon:ap4  # embargoed
-#aerosol/dryo3_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/ec550aer_tavg-al-hxy-u@mon:ap5  # embargoed
 #aerosol/ec550aer_tpt-al-hxy-u@6hr:ap7  # embargoed
 #aerosol/emibc_tavg-u-hxy-u@mon:ap4  # embargoed
@@ -146,23 +136,10 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #aerosol/emidms_tavg-u-hxy-u@mon:ap5  # embargoed
 #aerosol/emidust_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/emiisop_tavg-u-hxy-u@mon:ap4  # embargoed
-#aerosol/eminh3_tavg-u-hxy-u@mon:ap4  # embargoed
-#aerosol/eminox_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/emiso2_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/emiso4_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/emiss_tavg-u-hxy-u@mon:ap4  # embargoed
-#aerosol/emivoc_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/h2o_tavg-al-hxy-u@mon:ap4  # embargoed
-#aerosol/hcho_tavg-al-hxy-u@mon:ap4  # embargoed
-#aerosol/hcl_tavg-al-hxy-u@mon:ap4  # embargoed
-#aerosol/hcl_tavg-p39-hy-air@mon:ap4  # embargoed
-#aerosol/hno3_tavg-al-hxy-u@mon:ap4  # embargoed
-#aerosol/hno3_tavg-p39-hy-air@mon:ap4  # embargoed
-#aerosol/ho2_tavg-p39-hy-air@mon:ap4  # embargoed
-#aerosol/isop_tavg-al-hxy-u@mon:ap4  # embargoed
-#aerosol/jno2_tavg-al-hxy-u@mon:ap4  # embargoed
-#aerosol/lossch4_tavg-al-hxy-u@mon:ap4  # embargoed
-#aerosol/lossco_tavg-al-hxy-u@mon:ap4  # embargoed
 #aerosol/lwp_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/mmraerh2o_tavg-h2m-hxy-u@day:ap6  # embargoed
 #aerosol/mmraerh2o_tpt-h2m-hs-u@3hr:apT  # embargoed
@@ -182,24 +159,12 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #aerosol/mmrss_tavg-al-hxy-u@mon:ap4  # embargoed
 #aerosol/mmrss_tavg-h2m-hxy-u@day:ap6  # embargoed
 #aerosol/mmrss_tpt-h2m-hs-u@3hr:apT  # embargoed
-#aerosol/no_tavg-al-hxy-u@mon:ap4  # embargoed
-#aerosol/no2_tavg-al-hxy-u@mon:ap4  # embargoed
-#aerosol/no2_tavg-h2m-hxy-u@1hr:ap9  # embargoed
-#aerosol/noy_tavg-p39-hy-air@mon:ap4  # embargoed
-#aerosol/o3_tavg-h2m-hxy-u@1hr:ap9  # embargoed
-#aerosol/o3_tmax-h2m-hxy-u@day:ap6  # embargoed
-#aerosol/o3loss_tavg-al-hxy-u@mon:ap4  # embargoed
-#aerosol/o3prod_tavg-al-hxy-u@mon:ap4  # embargoed
 #aerosol/od443aer_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/od550aer_tavg-u-hxy-u@day:ap6  # embargoed
 #aerosol/od550aer_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/od550dust_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/od550lt1aer_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/od865aer_tavg-u-hxy-u@mon:ap4  # embargoed
-#aerosol/oh_tavg-al-hxy-u@mon:ap4  # embargoed
-#aerosol/oh_tavg-p39-hy-air@mon:ap4  # embargoed
-#aerosol/pan_tavg-al-hxy-u@mon:ap4  # embargoed
-#aerosol/photo1d_tavg-al-hxy-u@mon:ap4  # embargoed
 #aerosol/reffclwtop_tavg-u-hxy-cl@mon:ap4  # embargoed
 #aerosol/rluscsaf_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/rlutaf_tavg-u-hxy-u@mon:ap4  # embargoed
@@ -214,9 +179,6 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #aerosol/so2_tavg-h2m-hxy-u@day:ap6  # embargoed
 #aerosol/so2_tpt-h2m-hs-u@3hr:apT  # embargoed
 #aerosol/tatp_tavg-u-hxy-u@mon:ap4  # embargoed
-#aerosol/toz_tavg-u-hxy-u@day:ap6  # embargoed
-#aerosol/toz_tavg-u-hxy-u@mon:ap4  # embargoed
-#aerosol/tropoz_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/ua_tavg-10hPa-hxy-air@day:ap6  # embargoed
 #aerosol/wa_tavg-al-hxy-u@mon:ap4  # embargoed
 #aerosol/wetdust_tavg-u-hxy-u@mon:ap4  # embargoed
@@ -396,26 +358,11 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #atmos/zg_tpt-p3-hxy-air@6hr:ap7  # embargoed
 #atmos/zg_tpt-p7h-hxy-air@6hr:ap7  # embargoed
 #atmos/ztp_tavg-u-hxy-u@mon:ap4  # embargoed
-#atmosChem/cfc11_tavg-u-hm-air@mon:ap5  # embargoed
-#atmosChem/cfc12_tavg-u-hm-air@mon:ap5  # embargoed
-#atmosChem/ch4_tavg-al-hxy-u@mon:ap5  # embargoed
-#atmosChem/ch4_tavg-p19-hxy-air@mon:ap5  # embargoed
-#atmosChem/ch4_tavg-p39-hy-air@mon:ap4  # embargoed
-#atmosChem/ch4_tavg-u-hm-air@mon:ap5  # embargoed
 #atmosChem/dms_tavg-al-hxy-u@mon:ap4  # embargoed
-#atmosChem/meanage_tavg-p39-hy-air@mon:ap4  # embargoed
-#atmosChem/n2o_tavg-al-hxy-u@mon:ap4  # embargoed
-#atmosChem/n2o_tavg-p19-hxy-air@mon:ap5  # embargoed
-#atmosChem/n2o_tavg-p39-hy-air@mon:ap4  # embargoed
-#atmosChem/n2o_tavg-u-hm-air@mon:ap5  # embargoed
-#atmosChem/o3_tavg-al-hxy-u@mon:ap4  # embargoed
-#atmosChem/o3_tavg-p19-hxy-air@mon:ap5  # embargoed
-#atmosChem/o3_tavg-p39-hy-air@mon:ap4  # embargoed
 #land/evspsblpot_tavg-u-hxy-lnd@day:ap6  # embargoed
 #land/evspsblpot_tavg-u-hxy-lnd@mon:ap5  # embargoed
 #land/evspsblsoi_tavg-u-hxy-u@day:ap6  # embargoed
 #land/evspsblveg_tavg-u-hxy-u@day:ap6  # embargoed
-#land/grassFrac_tavg-u-hxy-u@mon:ap5  # embargoed
 #land/mrro_tavg-u-hxy-lnd@day:ap6  # embargoed
 #land/mrrob_tavg-u-hxy-lnd@day:ap6  # embargoed
 #land/mrros_tavg-u-hxy-lnd@day:ap6  # embargoed
@@ -428,11 +375,8 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #land/mrsol_tavg-sl-hxy-lnd@day:ap6  # embargoed
 #land/mrsol_tavg-sl-hxy-lnd@mon:ap5  # embargoed
 #land/sftgif_tavg-u-hxy-u@mon:ap5  # embargoed
-#land/shrubFrac_tavg-u-hxy-u@mon:ap5  # embargoed
-#land/treeFrac_tavg-u-hxy-u@mon:ap5  # embargoed
 #land/tsl_tavg-sl-hxy-lnd@day:ap6  # embargoed
 #land/tsl_tavg-sl-hxy-lnd@mon:ap5  # embargoed
-#land/vegFrac_tavg-u-hxy-u@mon:ap5  # embargoed
 #land/wetlandCH4_tavg-u-hxy-lnd@mon:ap5  # embargoed
 #land/wtd_tavg-u-hxy-lnd@day:ap6  # embargoed
 #landIce/acabf_tavg-u-hxy-is@mon:ap5  # embargoed
@@ -536,7 +480,6 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #seaIce/sihc_tavg-u-hxy-sea@mon  # embargoed
 #seaIce/siitdconc_tavg-u-hxy-si@mon  # embargoed
 #seaIce/siitdsnconc_tavg-u-hxy-si@mon  # embargoed
-#seaIce/siitdsnthick_tavg-u-hxy-si@mon  # embargoed
 #seaIce/siitdthick_tavg-u-hxy-si@mon  # embargoed
 #seaIce/simpconc_tavg-u-hxy-si@mon  # embargoed
 #seaIce/sisaltmass_tavg-u-hxy-si@mon  # embargoed
@@ -645,10 +588,6 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #atmos/rsds_tavg-u-hxy-u@1hr:ap9  # embargoed, priority=low
 #atmos/scldncl_tavg-u-hxy-scl@day:ap6  # embargoed, priority=low
 #atmos/sfcWind_tavg-h10m-hxy-u@1hr:ap9  # embargoed, priority=low
-#land/baresoilFrac_tavg-u-hxy-u@mon:ap5  # embargoed, priority=low
-#land/c3PftFrac_tavg-u-hxy-u@mon:ap5  # embargoed, priority=low
-#land/c4PftFrac_tavg-u-hxy-u@mon:ap5  # embargoed, priority=low
-#land/residualFrac_tavg-u-hxy-u@mon:ap5  # embargoed, priority=low
 #land/tran_tavg-u-hxy-lnd@mon:ap5  # embargoed, priority=low
 #ocean/difvho_tavg-ol-hxy-sea@yr  # embargoed, priority=low
 #ocean/difvso_tavg-ol-hxy-sea@yr  # embargoed, priority=low
@@ -672,6 +611,7 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #ocean/tossq_tavg-u-hxy-sea@mon  # embargoed, priority=low
 #atmos/areacella_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
 #atmos/sftlf_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
+#land/lai_tavg-u-hxy-lnd@mon:ap5  # do-not-produce (not available with this model)
 #land/mrsofc_ti-u-hxy-lnd@fx  # do-not-produce (not available with this model)
 #land/orog_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
 #land/rootd_ti-u-hxy-lnd@fx  # do-not-produce (not available with this model)
@@ -689,13 +629,22 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #aerosol/abs550oa_tavg-u-hxy-u@mon  # do-not-produce (not available with this model)
 #aerosol/abs550so4_tavg-u-hxy-u@mon  # do-not-produce (not available with this model)
 #aerosol/abs550ss_tavg-u-hxy-u@mon  # do-not-produce (not available with this model)
+#aerosol/bry_tavg-p39-hy-air@mon:ap4  # do-not-produce (not available with this model)
 #aerosol/bs550aer_tpt-al-hxy-u@6hr  # do-not-produce (not available with this model)
+#aerosol/c2h6_tavg-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
+#aerosol/c3h6_tavg-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
+#aerosol/c3h8_tavg-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
 #aerosol/ccn_tavg-u-hxy-ccl@mon  # do-not-produce (not available with this model)
 #aerosol/ccn1_tavg-al-hxy-u@mon  # do-not-produce (not available with this model)
 #aerosol/ccnp02_tavg-al-hxy-u@mon  # do-not-produce (not available with this model)
+#aerosol/ch3coch3_tavg-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
 #aerosol/chepasoa_tavg-u-hxy-u@mon  # do-not-produce (not available with this model)
+#aerosol/cly_tavg-p39-hy-air@mon:ap4  # do-not-produce (not available with this model)
+#aerosol/co_tavg-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
+#aerosol/co_tavg-h2m-hxy-u@day:ap6  # do-not-produce (not available with this model)
 #aerosol/drybc_tavg-u-hxy-u@mon:ap4  # do-not-produce (not available with this model)
 #aerosol/dryno3_tavg-u-hxy-u@mon:ap4  # do-not-produce (not available with this model)
+#aerosol/dryo3_tavg-u-hxy-u@mon:ap4  # do-not-produce (not available with this model)
 #aerosol/dryoa_tavg-u-hxy-u@mon:ap4  # do-not-produce (not available with this model)
 #aerosol/dryso2_tavg-u-hxy-u@mon:ap4  # do-not-produce (not available with this model)
 #aerosol/dryso4_tavg-u-hxy-u@mon:ap4  # do-not-produce (not available with this model)
@@ -714,8 +663,21 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #aerosol/emibbvoc_tavg-u-hxy-u@mon  # do-not-produce (not available with this model)
 #aerosol/emico_tavg-u-hxy-u@mon:ap4  # do-not-produce (not available with this model)
 #aerosol/emilnox_tavg-u-hxy-u@mon:ap4  # do-not-produce (not available with this model)
+#aerosol/eminh3_tavg-u-hxy-u@mon:ap4  # do-not-produce (not available with this model)
+#aerosol/eminox_tavg-u-hxy-u@mon:ap4  # do-not-produce (not available with this model)
 #aerosol/emioa_tavg-u-hxy-u@mon:ap4  # do-not-produce (not available with this model)
+#aerosol/emivoc_tavg-u-hxy-u@mon:ap4  # do-not-produce (not available with this model)
 #aerosol/h2o_tavg-p39-hy-air@mon  # do-not-produce (not available with this model)
+#aerosol/hcho_tavg-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
+#aerosol/hcl_tavg-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
+#aerosol/hcl_tavg-p39-hy-air@mon:ap4  # do-not-produce (not available with this model)
+#aerosol/hno3_tavg-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
+#aerosol/hno3_tavg-p39-hy-air@mon:ap4  # do-not-produce (not available with this model)
+#aerosol/ho2_tavg-p39-hy-air@mon:ap4  # do-not-produce (not available with this model)
+#aerosol/isop_tavg-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
+#aerosol/jno2_tavg-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
+#aerosol/lossch4_tavg-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
+#aerosol/lossco_tavg-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
 #aerosol/lossn2o_tavg-al-hxy-u@mon  # do-not-produce (not available with this model)
 #aerosol/mmraerh2o_tavg-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
 #aerosol/mmrnh4_tavg-al-hxy-u@mon  # do-not-produce (not available with this model)
@@ -727,6 +689,14 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #aerosol/mmrsoa_tavg-al-hxy-u@mon  # do-not-produce (not available with this model)
 #aerosol/mmrsoa_tavg-h2m-hxy-u@day  # do-not-produce (not available with this model)
 #aerosol/nh50_tavg-al-hxy-u@mon  # do-not-produce (not available with this model)
+#aerosol/no_tavg-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
+#aerosol/no2_tavg-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
+#aerosol/no2_tavg-h2m-hxy-u@1hr:ap9  # do-not-produce (not available with this model)
+#aerosol/noy_tavg-p39-hy-air@mon:ap4  # do-not-produce (not available with this model)
+#aerosol/o3_tavg-h2m-hxy-u@1hr:ap9  # do-not-produce (not available with this model)
+#aerosol/o3_tmax-h2m-hxy-u@day:ap6  # do-not-produce (not available with this model)
+#aerosol/o3loss_tavg-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
+#aerosol/o3prod_tavg-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
 #aerosol/od550aerh2o_tavg-u-hxy-u@mon  # do-not-produce (not available with this model)
 #aerosol/od550bb_tavg-u-hxy-u@mon  # do-not-produce (not available with this model)
 #aerosol/od550bc_tavg-u-hxy-u@mon  # do-not-produce (not available with this model)
@@ -736,9 +706,16 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #aerosol/od550so4_tavg-u-hxy-u@mon  # do-not-produce (not available with this model)
 #aerosol/od550soa_tavg-u-hxy-u@mon  # do-not-produce (not available with this model)
 #aerosol/od550ss_tavg-u-hxy-u@mon  # do-not-produce (not available with this model)
+#aerosol/oh_tavg-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
+#aerosol/oh_tavg-p39-hy-air@mon:ap4  # do-not-produce (not available with this model)
+#aerosol/pan_tavg-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
+#aerosol/photo1d_tavg-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
 #aerosol/pod0_tsum-u-hxy-u@mon  # do-not-produce (not available with this model)
 #aerosol/reffccwctop_tavg-u-hxy-cl@mon  # do-not-produce (not available with this model)
 #aerosol/sfpm1_tavg-h2m-hxy-u@day  # do-not-produce (not available with this model)
+#aerosol/toz_tavg-u-hxy-u@day:ap6  # do-not-produce (not available with this model)
+#aerosol/toz_tavg-u-hxy-u@mon:ap4  # do-not-produce (not available with this model)
+#aerosol/tropoz_tavg-u-hxy-u@mon:ap4  # do-not-produce (not available with this model)
 #aerosol/ttop_tavg-u-hxy-cl@mon  # do-not-produce (not available with this model)
 #aerosol/vt100_tavg-100hPa-hy-air@mon  # do-not-produce (not available with this model)
 #aerosol/wetbc_tavg-u-hxy-u@mon:ap4  # do-not-produce (not available with this model)
@@ -791,8 +768,14 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #atmosChem/c2h4_tavg-al-hxy-u@mon  # do-not-produce (not available with this model)
 #atmosChem/c2h5oh_tavg-al-hxy-u@mon  # do-not-produce (not available with this model)
 #atmosChem/c4h10_tavg-al-hxy-u@mon  # do-not-produce (not available with this model)
+#atmosChem/cfc11_tavg-u-hm-air@mon:ap5  # do-not-produce (not available with this model)
 #atmosChem/cfc113_tavg-u-hm-air@mon  # do-not-produce (not available with this model)
+#atmosChem/cfc12_tavg-u-hm-air@mon:ap5  # do-not-produce (not available with this model)
 #atmosChem/ch3oh_tavg-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
+#atmosChem/ch4_tavg-al-hxy-u@mon:ap5  # do-not-produce (not available with this model)
+#atmosChem/ch4_tavg-p19-hxy-air@mon:ap5  # do-not-produce (not available with this model)
+#atmosChem/ch4_tavg-p39-hy-air@mon:ap4  # do-not-produce (not available with this model)
+#atmosChem/ch4_tavg-u-hm-air@mon:ap5  # do-not-produce (not available with this model)
 #atmosChem/ch4_tclm-p19-hxy-air@mon  # do-not-produce (not available with this model)
 #atmosChem/ch4_tclm-u-hm-air@mon  # do-not-produce (not available with this model)
 #atmosChem/ch4losssoil_tavg-u-hxy-u@mon:ap4  # do-not-produce (not available with this model)
@@ -824,8 +807,16 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #atmosChem/h2prod_tavg-al-hxy-u@mon  # do-not-produce (not available with this model)
 #atmosChem/hcfc22_tavg-u-hm-air@mon  # do-not-produce (not available with this model)
 #atmosChem/meanage_tavg-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
+#atmosChem/meanage_tavg-p39-hy-air@mon:ap4  # do-not-produce (not available with this model)
+#atmosChem/n2o_tavg-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
+#atmosChem/n2o_tavg-p19-hxy-air@mon:ap5  # do-not-produce (not available with this model)
+#atmosChem/n2o_tavg-p39-hy-air@mon:ap4  # do-not-produce (not available with this model)
+#atmosChem/n2o_tavg-u-hm-air@mon:ap5  # do-not-produce (not available with this model)
 #atmosChem/n2o_tclm-p19-hxy-air@mon  # do-not-produce (not available with this model)
 #atmosChem/n2o_tclm-u-hm-air@mon  # do-not-produce (not available with this model)
+#atmosChem/o3_tavg-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
+#atmosChem/o3_tavg-p19-hxy-air@mon:ap5  # do-not-produce (not available with this model)
+#atmosChem/o3_tavg-p39-hy-air@mon:ap4  # do-not-produce (not available with this model)
 #atmosChem/o3_tclm-p19-hxy-air@mon  # do-not-produce (not available with this model)
 #atmosChem/o3_tpt-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
 #atmosChem/o3ref_tclm-al-hxy-u@fx:ap4  # do-not-produce (not available with this model)
@@ -864,6 +855,7 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #land/fFireAll_tavg-u-hxy-lnd@mon  # do-not-produce (not available with this model)
 #land/fFireNat_tavg-u-hxy-lnd@mon  # do-not-produce (not available with this model)
 #land/gpp_tavg-u-hxy-lnd@mon:ap5  # do-not-produce (not available with this model)
+#land/grassFrac_tavg-u-hxy-u@mon:ap5  # do-not-produce (not available with this model)
 #land/mrsow_tavg-u-hxy-lnd@day  # do-not-produce (not available with this model)
 #land/mrtws_tavg-u-hxy-lnd@day  # do-not-produce (not available with this model)
 #land/nbp_tavg-u-hxy-lnd@mon:ap5  # do-not-produce (not available with this model)
@@ -878,7 +870,10 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #land/rsus_tavg-u-hxy-lnd@mon  # do-not-produce (not available with this model)
 #land/rsus_tavg-u-hxy-sn@mon  # do-not-produce (not available with this model)
 #land/sftlaf_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
+#land/shrubFrac_tavg-u-hxy-u@mon:ap5  # do-not-produce (not available with this model)
+#land/treeFrac_tavg-u-hxy-u@mon:ap5  # do-not-produce (not available with this model)
 #land/tslsi_tavg-u-hxy-lsi@day  # do-not-produce (not available with this model)
+#land/vegFrac_tavg-u-hxy-u@mon:ap5  # do-not-produce (not available with this model)
 #land/vegHeight_tavg-u-hxy-veg@mon:ap5  # do-not-produce (not available with this model)
 #landIce/icem_tavg-u-hxy-is@mon:ap6  # do-not-produce (not available with this model)
 #landIce/lithk_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
@@ -969,6 +964,7 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #ocnBgchem/fgco2_tavg-u-hxy-sea@mon  # do-not-produce (not available with this model)
 #seaIce/prra_tavg-u-hxy-si@mon  # do-not-produce (not available with this model)
 #seaIce/siareaacrossline_tavg-u-ht-u@mon  # do-not-produce (not available with this model)
+#seaIce/siitdsnthick_tavg-u-hxy-si@mon  # do-not-produce (not available with this model)
 #seaIce/simassacrossline_tavg-u-ht-u@mon  # do-not-produce (not available with this model)
 #seaIce/sirdgconc_tavg-u-hxy-si@mon  # do-not-produce (not available with this model)
 #seaIce/sisndmasswind_tavg-u-hxy-si@mon  # do-not-produce (not available with this model)
@@ -1045,6 +1041,9 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #atmosChem/wetnh3_tavg-u-hxy-u@day  # do-not-produce (not available with this model), priority=low
 #atmosChem/wetnh4_tavg-u-hxy-u@day  # do-not-produce (not available with this model), priority=low
 #atmosChem/wetnoy_tavg-u-hxy-u@day:ap6  # do-not-produce (not available with this model), priority=low
+#land/baresoilFrac_tavg-u-hxy-u@mon:ap5  # do-not-produce (not available with this model), priority=low
+#land/c3PftFrac_tavg-u-hxy-u@mon:ap5  # do-not-produce (not available with this model), priority=low
+#land/c4PftFrac_tavg-u-hxy-u@mon:ap5  # do-not-produce (not available with this model), priority=low
 #land/cropFrac_tavg-u-hxy-u@mon:ap5  # do-not-produce (not available with this model), priority=low
 #land/cropFracC3_tavg-u-hxy-u@mon:ap5  # do-not-produce (not available with this model), priority=low
 #land/cropFracC4_tavg-u-hxy-u@mon:ap5  # do-not-produce (not available with this model), priority=low
@@ -1055,6 +1054,7 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #land/pastureFracC3_tavg-u-hxy-u@mon:ap5  # do-not-produce (not available with this model), priority=low
 #land/pastureFracC4_tavg-u-hxy-u@mon:ap5  # do-not-produce (not available with this model), priority=low
 #land/prveg_tavg-u-hxy-lnd@mon  # do-not-produce (not available with this model), priority=low
+#land/residualFrac_tavg-u-hxy-u@mon:ap5  # do-not-produce (not available with this model), priority=low
 #land/tas_tavg-h2m-hxy-u@1hr  # do-not-produce (not available with this model), priority=low
 #ocean/difmxybo_tavg-ol-hxy-sea@yr  # do-not-produce (not available with this model), priority=low
 #ocean/difmxylo_tavg-ol-hxy-sea@yr  # do-not-produce (not available with this model), priority=low
