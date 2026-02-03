@@ -294,7 +294,7 @@ def reformat_variable_names(
 
         # Filter out any non global variables
         if region == "glb":
-            new_variable_name = (f"{realm}/{variable_name}_{branding}@{frequency}:{stream}" if stream else
+            new_variable_name = (f"{realm}/{variable_name}_{branding}@{frequency}:{stream.lower()}" if stream else
                                  f"{realm}/{variable_name}_{branding}@{frequency}")
 
             # Create new dictionary with the reformatted variable names to avoid key errors in the original dict.
