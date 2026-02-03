@@ -11,8 +11,8 @@ import sys
 from difflib import get_close_matches
 import re
 
-from scripts.common import read_json
-from scripts.constants import MAPPINGS_FILE_LOCATION, DR_FILE_LOCATION, KNOWN_ISSUES_DICT_FILE_LOCATION
+from common import read_json
+from constants import MAPPINGS_FILE_LOCATION, DR_FILE_LOCATION, KNOWN_ISSUES_DICT_FILE_LOCATION
 
 
 def arg_parser() -> argparse.Namespace:
@@ -32,6 +32,7 @@ def arg_parser() -> argparse.Namespace:
     parser.add_argument("variant_label", help=("The variant_label. To append to ALL variant labels, input '*' upon "
                                                "triggering the script."))
     parser.add_argument("variable", help="The variable.")
+    parser.add_argument("comment", help="A breif explanantion of the issue with the variable.")
 
     return parser.parse_args()
 
@@ -47,8 +48,8 @@ def get_valid_source_ids() -> set:
     valid_source_ids = set()
     mappings = read_json(MAPPINGS_FILE_LOCATION)
     for dictionary in mappings:
-        valid_source_ids.add(dictionary["model"])
-
+        for model in dictionary["models_in_stash"]:
+            valid_source_ids.add(model)
     return valid_source_ids
 
 
@@ -80,8 +81,11 @@ def verify_user_input(args: argparse.Namespace) -> None:
     ValueError
         If an invalid entry is provided as an argument by the user.
     """
-    user_inputs = [args.source_id, args.experiment_id]
-    valid_inputs = [get_valid_source_ids(), get_valid_experiment_ids()]
+    # user_inputs = [args.source_id, args.experiment_id]
+    # valid_inputs = [get_valid_source_ids(), get_valid_experiment_ids()]
+
+    user_inputs = [args.experiment_id]
+    valid_inputs = [get_valid_experiment_ids()]
 
     # Confirm that source id and experiment id are recognised and valid
     for user_input, valid_input_list in zip(user_inputs, valid_inputs):
@@ -137,6 +141,8 @@ def confirm_input_with_user(args: argparse.Namespace, instruction: str) -> None:
         print("Input not recognised")
         confirm_input_with_user(args, instruction)
 
+    return instruction
+
 
 def check_if_input_already_exists(source_dict: dict, args: argparse.Namespace) -> int:
     """Checks if the entry already exists and hence is a known issue. If the entry already exists the script returns an
@@ -184,10 +190,10 @@ def append_to_issues_dict(source_dict: dict, args: argparse.Namespace) -> dict:
     if args.experiment_id not in source_dict[args.source_id].keys():
         source_dict[args.source_id][args.experiment_id] = {}
     if args.variant_label not in source_dict[args.source_id][args.experiment_id].keys():
-        source_dict[args.source_id][args.experiment_id][args.variant_label] = []
+        source_dict[args.source_id][args.experiment_id][args.variant_label] = {}
 
     variable_list = source_dict[args.source_id][args.experiment_id][args.variant_label]
-    variable_list.append(args.variable)
+    variable_list[args.variable] = args.comment
 
     return source_dict
 
