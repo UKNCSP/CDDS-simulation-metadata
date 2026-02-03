@@ -13,7 +13,7 @@ import sys
 from pathlib import Path
 
 import metomi.isodatetime.parsers as parse
-from constants import (
+from scripts.constants import (
     DATA,
     DATETIME_FIELDS,
     METADATA,
@@ -29,6 +29,7 @@ REGEX_DICT = {
     "workflow_pattern": re.compile(REGEX_FORMAT["model_workflow_id"]),
     "variant_pattern": re.compile(REGEX_FORMAT["variant_label"]),
 }
+SECTION_DICT = {"metadata": METADATA, "data": DATA, "misc": MISC}
 
 
 def get_metadata_files() -> list[str]:
@@ -62,26 +63,38 @@ def validate_structure(config: configparser.ConfigParser, result: dict, file: st
     dict
         The dictionary containing the details of any validation failures.
     """
-    file_results = result[file]
-    sections_in_config = set(config.sections())
-    SECTION_DICT = {"metadata": METADATA, "data": DATA, "misc": MISC}
+    missing_sections = []
+    unexpected_sections = []
+    missing_keys = []
+    unexpected_keys = []
 
-    # Verify the correct sections are present in the correct order
-    unexpected_sections = set()
-    missing_sections = set()
-    if sections_in_config != SECTIONS:
-        unexpected_sections = list(sections_in_config - SECTIONS)
-        missing_sections = list(SECTIONS - sections_in_config)
+    file_results = result[file]
+    config_sections = config.sections()
+
+    # Verify the correct sections are present
+    if config.sections != SECTION_DICT.keys():
+        missing_sections = list(set(SECTION_DICT.keys()) - set(config_sections))
+        unexpected_sections = list(set(config_sections) - set(SECTION_DICT.keys()))
 
     # Verify the correct keys are in the correct section
-    for section in SECTIONS:
-        keys = set(config[section].keys()) if section in config else set()
-        target = set(SECTION_DICT[section])
+    for section in config_sections:
+        if section in SECTION_DICT:
+            expected_keys = SECTION_DICT[section]
+            existing_keys = config[section].keys()
+            missing_list = list(set(expected_keys) - set(existing_keys))
+            unexpected_list = list(set(existing_keys) - set(expected_keys))
+            for key in missing_list:
+                missing_keys.append(key)
+            for key in unexpected_list:
+                unexpected_keys.append(key)
 
-        missing_keys = target - keys
-        unexpected_keys = keys - target if section not in missing_sections else set()
+    for section in missing_sections:
+        missing_keys += list(SECTION_DICT[section])
 
-    if any([missing_keys, unexpected_keys, unexpected_sections, missing_sections]):
+    for section in unexpected_sections:
+        unexpected_keys.append += list(config[section])
+
+    if any([missing_sections, unexpected_sections, missing_keys, unexpected_keys]):
         file_results["failures"] = True
         file_results["missing_sections"] = list(missing_sections)
         file_results["unexpected_sections"] = list(unexpected_sections)
@@ -207,7 +220,7 @@ def create_failure_report(result: dict) -> None:
         The dictionary containing the details of any validation failures.
     """
     success = True
-    print("\nFILE VALIDATION FAILURE REPORT:\n")
+    print("\nFILE VALIDATION FAILURE REPORT:")
     for f in result.values():
         if f["failures"]:
             success = False
@@ -228,8 +241,8 @@ def create_failure_report(result: dict) -> None:
 def main() -> None:
     """Holds the main body of the script."""
     result = {}
-
     cfg_files = get_metadata_files()
+
     for file in cfg_files:
         result[file] = {
             "file": file,
@@ -241,13 +254,9 @@ def main() -> None:
         config.read(file)
 
         # Perform validation
-        validators = [
-            validate_structure(config, result, file),
-            validate_required_fields(config, result, file),
-            validate_field_inputs(config, result, file),
-        ]
-        for v in validators:
-            result = v
+        validators = [validate_structure, validate_required_fields, validate_field_inputs]
+        for validator in validators:
+            result = validator(config, result, file)
 
     create_failure_report(result)
 
