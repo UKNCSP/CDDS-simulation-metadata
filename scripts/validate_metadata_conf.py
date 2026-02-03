@@ -78,21 +78,21 @@ def validate_structure(config: configparser.ConfigParser, result: dict, file: st
 
     # Verify the correct keys are in the correct section
     for section in config_sections:
-        if section in SECTION_DICT.keys():
+        if section in SECTION_DICT:
             expected_keys = SECTION_DICT[section]
             existing_keys = config[section].keys()
-            for key in list(set(expected_keys) - set(existing_keys)):
+            missing_list = list(set(expected_keys) - set(existing_keys))
+            unexpected_list = list(set(existing_keys) - set(expected_keys))
+            for key in missing_list:
                 missing_keys.append(key)
-            for key in list(set(existing_keys) - set(expected_keys)):
+            for key in unexpected_list:
                 unexpected_keys.append(key)
 
     for section in missing_sections:
-        for key in list(SECTION_DICT[section]):
-            missing_keys.append(key)
+        missing_keys += list(SECTION_DICT[section])
 
     for section in unexpected_sections:
-        for key in list(config[section]):
-            unexpected_keys.append(key)
+        unexpected_keys.append += list(config[section])
 
     if any([missing_sections, unexpected_sections, missing_keys, unexpected_keys]):
         file_results["failures"] = True
