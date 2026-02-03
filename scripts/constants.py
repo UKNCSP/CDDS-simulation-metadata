@@ -1,5 +1,8 @@
 # (C) British Crown Copyright 2026, Met Office.
 # Please see LICENSE.md for license details.
+
+from pathlib import Path
+
 HEADINGS = ['Model Workflow ID', 'Model ID', 'Mass Data Class', 'MIP', 'Institution ID', 'Experiment ID',
             'Variant Label', 'Start Date', 'End Date']
 HEADER_ROW_TEMPLATE = ('  <thead>\n   <tr bgcolor="{0}">\n{1}   </tr>\n   \
@@ -161,3 +164,9 @@ META_FIELDS = {
         "model_workflow_id": "model_workflow_id",
         "atmospheric_timestep": "atmos_timestep"
     }
+
+REF_INFO_DIR = Path("reference_information")
+MAPPINGS_FILE_LOCATION = REF_INFO_DIR / "mappings.json"
+KNOWN_ISSUES_DICT_FILE_LOCATION = REF_INFO_DIR / "known_issues.json"
+DR_FILE_LOCATION = REF_INFO_DIR / "dr-1.2.2.3_all.json"
+APPROVED_VARIABLES_FILE_LOCATION = REF_INFO_DIR / "approved_variables.txt"

@@ -1,6 +1,8 @@
 #!/usr/bin/env python3.10
 # (C) British Crown Copyright 2026, Met Office.
+# Please see LICENSE.md for license details.
 """Run all the tests in the 'CDDS Simulation Metadata' packages."""
+
 import argparse
 import datetime
 import os
@@ -91,8 +93,8 @@ def check_mypy_compliance(arguments: argparse.Namespace, exit_code: int) -> int:
     int
         The exit code determined by the process output. 0 for a test pass and 1 for a test fail.
     """
-    command = ['mypy', CDDS_SIM_META_DIR, '--show-error-codes', '--no-strict-optional', '--config-file',
-                f'{CDDS_SIM_META_DIR}/mypy.ini']
+    command = ['mypy', CDDS_SIM_META_DIR, '--show-error-codes', '--no-strict-optional', '--no-namespace-packages',
+               '--config-file', f'{CDDS_SIM_META_DIR}/mypy.ini']
     process = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     if process.returncode == 0:

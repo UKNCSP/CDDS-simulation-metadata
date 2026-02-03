@@ -1,3 +1,7 @@
+# (C) British Crown Copyright 2026, Met Office.
+# Please see LICENSE.md for license details.
+"""Holds common functions used throughout `scripts`"""
+
 from pathlib import Path
 import json
 import sys
@@ -16,14 +20,7 @@ def read_json(source_path: Path):
     dict
         The JSON file contents as a dictionary.
     """
-    try:
-        with open(source_path, 'r') as f:
-            dictionary = json.load(f)
-    except FileNotFoundError:
-        print(f"{source_path} does not exist. Please check the file path that you have provided.")
-        sys.exit(1)
-    except json.JSONDecodeError as e:
-        print(f"This json file is invalid: {e}")
-        sys.exit()
+    with open(source_path, 'r') as f:
+        dictionary = json.load(f)
 
     return dictionary

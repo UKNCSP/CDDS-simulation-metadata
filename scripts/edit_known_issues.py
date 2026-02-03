@@ -6,17 +6,13 @@ Example command line usage: 'python scripts/edit_known_issues.py "UKESM1" "1pctC
 """
 
 import argparse
-from pathlib import Path
 import json
 import sys
 from difflib import get_close_matches
 import re
 
-from common import read_json
-
-MAPPING_FILE_LOCATION = Path("reference_information/mappings.json")
-DR_FILE_LOCATION = Path("reference_information/dr-1.2.2.2_all.json")
-KNOWN_ISSUES_DICT_FILE_LOCATION = Path("reference_information/known_issues.json")
+from scripts.common import read_json
+from scripts.constants import MAPPINGS_FILE_LOCATION, DR_FILE_LOCATION, KNOWN_ISSUES_DICT_FILE_LOCATION
 
 
 def arg_parser() -> argparse.Namespace:
@@ -49,7 +45,7 @@ def get_valid_source_ids() -> set:
         A unique set of all valid source IDs.
     """
     valid_source_ids = set()
-    mappings = read_json(MAPPING_FILE_LOCATION)
+    mappings = read_json(MAPPINGS_FILE_LOCATION)
     for dictionary in mappings:
         valid_source_ids.add(dictionary["model"])
 
@@ -241,7 +237,7 @@ def main():
             print("\nThis entry does not exist and hence cannot be deleted.")
             sys.exit()
 
-    with open(Path("reference_information/known_issues.json"), "w") as outfile:
+    with open(KNOWN_ISSUES_DICT_FILE_LOCATION, "w") as outfile:
         json.dump(updated_dict, outfile, indent=4)
 
 
