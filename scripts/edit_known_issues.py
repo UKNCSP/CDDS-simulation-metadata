@@ -32,7 +32,7 @@ def arg_parser() -> argparse.Namespace:
     parser.add_argument("variant_label", help=("The variant_label. To append to ALL variant labels, input '*' upon "
                                                "triggering the script."))
     parser.add_argument("variable", help="The variable.")
-    parser.add_argument("comment", help="A breif explanation of the issue with the variable.")
+    parser.add_argument("comment", help="A brief explanation of the issue with the variable.")
 
     return parser.parse_args()
 
