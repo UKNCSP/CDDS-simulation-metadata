@@ -141,8 +141,6 @@ def confirm_input_with_user(args: argparse.Namespace, instruction: str) -> None:
         print("Input not recognised")
         confirm_input_with_user(args, instruction)
 
-    return instruction
-
 
 def check_if_input_already_exists(source_dict: dict, args: argparse.Namespace) -> int:
     """Checks if the entry already exists and hence is a known issue. If the entry already exists the script returns an
