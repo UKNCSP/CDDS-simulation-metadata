@@ -32,7 +32,7 @@ jobs:
           FILE=$(git show --name-only --pretty="" HEAD | head -n 1)
           echo "last committed file --> $FILE"
 
-          WORKFLOW_ID_LINE=$(grep "model_workflow_id = ")
+          WORKFLOW_ID_LINE=$(grep "model_workflow_id = " $FILE)
           read _ _ WORKFLOW_ID <<< "$WORKFLOW_ID_LINE"
           echo "workflow_id=$WORKFLOW_ID" >> $GITHUB_OUTPUT
 
