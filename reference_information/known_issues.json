@@ -1,9 +1,37 @@
 {
     "EXAMPLE_source_id": {
-        "EXAMPLE_variant_label": {
-            "EXAMPLE_variant_label": [
-                "EXAMPLE_variable"
-            ]
+        "EXAMPLE_experiment_id": {
+            "EXAMPLE_variant_label": {
+                "EXAMPLE_variable": "example reason"
+            }
+        }
+    },
+    "UKCM2-0-LL": {
+        "1pctCO2": {
+            "*": {
+                "atmos/psl_tpt-u-hxy-u@1hr": "STASH not in suite",
+                "atmos/evspsbl_tavg-u-hxy-lnd@day": "STASH not in suite",
+                "atmos/evspsblpot_tavg-u-hxy-lnd@day": "STASH not in suite",
+                "atmos/snc_tavg-u-hxy-lnd@day": "STASH not in suite",
+                "atmos/snw_tavg-u-hxy-lnd@day": "STASH not in suite",
+                "atmos/clmisr_tavg-h16-hxy-air@mon": "STASH not in suite",
+                "atmos/co2mass_tavg-u-hm-u@mon": "STASH not in suite",
+                "atmos/acabf_tavg-u-hxy-is@mon": "STASH not in suite",
+                "atmos/hfls_tavg-u-hxy-is@mon": "STASH not in suite",
+                "atmos/hfss_tavg-u-hxy-is@mon": "STASH not in suite",
+                "atmos/litemptop_tavg-u-hxy-is@mon": "STASH not in suite",
+                "atmos/mrro_tavg-u-hxy-is@mon": "STASH not in suite",
+                "atmos/rlds_tavg-u-hxy-is@mon": "STASH not in suite",
+                "atmos/rlus_tavg-u-hxy-is@mon": "STASH not in suite",
+                "atmos/sbl_tavg-u-hxy-is@mon": "STASH not in suite",
+                "atmos/snd_tavg-u-hxy-lnd@mon": "STASH not in suite",
+                "atmos/snicem_tavg-u-hxy-is@mon": "STASH not in suite",
+                "atmos/snm_tavg-u-hxy-is@mon": "STASH not in suite",
+                "atmos/snm_tavg-u-hxy-lnd@mon": "STASH not in suite",
+                "atmos/snrefr_tavg-u-hxy-is@mon": "STASH not in suite",
+                "atmos/tas_tavg-h2m-hxy-is@mon": "STASH not in suite",
+                "atmos/ts_tavg-u-hxy-is@mon": "STASH not in suite"
+            }
         }
     }
 }
