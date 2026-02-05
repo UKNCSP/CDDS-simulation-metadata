@@ -465,7 +465,7 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #seaIce/sidmassth_tavg-u-hxy-si@mon:inm/grid-t  # embargoed
 #seaIce/sieqthick_tavg-u-hxy-si@mon:inm/grid-t  # embargoed
 #seaIce/siflcondbot_tavg-u-hxy-si@day:ind/grid-t  # embargoed
-#seaIce/siflcondbot_tavg-u-hxy-si@mon  # embargoed
+#seaIce/siflcondbot_tavg-u-hxy-si@mon:inm/grid-t  # embargoed
 #seaIce/siflcondtop_tavg-u-hxy-si@day:ind/grid-t  # embargoed
 #seaIce/siflcondtop_tavg-u-hxy-si@mon:inm/grid-t  # embargoed
 #seaIce/sifllattop_tavg-u-hxy-si@day:ind/grid-t  # embargoed
@@ -480,7 +480,7 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #seaIce/sihc_tavg-u-hxy-sea@mon:inm/grid-t  # embargoed
 #seaIce/siitdconc_tavg-u-hxy-si@mon:inm/grid-t  # embargoed
 #seaIce/siitdsnconc_tavg-u-hxy-si@mon:inm/grid-t  # embargoed
-#seaIce/siitdthick_tavg-u-hxy-si@mon:</field>  # embargoed
+#seaIce/siitdthick_tavg-u-hxy-si@mon:inm/grid-t  # embargoed
 #seaIce/simpconc_tavg-u-hxy-si@mon:inm/grid-t  # embargoed
 #seaIce/sisaltmass_tavg-u-hxy-si@mon:inm/grid-t  # embargoed
 #seaIce/sisndmassdyn_tavg-u-hxy-si@mon:inm/grid-t  # embargoed
@@ -491,7 +491,7 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #seaIce/sistressave_tpt-u-hxy-si@mon:inm/grid-t  # embargoed
 #seaIce/sistressmax_tpt-u-hxy-si@mon:inm/grid-t  # embargoed
 #seaIce/sistrxdtop_tavg-u-hxy-si@mon:inm/grid-t  # embargoed
-#seaIce/sistrxubot_tavg-u-hxy-si@mon:<field field_ref="utau_oi_siconc_cmip" name="sistrxubot" operation="average" freq_op="1mo" detect_missing_value="true"> (@iceconc==0) ? $missval : (@utau_oi_siconc_cmip / @iceconc) </field>  # embargoed
+#seaIce/sistrxubot_tavg-u-hxy-si@mon:inm/grid-t  # embargoed
 #seaIce/sistrydtop_tavg-u-hxy-si@mon:inm/grid-t  # embargoed
 #seaIce/sistryubot_tavg-u-hxy-si@mon:inm/grid-t  # embargoed
 #seaIce/sitempsnic_tavg-u-hxy-si@mon:inm/grid-t  # embargoed
@@ -499,7 +499,7 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #seaIce/sitimefrac_tavg-u-hxy-sea@day:ind/grid-t  # embargoed
 #seaIce/siu_tavg-u-hxy-si@day:ind/grid-t  # embargoed
 #seaIce/siv_tavg-u-hxy-si@day:ind/grid-t  # embargoed
-#seaIce/snc_tavg-u-hxy-si@mon:<field field_ref="snwfrac_pct"    name="sisnconc" />  # embargoed
+#seaIce/snc_tavg-u-hxy-si@mon:inm/grid-t  # embargoed
 #seaIce/snd_tavg-u-hxy-sn@day:ind/grid-t  # embargoed
 #seaIce/snm_tavg-u-hxy-si@mon:inm/grid-t  # embargoed
 #seaIce/snw_tavg-u-hxy-si@mon:inm/grid-t  # embargoed
@@ -551,7 +551,7 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #seaIce/sidragtop_tavg-u-hxy-si@mon:ap5  # embargoed, priority=medium
 #seaIce/sifb_tavg-u-hxy-si@day:ind/grid-t  # embargoed, priority=medium
 #seaIce/sifb_tavg-u-hxy-si@mon:inm/grid-t  # embargoed, priority=medium
-#seaIce/siflfwbot_tavg-u-hxy-si@mon  # embargoed, priority=medium
+#seaIce/siflfwbot_tavg-u-hxy-si@mon:inm/grid-t  # embargoed, priority=medium
 #seaIce/siflfwdrain_tavg-u-hxy-si@mon:inm/grid-t  # embargoed, priority=medium
 #seaIce/siforcecoriolx_tavg-u-hxy-si@mon:inm/grid-t  # embargoed, priority=medium
 #seaIce/siforcecorioly_tavg-u-hxy-si@mon:inm/grid-t  # embargoed, priority=medium

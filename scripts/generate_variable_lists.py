@@ -242,10 +242,12 @@ def get_stream_from_XIOS(mapping: dict, model: str, variable: str) -> str:
         The corresponding stream for the given variable within the given model. Returns "" if no stream can be found.
     """
     xios_dict = mapping.get("XIOS entries")
+    labels = mapping.get("labels")
     try:
         full_stream_info = xios_dict[model]
     except KeyError:
-        print(f"WARNING: Unable to find stream for {variable} in model {model}...")
+        if "do-not-produce" not in labels and ".glb" in variable:
+            print(f"WARNING: Unable to find stream for {variable} in model {model}...")
         full_stream_info = ""
 
     stream = full_stream_info.split("`")[0] if full_stream_info else ""
