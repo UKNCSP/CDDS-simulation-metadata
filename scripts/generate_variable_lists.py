@@ -22,6 +22,8 @@ from pathlib import Path
 from common import read_json
 from constants import REF_INFO_DIR, MAPPINGS_FILE_LOCATION, KNOWN_ISSUES_DICT_FILE_LOCATION, DR_FILE_LOCATION
 
+ICEMOD_STREAMS = ["inm", "ind"]
+
 
 def set_arg_parser() -> argparse.Namespace:
     """Creates an argument parser to take source file paths from the command line.
@@ -224,6 +226,23 @@ def update_status_from_model(model: str, variable_dict: dict) -> tuple[dict, str
     return variable_dict, model
 
 
+def modify_inm_onm_substreams(stream: str) -> str:
+    """Manually overrides the substream to "iccemod" for all XIOS entries that have streams contained in ICEMOD_STREAMS.
+
+    Parameters
+    ----------
+    stream: str
+        The stream and substream to modify, this takes the form "base_stream/sub_stream" (e.g. inm/grid-T).
+
+    Returns
+    -------
+    str:
+        The complete stream containing the updated substream (e.g. inm/icemod)
+    """
+
+    return f"{stream.split("/")[0]}/icemod"
+
+
 def get_stream_from_XIOS(mapping: dict, model: str, variable: str) -> str:
     """If there are no streams listed from the stash, this function aims to access a stream/substream from the XIOS
     entries for a single variable within a model.
@@ -251,6 +270,8 @@ def get_stream_from_XIOS(mapping: dict, model: str, variable: str) -> str:
         full_stream_info = ""
 
     stream = full_stream_info.split("`")[0] if full_stream_info else ""
+    if any(base_stream in stream for base_stream in ICEMOD_STREAMS):
+        stream = modify_inm_onm_substreams(stream)
 
     return stream
 
