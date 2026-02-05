@@ -129,7 +129,8 @@
     "labels": [
       "mon",
       "atmos",
-      "CMIP6"
+      "CMIP6",
+      "do-not-produce"
     ],
     "models_in_stash": [],
     "stream": ""
@@ -3138,7 +3139,7 @@
       "UKESM1-3",
       "HadGEM3-GC5"
     ],
-    "stream": "ap5"
+    "stream": "ap6"
   },
   {
     "XIOS entries": {},
@@ -3153,7 +3154,7 @@
       "UKESM1-3",
       "HadGEM3-GC5"
     ],
-    "stream": "ap5"
+    "stream": "ap6"
   },
   {
     "XIOS entries": {
@@ -3182,7 +3183,7 @@
       "UKESM1-3",
       "HadGEM3-GC5"
     ],
-    "stream": "ap5"
+    "stream": "ap6"
   },
   {
     "XIOS entries": {
@@ -3210,7 +3211,7 @@
       "UKESM1-3",
       "HadGEM3-GC5"
     ],
-    "stream": "ap5"
+    "stream": "ap6"
   },
   {
     "XIOS entries": {},
@@ -3225,7 +3226,7 @@
       "UKESM1-3",
       "HadGEM3-GC5"
     ],
-    "stream": "ap5"
+    "stream": "ap6"
   },
   {
     "XIOS entries": {
@@ -23211,9 +23212,9 @@
       "comment needed"
     ],
     "models_in_stash": [
+      "UKESM1-3",
       "UKESM1",
       "UKESM2",
-      "UKESM1-3",
       "HadGEM3-GC31",
       "HadGEM3-GC5"
     ],

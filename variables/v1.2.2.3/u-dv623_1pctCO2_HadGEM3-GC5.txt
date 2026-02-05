@@ -441,13 +441,13 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #ocean/zostoga_tavg-u-hm-sea@day:ond/grid-t  # embargoed
 #seaIce/evspsbl_tavg-u-hxy-si@mon:inm/icemod  # embargoed
 #seaIce/prsn_tavg-u-hxy-si@mon:inm/icemod  # embargoed
-#seaIce/rlds_tavg-u-hxy-si@day:ap5  # embargoed
+#seaIce/rlds_tavg-u-hxy-si@day:ap6  # embargoed
 #seaIce/rlds_tavg-u-hxy-si@mon:ap5  # embargoed
-#seaIce/rlus_tavg-u-hxy-si@day:ap5  # embargoed
+#seaIce/rlus_tavg-u-hxy-si@day:ap6  # embargoed
 #seaIce/rlus_tavg-u-hxy-si@mon:ap5  # embargoed
-#seaIce/rsds_tavg-u-hxy-si@day:ap5  # embargoed
+#seaIce/rsds_tavg-u-hxy-si@day:ap6  # embargoed
 #seaIce/rsds_tavg-u-hxy-si@mon:ap5  # embargoed
-#seaIce/rsus_tavg-u-hxy-si@day:ap5  # embargoed
+#seaIce/rsus_tavg-u-hxy-si@day:ap6  # embargoed
 #seaIce/rsus_tavg-u-hxy-si@mon:ap5  # embargoed
 #seaIce/sbl_tavg-u-hxy-si@mon:inm/icemod  # embargoed
 #seaIce/siage_tavg-u-hxy-si@day:ind/icemod  # embargoed
@@ -472,7 +472,7 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #seaIce/sifllattop_tavg-u-hxy-si@mon:'inm/icemod  # embargoed
 #seaIce/siflsensbot_tavg-u-hxy-si@day:ind/icemod  # embargoed
 #seaIce/siflsensbot_tavg-u-hxy-si@mon:inm/icemod  # embargoed
-#seaIce/siflsenstop_tavg-u-hxy-si@day:ap5  # embargoed
+#seaIce/siflsenstop_tavg-u-hxy-si@day:ap6  # embargoed
 #seaIce/siflsenstop_tavg-u-hxy-si@mon:ap5  # embargoed
 #seaIce/siflswdbot_tavg-u-hxy-si@day:ind/icemod  # embargoed
 #seaIce/siflswdbot_tavg-u-hxy-si@mon:inm/icemod  # embargoed
