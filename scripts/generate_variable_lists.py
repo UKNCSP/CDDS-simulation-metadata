@@ -240,7 +240,7 @@ def modify_inm_onm_substreams(stream: str) -> str:
         The complete stream containing the updated substream (e.g. inm/icemod)
     """
 
-    return f"{stream.split("/")[0]}/icemod"
+    return f"{stream.split('/')[0]}/icemod"
 
 
 def get_stream_from_XIOS(mapping: dict, model: str, variable: str) -> str:
@@ -299,7 +299,7 @@ def get_streams(experiment_dict: dict, experiment: str, mappings_dict: list[dict
     all_labels = get_all_variables(experiment_dict, experiment)
     for variable in all_labels:
         mapping = get_mapping(mappings_dict, variable)
-        stream = mapping.get("stream")
+        stream = mapping.get("stream").lower()
         if not stream:
             stream = get_stream_from_XIOS(mapping, model, variable)
         streams[variable] = stream
@@ -349,7 +349,7 @@ def reformat_variable_names(
 
         # Filter out any non global variables
         if region == "glb":
-            new_variable_name = (f"{realm}/{variable_name}_{branding}@{frequency}:{stream.lower()}" if stream else
+            new_variable_name = (f"{realm}/{variable_name}_{branding}@{frequency}:{stream}" if stream else
                                  f"{realm}/{variable_name}_{branding}@{frequency}")
 
             # Create new dictionary with the reformatted variable names to avoid key errors in the original dict.
