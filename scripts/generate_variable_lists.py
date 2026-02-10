@@ -19,8 +19,8 @@ import os
 from itertools import chain
 from pathlib import Path
 
-from common import read_json
-from constants import REF_INFO_DIR, MAPPINGS_FILE_LOCATION, KNOWN_ISSUES_DICT_FILE_LOCATION, DR_FILE_LOCATION
+from scripts.common import read_json
+from scripts.constants import REF_INFO_DIR, MAPPINGS_FILE_LOCATION, KNOWN_ISSUES_DICT_FILE_LOCATION, DR_FILE_LOCATION
 
 
 def set_arg_parser() -> argparse.Namespace:
@@ -331,7 +331,7 @@ def identify_known_issues(experiment: str, renamed_variable_dict: dict[str, str]
                     variant_dict = known_issues_dict[source_id]["*"]
                 for variant_label, variable_list in variant_dict.items():
                     if any(value in variable_list for value in (variable, variable.split(":")[0])):
-                        renamed_variable_dict[variable] = "known-issue"
+                        renamed_variable_dict[variable].insert(0, "known-issue")
 
     return renamed_variable_dict
 
@@ -414,9 +414,11 @@ def sort_key(line: str) -> int:
         they appear at the top of the variable list.
     """
     if "do-not-produce (not available with this model)" in line:
-        return 4
-    elif "do-not-produce" in line:
         return 5
+    elif "do-not-produce" in line:
+        return 6
+    elif "known-issue" in line:
+        return 4
     elif "embargoed" in line:
         return 3
     elif "priority=low" in line:
