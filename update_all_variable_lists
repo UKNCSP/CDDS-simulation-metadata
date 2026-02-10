@@ -54,7 +54,7 @@ def main():
             print(f"WARNING: Unable to generate updated variable list for {key_info["workflow_id"]}. \n{e}")
             num_failed_files += 1
 
-    success_msg = f"\nSUCCESSFULLY REGENERATED {num_successful_files}/{num_successful_files + num_failed_files} FILES"
+    success_msg = f"\n SUCCESSFULLY REGENERATED {num_successful_files}/{num_successful_files + num_failed_files} FILES"
     failure_msg = f"\nWARNING: {num_failed_files} files failed."
     print("\n", "=" * 50, success_msg) if num_failed_files == 0 else print("\n", "=" * 50, success_msg, failure_msg)
 
