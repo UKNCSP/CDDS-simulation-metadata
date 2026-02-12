@@ -15,12 +15,31 @@ from scripts.generate_variable_lists import process_variable_dict, save_outfile
 WORKFLOW_METADATA_FILE_LOCATION = Path("workflow_metadata")
 
 
-def get_all_workflow_metadata():
+def get_all_workflow_metadata() -> list:
+    """Returns a list of the paths of all workflow metadata configuration files within the repository.
 
+    Returns
+    -------
+    list
+        A list of all workflow metadata configuration files.
+    """
     return list(WORKFLOW_METADATA_FILE_LOCATION.glob('*.cfg'))
 
 
-def extract_key_workflow_information(fh):
+def extract_key_workflow_information(filename: Path) -> dict:
+    """Returns a dictionary of the key information required from a single configuration file e.g. the experiment id,
+    model id and workflow id.
+
+    Parameters
+    ----------
+    filename: Path
+        The path of the configuration file.
+
+    Returns
+    -------
+    dict
+        A dictionary fo the key information required from the configuration file.
+    """
     config = configparser.ConfigParser()
     config.read(fh)
 
@@ -32,6 +51,7 @@ def extract_key_workflow_information(fh):
 
 
 def main():
+    """Holds the main body of the script"""
     experiment_dict = read_json(DR_FILE_LOCATION)
     mappings_dict = read_json(MAPPINGS_FILE_LOCATION)
 
@@ -43,9 +63,9 @@ def main():
     num_successful_files = 0
     num_failed_files = 0
 
-    for fh in all_workflow_metadata:
+    for filename in all_workflow_metadata:
         try:
-            key_info = extract_key_workflow_information(fh)
+            key_info = extract_key_workflow_information(filename)
             variable_dict, model = process_variable_dict(experiment_dict, key_info["experiment_id"],
                                                          key_info["model_id"], mappings_dict)
             save_outfile(outdir, key_info["workflow_id"], key_info["experiment_id"], model, variable_dict)
