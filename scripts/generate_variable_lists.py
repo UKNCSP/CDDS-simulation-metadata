@@ -42,7 +42,25 @@ def set_arg_parser() -> argparse.Namespace:
 
 
 def check_experiment_exists_in_dr(experiment_dict, experiment):
+    """Checks if the given experiemnt ID exists within the specified data request file.
 
+    Parameters
+    ----------
+    experiment_dict: dict
+        The dictionary containing all experiments and their associated variables.
+    experiment: str
+        The experiment whose variables are being updated.
+
+    Returns
+    -------
+    str
+        The format of the experiment id that exists within the data request file.
+
+    Raises
+    ------
+    KeyError
+        If the given experiemnt id cannot be found in the data request file.
+    """
     all_experiments = experiment_dict["Header"]["Experiments included"]
 
     if experiment in all_experiments:
