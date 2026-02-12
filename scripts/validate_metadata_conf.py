@@ -20,8 +20,7 @@ from constants import (
     MISC,
     PARENT_REQUIRED,
     REGEX_FORMAT,
-    REQUIRED,
-    SECTIONS,
+    REQUIRED
 )
 from metomi.isodatetime.exceptions import ISO8601SyntaxError, IsodatetimeError
 
@@ -207,6 +206,9 @@ def validate_field_inputs(config: configparser.ConfigParser, result: dict, file:
     if invalid_values:
         file_results["failures"] = True
         file_results["invalid_values"] = list(invalid_values)
+
+    DATETIME_FIELDS.discard("branch_date_in_child")
+    DATETIME_FIELDS.discard("branch_date_in_parent")
 
     return result
 
