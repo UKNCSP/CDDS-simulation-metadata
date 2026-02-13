@@ -41,39 +41,6 @@ def set_arg_parser() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def check_experiment_exists_in_dr(experiment_dict, experiment):
-    """Checks if the given experiemnt ID exists within the specified data request file.
-
-    Parameters
-    ----------
-    experiment_dict: dict
-        The dictionary containing all experiments and their associated variables.
-    experiment: str
-        The experiment whose variables are being updated.
-
-    Returns
-    -------
-    str
-        The format of the experiment id that exists within the data request file.
-
-    Raises
-    ------
-    KeyError
-        If the given experiemnt id cannot be found in the data request file.
-    """
-    all_experiments = experiment_dict["Header"]["Experiments included"]
-
-    if experiment in all_experiments:
-        return experiment
-
-    elif experiment.lower() in all_experiments:
-        return experiment.lower()
-
-    else:
-        raise KeyError(f"The experiment {experiment} cannot be found in the list of experiments included within the "
-                       "data request file")
-
-
 def get_grouped_priority_labels(experiment_dict: dict, experiment: str) -> dict:
     """Creates a dictionary of labels grouped by priority (core, high, med, low) for a single experiment.
 
@@ -495,17 +462,16 @@ def generate_variable_lists() -> None:
     args = set_arg_parser()
     experiment_dict = read_json(DR_FILE_LOCATION)
     mappings_dict = read_json(MAPPINGS_FILE_LOCATION)
-    experiment = check_experiment_exists_in_dr(experiment_dict, args.experiment)
 
     # Create output file path.
     outdir = Path(f"variables/{experiment_dict['Header']['dreq content version']}")
     os.makedirs(outdir, exist_ok=True)
 
     # Process and save the variable dictionary.
-    variable_dict, model = process_variable_dict(experiment_dict, experiment, args. model, mappings_dict)
-    save_outfile(outdir, args.workflow_id, experiment, model, variable_dict)
+    variable_dict, model = process_variable_dict(experiment_dict, args.experiment, args. model, mappings_dict)
+    save_outfile(outdir, args.workflow_id, args.experiment, model, variable_dict)
 
-    print(f"SUCCESSFULLY GENERATED VARIABLE LIST FOR {experiment}")
+    print(f"SUCCESSFULLY GENERATED VARIABLE LIST FOR {args.experiment}")
 
 
 if __name__ == "__main__":
