@@ -11,6 +11,7 @@ import os
 import re
 import sys
 from pathlib import Path
+import json
 
 import metomi.isodatetime.parsers as parse
 from constants import (
@@ -22,6 +23,7 @@ from constants import (
     PARENT_REQUIRED,
     REGEX_FORMAT,
     REQUIRED,
+    DR_FILE_LOCATION
 )
 from metomi.isodatetime.data import Calendar
 from metomi.isodatetime.exceptions import ISO8601SyntaxError, IsodatetimeError
@@ -191,6 +193,44 @@ def validate_meta_content(meta_dict: dict[str, str]) -> dict[str, str]:
     return errors
 
 
+def read_data_request(file_path):
+    """Reads in the data request file.
+
+    Parameters
+    ----------
+    file_path: Path
+        The path to the data request file.
+    """
+    with open(file_path, "r") as infile:
+        data_request_dict = json.load(infile)
+
+    return data_request_dict
+
+
+def validate_experiment_id(meta_dict: dict[str, str], errors: dict[str, str]) -> dict[str, str]:
+    """Confirms if the experiment_id can be found within the data request file.
+
+    Parameters
+    ----------
+    meta_dict : dict[str, str]
+        A cleaned dictionary containing the metadata keys and values from the issue form.
+    errors: dict[str, str]
+        A dictionary containing any errors caused by user input from the form.
+
+    Returns
+    -------
+    dict[str, str]
+        A dictionary containing any errors caused by user input from the form.
+    """
+    data_request_info = read_data_request(DR_FILE_LOCATION)
+    experiment = meta_dict["experiment_id"]
+    try:
+        data_request_info["experiment"][experiment]
+    except KeyError:
+        errors["experiment_not_recognised"] = f"{experiment} not found in data request file."
+        return errors
+
+
 def format_warning_message(errors: dict[str, str]) -> str:
     """Formats the a human readable warning message to be returned to the user.
 
@@ -207,7 +247,7 @@ def format_warning_message(errors: dict[str, str]) -> str:
     warnings = []
     for key, value in errors.items():
         clean_key = key.strip().capitalize().replace("_", " ")
-        clean_value = value.strip().lower().replace("_", " ")
+        clean_value = value.strip().replace("_", " ")
         warning = clean_key + " warning " + "(" + clean_value + ")."
         warnings.append(warning)
 
@@ -304,6 +344,7 @@ def main() -> None:
 
     # Validate and organise dictionary content.
     errors = validate_meta_content(meta_dict)
+    errors = validate_experiment_id(meta_dict, errors)
     organised_metadata = sort_to_categories(meta_dict)
 
     # Create output file.
