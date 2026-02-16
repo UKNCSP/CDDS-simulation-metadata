@@ -325,11 +325,11 @@ def main() -> None:
         print("Validating issue form inputs...  FAILED")
         warnings = format_warning_message(errors)
 
-        delimeter = "EOF"
+        delimiter = "EOF"
         with open(os.environ["GITHUB_OUTPUT"], "a") as gh:
-            gh.write(f"warnings<<{delimeter}\n")
+            gh.write(f"warnings<<{delimiter}\n")
             gh.write(f"{warnings}\n")
-            gh.write(f"{delimeter}\n")
+            gh.write(f"{delimiter}\n")
 
         sys.exit(1)
 
