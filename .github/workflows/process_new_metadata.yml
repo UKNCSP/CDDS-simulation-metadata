@@ -46,7 +46,7 @@ jobs:
           NUMBER: ${{ github.event.issue.number }}
           BODY: >
             Your metadata file contains incorrect or improperly formatted fields. 
-            Please re submit you form and ammend the following issues:
+            Please re submit your form and ammend the following issues:
             ${{ steps.create-file.outputs.warnings }}.
 
             If you believe this to be an error, please contact a member of the CDDS team.
