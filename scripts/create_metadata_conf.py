@@ -140,11 +140,15 @@ def validate_meta_content(meta_dict: dict[str, str]) -> dict[str, str]:
     dict[str, str]
         A dictionary containing any errors caused by user input from the form.
     """
+    missing_fields = []
+    missing_parent_fields = []
+    unexpected_parent_fields = []
     errors = set_calendar(meta_dict["calendar"])
+
     # Confirm that conditional fields are present.
     for key, value in meta_dict.items():
         if key in REQUIRED and not value:
-            errors["missing_required_field"] = f"Missing field {key}"
+            missing_fields.append(f"Missing field {key}")
 
         if key == "mass_data_class":
             if value == "ens" and not meta_dict.get("mass_ensemble_member"):
@@ -156,11 +160,11 @@ def validate_meta_content(meta_dict: dict[str, str]) -> dict[str, str]:
             if value == "standard":
                 for parent_key in PARENT_REQUIRED:
                     if meta_dict.get(parent_key) in (None, "", "_No response_"):
-                        errors["missing_parent_field"] = f"Missing required parent field: {parent_key}"
+                        missing_parent_fields.append(f"Missing required parent field: {parent_key}")
             elif value == "no parent":
                 for parent_key in PARENT_REQUIRED:
                     if meta_dict.get(parent_key) not in (None, "", "_No response_"):
-                        errors["unexpected_parent_field"] = f"Unexpected field: {parent_key}"
+                        unexpected_parent_fields.append(f"Unexpected field: {parent_key}")
 
         # Verify datetime inputs
         if key == "branch_method" and value == "standard":
@@ -188,6 +192,10 @@ def validate_meta_content(meta_dict: dict[str, str]) -> dict[str, str]:
         if parser.parse(meta_dict["end_date"]) < parser.parse(meta_dict["start_date"]):
             errors["datetime_logic"] = "End date cannot be earlier than start date"
 
+    errors["missing_required_field"] = missing_fields
+    errors["missing_parent_field"] = missing_parent_fields
+    errors["unexpected_parent_field"] = unexpected_parent_fields
+
     return errors
 
 
@@ -207,9 +215,16 @@ def format_warning_message(errors: dict[str, str]) -> str:
     warnings = []
     for key, value in errors.items():
         clean_key = key.strip().capitalize().replace("_", " ")
-        clean_value = value.strip().lower().replace("_", " ")
-        warning = clean_key + " warning " + "(" + clean_value + ")."
-        warnings.append(warning)
+        if isinstance(value, list):
+            for item in value:
+                list_value = item
+                clean_value = list_value.strip().lower().replace("_", " ")
+                warning = clean_key + " warning " + "(" + clean_value + ")."
+                warnings.append(warning)
+        else:
+            clean_value = value.strip().lower().replace("_", " ")
+            warning = clean_key + " warning " + "(" + clean_value + ")."
+            warnings.append(warning)
 
     warning_str = "\n".join(warnings)
 
@@ -324,6 +339,7 @@ def main() -> None:
     else:
         print("Validating issue form inputs...  FAILED")
         warnings = format_warning_message(errors)
+        print(warnings)
 
         delimiter = "EOF"
         with open(os.environ["GITHUB_OUTPUT"], "a") as gh:
