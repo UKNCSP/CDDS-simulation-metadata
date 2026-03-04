@@ -34,19 +34,22 @@ jobs:
               ${{ github.event.issue.body }}
           # pipe preseves newline properties for multilines
         run: python scripts/create_metadata_conf.py
+        continue-on-error: true
 
       - name: return issues to user
+        id: check-issues
         if: steps.create-file.outcome == 'failure'
         run: |
           gh issue comment "$NUMBER" --body "$BODY"
           echo "NOTE: Script failure has occured due to user input error. The user has been notified and instructed to 
           resubmit a corrected form. No further action required..."
+          echo "input_error=true" >> $GITHUB_OUTPUT
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NUMBER: ${{ github.event.issue.number }}
           BODY: >
             Your metadata file contains incorrect or improperly formatted fields. 
-            Please re submit you form and ammend the following issues:
+            Please re submit your form and ammend the following issues:
             ${{ steps.create-file.outputs.warnings }}.
 
             If you believe this to be an error, please contact a member of the CDDS team.
@@ -54,6 +57,7 @@ jobs:
             Thank you for your contribution.
 
       - name: check if file exists
+        if: steps.check-issues.outputs.input_error != 'true'
         id: exists
         run: |
           if git ls-tree -r HEAD --name-only | grep -q "${{ steps.create-file.outputs.filename }}"; then
@@ -65,7 +69,7 @@ jobs:
           fi
 
       - name: commit new file and close issue
-        if: steps.exists.outputs.exists == 'false'
+        if: steps.exists.outputs.exists == 'false' && steps.check-issues.outputs.input_error != 'true'
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
@@ -88,7 +92,7 @@ jobs:
           
       - name: check diff
         id: diff
-        if: steps.exists.outputs.exists == 'true'
+        if: steps.exists.outputs.exists == 'true' && steps.check-issues.outputs.input_error != 'true'
         run: |
           if git diff --quiet HEAD -- ${{ steps.create-file.outputs.filename}}; then
             echo "changed=false" >> $GITHUB_OUTPUT
@@ -97,7 +101,7 @@ jobs:
           fi
 
       - name: create PR 
-        if: steps.diff.outputs.changed == 'true'
+        if: steps.diff.outputs.changed == 'true' && steps.check-issues.outputs.input_error != 'true'
         run: | 
           branch="update-metadata-#${{ github.event.issue.number }}"
           git checkout -b "$branch"
@@ -133,7 +137,7 @@ jobs:
             Thank you for your contribution.
         
       - name: notify user of duplicate and close issue
-        if: steps.diff.outputs.changed == 'false'
+        if: steps.diff.outputs.changed == 'false' && steps.check-issues.outputs.input_error != 'true'
         run: |
           gh issue comment "$ISSUE" --body "$BODY"
           gh issue close --repo "$REPO" --comment "Closing issue $ISSUE" "$ISSUE"

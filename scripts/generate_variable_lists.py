@@ -22,6 +22,8 @@ from pathlib import Path
 from common import read_json
 from constants import REF_INFO_DIR, MAPPINGS_FILE_LOCATION, KNOWN_ISSUES_DICT_FILE_LOCATION, DR_FILE_LOCATION
 
+ICEMOD_STREAMS = ["inm", "ind"]
+
 
 def set_arg_parser() -> argparse.Namespace:
     """Creates an argument parser to take source file paths from the command line.
@@ -224,7 +226,57 @@ def update_status_from_model(model: str, variable_dict: dict) -> tuple[dict, str
     return variable_dict, model
 
 
-def get_streams(experiment_dict: dict, experiment: str, mappings_dict: list[dict]) -> dict[str, str]:
+def modify_inm_onm_substreams(stream: str) -> str:
+    """Manually overrides the substream to "iccemod" for all XIOS entries that have streams contained in ICEMOD_STREAMS.
+
+    Parameters
+    ----------
+    stream: str
+        The stream and substream to modify, this takes the form "base_stream/sub_stream" (e.g. inm/grid-T).
+
+    Returns
+    -------
+    str:
+        The complete stream containing the updated substream (e.g. inm/icemod)
+    """
+
+    return f"{stream.split('/')[0]}/icemod"
+
+
+def get_stream_from_XIOS(mapping: dict, model: str, variable: str) -> str:
+    """If there are no streams listed from the stash, this function aims to access a stream/substream from the XIOS
+    entries for a single variable within a model.
+
+    Parameters
+    ----------
+    mapping: dict
+        The mapping information for a single variable.
+    model: str
+        The model associated with the experiment that has been run.
+    variable:
+        The variable whose stream we wish to extract.
+
+    Returns
+    str:
+        The corresponding stream for the given variable within the given model. Returns "" if no stream can be found.
+    """
+    xios_dict = mapping.get("XIOS entries")
+    labels = mapping.get("labels")
+    try:
+        full_stream_info = xios_dict[model]
+    except KeyError:
+        if "do-not-produce" not in labels and ".glb" in variable:
+            print(f"WARNING: Unable to find stream for {variable} in model {model}...")
+        full_stream_info = ""
+
+    stream = full_stream_info.split("`")[0] if full_stream_info else ""
+    if any(base_stream in stream for base_stream in ICEMOD_STREAMS):
+        stream = modify_inm_onm_substreams(stream)
+
+    return stream
+
+
+def get_streams(experiment_dict: dict, experiment: str, mappings_dict: list[dict], model: str) -> dict[str, str]:
     """Creates a dictionary for variables and their associated output stream for a single experiment.
 
     Parameters
@@ -247,13 +299,16 @@ def get_streams(experiment_dict: dict, experiment: str, mappings_dict: list[dict
     all_labels = get_all_variables(experiment_dict, experiment)
     for variable in all_labels:
         mapping = get_mapping(mappings_dict, variable)
-        streams[variable] = mapping.get("stream")
+        stream = mapping.get("stream").lower()
+        if not stream:
+            stream = get_stream_from_XIOS(mapping, model, variable)
+        streams[variable] = stream
 
     return streams
 
 
 def reformat_variable_names(
-        experiment_dict: dict, experiment: str, mappings_dict: list[dict], variable_dict: dict
+        experiment_dict: dict, experiment: str, mappings_dict: list[dict], variable_dict: dict, model: str
     ) -> dict[str, str]:
     """Reformats the name of each variable from realm.variable.branding.frequency.region to
     realm/variable_branding@frequency:stream for a single experiment.
@@ -281,7 +336,7 @@ def reformat_variable_names(
         If the original variable name cannot be split into parts as expected.
     """
     renamed_variable_dict = {}
-    streams = get_streams(experiment_dict, experiment, mappings_dict)
+    streams = get_streams(experiment_dict, experiment, mappings_dict, model)
 
     # Reformat all original variable names to realm/variable_branding@frequency:stream.
     for variable, comment in variable_dict.items():
@@ -294,7 +349,7 @@ def reformat_variable_names(
 
         # Filter out any non global variables
         if region == "glb":
-            new_variable_name = (f"{realm}/{variable_name}_{branding}@{frequency}:{stream.lower()}" if stream else
+            new_variable_name = (f"{realm}/{variable_name}_{branding}@{frequency}:{stream}" if stream else
                                  f"{realm}/{variable_name}_{branding}@{frequency}")
 
             # Create new dictionary with the reformatted variable names to avoid key errors in the original dict.
@@ -331,7 +386,7 @@ def identify_known_issues(experiment: str, renamed_variable_dict: dict[str, str]
                     variant_dict = known_issues_dict[source_id]["*"]
                 for variant_label, variable_list in variant_dict.items():
                     if any(value in variable_list for value in (variable, variable.split(":")[0])):
-                        renamed_variable_dict[variable] = "known-issue"
+                        renamed_variable_dict[variable].insert(0, "known-issue")
 
     return renamed_variable_dict
 
@@ -360,7 +415,7 @@ def process_variable_dict(
     variable_dict = {}
     variable_dict = set_priority_comments(experiment_dict, experiment)
     variable_dict, model = update_status_from_model(model, variable_dict)
-    variable_dict = reformat_variable_names(experiment_dict, experiment, mappings_dict, variable_dict)
+    variable_dict = reformat_variable_names(experiment_dict, experiment, mappings_dict, variable_dict, model)
     variable_dict = identify_known_issues(experiment, variable_dict)
 
     return variable_dict, model
@@ -414,9 +469,11 @@ def sort_key(line: str) -> int:
         they appear at the top of the variable list.
     """
     if "do-not-produce (not available with this model)" in line:
-        return 4
-    elif "do-not-produce" in line:
         return 5
+    elif "do-not-produce" in line:
+        return 6
+    elif "known-issue" in line:
+        return 4
     elif "embargoed" in line:
         return 3
     elif "priority=low" in line:
