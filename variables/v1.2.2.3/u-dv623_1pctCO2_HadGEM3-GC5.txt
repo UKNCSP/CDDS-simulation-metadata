@@ -1,7 +1,8 @@
 # Note: only global variables are currently producible by CDDS
-atmos/pr_tavg-u-hxy-u@mon:ap5  # approved
 atmos/tas_tavg-h2m-hxy-u@day:ap6  # approved
 atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
+atmos/tas_tpt-h2m-hxy-u@3hr:ap8  # approved
+atmos/tas_tavg-h2m-hxy-u@1hr:ap9  # approved
 #atmos/cl_tavg-al-hxy-u@mon:ap5  # embargoed
 #atmos/cli_tavg-al-hxy-u@mon:ap5  # embargoed
 #atmos/clivi_tavg-u-hxy-u@mon:ap5  # embargoed
@@ -25,6 +26,7 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #atmos/pr_tavg-u-hxy-u@1hr:ap9  # embargoed
 #atmos/pr_tavg-u-hxy-u@3hr:ap8  # embargoed
 #atmos/pr_tavg-u-hxy-u@day:ap6  # embargoed
+#atmos/pr_tavg-u-hxy-u@mon:ap5  # embargoed
 #atmos/prc_tavg-u-hxy-u@mon:ap5  # embargoed
 #atmos/prsn_tavg-u-hxy-u@mon:ap5  # embargoed
 #atmos/prw_tavg-u-hxy-u@mon:ap5  # embargoed
@@ -55,7 +57,6 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #atmos/tas_tmaxavg-h2m-hxy-u@mon:ap6  # embargoed
 #atmos/tas_tmin-h2m-hxy-u@day:ap6  # embargoed
 #atmos/tas_tminavg-h2m-hxy-u@mon:ap6  # embargoed
-#atmos/tas_tpt-h2m-hxy-u@3hr:ap8  # embargoed
 #atmos/tauu_tavg-u-hxy-u@mon:ap5  # embargoed
 #atmos/tauv_tavg-u-hxy-u@mon:ap5  # embargoed
 #atmos/ts_tavg-u-hxy-u@mon:ap5  # embargoed
@@ -205,7 +206,6 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #atmos/clisccp_tavg-p7c-hxy-air@mon:ap5  # embargoed
 #atmos/clivi_tavg-u-hxy-u@day:ap6  # embargoed
 #atmos/clivic_tavg-u-hxy-u@day:ap6  # embargoed
-#atmos/clmisr_tavg-h16-hxy-air@mon:ap5  # embargoed
 #atmos/clmodis_tavg-p7c-hxy-air@mon:ap5  # embargoed
 #atmos/cls_tavg-al-hxy-u@mon:ap5  # embargoed
 #atmos/clt_tavg-u-hxy-lnd@day:ap6  # embargoed
@@ -217,12 +217,10 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #atmos/clws_tavg-al-hxy-u@mon:ap5  # embargoed
 #atmos/clwvi_tavg-u-hxy-u@day:ap6  # embargoed
 #atmos/clwvic_tavg-u-hxy-u@day:ap6  # embargoed
-#atmos/co2mass_tavg-u-hm-u@mon:ap5  # embargoed
 #atmos/epfy_tavg-p39-hy-air@day:ap6  # embargoed
 #atmos/epfy_tavg-p39-hy-air@mon:ap5  # embargoed
 #atmos/epfz_tavg-p39-hy-air@day:ap6  # embargoed
 #atmos/epfz_tavg-p39-hy-air@mon:ap5  # embargoed
-#atmos/evspsbl_tavg-u-hxy-lnd@day:ap6  # embargoed
 #atmos/hfls_tavg-u-hxy-u@day:ap6  # embargoed
 #atmos/hfss_tavg-u-hxy-u@day:ap6  # embargoed
 #atmos/hur_tavg-al-hxy-u@mon:ap5  # embargoed
@@ -256,7 +254,6 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #atmos/prw_tavg-u-hxy-u@day:ap6  # embargoed
 #atmos/prw_tpt-u-hxy-u@6hr:ap7  # embargoed
 #atmos/ps_tavg-u-hxy-u@1hr:ap9  # embargoed
-#atmos/psl_tpt-u-hxy-u@1hr:ap9  # embargoed
 #atmos/psl_tpt-u-hxy-u@6hr:ap7  # embargoed
 #atmos/ptp_tavg-u-hxy-u@mon:ap4  # embargoed
 #atmos/reffcclwtop_tavg-u-hxy-ccl@mon:ap5  # embargoed
@@ -306,7 +303,6 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #atmos/ta_tavg-al-hxy-u@mon:ap5  # embargoed
 #atmos/ta_tavg-p39-hy-air@day:ap6  # embargoed
 #atmos/ta_tavg-p39-hy-air@mon:ap4  # embargoed
-#atmos/tas_tavg-h2m-hxy-u@1hr:ap9  # embargoed
 #atmos/tauu_tavg-u-hxy-u@day:ap6  # embargoed
 #atmos/tauv_tavg-u-hxy-u@day:ap6  # embargoed
 #atmos/tdps_tavg-h2m-hxy-u@mon:ap5  # embargoed
@@ -606,6 +602,10 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #ocean/thkcellvo_tavg-ol-hxy-sea@mon:onm/grid-V  # embargoed, priority=low
 #ocean/tnpeo_tavg-u-hxy-sea@yr:onm/grid-T  # embargoed, priority=low
 #ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # embargoed, priority=low
+#atmos/clmisr_tavg-h16-hxy-air@mon:ap5  # known-issue, embargoed
+#atmos/co2mass_tavg-u-hm-u@mon:ap5  # known-issue, embargoed
+#atmos/evspsbl_tavg-u-hxy-lnd@day:ap6  # known-issue, embargoed
+#atmos/psl_tpt-u-hxy-u@1hr:ap9  # known-issue, embargoed
 #atmos/areacella_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
 #atmos/sftlf_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
 #land/lai_tavg-u-hxy-lnd@mon:ap5  # do-not-produce (not available with this model)
