@@ -236,7 +236,7 @@ def validate_experiment_id(meta_dict: dict[str, str], errors: dict[str, str]) ->
         data_request_info["experiment"][experiment]
     except KeyError:
         errors["experiment_not_recognised"] = f"{experiment} not found in data request file."
-    
+
     return errors
 
 
