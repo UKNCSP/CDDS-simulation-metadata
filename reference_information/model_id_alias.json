@@ -1,6 +1,6 @@
 {
     "HadGEM3-GC5": ["UKCM2-LL", "UKCM2a-HH"],
     "HadGEM3-GC31": ["HadGEM3-GC31-LL"],
-    "UKESM1-3": ["UKESM1-3-LL"]
+    "UKESM1-3": ["UKESM1-3-LL"],
     "UKESM1": ["UKESM1-0-LL"]
 }
