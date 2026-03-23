@@ -1,3 +1,0 @@
-atmos.tas.tavg-h2m-hxy-u.mon.glb
-atmos.pr.tavg-u-hxy-u.mon.glb
-atmos.tas.tavg-h2m-hxy-u.day.glb

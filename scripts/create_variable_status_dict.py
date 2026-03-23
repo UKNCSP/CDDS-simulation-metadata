@@ -60,53 +60,17 @@ def get_variable_status(mappings_dict: list[dict], model: str) -> dict:
     """
     variable_status_dict = {}
     for mapping in mappings_dict:
+        variable = mapping["branded_variable"]
         if model in mapping["models_in_stash"] or model in mapping["XIOS entries"].keys():
-            if "do-not-produce" in mapping["labels"]:
-                variable_status_dict[(mapping["branded_variable"])] = "do-not-produce"
+            labels = mapping["labels"]
+            if "do-not-produce" in labels:
+                variable_status_dict[variable] = "do-not-produce"
+            elif "diagnostic_review_ok" in labels:
+                variable_status_dict[variable] = "approved"
             else:
-                variable_status_dict[(mapping["branded_variable"])] = "embargoed"
+                variable_status_dict[variable] = "embargoed"
         else:
-            variable_status_dict[(mapping["branded_variable"])] = "do-not-produce (not available with this model)"
-
-    return variable_status_dict
-
-
-def get_approved_variables(approved_variable_list_file: Path) -> list:
-    """Gets each approved variable from the approved variable file and returns them as a list.
-
-    Parameters
-    ----------
-    approved_variable_list_file: Path
-        The path to the appproved variable list file.
-
-    Returns
-    -------
-    list
-        A list of all approved variables.
-    """
-    with open(approved_variable_list_file, "r") as fh:
-        approved_variables = [line.rstrip() for line in fh]
-
-    return approved_variables
-
-
-def mark_approved_variables(variable_status_dict: dict) -> dict:
-    """Overrides the current listed status with approved if the variable is in the approved list for a single model.
-
-    Parameters
-    ----------
-    variable_status_dict: dict
-        A dictionary of each variable in a model and its associated status.
-
-    Returns
-    -------
-    dict
-        A dictionary of each variable in a model and its associated status.
-    """
-    approved_variables = get_approved_variables(APPROVED_VARIABLES_FILE_LOCATION)
-    for variable, status in variable_status_dict.items():
-        if variable in approved_variables and status != "do-not-produce (not available with this model)":
-            variable_status_dict[variable] = "approved"
+            variable_status_dict[variable] = "do-not-produce (not available with this model)"
 
     return variable_status_dict
 
@@ -239,7 +203,6 @@ def generate_variable_status_dictionaries() -> None:
     all_models = get_all_models(mappings_dict)
     for model in all_models:
         variable_status_dict = get_variable_status(mappings_dict, model)
-        variable_status_dict = mark_approved_variables(variable_status_dict)
         save_json(model, variable_status_dict)
         print(f"Processing variables for {model}..... Done")
 

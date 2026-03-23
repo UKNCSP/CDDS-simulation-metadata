@@ -1,4 +1,3 @@
-#!/usr/bin/env python3.12
 # (C) British Crown Copyright 2026, Met Office.
 # Please see LICENSE.md for license details.
 """Update all variables lists using existing workflow metadata."""
@@ -8,9 +7,9 @@ import configparser
 
 from pathlib import Path
 
-from scripts.common import read_json
-from scripts.constants import DR_FILE_LOCATION, MAPPINGS_FILE_LOCATION
-from scripts.generate_variable_lists import process_variable_dict, save_outfile
+from common import read_json
+from constants import DR_FILE_LOCATION, MAPPINGS_FILE_LOCATION
+from generate_variable_lists import process_variable_dict, save_outfile
 
 WORKFLOW_METADATA_FILE_LOCATION = Path("workflow_metadata")
 
@@ -41,7 +40,7 @@ def extract_key_workflow_information(filename: Path) -> dict:
         A dictionary fo the key information required from the configuration file.
     """
     config = configparser.ConfigParser()
-    config.read(fh)
+    config.read(filename)
 
     return {
         "experiment_id": config["metadata"]["experiment_id"],
