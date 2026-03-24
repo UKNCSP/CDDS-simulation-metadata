@@ -194,9 +194,11 @@ def validate_meta_content(meta_dict: dict[str, str]) -> dict[str, str]:
         if parser.parse(meta_dict["end_date"]) < parser.parse(meta_dict["start_date"]):
             errors["datetime_logic"] = "End date cannot be earlier than start date"
 
-    if missing_fields or missing_parent_fields or unexpected_parent_fields:
+    if missing_fields:
         errors["missing_required_field"] = missing_fields
+    if missing_parent_fields:
         errors["missing_parent_field"] = missing_parent_fields
+    if unexpected_parent_fields:
         errors["unexpected_parent_field"] = unexpected_parent_fields
 
     return errors
