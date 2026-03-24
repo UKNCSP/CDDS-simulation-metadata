@@ -123,8 +123,8 @@ FOOTER = """
 
 SECTIONS = set(['metadata', 'data', 'misc'])
 METADATA = set(['base_date', 'branch_method', 'branch_date_in_child', 'branch_date_in_parent', 'parent_experiment_id',
-                'parent_mip', 'parent_mip_era', 'parent_model_id', 'parent_time_units', 'parent_variant_label', 'calendar',
-                'experiment_id', 'institution_id', 'mip', 'mip_era', 'variant_label', 'model_id'])
+                'parent_mip', 'parent_mip_era', 'parent_model_id', 'parent_time_units', 'parent_variant_label',
+                'calendar', 'experiment_id', 'institution_id', 'mip', 'mip_era', 'variant_label', 'model_id'])
 DATA = set(['start_date', 'end_date', 'mass_data_class', 'mass_ensemble_member', 'model_workflow_id'])
 MISC = set(['atmos_timestep'])
 REQUIRED = set(['base_date', 'branch_method', 'calendar', 'experiment_id', 'institution_id', 'mip', 'mip_era',
