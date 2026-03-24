@@ -123,15 +123,15 @@ FOOTER = """
 
 SECTIONS = set(['metadata', 'data', 'misc'])
 METADATA = set(['base_date', 'branch_method', 'branch_date_in_child', 'branch_date_in_parent', 'parent_experiment_id',
-                'parent_mip', 'parent_model_id', 'parent_time_units', 'parent_variant_label', 'calendar',
-                'experiment_id', 'institution_id', 'mip', 'mip_era', 'variant_label', 'model_id'])
+                'parent_mip', 'parent_mip_era', 'parent_model_id', 'parent_time_units', 'parent_variant_label',
+                'calendar', 'experiment_id', 'institution_id', 'mip', 'mip_era', 'variant_label', 'model_id'])
 DATA = set(['start_date', 'end_date', 'mass_data_class', 'mass_ensemble_member', 'model_workflow_id'])
 MISC = set(['atmos_timestep'])
 REQUIRED = set(['base_date', 'branch_method', 'calendar', 'experiment_id', 'institution_id', 'mip', 'mip_era',
                 'variant_label', 'model_id', 'start_date', 'end_date', 'mass_data_class', 'model_workflow_id',
                 'atmos_timestep'])
 PARENT_REQUIRED = set(['branch_date_in_child', 'branch_date_in_parent', 'parent_experiment_id', 'parent_mip',
-                       'parent_model_id', 'parent_time_units', 'parent_variant_label'])
+                       'parent_mip_era', 'parent_model_id', 'parent_time_units', 'parent_variant_label'])
 DATETIME_FIELDS = set(['base_date', 'start_date', 'end_date'])
 REGEX_FORMAT = {
     "datetime": r"^(?:\d{4})-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01])T(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\dZ$",
@@ -147,6 +147,7 @@ META_FIELDS = {
         "parent_branch_date": "branch_date_in_parent",
         "parent_experiment_id": "parent_experiment_id",
         "parent_activity_id_(mip)": "parent_mip",
+        "parent_mip_era": "parent_mip_era",
         "parent_model_id": "parent_model_id",
         "parent_time_units": "parent_time_units",
         "parent_variant_label": "parent_variant_label",

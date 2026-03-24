@@ -207,6 +207,15 @@ body:
       placeholder: "e.g. CMIP"
 
   - type: input #CONDITIONAL ON BRANCH METHOD
+    id: parent_mip_era
+    attributes:
+      label: Parent MIP Era
+      description: Parent MIP era.
+      options:
+        - "CMIP7"
+      default: 0
+    
+  - type: input #CONDITIONAL ON BRANCH METHOD
     id: parent_model_id
     attributes:
       label: Parent Model ID
