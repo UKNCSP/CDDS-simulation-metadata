@@ -212,9 +212,10 @@ def update_status_from_model(model: str, variable_dict: dict) -> dict:
     """
     try:
         model_status_dict = read_json(REF_INFO_DIR / f"{model}_variable_status.json")
+        new_model = model
     except FileNotFoundError:
-        model = check_alias_dictionary(model)
-        model_status_dict = read_json(REF_INFO_DIR / f"{model}_variable_status.json")
+        new_model = check_alias_dictionary(model)
+        model_status_dict = read_json(REF_INFO_DIR / f"{new_model}_variable_status.json")
 
     for variable, comment in variable_dict.items():
         if variable in list(model_status_dict.keys()):
@@ -222,7 +223,7 @@ def update_status_from_model(model: str, variable_dict: dict) -> dict:
         else:
             variable_dict[variable].insert(0, "no-mapping-found")
 
-    return variable_dict
+    return variable_dict, new_model
 
 
 def modify_inm_onm_substreams(stream: str) -> str:
@@ -309,7 +310,7 @@ def get_streams(experiment_dict: dict, experiment: str, mappings_dict: list[dict
 
 
 def reformat_variable_names(
-        experiment_dict: dict, experiment: str, mappings_dict: list[dict], variable_dict: dict, model: str
+        experiment_dict: dict, experiment: str, mappings_dict: list[dict], variable_dict: dict, new_model: str
     ) -> dict[str, str]:
     """Reformats the name of each variable from realm.variable.branding.frequency.region to
     realm/variable_branding@frequency:stream for a single experiment.
@@ -339,7 +340,7 @@ def reformat_variable_names(
         If the original variable name cannot be split into parts as expected.
     """
     renamed_variable_dict = {}
-    streams = get_streams(experiment_dict, experiment, mappings_dict, model)
+    streams = get_streams(experiment_dict, experiment, mappings_dict, new_model)
 
     # Reformat all original variable names to realm/variable_branding@frequency:stream.
     for variable, comment in variable_dict.items():
@@ -419,8 +420,8 @@ def process_variable_dict(
     """
     variable_dict = {}
     variable_dict = set_priority_comments(experiment_dict, experiment)
-    variable_dict = update_status_from_model(model, variable_dict)
-    variable_dict = reformat_variable_names(experiment_dict, experiment, mappings_dict, variable_dict, model)
+    variable_dict, new_model = update_status_from_model(model, variable_dict)
+    variable_dict = reformat_variable_names(experiment_dict, experiment, mappings_dict, variable_dict, new_model)
     variable_dict = identify_known_issues(experiment, variable_dict)
 
     return variable_dict, model
