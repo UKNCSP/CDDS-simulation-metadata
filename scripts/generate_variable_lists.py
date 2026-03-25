@@ -195,7 +195,7 @@ def check_alias_dictionary(model: str) -> str:
     return correct_model
 
 
-def update_status_from_model(model: str, variable_dict: dict) -> tuple[dict, str]:
+def update_status_from_model(model: str, variable_dict: dict) -> dict:
     """Annotates each global variable with its production status (i.e. approved, embargoed or do not produce).
 
     Parameters
@@ -207,9 +207,8 @@ def update_status_from_model(model: str, variable_dict: dict) -> tuple[dict, str
 
     Returns
     -------
-    tuple[dict, str]
+    dict
         An updated dictionary of variables and their comments created based on priority level and production status.
-        The updated model ID after checking the alias dictionary.
     """
     try:
         model_status_dict = read_json(REF_INFO_DIR / f"{model}_variable_status.json")
@@ -223,7 +222,7 @@ def update_status_from_model(model: str, variable_dict: dict) -> tuple[dict, str
         else:
             variable_dict[variable].insert(0, "no-mapping-found")
 
-    return variable_dict, model
+    return variable_dict
 
 
 def modify_inm_onm_substreams(stream: str) -> str:
@@ -393,7 +392,7 @@ def identify_known_issues(experiment: str, renamed_variable_dict: dict[str, str]
 
 def process_variable_dict(
         experiment_dict: dict, experiment: str, model: str, mappings_dict: list[dict]
-    ) -> tuple[dict, str, str]:
+    ) -> tuple[dict, str]:
     """Processes the variable dictionary against all functions to get a complete dictionary of renamed variables and
     their associated status.
 
@@ -410,18 +409,17 @@ def process_variable_dict(
 
     Returns
     -------
-    tuple[dict, str, str]
+    tuple[dict, str]
         An updated dictionary containing the reformatted variable names and their associated status.
-        The model ID alias (this will eventually be removed after production).
         The given model ID.
     """
     variable_dict = {}
     variable_dict = set_priority_comments(experiment_dict, experiment)
-    variable_dict, model_alias = update_status_from_model(model, variable_dict)
+    variable_dict = update_status_from_model(model, variable_dict)
     variable_dict = reformat_variable_names(experiment_dict, experiment, mappings_dict, variable_dict, model)
     variable_dict = identify_known_issues(experiment, variable_dict)
 
-    return variable_dict, model_alias, model
+    return variable_dict, model
 
 
 def format_outfile_content(renamed_variable_dict: dict[str, str]) -> list[str]:
@@ -528,7 +526,7 @@ def generate_variable_lists() -> None:
     os.makedirs(outdir, exist_ok=True)
 
     # Process and save the variable dictionary.
-    variable_dict, new_model, model = process_variable_dict(experiment_dict, args.experiment, args. model, mappings_dict)
+    variable_dict, model = process_variable_dict(experiment_dict, args.experiment, args. model, mappings_dict)
     save_outfile(outdir, args.workflow_id, args.experiment, model, variable_dict)
 
     print(f"SUCCESSFULLY GENERATED VARIABLE LIST FOR {args.experiment}")
