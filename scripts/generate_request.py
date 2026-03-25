@@ -1,6 +1,11 @@
 # (C) British Crown Copyright 2026, Met Office.
 # Please see LICENSE.md for license details.
+"""A script to generate a functional request file using information provided from a given workflow metadata
+configuration file.
 
+Example command line usage:
+python scripts/generate_request.py a-bc123
+"""
 import argparse
 import datetime
 
@@ -133,7 +138,7 @@ def identify_variable_list_file(data: SectionProxy, metadata: SectionProxy) -> s
 
 
 def identify_mip_convert_plugin(metadata: SectionProxy) -> str:
-    """Identifies the relavent MIP convert plugin using the model id given in the workflow metadata configuration file.
+    """Identifies the relevant MIP convert plugin using the model id given in the workflow metadata configuration file.
 
     Parameters
     ----------
@@ -314,7 +319,7 @@ def generate_request_filename(data: SectionProxy, common: SectionProxy) -> str:
     data: SectionProxy
         The data section of the workflow metadata configuration file.
     common: SectionProxy
-        The commmon section of the fully populated request dictionary.
+        The common section of the fully populated request dictionary.
 
     Returns
     -------
