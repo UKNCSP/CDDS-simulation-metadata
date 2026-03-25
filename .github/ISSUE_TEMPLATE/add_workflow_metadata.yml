@@ -206,7 +206,7 @@ body:
       description: Parent activity identifier.
       placeholder: "e.g. CMIP"
 
-  - type: input #CONDITIONAL ON BRANCH METHOD
+  - type: dropdown #CONDITIONAL ON BRANCH METHOD
     id: parent_mip_era
     attributes:
       label: Parent MIP Era
