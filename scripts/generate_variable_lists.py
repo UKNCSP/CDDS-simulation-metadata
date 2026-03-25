@@ -393,7 +393,7 @@ def identify_known_issues(experiment: str, renamed_variable_dict: dict[str, str]
 
 def process_variable_dict(
         experiment_dict: dict, experiment: str, model: str, mappings_dict: list[dict]
-    ) -> tuple[dict, str]:
+    ) -> tuple[dict, str, str]:
     """Processes the variable dictionary against all functions to get a complete dictionary of renamed variables and
     their associated status.
 
@@ -403,22 +403,25 @@ def process_variable_dict(
         The dictionary containing all experiments and their associated variables.
     experiment: str
         The experiment whose variables are being updated.
+    model: str
+        The model ID.
     mappings_dict: list[dict]
         The dictionary containing mapping information for all variables.
 
     Returns
     -------
-    tuple[dict, str]
+    tuple[dict, str, str]
         An updated dictionary containing the reformatted variable names and their associated status.
-        The updated model ID.
+        The model ID alias (this will eventually be removed after production).
+        The given model ID.
     """
     variable_dict = {}
     variable_dict = set_priority_comments(experiment_dict, experiment)
-    variable_dict, model = update_status_from_model(model, variable_dict)
+    variable_dict, model_alias = update_status_from_model(model, variable_dict)
     variable_dict = reformat_variable_names(experiment_dict, experiment, mappings_dict, variable_dict, model)
     variable_dict = identify_known_issues(experiment, variable_dict)
 
-    return variable_dict, model
+    return variable_dict, model_alias, model
 
 
 def format_outfile_content(renamed_variable_dict: dict[str, str]) -> list[str]:
@@ -525,7 +528,7 @@ def generate_variable_lists() -> None:
     os.makedirs(outdir, exist_ok=True)
 
     # Process and save the variable dictionary.
-    variable_dict, model = process_variable_dict(experiment_dict, args.experiment, args. model, mappings_dict)
+    variable_dict, new_model, model = process_variable_dict(experiment_dict, args.experiment, args. model, mappings_dict)
     save_outfile(outdir, args.workflow_id, args.experiment, model, variable_dict)
 
     print(f"SUCCESSFULLY GENERATED VARIABLE LIST FOR {args.experiment}")
