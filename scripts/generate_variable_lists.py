@@ -286,6 +286,8 @@ def get_streams(experiment_dict: dict, experiment: str, mappings_dict: list[dict
         The experiment whose variables are being updated.
     mappings_dict: list[dict]
         The dictionary containing mapping information for all variables.
+    model: str
+        The model ID.
 
     Returns
     -------
@@ -322,6 +324,8 @@ def reformat_variable_names(
         The dictionary containing mapping information for all variables.
     variable_dict: dict
         An updated dictionary containing production status for variables marked "do-not-produce".
+    model: str
+        The model ID.
 
     Returns
     -------
