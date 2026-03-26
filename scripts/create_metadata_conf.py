@@ -25,8 +25,7 @@ from constants import (
     MISC,
     PARENT_REQUIRED,
     REGEX_FORMAT,
-    REQUIRED,
-    DR_FILE_LOCATION
+    REQUIRED
 )
 from common import read_json
 
@@ -111,7 +110,7 @@ def process_metadata(match: list) -> dict[str, str]:
     Returns
     -------
     dict[str, str]
-        A cleaned dictionary containing the metadata keys and values from the issue form.
+        The dictionary containing the submitted metadata information.
     """
     meta_dict = {}
 
@@ -132,8 +131,21 @@ def process_metadata(match: list) -> dict[str, str]:
     return meta_dict
 
 
-def check_for_missing_inputs(meta_dict, errors):
-    """Checks for missing inputs"""
+def check_for_missing_inputs(meta_dict: dict[str, str], errors: dict[str, str]) -> dict[str, str]:
+    """Checks for missing inputs.
+
+    Parameters
+    ----------
+    meta_dict: dict[str, str]
+        The dictionary containing the submitted metadata information.
+    errors: dict[str, str]
+        The dictionary containing any triggered error messages.
+
+    Returns
+    -------
+    dict[str, str]
+        The dictionary containing any triggered error messages.
+    """
     missing = []
     for parameter in REQUIRED:
         if meta_dict.get(parameter) in (None, "", "_No response_"):
@@ -145,9 +157,22 @@ def check_for_missing_inputs(meta_dict, errors):
     return errors
 
 
-def check_parent_fields(meta_dict, errors):
+def check_parent_fields(meta_dict: dict[str, str], errors: dict[str, str]) -> dict[str, str]:
     """Checks that parent attributes are present if branch method is stanard and checks that they are not present if
-    branch method no parent"""
+    branch method no parent.
+
+    Parameters
+    ----------
+    meta_dict: dict[str, str]
+        The dictionary containing the submitted metadata information.
+    errors: dict[str, str]
+        The dictionary containing any triggered error messages.
+
+    Returns
+    -------
+    dict[str, str]
+        The dictionary containing any triggered error messages.
+    """
     missing_parent_fields = []
     unexpected_parent_fields = []
     branch_method = meta_dict.get("branch_method")
@@ -169,7 +194,21 @@ def check_parent_fields(meta_dict, errors):
     return errors
 
 
-def check_mass_data_class_attributes(meta_dict, errors):
+def check_mass_data_class_attributes(meta_dict: dict[str, str], errors: dict[str, str]) -> dict[str, str]:
+    """Checks that attributes related to mass_data_class are present as expected.
+
+    Parameters
+    ----------
+    meta_dict: dict[str, str]
+        The dictionary containing the submitted metadata information.
+    errors: dict[str, str]
+        The dictionary containing any triggered error messages.
+
+    Returns
+    -------
+    dict[str, str]
+        The dictionary containing any triggered error messages.
+    """
     mass_data_class = meta_dict.get("mass_data_class")
     mass_ensemble_member = meta_dict.get("mass_ensemble_member")
 
@@ -181,7 +220,21 @@ def check_mass_data_class_attributes(meta_dict, errors):
     return errors
 
 
-def check_datetime_fields(meta_dict, errors):
+def check_datetime_fields(meta_dict: dict[str, str], errors: dict[str, str]) -> dict[str, str]:
+    """Checks that all datetime inputs are of the expected format: 'YYYY-MM-DDTHH:mm:ssZ'.
+
+    Parameters
+    ----------
+    meta_dict: dict[str, str]
+        The dictionary containing the submitted metadata information.
+    errors: dict[str, str]
+        The dictionary containing any triggered error messages.
+
+    Returns
+    -------
+    dict[str, str]
+        The dictionary containing any triggered error messages.
+    """
     if meta_dict.get("branch_method") == "standard":
         DATETIME_FIELDS.add("branch_date_in_child")
         DATETIME_FIELDS.add("branch_date_in_parent")
@@ -192,14 +245,42 @@ def check_datetime_fields(meta_dict, errors):
     return errors
 
 
-def check_model_workflow_id(meta_dict, errors):
+def check_model_workflow_id(meta_dict: dict[str, str], errors: dict[str, str]) -> dict[str, str]:
+    """Checks that model_workflow_id follows the expected format of 'a-bc123' or 'ab-cd123'.
+
+    Parameters
+    ----------
+    meta_dict: dict[str, str]
+        The dictionary containing the submitted metadata information.
+    errors: dict[str, str]
+        The dictionary containing any triggered error messages.
+
+    Returns
+    -------
+    dict[str, str]
+        The dictionary containing any triggered error messages.
+    """
     if not REGEX_DICT["workflow_pattern"].fullmatch(meta_dict.get("model_workflow_id")):
         errors["workflow_id_format"] = "model workflow ID is incorrectly formatted: expected a-bc123 or ab-cd123"
 
     return errors
 
 
-def check_variant_labels(meta_dict, errors):
+def check_variant_labels(meta_dict: dict[str, str], errors: dict[str, str]) -> dict[str, str]:
+    """Checks that variant labels follow the expected regex.
+
+    Parameters
+    ----------
+    meta_dict: dict[str, str]
+        The dictionary containing the submitted metadata information.
+    errors: dict[str, str]
+        The dictionary containing any triggered error messages.
+
+    Returns
+    -------
+    dict[str, str]
+        The dictionary containing any triggered error messages.
+    """
     labels = [meta_dict.get("variant_label")]
     if meta_dict.get("branch_method") == "standard":
         labels.append(meta_dict.get("parent_variant_label"))
@@ -212,7 +293,21 @@ def check_variant_labels(meta_dict, errors):
     return errors
 
 
-def check_atmos_timestep(meta_dict, errors):
+def check_atmos_timestep(meta_dict: dict[str, str], errors: dict[str, str]) -> dict[str, str]:
+    """Checks that the atmospheric timestep is of logical value ( a postivie, non-zero integer ).
+
+    Parameters
+    ----------
+    meta_dict: dict[str, str]
+        The dictionary containing the submitted metadata information.
+    errors: dict[str, str]
+        The dictionary containing any triggered error messages.
+
+    Returns
+    -------
+    dict[str, str]
+        The dictionary containing any triggered error messages.
+    """
     atmos_timestep = meta_dict.get("atmos_timestep")
     if not atmos_timestep.isdigit() or int(atmos_timestep) < 0:
         errors["timestep_logic"] = "atmospheric timestep is invalid"
@@ -222,7 +317,21 @@ def check_atmos_timestep(meta_dict, errors):
     return errors
 
 
-def check_start_end_logic(meta_dict, errors):
+def check_start_end_logic(meta_dict: dict[str, str], errors: dict[str, str]) -> dict[str, str]:
+    """Checks that start date and end date are logical.
+
+    Parameters
+    ----------
+    meta_dict: dict[str, str]
+        The dictionary containing the submitted metadata information.
+    errors: dict[str, str]
+        The dictionary containing any triggered error messages.
+
+    Returns
+    -------
+    dict[str, str]
+        The dictionary containing any triggered error messages.
+    """
     parser = parse.TimePointParser()
     start_date = meta_dict.get("start_date")
     end_date = meta_dict.get("end_date")
@@ -240,7 +349,21 @@ def check_start_end_logic(meta_dict, errors):
     return errors
 
 
-def check_fixed_fields(meta_dict, errors):
+def check_fixed_fields(meta_dict: dict[str, str], errors: dict[str, str]) -> dict[str, str]:
+    """Checks that all fields that can only be a fixed value or one of a set of fixed values are as expected.
+
+    Parameters
+    ----------
+    meta_dict: dict[str, str]
+        The dictionary containing the submitted metadata information.
+    errors: dict[str, str]
+        The dictionary containing any triggered error messages.
+
+    Returns
+    -------
+    dict[str, str]
+        The dictionary containing any triggered error messages.
+    """
     unrecognised_inputs = []
     base_date = meta_dict.get("base_date")
     if base_date != "1850-01-01T00:00:00Z":
@@ -274,7 +397,21 @@ def check_fixed_fields(meta_dict, errors):
     return errors
 
 
-def check_cvs(meta_dict, errors):
+def check_cvs(meta_dict: dict[str, str], errors: dict[str, str]) -> dict[str, str]:
+    """Checks that inputs are present within the CV and are the expected value for a given experiment.
+
+    Parameters
+    ----------
+    meta_dict: dict[str, str]
+        The dictionary containing the submitted metadata information.
+    errors: dict[str, str]
+        The dictionary containing any triggered error messages.
+
+    Returns
+    -------
+    dict[str, str]
+        The dictionary containing any triggered error messages.
+    """
     cv = read_json(Path(CV_FILE_LOCATION))
     cv_errors = []
 
