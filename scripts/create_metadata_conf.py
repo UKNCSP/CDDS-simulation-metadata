@@ -14,6 +14,9 @@ from pathlib import Path
 import json
 
 import metomi.isodatetime.parsers as parse
+from metomi.isodatetime.data import Calendar
+from metomi.isodatetime.exceptions import ISO8601SyntaxError, IsodatetimeError
+
 from constants import (
     DATA,
     DATETIME_FIELDS,
@@ -25,13 +28,13 @@ from constants import (
     REQUIRED,
     DR_FILE_LOCATION
 )
-from metomi.isodatetime.data import Calendar
-from metomi.isodatetime.exceptions import ISO8601SyntaxError, IsodatetimeError
+from common import read_json
 
 REGEX_DICT = {
     "workflow_pattern": re.compile(REGEX_FORMAT["model_workflow_id"]),
     "variant_pattern": re.compile(REGEX_FORMAT["variant_label"]),
 }
+CV_FILE_LOCATION = "reference_information/cmip7_cmor_tables.json"
 
 
 def get_issue() -> dict[str, str]:
@@ -62,15 +65,15 @@ def set_calendar(calendar_type: str) -> dict[str, str]:
     """
     errors = {}
 
-    if calendar_type == "360_day" or calendar_type == "gregorian":
+    if calendar_type in ("360_day", "gregorian", "standard"):
         Calendar.default().set_mode(calendar_type)
     else:
-        errors["calendar"] = "Incompatible calendar: expected 360_day or gregorian"
+        errors["calendar"] = "incompatible calendar: expected 360_day or gregorian/standard"
 
     return errors
 
 
-def normalise_datetime(datetime: str, errors: dict[str, str], key: str) -> tuple[str, dict[str, str]]:
+def normalise_datetime(datetime: str, errors: dict[str, str], field: str) -> tuple[str, dict[str, str]]:
     """Normalises any acceptable datetime string into yyyy-mm-ddTHH:MM:SSZ format.
 
     Parameters
@@ -79,7 +82,7 @@ def normalise_datetime(datetime: str, errors: dict[str, str], key: str) -> tuple
         The datetime string to normalise.
     errors : dict[str, str]
         A dictionary containing any errors caused by user input from the form.
-    key : str
+    field : str
         The datetime field being normalised.
 
     Returns
@@ -91,7 +94,7 @@ def normalise_datetime(datetime: str, errors: dict[str, str], key: str) -> tuple
         parser = parse.TimePointParser()
         normalised_str = str(parser.parse(datetime))
     except (IsodatetimeError, ISO8601SyntaxError):
-        errors["datetime"] = f"Invalid datetime format for {key}"
+        errors["datetime"] = f"invalid datetime format for {field}"
         normalised_str = datetime
 
     return normalised_str, errors
@@ -129,6 +132,184 @@ def process_metadata(match: list) -> dict[str, str]:
     return meta_dict
 
 
+def check_for_missing_inputs(meta_dict, errors):
+    """Checks for missing inputs"""
+    missing = []
+    for parameter in REQUIRED:
+        if meta_dict.get(parameter) in (None, "", "_No response_"):
+            missing.append(f"Missing field {parameter}")
+
+    if missing:
+        errors["missing_required_field"] = missing
+
+    return errors
+
+
+def check_parent_fields(meta_dict, errors):
+    """Checks that parent attributes are present if branch method is stanard and checks that they are not present if
+    branch method no parent"""
+    missing_parent_fields = []
+    unexpected_parent_fields = []
+    branch_method = meta_dict.get("branch_method")
+
+    if branch_method == "standard":
+        for parent_key in PARENT_REQUIRED:
+            if meta_dict.get(parent_key) in (None, "", "_No response_"):
+                missing_parent_fields.append(f"missing required parent field: {parent_key}")
+    elif branch_method == "no parent":
+        for parent_key in PARENT_REQUIRED:
+            if meta_dict.get(parent_key) not in (None, "", "_No response_"):
+                unexpected_parent_fields.append(f"unexpected field: {parent_key}")
+
+    if missing_parent_fields:
+        errors["missing_parent_field"] = missing_parent_fields
+    if unexpected_parent_fields:
+        errors["unexpected_parent_field"] = unexpected_parent_fields
+
+    return errors
+
+
+def check_mass_data_class_attributes(meta_dict, errors):
+    mass_data_class = meta_dict.get("mass_data_class")
+    mass_ensemble_member = meta_dict.get("mass_ensemble_member")
+
+    if mass_data_class == "ens" and not mass_ensemble_member:
+        errors["missing_mass_field"] = f"missing field: mass_ensemble_member"
+    if mass_data_class == "crum" and mass_ensemble_member:
+        errors["unexpected_mass_field"] = f"unexpected field: mass_ensemble_member"
+
+    return errors
+
+
+def check_datetime_fields(meta_dict, errors):
+    if meta_dict.get("branch_method") == "standard":
+        DATETIME_FIELDS.add("branch_date_in_child")
+        DATETIME_FIELDS.add("branch_date_in_parent")
+    for field in DATETIME_FIELDS:
+        normal_datetime, errors = normalise_datetime(meta_dict.get(field), errors, field)
+        meta_dict[field] = normal_datetime
+
+    return errors
+
+
+def check_model_workflow_id(meta_dict, errors):
+    if not REGEX_DICT["workflow_pattern"].fullmatch(meta_dict.get("model_workflow_id")):
+        errors["workflow_id_format"] = "model workflow ID is incorrectly formatted: expected a-bc123 or ab-cd123"
+
+    return errors
+
+
+def check_variant_labels(meta_dict, errors):
+    labels = [meta_dict.get("variant_label")]
+    if meta_dict.get("branch_method") == "standard":
+        labels.append(meta_dict.get("parent_variant_label"))
+
+    for label in labels:
+        if not REGEX_DICT["variant_pattern"].fullmatch(label):
+            errors["label_format"] = ("variant label or parent variant label is incorrectly formatted: expected "
+                                      "r1i1p1f1 like format")
+
+    return errors
+
+
+def check_atmos_timestep(meta_dict, errors):
+    atmos_timestep = meta_dict.get("atmos_timestep")
+    if not atmos_timestep.isdigit() or int(atmos_timestep) < 0:
+        errors["timestep_logic"] = "atmospheric timestep is invalid"
+
+    # TO DO: Add in check against the default values given and warn user if their input deviates from the default
+
+    return errors
+
+
+def check_start_end_logic(meta_dict, errors):
+    parser = parse.TimePointParser()
+    start_date = meta_dict.get("start_date")
+    end_date = meta_dict.get("end_date")
+    start_date_err_msg = "invalid datetime format for start_date"
+    end_date_err_msg = "invalid datetime format for end_date"
+
+    try:
+        if start_date_err_msg not in errors["datetime"] and end_date_err_msg not in errors["datetime"]:
+            if parser.parse(end_date) < parser.parse(start_date):
+                errors["datetime_logic"] = "end date cannot be earlier than start date"
+    except KeyError:
+        if parser.parse(end_date) < parser.parse(start_date):
+            errors["datetime_logic"] = "end date cannot be earlier than start date"
+
+    return errors
+
+
+def check_fixed_fields(meta_dict, errors):
+    unrecognised_inputs = []
+    base_date = meta_dict.get("base_date")
+    if base_date != "1850-01-01T00:00:00Z":
+        unrecognised_inputs.append(f"base date {base_date} differs from the expected 1850-01-01T00:00:00Z. "
+                                   f"If you wish to use {base_date}, please contact a member of the CDDS team")
+
+    if meta_dict.get("branch_method") not in ("no parent", "standard"):
+        unrecognised_inputs.append("branch_method must have the value 'no parent' or 'standard'")
+
+    eras = (meta_dict.get("mip_era"), meta_dict.get("parent_mip_era"))
+    for era in eras:
+        if era != "CMIP7":
+            unrecognised_inputs.append("mip_era and parent_mip_era must have the value 'CMIP7'")
+
+    model_id = meta_dict.get("model_id")
+    if model_id not in ("UKCM2-0-LL", "UKCM2a-0-HH", "UKESM1-3-LL", "HadGEM3-GC31-MM"):
+        unrecognised_inputs.append("model_id must have the value 'UKCM2-0-LL', 'UKCM2a-0-HH', 'UKESM1-3-LL' or "
+                                   "'HadGEM3-GC31-MM'")
+    if model_id != meta_dict.get("parent_model_id"):
+        unrecognised_inputs.append(f"parent_model_id must match model_id '{model_id}'")
+
+    if meta_dict.get("parent_time_units") != "days since 1850-01-01T00:00:00Z":
+        unrecognised_inputs.append("parent_time_units must have the value 'days since 1850-01-01T00:00:00Z'")
+
+    if meta_dict.get("mass_data_class") not in ("ens", "crum"):
+        unrecognised_inputs.append("mass_data_class must have the value 'ens' or 'crum'")
+
+    if unrecognised_inputs:
+        errors["unrecognised_input"] = unrecognised_inputs
+
+    return errors
+
+
+def check_cvs(meta_dict, errors):
+    cv = read_json(Path(CV_FILE_LOCATION))
+    cv_errors = []
+
+    institution = meta_dict.get("institution_id")
+    if institution not in cv["CV"]["institution_id"]:
+        cv_errors.append(f"institution_id '{institution}' could not be found in the cvs")
+
+    experiment = meta_dict.get("experiment_id")
+    if experiment not in cv["CV"]["experiment_id"]:
+        cv_errors.append(f"experiment id '{experiment}' could not be found in the cvs")
+        errors["cv_error"] = cv_errors
+        return errors
+
+    experiment_cv_info = cv["CV"]["experiment_id"][experiment]
+    parent_experiment = meta_dict.get("parent_experiment_id")
+    parent_experiment_in_cv = experiment_cv_info["parent_experiment_id"]
+    if parent_experiment not in parent_experiment_in_cv:
+        cv_errors.append(f"parent experiment id '{parent_experiment}' does not match one of the expected values "
+                         f"'{parent_experiment_in_cv}' given in the cvs")
+
+    mip = meta_dict.get("mip")
+    mip_in_cv = experiment_cv_info["activity_id"]
+    if mip not in mip_in_cv:
+        cv_errors.append(f"mip '{mip}' does not match one of the expected values '{mip_in_cv}' given in the cvs")
+    parent_mip = meta_dict.get("parent_mip")
+    parent_mip_in_cv = experiment_cv_info["parent_activity_id"]
+    if parent_mip not in parent_mip_in_cv:
+        cv_errors.append(f"parent mip '{parent_mip}' does not match one of the expected values '{parent_mip_in_cv}' "
+                         "given in the cvs")
+
+    errors["cv_error"] = cv_errors
+
+    return errors
+
+
 def validate_meta_content(meta_dict: dict[str, str]) -> dict[str, str]:
     """Validates the metadata dictionary contents.
 
@@ -142,103 +323,17 @@ def validate_meta_content(meta_dict: dict[str, str]) -> dict[str, str]:
     dict[str, str]
         A dictionary containing any errors caused by user input from the form.
     """
-    missing_fields = []
-    missing_parent_fields = []
-    unexpected_parent_fields = []
-    errors = set_calendar(meta_dict["calendar"])
-
-    # Confirm that conditional fields are present.
-    for key, value in meta_dict.items():
-        if key in REQUIRED and not value:
-            missing_fields.append(f"Missing field {key}")
-
-        if key == "mass_data_class":
-            if value == "ens" and not meta_dict.get("mass_ensemble_member"):
-                errors["missing_mass_field"] = f"Missing field: {key}"
-            if value == "crum" and meta_dict.get("mass_ensemble_member"):
-                errors["unexpected_mass_field"] = f"Unexpected field: {key}"
-
-        if key == "branch_method":
-            if value == "standard":
-                for parent_key in PARENT_REQUIRED:
-                    if meta_dict.get(parent_key) in (None, "", "_No response_"):
-                        missing_parent_fields.append(f"Missing required parent field: {parent_key}")
-            elif value == "no parent":
-                for parent_key in PARENT_REQUIRED:
-                    if meta_dict.get(parent_key) not in (None, "", "_No response_"):
-                        unexpected_parent_fields.append(f"Unexpected field: {parent_key}")
-
-        # Verify datetime inputs
-        if key == "branch_method" and value == "standard":
-            DATETIME_FIELDS.add("branch_date_in_child")
-            DATETIME_FIELDS.add("branch_date_in_parent")
-        if key in DATETIME_FIELDS:
-            normal_datetime, errors = normalise_datetime(meta_dict[key], errors, key)
-            meta_dict[key] = normal_datetime
-
-        # Verify workflow model ID structure
-        if key == "model_workflow_id" and not REGEX_DICT["workflow_pattern"].fullmatch(value):
-            errors["workflow_id_format"] = "Model workflow ID is incorrectly formatted: expected a-bc123"
-
-        # Verify variant label structure
-        if key == "variant_label" and not REGEX_DICT["variant_pattern"].fullmatch(value):
-            errors["label_format"] = "Variant label is incorrectly formatted: expected r1i1p1f2 like format"
-
-        # Verify that atmospheric timestep is an integer
-        if key == "atmos_timestep" and (not value.isdigit() or int(value) < 0):
-            errors["timestep_logic"] = "Atmospheric timestep is invalid"
-
-    # Confirm that end_time is not earlier than start_time.
-    parser = parse.TimePointParser()
-    if "datetime" not in errors:
-        if parser.parse(meta_dict["end_date"]) < parser.parse(meta_dict["start_date"]):
-            errors["datetime_logic"] = "End date cannot be earlier than start date"
-
-    if missing_fields:
-        errors["missing_required_field"] = missing_fields
-    if missing_parent_fields:
-        errors["missing_parent_field"] = missing_parent_fields
-    if unexpected_parent_fields:
-        errors["unexpected_parent_field"] = unexpected_parent_fields
-
-    return errors
-
-
-def read_data_request(file_path):
-    """Reads in the data request file.
-
-    Parameters
-    ----------
-    file_path: Path
-        The path to the data request file.
-    """
-    with open(file_path, "r") as infile:
-        data_request_dict = json.load(infile)
-
-    return data_request_dict
-
-
-def validate_experiment_id(meta_dict: dict[str, str], errors: dict[str, str]) -> dict[str, str]:
-    """Confirms if the experiment_id can be found within the data request file.
-
-    Parameters
-    ----------
-    meta_dict : dict[str, str]
-        A cleaned dictionary containing the metadata keys and values from the issue form.
-    errors: dict[str, str]
-        A dictionary containing any errors caused by user input from the form.
-
-    Returns
-    -------
-    dict[str, str]
-        A dictionary containing any errors caused by user input from the form.
-    """
-    data_request_info = read_data_request(DR_FILE_LOCATION)
-    experiment = meta_dict["experiment_id"]
-    try:
-        data_request_info["experiment"][experiment]
-    except KeyError:
-        errors["experiment_not_recognised"] = f"{experiment} not found in data request file."
+    errors = set_calendar(meta_dict.get("calendar"))
+    check_for_missing_inputs(meta_dict, errors)
+    check_parent_fields(meta_dict, errors)
+    check_datetime_fields(meta_dict, errors)
+    check_start_end_logic(meta_dict, errors)
+    check_fixed_fields(meta_dict, errors)
+    check_cvs(meta_dict, errors)
+    check_mass_data_class_attributes(meta_dict, errors)
+    check_model_workflow_id(meta_dict, errors)
+    check_variant_labels(meta_dict, errors)
+    check_atmos_timestep(meta_dict, errors)
 
     return errors
 
@@ -262,12 +357,12 @@ def format_warning_message(errors: dict[str, str]) -> str:
         if isinstance(value, list):
             for item in value:
                 list_value = item
-                clean_value = list_value.strip().lower().replace("_", " ")
-                warning = clean_key + " warning " + "(" + clean_value + ")."
+                clean_value = list_value.strip().replace("_", " ")
+                warning = clean_key + " warning" + ": " + clean_value + "."
                 warnings.append(warning)
         else:
-            clean_value = value.strip().lower().replace("_", " ")
-            warning = clean_key + " warning " + "(" + clean_value + ")."
+            clean_value = value.strip().replace("_", " ")
+            warning = clean_key + " warning" + ": " + clean_value + "."
             warnings.append(warning)
 
     warning_str = "\n".join(warnings)
@@ -363,7 +458,6 @@ def main() -> None:
 
     # Validate and organise dictionary content.
     errors = validate_meta_content(meta_dict)
-    errors = validate_experiment_id(meta_dict, errors)
     organised_metadata = sort_to_categories(meta_dict)
 
     # Create output file.
