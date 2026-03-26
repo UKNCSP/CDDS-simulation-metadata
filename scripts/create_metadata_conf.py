@@ -372,20 +372,22 @@ def check_fixed_fields(meta_dict: dict[str, str], errors: dict[str, str]) -> dic
     if meta_dict.get("branch_method") not in ("no parent", "standard"):
         unrecognised_inputs.append("branch_method must have the value 'no parent' or 'standard'")
 
-    eras = (meta_dict.get("mip_era"), meta_dict.get("parent_mip_era"))
-    for era in eras:
-        if era != "CMIP7":
-            unrecognised_inputs.append("mip_era and parent_mip_era must have the value 'CMIP7'")
+    if meta_dict.get("branch_method") == "standard":
+        eras = (meta_dict.get("mip_era"), meta_dict.get("parent_mip_era"))
+        for era in eras:
+            if era != "CMIP7":
+                unrecognised_inputs.append("mip_era and parent_mip_era must have the value 'CMIP7'")
 
     model_id = meta_dict.get("model_id")
     if model_id not in ("UKCM2-0-LL", "UKCM2a-0-HH", "UKESM1-3-LL", "HadGEM3-GC31-MM"):
         unrecognised_inputs.append("model_id must have the value 'UKCM2-0-LL', 'UKCM2a-0-HH', 'UKESM1-3-LL' or "
                                    "'HadGEM3-GC31-MM'")
-    if model_id != meta_dict.get("parent_model_id"):
-        unrecognised_inputs.append(f"parent_model_id must match model_id '{model_id}'")
+    if meta_dict.get("branch_method") == "standard":
+        if model_id != meta_dict.get("parent_model_id"):
+            unrecognised_inputs.append(f"parent_model_id must match model_id '{model_id}'")
 
-    if meta_dict.get("parent_time_units") != "days since 1850-01-01T00:00:00Z":
-        unrecognised_inputs.append("parent_time_units must have the value 'days since 1850-01-01T00:00:00Z'")
+        if meta_dict.get("parent_time_units") != "days since 1850-01-01T00:00:00Z":
+            unrecognised_inputs.append("parent_time_units must have the value 'days since 1850-01-01T00:00:00Z'")
 
     if meta_dict.get("mass_data_class") not in ("ens", "crum"):
         unrecognised_inputs.append("mass_data_class must have the value 'ens' or 'crum'")
@@ -412,6 +414,7 @@ def check_cvs(meta_dict: dict[str, str], errors: dict[str, str]) -> dict[str, st
         The dictionary containing any triggered error messages.
     """
     cv = read_json(Path(CV_FILE_LOCATION))
+    branch_method = meta_dict.get("branch_method")
     cv_errors = []
 
     institution = meta_dict.get("institution_id")
@@ -427,7 +430,7 @@ def check_cvs(meta_dict: dict[str, str], errors: dict[str, str]) -> dict[str, st
     experiment_cv_info = cv["CV"]["experiment_id"][experiment]
     parent_experiment = meta_dict.get("parent_experiment_id")
     parent_experiment_in_cv = experiment_cv_info["parent_experiment_id"]
-    if parent_experiment not in parent_experiment_in_cv:
+    if branch_method == "standard" and parent_experiment not in parent_experiment_in_cv:
         cv_errors.append(f"parent experiment id '{parent_experiment}' does not match one of the expected values "
                          f"'{parent_experiment_in_cv}' given in the cvs")
 
@@ -437,11 +440,12 @@ def check_cvs(meta_dict: dict[str, str], errors: dict[str, str]) -> dict[str, st
         cv_errors.append(f"mip '{mip}' does not match one of the expected values '{mip_in_cv}' given in the cvs")
     parent_mip = meta_dict.get("parent_mip")
     parent_mip_in_cv = experiment_cv_info["parent_activity_id"]
-    if parent_mip not in parent_mip_in_cv:
+    if branch_method == "standard" and parent_mip not in parent_mip_in_cv:
         cv_errors.append(f"parent mip '{parent_mip}' does not match one of the expected values '{parent_mip_in_cv}' "
                          "given in the cvs")
 
-    errors["cv_error"] = cv_errors
+    if cv_errors:
+        errors["cv_error"] = cv_errors
 
     return errors
 
