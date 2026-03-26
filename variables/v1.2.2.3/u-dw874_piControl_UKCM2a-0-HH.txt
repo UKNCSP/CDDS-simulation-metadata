@@ -1,7 +1,8 @@
 # Note: only global variables are currently producible by CDDS
-atmos/pr_tavg-u-hxy-u@mon:ap5  # approved
 atmos/tas_tavg-h2m-hxy-u@day:ap6  # approved
 atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
+atmos/tas_tpt-h2m-hxy-u@3hr:ap8  # approved
+atmos/tas_tavg-h2m-hxy-u@1hr:ap9  # approved
 #atmos/cl_tavg-al-hxy-u@mon:ap5  # embargoed
 #atmos/cli_tavg-al-hxy-u@mon:ap5  # embargoed
 #atmos/clivi_tavg-u-hxy-u@mon:ap5  # embargoed
@@ -25,6 +26,7 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #atmos/pr_tavg-u-hxy-u@1hr:ap9  # embargoed
 #atmos/pr_tavg-u-hxy-u@3hr:ap8  # embargoed
 #atmos/pr_tavg-u-hxy-u@day:ap6  # embargoed
+#atmos/pr_tavg-u-hxy-u@mon:ap5  # embargoed
 #atmos/prc_tavg-u-hxy-u@mon:ap5  # embargoed
 #atmos/prsn_tavg-u-hxy-u@mon:ap5  # embargoed
 #atmos/prw_tavg-u-hxy-u@mon:ap5  # embargoed
@@ -55,7 +57,6 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #atmos/tas_tmaxavg-h2m-hxy-u@mon:ap6  # embargoed
 #atmos/tas_tmin-h2m-hxy-u@day:ap6  # embargoed
 #atmos/tas_tminavg-h2m-hxy-u@mon:ap6  # embargoed
-#atmos/tas_tpt-h2m-hxy-u@3hr:ap8  # embargoed
 #atmos/tauu_tavg-u-hxy-u@mon:ap5  # embargoed
 #atmos/tauv_tavg-u-hxy-u@mon:ap5  # embargoed
 #atmos/ts_tavg-u-hxy-u@mon:ap5  # embargoed
@@ -319,7 +320,6 @@ atmos/tas_tavg-h2m-hxy-u@mon:ap5  # approved
 #atmos/ta_tavg-al-hxy-u@mon:ap5  # embargoed
 #atmos/ta_tavg-p39-hy-air@day:ap6  # embargoed
 #atmos/ta_tavg-p39-hy-air@mon:ap4  # embargoed
-#atmos/tas_tavg-h2m-hxy-u@1hr:ap9  # embargoed
 #atmos/tas_tavg-h2m-hxy-u@6hr:ap7  # embargoed
 #atmos/tauu_tavg-u-hxy-u@day:ap6  # embargoed
 #atmos/tauv_tavg-u-hxy-u@day:ap6  # embargoed

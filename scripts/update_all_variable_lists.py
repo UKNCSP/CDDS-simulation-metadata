@@ -70,7 +70,7 @@ def main():
             save_outfile(outdir, key_info["workflow_id"], key_info["experiment_id"], model, variable_dict)
             num_successful_files += 1
         except Exception as e:
-            print(f"WARNING: Unable to generate updated variable list for {key_info["workflow_id"]}. \n{e}")
+            print(f"WARNING: Unable to generate updated variable list for {key_info['workflow_id']}. \n{e}")
             num_failed_files += 1
 
     success_msg = f"\n SUCCESSFULLY REGENERATED {num_successful_files}/{num_successful_files + num_failed_files} FILES"
