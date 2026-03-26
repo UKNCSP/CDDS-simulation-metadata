@@ -11,7 +11,6 @@ import os
 import re
 import sys
 from pathlib import Path
-import json
 
 import metomi.isodatetime.parsers as parse
 from metomi.isodatetime.data import Calendar
