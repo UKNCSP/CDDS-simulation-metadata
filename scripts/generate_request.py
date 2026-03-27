@@ -10,7 +10,11 @@ import argparse
 import datetime
 
 from configparser import ConfigParser, SectionProxy
+from pathlib import Path
 
+from common import read_json
+
+CV_FILE_LOCATION = "reference_information/cmip7_cmor_tables.json"
 WORKFLOW_METADATA_DIR = "workflow_metadata"
 VARIABLE_LIST_DIR = "variables/v1.2.2.3"
 REQUEST_TEMPLATE = {
@@ -248,6 +252,44 @@ def update_template_with_conversion(request: dict, metadata: SectionProxy) -> di
     return request
 
 
+def validate_request(request: dict) -> None:
+    """Validates the request file content against the cmor CMIP7 cvs.
+
+    Parameters
+    ----------
+    request: dict
+        request: dict
+        The fully populated request template fields and values as a dictionary.
+
+    Raises
+    -------
+    RuntimeError
+        If any request file content cannot be validated against cvs.
+    """
+    cv = read_json(Path(CV_FILE_LOCATION))
+    cv_errors = []
+
+    if request["metadata"]["institution_id"] not in cv["CV"]["institution_id"]:
+        cv_errors.append(f"institution_id could not be found in the cvs")
+    if request["metadata"]["license"] not in cv["CV"]["license"]["license_id"]:
+        cv_errors.append(f"license does not match one of the expected values given in the cvs")
+    if request["metadata"]["experiment_id"] not in cv["CV"]["experiment_id"]:
+        cv_errors.append(f"experiment id could not be found in the cvs")
+        raise RuntimeError(f"Unable to locate experiment id against cvs, unable to continue validation:\n{cv_errors}")
+
+    experiment_cv_info = cv["CV"]["experiment_id"][request["metadata"]["experiment_id"]]
+    if request["metadata"]["mip"] not in experiment_cv_info["activity_id"]:
+        cv_errors.append(f"mip does not match one of the expected values given in the cvs")
+    if request["metadata"]["branch_method"] == "standard":
+        if request["metadata"]["parent_experiment_id"] not in experiment_cv_info["parent_experiment_id"]:
+            cv_errors.append(f"parent experiment id does not match one of the expected values given in the cvs")
+        if request["metadata"]["parent_mip"] not in experiment_cv_info["parent_activity_id"]:
+            cv_errors.append(f"parent mip does not match one of the expected values given in the cvs")
+
+    if cv_errors:
+        raise RuntimeError(f"Unable to valdidate request file against cvs:\n{cv_errors}")
+
+
 def write_request(data: SectionProxy, request: dict) -> None:
     """Writes out the fully populated REQUEST TEMPLATE dictionary to a configuration file format.
 
@@ -286,8 +328,10 @@ def generate_request_config() -> None:
     update_template_with_misc(request, misc)
     update_template_with_common(request, metadata)
     update_template_with_conversion(request, metadata)
+    validate_request(request)
 
     write_request(data, request)
+    print("Request successfully generated")
 
 
 if __name__ == "__main__":
