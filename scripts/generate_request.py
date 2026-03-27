@@ -20,7 +20,7 @@ REQUEST_TEMPLATE = {
         "calendar": "",
         "experiment_id": "",
         "institution_id": "",
-        "license": "CC-BY-4-0",
+        "license": "CC-BY-4.0",
         "mip": "",
         "mip_era": "",
         "model_id": "",
@@ -35,9 +35,8 @@ REQUEST_TEMPLATE = {
         "parent_variant_label": "",
     },
     "netcdf_global_attributes": {
-        "data_specs_version": "MIP-DS7.0.0.0",
+        "data_specs_version": "MIP-DS7.1.0.0",
         "drs_specs": "MIP-DRS7",
-        "host_collection": "CMIP7",
         "region": "glb"
     },
     "common": {
@@ -50,8 +49,8 @@ REQUEST_TEMPLATE = {
         "root_ancil_dir": "$CDDS_ETC/ancil_testing/",
         "root_hybrid_heights_dir": "$CDDS_ETC/vertical_coordinates/",
         "root_replacement_coordinates_dir": "$CDDS_ETC/horizontal_coordinates/",
-        "root_proc_dir": "$DATADIR/cdds_CMIP7/proc",
-        "root_data_dir": "$DATADIR/cdds_CMIP7/data",
+        "root_proc_dir": "$CDDS_DATA/proc",
+        "root_data_dir": "$CDDS_DATA/data",
         "sites_file": "$CDDS_ETC/cfmip2/cfmip2-sites-orog.txt",
         "standard_names_dir": "$CDDS_ETC/standard_names/",
         "standard_names_version": "latest",
@@ -62,8 +61,8 @@ REQUEST_TEMPLATE = {
         "mass_data_class": "",
         "mass_ensemble_member": "",
         "model_workflow_id": "",
-        "output_mass_suffix": "cdds_cmip7",
-        "output_mass_root": "moose:/adhoc/users/<moose user id>",
+        "output_mass_suffix": "production",
+        "output_mass_root": "moose:/adhoc/projects/cdds",
         "start_date": "",
         "streams": "ap4 ap5 ap6 ap7 ap8 ap9 apu apt inm onm ind ond",
         "variable_list_file": ""
@@ -99,44 +98,6 @@ def arg_parser() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def generate_workflow_basename(metadata: SectionProxy) -> str:
-    """Generates a workflow basename using the model id, experiment id and variant label given in the workflow metadata
-    configuration file.
-
-    Parameters
-    ----------
-    metadata: SectionProxy
-        The metadata section of the workflow metadata configuration file.
-
-    Returns
-    -------
-    str
-        The workflow basename.
-    """
-
-    return f"{metadata['model_id']}_{metadata['experiment_id']}_{metadata['variant_label']}"
-
-
-def identify_variable_list_file(data: SectionProxy, metadata: SectionProxy) -> str:
-    """Identifies the correct variable list file using the model workflow id, experiment id and model id given in the
-    workflow metadata configuration file.
-
-    Parameters
-    ----------
-    data: SectionProxy
-        The data section of the workflow metadata configuration file.
-    metadata: SectionProxy
-        The metadata section of the workflow metadata configuration file.
-
-    Returns
-    -------
-    str
-        The variable list file path.
-    """
-
-    return f"{VARIABLE_LIST_DIR}/{data['model_workflow_id']}_{metadata['experiment_id']}_{metadata['model_id']}.txt"
-
-
 def identify_mip_convert_plugin(metadata: SectionProxy) -> str:
     """Identifies the relevant MIP convert plugin using the model id given in the workflow metadata configuration file.
 
@@ -166,19 +127,6 @@ def identify_mip_convert_plugin(metadata: SectionProxy) -> str:
         raise RuntimeError(f"Unable to map model {model} to a valid plugin")
 
 
-def generate_package_name() -> str:
-    """Generates a package name using the current datetime stamp.
-
-    Returns
-    -------
-    str
-        The package name.
-    """
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
-
-    return f"round_{timestamp}"
-
-
 def update_template_with_metadata(request: dict, metadata: SectionProxy) -> dict:
     """Populates the REQUEST_TEMPLATE with the metadata information given in the workflow metadata configuration file.
 
@@ -197,6 +145,9 @@ def update_template_with_metadata(request: dict, metadata: SectionProxy) -> dict
     for key in request["metadata"]:
         if key in metadata:
             request["metadata"][key] = metadata[key]
+
+    if request["metadata"]["calendar"] == "gregorian":
+        request["metadata"]["calendar"] = "standard"
 
     return request
 
@@ -222,7 +173,8 @@ def update_template_with_data(request: dict, data: SectionProxy, metadata: Secti
         if key in data:
             request["data"][key] = data[key]
 
-    request["data"]["variable_list_file"] = identify_variable_list_file(data, metadata)
+    var_file = f"{VARIABLE_LIST_DIR}/{data['model_workflow_id']}_{metadata['experiment_id']}_{metadata['model_id']}.txt"
+    request["data"]["variable_list_file"] = var_file
 
     return request
 
@@ -265,8 +217,12 @@ def update_template_with_common(request: dict, metadata: SectionProxy) -> dict:
     dict
         The request template with a populated common section.
     """
-    request["common"]["workflow_basename"] = generate_workflow_basename(metadata)
-    request["common"]["package"] = generate_package_name()
+    request_common = request["common"]
+    basename = f"{metadata['model_id']}_{metadata['experiment_id']}_{metadata['variant_label']}"
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
+
+    request_common["workflow_basename"] = basename
+    request_common["package"] = f"round_{timestamp}"
 
     return request
 
@@ -292,15 +248,17 @@ def update_template_with_conversion(request: dict, metadata: SectionProxy) -> di
     return request
 
 
-def write_request(request: dict) -> None:
+def write_request(data: SectionProxy, request: dict) -> None:
     """Writes out the fully populated REQUEST TEMPLATE dictionary to a configuration file format.
 
     Parameters
     ----------
+    data: SectionProxy
+        The data section of the workflow metadata configuration file.
     request: dict
         The fully populated request template fields and values as a dictionary.
     """
-    filename = generate_request_filename(request["data"], request["common"])
+    filename = f"request_{data['model_workflow_id']}_{request['common']['package']}.cfg"
     with open(filename, "w") as f:
         for section_header, content in request.items():
             f.write(f"[{section_header}]\n")
@@ -308,26 +266,6 @@ def write_request(request: dict) -> None:
                 for parameter, value in content.items():
                     f.write(f"{parameter} = {value}\n")
                 f.write("\n")
-
-
-def generate_request_filename(data: SectionProxy, common: SectionProxy) -> str:
-    """Generates the filename for the output request file using the model workflow ID and package given in the populated
-    request dictionary.
-
-    Parameters
-    ----------
-    data: SectionProxy
-        The data section of the workflow metadata configuration file.
-    common: SectionProxy
-        The common section of the fully populated request dictionary.
-
-    Returns
-    -------
-    str
-        The filename for the output request file.
-    """
-
-    return f"request_{data['model_workflow_id']}_{common['package']}.cfg"
 
 
 def generate_request_config() -> None:
@@ -349,7 +287,7 @@ def generate_request_config() -> None:
     update_template_with_common(request, metadata)
     update_template_with_conversion(request, metadata)
 
-    write_request(request)
+    write_request(data, request)
 
 
 if __name__ == "__main__":
