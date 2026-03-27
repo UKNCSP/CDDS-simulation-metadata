@@ -1,0 +1,39 @@
+# (C) British Crown Copyright 2026, Met Office.
+# Please see LICENSE.md for license details.
+name: "Request The Generation Of A CDDS Request File"
+description: Request The Generation Of A CDDS Request File. Please note, i order to generate a request file, workflow metadata form must have been completed and submitted for the appropriate model workflow ID.
+title: "Request The Generation Of A CDDS Request File: <insert model workflow id here>"
+labels: ['request_file_request']
+body:
+
+  - type: markdown
+    attributes:
+      value: |
+        # Request the generation of a CDDS request file...
+
+  - type: input
+    id: model_workflow_id
+    attributes:
+      label: Model Workflow ID
+      description: Please provide the model workflow ID that you wish to generate a request file for.
+      placeholder: "u-dv623"
+    validations:
+      required: true
+
+  - type: input 
+    id: package
+    attributes:
+      label: Package Name
+      description: The name used to distinguish different runthroughs.
+      placeholder: "round-1"
+    validations:
+      required: true
+  
+  - type: input
+    id: user
+    attributes:
+      label: Surname
+      description: The last name of the person using the request file to generate data. This is to ensure your data is easily distinguishable from others and aid in avoiding accidental overwrite.
+      placeholder: "Smith"
+    validations:
+      required: true
