@@ -1,4 +1,4 @@
-# (C) British Crown Copyright 2026, Met Office.
+# (C) British Crown Copyright 2025-2026, Met Office.
 # Please see LICENSE.md for license details.
 """This script takes the body of an issue and uses its content to generate a structured metadata configuration file.
 
@@ -428,21 +428,22 @@ def check_cvs(meta_dict: dict[str, str], errors: dict[str, str]) -> dict[str, st
         return errors
 
     experiment_cv_info = cv["CV"]["experiment_id"][experiment]
-    parent_experiment = meta_dict.get("parent_experiment_id")
-    parent_experiment_in_cv = experiment_cv_info["parent_experiment_id"]
-    if branch_method == "standard" and parent_experiment not in parent_experiment_in_cv:
-        cv_errors.append(f"parent experiment id '{parent_experiment}' does not match one of the expected values "
-                         f"'{parent_experiment_in_cv}' given in the cvs")
-
     mip = meta_dict.get("mip")
     mip_in_cv = experiment_cv_info["activity_id"]
     if mip not in mip_in_cv:
         cv_errors.append(f"mip '{mip}' does not match one of the expected values '{mip_in_cv}' given in the cvs")
-    parent_mip = meta_dict.get("parent_mip")
-    parent_mip_in_cv = experiment_cv_info["parent_activity_id"]
-    if branch_method == "standard" and parent_mip not in parent_mip_in_cv:
-        cv_errors.append(f"parent mip '{parent_mip}' does not match one of the expected values '{parent_mip_in_cv}' "
-                         "given in the cvs")
+
+    if branch_method == "standard":
+        parent_experiment = meta_dict.get("parent_experiment_id")
+        parent_experiment_in_cv = experiment_cv_info["parent_experiment_id"]
+        if parent_experiment not in parent_experiment_in_cv:
+            cv_errors.append(f"parent experiment id '{parent_experiment}' does not match one of the expected values "
+                            f"'{parent_experiment_in_cv}' given in the cvs")
+        parent_mip = meta_dict.get("parent_mip")
+        parent_mip_in_cv = experiment_cv_info["parent_activity_id"]
+        if parent_mip not in parent_mip_in_cv:
+            cv_errors.append(f"parent mip '{parent_mip}' does not match one of the expected values "
+                             f"'{parent_mip_in_cv}' given in the cvs")
 
     if cv_errors:
         errors["cv_error"] = cv_errors
