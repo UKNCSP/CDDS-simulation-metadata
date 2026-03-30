@@ -1,0 +1,59 @@
+# (C) British Crown Copyright 2026, Met Office.
+# Please see LICENSE.md for license details.
+
+name: "Generate a request file"
+on: 
+  issues:
+    types: [opened, edited]
+
+jobs:
+  process-metadata:
+    if: contains(github.event.issue.labels.*.name, 'request_file_request')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+
+    steps:
+      - uses: actions/checkout@v3
+        
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
+        
+      - name: create request file
+        id: create-file
+        env:
+          ISSUE_BODY: |
+              ${{ github.event.issue.body }}
+          # pipe preseves newline properties for multilines
+        run: python scripts/generate_request.py
+        continue-on-error: true
+
+      - name: return issues to user
+        id: check-issues
+        if: steps.create-file.outcome == 'failure'
+        run: |
+          gh issue comment "$NUMBER" --body "$BODY"
+          echo "NOTE: Script failure has occured since no configuration file exists for the given model workflow ID"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BODY: >
+            ${{ steps.create-file.outputs.err_msg }}.
+
+            If you believe this to be an error, please contact a member of the CDDS team.
+
+      - name: commit and push
+        if steps.create-file.outcome == "success"
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+
+          git add *.cfg
+          git commit -m "New variable list file added"
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      

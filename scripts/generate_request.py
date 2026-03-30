@@ -8,6 +8,7 @@ python scripts/generate_request.py a-bc123
 """
 import os
 import re
+import sys
 
 from configparser import ConfigParser, SectionProxy
 from pathlib import Path
@@ -237,14 +238,19 @@ def generate_request_config() -> None:
     issue_info = process_issue_form()
     request = REQUEST_TEMPLATE
 
-    cfg_file = f"{WORKFLOW_METADATA_DIR}/{issue_info["model_workflow_id"]}.cfg"
+    cfg_file = f"{WORKFLOW_METADATA_DIR}/{issue_info['model_workflow_id']}.cfg"
+    if not os.path.exists(cfg_file):
+        err_msg = (f"The given model workflow ID {issue_info['model_workflow_id']} does not have an associated "
+                   "metadata configuration file.")
+        with open(os.environ["GITHUB_OUTPUT"], "a") as gh:
+            gh.write(f"err_msg={err_msg}")
+            sys.exit(1)
     config = ConfigParser()
     config.read(cfg_file)
 
     update_request(request, config, issue_info)
     validate_request(request)
     write_request(config["data"], request)
-    print("Request successfully generated")
 
 
 if __name__ == "__main__":
