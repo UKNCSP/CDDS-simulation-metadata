@@ -6,8 +6,8 @@ configuration file.
 Example command line usage:
 python scripts/generate_request.py a-bc123
 """
-import argparse
-import datetime
+import os
+import re
 
 from configparser import ConfigParser, SectionProxy
 from pathlib import Path
@@ -68,7 +68,7 @@ REQUEST_TEMPLATE = {
         "output_mass_suffix": "production",
         "output_mass_root": "moose:/adhoc/projects/cdds",
         "start_date": "",
-        "streams": "ap4 ap5 ap6 ap7 ap8 ap9 apu apt inm onm ind ond",
+        "streams": "",
         "variable_list_file": ""
     },
     "misc": {
@@ -87,19 +87,22 @@ REQUEST_TEMPLATE = {
 }
 
 
-def arg_parser() -> argparse.Namespace:
-    """Creates an argument parser to take user inputs from the command line.
+def process_issue_form() -> dict[str, str]:
+    """Extracts the issue body from the submitted issue form.
 
     Returns
     -------
-    argparse.Namespace
-        The argument parser to handle source file paths.
+    dict[str, str]
+        The issue body as a dictionary.
     """
-    parser = argparse.ArgumentParser(description="Generates a usable request file from a given metadata issue form")
+    issue_info = {}
+    issue_body = os.environ.get("ISSUE_BODY")
+    match = re.findall(r"### (.+?)\n\s*\n?(.+)", issue_body)
+    for key, value in set(match):
+        clean = key.strip().lower().replace(" ", "_")
+        issue_info[clean] = value.strip()
 
-    parser.add_argument("model_workflow_id", help="The model workflow id of the form u-ab123")
-
-    return parser.parse_args()
+    return issue_info
 
 
 def identify_mip_convert_plugin(metadata: SectionProxy) -> str:
@@ -205,49 +208,42 @@ def update_template_with_misc(request: dict, misc: SectionProxy) -> dict:
     return request
 
 
-def update_template_with_common(request: dict, metadata: SectionProxy) -> dict:
-    """Populates the REQUEST_TEMPLATE with the common information generated using information provided in the workflow
-    metadata configuration file.
+def update_request(request: dict, config: ConfigParser, issue_info: dict) -> dict:
+    """Blanket updates the request template with the information given in the configuration file.
 
     Parameters
     ----------
     request: dict
         The request template fields and values as a dictionary.
-    metadata: SectionProxy
-        The metadata section of the workflow metadata configuration file.
+    config: ConfigParser
+        The full workflow metadata configuration file.
+    issue_info: dict
+         The issue body as a dictionary.
 
     Returns
     -------
     dict
-        The request template with a populated common section.
+        The fully populated request template.
     """
-    request_common = request["common"]
-    basename = f"{metadata['model_id']}_{metadata['experiment_id']}_{metadata['variant_label']}"
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
+    sections = ["metadata", "data", "misc"]
 
-    request_common["workflow_basename"] = basename
-    request_common["package"] = f"round_{timestamp}"
+    for section in sections:
+        for key in request[section]:
+            if key in config[section]:
+                request[section][key] = config[section][key]
 
-    return request
+    if request["metadata"]["calendar"] == "gregorian":
+        request["metadata"]["calendar"] = "standard"
 
-
-def update_template_with_conversion(request: dict, metadata: SectionProxy) -> dict:
-    """Populates the REQUEST_TEMPLATE with the conversion information generated using information provided in the
-    workflow metadata configuration file.
-
-    Parameters
-    ----------
-    request: dict
-        The request template fields and values as a dictionary.
-    metadata: SectionProxy
-        The metadata section of the workflow metadata configuration file.
-
-    Returns
-    -------
-    dict
-        The request template with a populated conversion section.
-    """
-    request["conversion"]["mip_convert_plugin"] = identify_mip_convert_plugin(metadata)
+    var_file = (f'{VARIABLE_LIST_DIR}/{config["data"]["model_workflow_id"]}_{config["metadata"]["experiment_id"]}'
+                '_{config["metadata"]["model_id"]}.txt')
+    basename = (f'{config["metadata"]["model_id"]}_{config["metadata"]["experiment_id"]}'
+                '_{config["metadata"]["variant_label"]}')
+    request["data"]["variable_list_file"] = var_file
+    request["data"]["streams"] = issue_info["streams"].replace(",", "")
+    request["common"]["workflow_basename"] = basename
+    request["common"]["package"] = issue_info["package_name"]
+    request["conversion"]["mip_convert_plugin"] = identify_mip_convert_plugin(config["metadata"])
 
     return request
 
@@ -312,25 +308,17 @@ def write_request(data: SectionProxy, request: dict) -> None:
 
 def generate_request_config() -> None:
     """Generates a functional request file using the information given in the workflow metadata issue form."""
-    args = arg_parser()
+    issue_info = process_issue_form()
     request = REQUEST_TEMPLATE
 
-    cfg_file = f"{WORKFLOW_METADATA_DIR}/{args.model_workflow_id}.cfg"
+    cfg_file = f"{WORKFLOW_METADATA_DIR}/{issue_info["model_workflow_id"]}.cfg"
     config = ConfigParser()
     config.read(cfg_file)
 
-    metadata = config["metadata"]
-    data = config["data"]
-    misc = config["misc"]
+    update_request(request, config)
 
-    update_template_with_metadata(request, metadata)
-    update_template_with_data(request, data, metadata)
-    update_template_with_misc(request, misc)
-    update_template_with_common(request, metadata)
-    update_template_with_conversion(request, metadata)
     validate_request(request)
-
-    write_request(data, request)
+    write_request(config["data"], request)
     print("Request successfully generated")
 
 
