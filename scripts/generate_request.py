@@ -12,7 +12,7 @@ import datetime
 from configparser import ConfigParser, SectionProxy
 from pathlib import Path
 
-from common import read_json
+from scripts.common import read_json
 
 CV_FILE_LOCATION = "reference_information/cmip7_cmor_tables.json"
 WORKFLOW_METADATA_DIR = "workflow_metadata"
