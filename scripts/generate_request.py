@@ -96,9 +96,7 @@ def process_issue_form() -> dict[str, str]:
         The issue body as a dictionary.
     """
     issue_info = {}
-    #issue_body = os.environ.get("ISSUE_BODY")
-    with open("test.txt", "r") as f:
-        issue_body = f.read()
+    issue_body = os.environ.get("ISSUE_BODY")
     match = re.findall(r"### (.+?)\n\s*\n?(.+)", issue_body)
     for key, value in set(match):
         clean = key.strip().lower().replace(" ", "_")
