@@ -20,20 +20,31 @@ body:
     validations:
       required: true
 
+  - type: dropdown
+    id: streams
+    attributes:
+      label: Streams
+      description: The streams you wish to process with.
+      multiple: true
+      options:
+        - ap4
+        - ap5
+        - ap6
+        - ap7
+        - ap8
+        - ap9
+        - apu
+        - apt
+        - inm
+        - onm 
+        - ind
+        - ond
+
   - type: input 
     id: package
     attributes:
       label: Package Name
       description: The name used to distinguish different runthroughs.
       placeholder: "round-1"
-    validations:
-      required: true
-  
-  - type: input
-    id: user
-    attributes:
-      label: Surname
-      description: The last name of the person using the request file to generate data. This is to ensure your data is easily distinguishable from others and aid in avoiding accidental overwrite.
-      placeholder: "Smith"
     validations:
       required: true

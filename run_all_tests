@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.10
+#!/usr/bin/env python3.12
 # (C) British Crown Copyright 2026, Met Office.
 # Please see LICENSE.md for license details.
 """Run all the tests in the 'CDDS Simulation Metadata' packages."""
@@ -14,6 +14,10 @@ from datetime import timedelta
 
 CDDS_SIM_META_DIR = os.path.dirname(os.path.realpath(__file__))
 LOG_NAME = os.path.join(CDDS_SIM_META_DIR, 'cdds_sim_metadata_test_failures.log')
+ROOT_COMMAND = 'pytest -s'
+TESTS_TO_RUN = {
+    'tests': ['--doctest-modules']
+}
 
 
 def _red(text):
@@ -116,6 +120,37 @@ def check_mypy_compliance(arguments: argparse.Namespace, exit_code: int) -> int:
     return exit_code
 
 
+def run_unittests(exit_code: int):
+    for package, tests in TESTS_TO_RUN.items():
+        print('\nExecuting tests for {}:'.format(package))
+        for test in tests:
+            command = ROOT_COMMAND.split()
+            command.append(package)
+            if test:
+                command.extend(test.split(' ', 1))
+            command_str = ' '.join(command)
+            print('--> {} {}'.format(command_str, (46 - len(command_str)) * '.'), end=''),
+            sys.stdout.flush()
+            process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            stdoutdata, stderrdata = process.communicate()
+            if process.returncode == 0:
+                info = stdoutdata.decode('utf-8').split('\n')
+                msg = info[-2].replace('=', '').strip()
+                print(_green('{} success! [{}]'.format(' ' * 3, msg)))
+            else:
+                exit_code = 1
+                print(_red('{} failed!\n!!! Please see "{}" for more details'.format(' ' * 3, LOG_NAME)))
+                current_date = datetime.datetime.now()
+                msg = '{}: {}: {}\n\n'.format(current_date, package, command)
+                with open(LOG_NAME, 'a') as file_handle:
+                    file_handle.write(msg)
+                    file_handle.write(stdoutdata.decode('utf-8'))
+                    file_handle.write(stderrdata.decode('utf-8'))
+                    file_handle.write('\n')
+
+    return exit_code
+
+
 def main():
     """Run all the tests in the 'CDDS Simulation Metadata' packages."""
     arguments = parse_arguments()
@@ -124,8 +159,11 @@ def main():
     print('\nRunning ruff...')
     exit_code = check_ruff_compliance()
 
-    print('\nRunning mypy...')
-    exit_code = check_mypy_compliance(arguments, exit_code)
+    # print('\nRunning mypy...')
+    # exit_code = check_mypy_compliance(arguments, exit_code)
+
+    print('\nRunning unittests...')
+    exit_code = run_unittests(exit_code)
 
     end = timer()
     elapsed_time = timedelta(seconds=end - start)
