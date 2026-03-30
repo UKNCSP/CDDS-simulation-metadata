@@ -96,7 +96,9 @@ def process_issue_form() -> dict[str, str]:
         The issue body as a dictionary.
     """
     issue_info = {}
-    issue_body = os.environ.get("ISSUE_BODY")
+    #issue_body = os.environ.get("ISSUE_BODY")
+    with open("test.txt", "r") as f:
+        issue_body = f.read()
     match = re.findall(r"### (.+?)\n\s*\n?(.+)", issue_body)
     for key, value in set(match):
         clean = key.strip().lower().replace(" ", "_")
@@ -134,80 +136,6 @@ def identify_mip_convert_plugin(metadata: SectionProxy) -> str:
         raise RuntimeError(f"Unable to map model {model} to a valid plugin")
 
 
-def update_template_with_metadata(request: dict, metadata: SectionProxy) -> dict:
-    """Populates the REQUEST_TEMPLATE with the metadata information given in the workflow metadata configuration file.
-
-    Parameters
-    ----------
-    request: dict
-        The request template fields and values as a dictionary.
-    metadata: SectionProxy
-        The metadata section of the workflow metadata configuration file.
-
-    Returns
-    -------
-    dict
-        The request template with a populated metadata section.
-    """
-    for key in request["metadata"]:
-        if key in metadata:
-            request["metadata"][key] = metadata[key]
-
-    if request["metadata"]["calendar"] == "gregorian":
-        request["metadata"]["calendar"] = "standard"
-
-    return request
-
-
-def update_template_with_data(request: dict, data: SectionProxy, metadata: SectionProxy) -> dict:
-    """Populates the REQUEST_TEMPLATE with the data information given in the workflow metadata configuration file.
-
-    Parameters
-    ----------
-    request: dict
-        The request template fields and values as a dictionary.
-    data: SectionProxy
-        The data section of the workflow metadata configuration file.
-     metadata: SectionProxy
-        The metadata section of the workflow metadata configuration file.
-
-    Returns
-    -------
-    dict
-        The request template with a populated data section.
-    """
-    for key in request["data"]:
-        if key in data:
-            request["data"][key] = data[key]
-
-    var_file = f"{VARIABLE_LIST_DIR}/{data['model_workflow_id']}_{metadata['experiment_id']}_{metadata['model_id']}.txt"
-    request["data"]["variable_list_file"] = var_file
-
-    return request
-
-
-def update_template_with_misc(request: dict, misc: SectionProxy) -> dict:
-    """Populates the REQUEST_TEMPLATE with the misc information given in the workflow metadata configuration file.
-
-    Parameters
-    ----------
-    request: dict
-        The request template fields and values as a dictionary.
-    misc: SectionProxy
-        The misc section of the workflow metadata configuration file.
-
-    Returns
-    -------
-    dict
-        The request template with a populated misc section.
-    """
-    for key in request["misc"]:
-        if key in misc:
-            request["misc"][key] = misc[key]
-
-    return request
-
-
 def update_request(request: dict, config: ConfigParser, issue_info: dict) -> dict:
     """Blanket updates the request template with the information given in the configuration file.
 
@@ -236,9 +164,9 @@ def update_request(request: dict, config: ConfigParser, issue_info: dict) -> dic
         request["metadata"]["calendar"] = "standard"
 
     var_file = (f'{VARIABLE_LIST_DIR}/{config["data"]["model_workflow_id"]}_{config["metadata"]["experiment_id"]}'
-                '_{config["metadata"]["model_id"]}.txt')
+                f'_{config["metadata"]["model_id"]}.txt')
     basename = (f'{config["metadata"]["model_id"]}_{config["metadata"]["experiment_id"]}'
-                '_{config["metadata"]["variant_label"]}')
+                f'_{config["metadata"]["variant_label"]}')
     request["data"]["variable_list_file"] = var_file
     request["data"]["streams"] = issue_info["streams"].replace(",", "")
     request["common"]["workflow_basename"] = basename
@@ -315,8 +243,7 @@ def generate_request_config() -> None:
     config = ConfigParser()
     config.read(cfg_file)
 
-    update_request(request, config)
-
+    update_request(request, config, issue_info)
     validate_request(request)
     write_request(config["data"], request)
     print("Request successfully generated")
