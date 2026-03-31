@@ -45,6 +45,6 @@ body:
     attributes:
       label: Package Name
       description: The name used to distinguish different runthroughs.
-      placeholder: "round-1"
+      placeholder: round-1
     validations:
       required: true
