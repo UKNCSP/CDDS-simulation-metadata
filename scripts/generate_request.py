@@ -213,7 +213,7 @@ def validate_request(request: dict) -> None:
         raise RuntimeError(f"Unable to valdidate request file against cvs:\n{cv_errors}")
 
 
-def write_request(data: SectionProxy, request: dict) -> None:
+def write_request(data: SectionProxy, request: dict) -> str:
     """Writes out the fully populated REQUEST TEMPLATE dictionary to a configuration file format.
 
     Parameters
@@ -222,6 +222,11 @@ def write_request(data: SectionProxy, request: dict) -> None:
         The data section of the workflow metadata configuration file.
     request: dict
         The fully populated request template fields and values as a dictionary.
+
+    Returns
+    -------
+    str
+        The request filename.
     """
     filename = f"request_{data['model_workflow_id']}_{request['common']['package']}.cfg"
     with open(Path("requests") / filename, "w") as f:
