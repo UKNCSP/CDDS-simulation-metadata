@@ -16,7 +16,7 @@ import metomi.isodatetime.parsers as parse
 from metomi.isodatetime.data import Calendar
 from metomi.isodatetime.exceptions import ISO8601SyntaxError, IsodatetimeError
 
-from constants import (
+from scripts.constants import (
     DATA,
     DATETIME_FIELDS,
     META_FIELDS,
@@ -26,7 +26,7 @@ from constants import (
     REGEX_FORMAT,
     REQUIRED
 )
-from common import read_json
+from scripts.common import read_json
 
 REGEX_DICT = {
     "workflow_pattern": re.compile(REGEX_FORMAT["model_workflow_id"]),
@@ -63,7 +63,9 @@ def set_calendar(calendar_type: str) -> dict[str, str]:
     """
     errors = {}
 
-    if calendar_type in ("360_day", "gregorian", "standard"):
+    if calendar_type == "standard":
+        calendar_type = "gregorian"
+    if calendar_type in ("360_day", "gregorian"):
         Calendar.default().set_mode(calendar_type)
     else:
         errors["calendar"] = "incompatible calendar: expected 360_day or gregorian/standard"
@@ -308,7 +310,7 @@ def check_atmos_timestep(meta_dict: dict[str, str], errors: dict[str, str]) -> d
         The dictionary containing any triggered error messages.
     """
     atmos_timestep = meta_dict.get("atmos_timestep")
-    if not atmos_timestep.isdigit() or int(atmos_timestep) < 0:
+    if not atmos_timestep.isdigit() or int(atmos_timestep) <= 0:
         errors["timestep_logic"] = "atmospheric timestep is invalid"
 
     # TO DO: Add in check against the default values given and warn user if their input deviates from the default
@@ -338,7 +340,10 @@ def check_start_end_logic(meta_dict: dict[str, str], errors: dict[str, str]) -> 
     end_date_err_msg = "invalid datetime format for end_date"
 
     try:
-        if start_date_err_msg not in errors["datetime"] and end_date_err_msg not in errors["datetime"]:
+        if start_date_err_msg in errors["datetime"] or end_date_err_msg in errors["datetime"]:
+            errors["datetime_logic"] = ("unable to perform start end time logic check due to missing start time or end "
+                                       "time field")
+        else:
             if parser.parse(end_date) < parser.parse(start_date):
                 errors["datetime_logic"] = "end date cannot be earlier than start date"
     except KeyError:
@@ -366,8 +371,8 @@ def check_fixed_fields(meta_dict: dict[str, str], errors: dict[str, str]) -> dic
     unrecognised_inputs = []
     base_date = meta_dict.get("base_date")
     if base_date != "1850-01-01T00:00:00Z":
-        unrecognised_inputs.append(f"base date {base_date} differs from the expected 1850-01-01T00:00:00Z. "
-                                   f"If you wish to use {base_date}, please contact a member of the CDDS team")
+        unrecognised_inputs.append(f"base date '{base_date}' differs from the expected 1850-01-01T00:00:00Z. "
+                                   f"If you wish to use '{base_date}', please contact a member of the CDDS team")
 
     if meta_dict.get("branch_method") not in ("no parent", "standard"):
         unrecognised_inputs.append("branch_method must have the value 'no parent' or 'standard'")
