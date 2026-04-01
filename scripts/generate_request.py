@@ -224,13 +224,15 @@ def write_request(data: SectionProxy, request: dict) -> None:
         The fully populated request template fields and values as a dictionary.
     """
     filename = f"request_{data['model_workflow_id']}_{request['common']['package']}.cfg"
-    with open(filename, "w") as f:
+    with open(Path("requests") / filename, "w") as f:
         for section_header, content in request.items():
             f.write(f"[{section_header}]\n")
             if isinstance(content, dict):
                 for parameter, value in content.items():
                     f.write(f"{parameter} = {value}\n")
                 f.write("\n")
+
+    return filename
 
 
 def generate_request_config() -> None:
@@ -250,7 +252,10 @@ def generate_request_config() -> None:
 
     update_request(request, config, issue_info)
     validate_request(request)
-    write_request(config["data"], request)
+    filename = write_request(config["data"], request)
+    with open(os.environ["GITHUB_OUTPUT"], "a") as gh:
+        gh.write(f"var_list={request["data"]["variable_list_file"]}")
+        gh.write(f"request_filename={filename}")
 
 
 if __name__ == "__main__":

@@ -39,6 +39,7 @@ jobs:
           echo "NOTE: Script failure has occured since no configuration file exists for the given model workflow ID"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NUMBER: ${{ github.event.issue.number }}
           BODY: >
             ${{ steps.create-file.outputs.err_msg }}.
 
@@ -51,9 +52,19 @@ jobs:
           git config user.email "github-actions@users.noreply.github.com"
 
           git add *.cfg
-          git commit -m "New variable list file added"
+          git commit -m "New request file added"
           git push origin main
+
+          gh issue comment "$NUMBER" --body "$BODY"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NUMBER: ${{ github.event.issue.number }}
+          BODY: >
+            A request file has been created for you and can be found under requests/${{ steps.create-file.outputs.request_filename }}.
+            Along side this, you will need to download a copy of the associated variable list file ${{ steps.create-file.outputs.var_list }}.
+
+            Please be sure to read the README.md in the requests directory for guidence on setting up your request file to run.
+
+
 
       
