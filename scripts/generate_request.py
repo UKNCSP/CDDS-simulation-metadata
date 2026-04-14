@@ -259,7 +259,7 @@ def generate_request_config() -> None:
     validate_request(request)
     filename = write_request(config["data"], request)
     with open(os.environ["GITHUB_OUTPUT"], "a") as gh:
-        gh.write(f"var_list={request["data"]["variable_list_file"]}")
+        gh.write(f"var_list={request['data']['variable_list_file']}")
         gh.write(f"request_filename={filename}")
 
 
