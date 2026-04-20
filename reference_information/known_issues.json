@@ -7,6 +7,11 @@
         }
     },
     "UKCM2-0-LL": {
+        "*": {
+            "*": {
+                "atmos/ta_tpt-p7h-hxy-air@6hr": "temperature field in model has fewer levels than is required by variable"
+            }
+        },
         "1pctCO2": {
             "*": {
                 "atmos/psl_tpt-u-hxy-u@1hr": "STASH not in suite",
