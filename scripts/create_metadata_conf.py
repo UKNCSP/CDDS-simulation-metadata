@@ -386,8 +386,8 @@ def check_fixed_fields(meta_dict: dict[str, str], errors: dict[str, str]) -> dic
         if model_id != meta_dict.get("parent_model_id"):
             unrecognised_inputs.append(f"parent_model_id must match model_id '{model_id}'")
 
-        if meta_dict.get("parent_time_units") != "days since 1850-01-01T00:00:00Z":
-            unrecognised_inputs.append("parent_time_units must have the value 'days since 1850-01-01T00:00:00Z'")
+        if meta_dict.get("parent_time_units") != "days since 1850-01-01":
+            unrecognised_inputs.append("parent_time_units must have the value 'days since 1850-01-01'")
 
     if meta_dict.get("mass_data_class") not in ("ens", "crum"):
         unrecognised_inputs.append("mass_data_class must have the value 'ens' or 'crum'")
