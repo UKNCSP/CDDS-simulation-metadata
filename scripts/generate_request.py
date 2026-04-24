@@ -48,7 +48,7 @@ REQUEST_TEMPLATE = {
         "external_plugin": "",
         "external_plugin_location": "",
         "log_level": "INFO",
-        "mip_table_dir": "$CDDS_ETC/mip_tables/CMIP7/DR-1.2.2.3-v1.0.2",
+        "mip_table_dir": "$CDDS_ETC/mip_tables/CMIP7/DR-1.2.2.3-v1.0.6git",
         "mode": "strict",
         "package": "",
         "root_ancil_dir": "$CDDS_ETC/ancil_testing/",
