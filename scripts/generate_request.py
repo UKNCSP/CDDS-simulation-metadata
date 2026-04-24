@@ -14,6 +14,7 @@ from configparser import ConfigParser, SectionProxy
 from pathlib import Path
 
 from scripts.common import read_json
+from scripts.constants import MIP_TABLE_DIR
 
 CV_FILE_LOCATION = "reference_information/cmip7_cmor_tables.json"
 WORKFLOW_METADATA_DIR = "workflow_metadata"
@@ -48,7 +49,7 @@ REQUEST_TEMPLATE = {
         "external_plugin": "",
         "external_plugin_location": "",
         "log_level": "INFO",
-        "mip_table_dir": "$CDDS_ETC/mip_tables/CMIP7/DR-1.2.2.3-v1.0.6",
+        "mip_table_dir": MIP_TABLE_DIR,
         "mode": "strict",
         "package": "",
         "root_ancil_dir": "$CDDS_ETC/ancil_testing/",

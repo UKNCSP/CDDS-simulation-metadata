@@ -5,6 +5,7 @@ import unittest
 import configparser
 
 from scripts.generate_request import identify_mip_convert_plugin, update_request, validate_request
+from scripts.constants import MIP_TABLE_DIR
 
 
 class TestIdentifyPlugin(unittest.TestCase):
@@ -86,7 +87,7 @@ class TestUpdateRequest(unittest.TestCase):
                 "external_plugin": "",
                 "external_plugin_location": "",
                 "log_level": "INFO",
-                "mip_table_dir": "$CDDS_ETC/mip_tables/CMIP7/DR-1.2.2.3-v1.0.2",
+                "mip_table_dir": MIP_TABLE_DIR,
                 "mode": "strict",
                 "package": "",
                 "root_ancil_dir": "$CDDS_ETC/ancil_testing/",
@@ -163,7 +164,7 @@ class TestUpdateRequest(unittest.TestCase):
                 'external_plugin': '',
                 'external_plugin_location': '',
                 'log_level': 'INFO',
-                'mip_table_dir': '$CDDS_ETC/mip_tables/CMIP7/DR-1.2.2.3-v1.0.2',
+                'mip_table_dir': MIP_TABLE_DIR,
                 'mode': 'strict',
                 'package': 'test',
                 'root_ancil_dir': '$CDDS_ETC/ancil_testing/',
