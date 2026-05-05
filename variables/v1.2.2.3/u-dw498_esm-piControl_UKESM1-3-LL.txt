@@ -683,6 +683,31 @@ atmos/tas_tavg-h2m-hxy-u@1hr:ap9  # approved
 #ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # embargoed, priority=low
 #ocean/wo_tavg-ol-hxy-sea@day:ond/grid-W  # embargoed, priority=low
 #ocnBgchem/phydiat_tavg-ols-hxy-sea@day:ond/ptrc-T  # embargoed, priority=low
+#ocean/opottemptend_tavg-ol-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed
+#ocean/volcello_tavg-ol-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed
+#ocean/zfullo_tavg-ol-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed
+#land/baresoilFrac_tavg-u-hxy-u@yr:ap5  # Yearly variables unable to be processed at this time, embargoed, priority=medium
+#land/cropFrac_tavg-u-hxy-u@yr:ap5  # Yearly variables unable to be processed at this time, embargoed, priority=medium
+#land/grassFrac_tavg-u-hxy-u@yr:ap5  # Yearly variables unable to be processed at this time, embargoed, priority=medium
+#land/residualFrac_tavg-u-hxy-u@yr:ap5  # Yearly variables unable to be processed at this time, embargoed, priority=medium
+#land/shrubFrac_tavg-u-hxy-u@yr:ap5  # Yearly variables unable to be processed at this time, embargoed, priority=medium
+#land/treeFrac_tavg-u-hxy-u@yr:ap5  # Yearly variables unable to be processed at this time, embargoed, priority=medium
+#land/vegFrac_tavg-u-hxy-u@yr:ap5  # Yearly variables unable to be processed at this time, embargoed, priority=medium
+#ocean/tnkebto_tavg-u-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed, priority=medium
+#ocean/diftrblo_tavg-ol-hxy-sea@yr:onm/grid-W  # Yearly variables unable to be processed at this time, embargoed, priority=low
+#ocean/difvho_tavg-ol-hxy-sea@yr:onm/grid-W  # Yearly variables unable to be processed at this time, embargoed, priority=low
+#ocean/difvso_tavg-ol-hxy-sea@yr:onm/grid-W  # Yearly variables unable to be processed at this time, embargoed, priority=low
+#ocean/opottempdiff_tavg-ol-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed, priority=low
+#ocean/opottempmint_tavg-u-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed, priority=low
+#ocean/opottemppmdiff_tavg-ol-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed, priority=low
+#ocean/opottemprmadvect_tavg-ol-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed, priority=low
+#ocean/osaltdiff_tavg-ol-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed, priority=low
+#ocean/osaltpmdiff_tavg-ol-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed, priority=low
+#ocean/osaltrmadvect_tavg-ol-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed, priority=low
+#ocean/osalttend_tavg-ol-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed, priority=low
+#ocean/rsdoabsorb_tavg-ol-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed, priority=low
+#ocean/somint_tavg-u-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed, priority=low
+#ocean/tnpeo_tavg-u-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed, priority=low
 #atmos/areacella_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
 #atmos/sftlf_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
 #land/mrsofc_ti-u-hxy-lnd@fx  # do-not-produce (not available with this model)
@@ -1216,6 +1241,9 @@ atmos/tas_tavg-h2m-hxy-u@1hr:ap9  # approved
 #land/lai_tavg-u-hxy-lnd@day  # do-not-produce (not available with this model), priority=low
 #land/prveg_tavg-u-hxy-lnd@mon  # do-not-produce (not available with this model), priority=low
 #land/tas_tavg-h2m-hxy-u@1hr  # do-not-produce (not available with this model), priority=low
+#ocean/difmxybo_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, do-not-produce (not available with this model), priority=low
+#ocean/difmxylo_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, do-not-produce (not available with this model), priority=low
+#ocean/diftrelo_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, do-not-produce (not available with this model), priority=low
 #ocean/dxto_ti-u-hxy-u@fx  # do-not-produce (not available with this model), priority=low
 #ocean/dxuo_ti-u-hxy-u@fx  # do-not-produce (not available with this model), priority=low
 #ocean/dxvo_ti-u-hxy-u@fx  # do-not-produce (not available with this model), priority=low
@@ -1225,7 +1253,18 @@ atmos/tas_tavg-h2m-hxy-u@1hr:ap9  # approved
 #ocean/msftmmpa_tavg-rho-hyb-sea@mon  # do-not-produce (not available with this model), priority=low
 #ocean/msftmsmpa_tavg-ol-hyb-sea@mon  # do-not-produce (not available with this model), priority=low
 #ocean/msftypa_tavg-rho-ht-sea@mon  # do-not-produce (not available with this model), priority=low
+#ocean/ocontempdiff_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, do-not-produce (not available with this model), priority=low
+#ocean/ocontempmint_tavg-u-hxy-sea@yr  # Yearly variables unable to be processed at this time, do-not-produce (not available with this model), priority=low
+#ocean/ocontemppadvect_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, do-not-produce (not available with this model), priority=low
+#ocean/ocontemppmdiff_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, do-not-produce (not available with this model), priority=low
+#ocean/ocontemppsmadvect_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, do-not-produce (not available with this model), priority=low
+#ocean/ocontemprmadvect_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, do-not-produce (not available with this model), priority=low
+#ocean/ocontemptend_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, do-not-produce (not available with this model), priority=low
+#ocean/opottemppadvect_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, do-not-produce (not available with this model), priority=low
+#ocean/opottemppsmadvect_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, do-not-produce (not available with this model), priority=low
+#ocean/osaltpadvect_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, do-not-produce (not available with this model), priority=low
 #ocean/osaltpsmadvect_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model), priority=low
+#ocean/osaltpsmadvect_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, do-not-produce (not available with this model), priority=low
 #ocnBgchem/expcob_tavg-u-hxy-sea@day  # do-not-produce (not available with this model), priority=low
 #ocnBgchem/intpoc_tavg-u-hxy-sea@day  # do-not-produce (not available with this model), priority=low
 #ocnBgchem/o2min_tavg-u-hxy-sea@day  # do-not-produce (not available with this model), priority=low
@@ -1258,4 +1297,5 @@ atmos/tas_tavg-h2m-hxy-u@1hr:ap9  # approved
 #atmos/tntrlcs_tavg-p39-hy-air@mon:ap5  # do-not-produce, priority=medium
 #atmos/tntrscs_tavg-p39-hy-air@mon:ap5  # do-not-produce, priority=medium
 #atmos/tntscp_tavg-p39-hy-air@mon:ap5  # do-not-produce, priority=medium
+#ocean/dispkexyfo_tavg-u-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, do-not-produce, priority=low
 #ocean/opottemptend_tavg-ol-hxy-sea@dec:onm/grid-T  # do-not-produce, priority=low
