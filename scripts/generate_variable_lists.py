@@ -352,8 +352,8 @@ def reformat_variable_names(
         realm, variable_name, branding, frequency, region = parts[:5]
         stream = streams.get(variable, "")
 
-        # Filter out any non global variables
-        if region == "glb":
+        # Filter out any non global and yearly variables
+        if region == "glb" and frequency != "yr":
             new_variable_name = (f"{realm}/{variable_name}_{branding}@{frequency}:{stream}" if stream else
                                  f"{realm}/{variable_name}_{branding}@{frequency}")
 
