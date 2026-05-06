@@ -1,7 +1,6 @@
 <!--(C) British Crown Copyright 2025, Met Office. Please see LICENSE.md for license details.--> 
 # CDDS Simulation Metadata For CMIP7
 [![Deploy static content to Pages](https://github.com/UKNCSP/CDDS-simulation-metadata/actions/workflows/deploy_pages.yml/badge.svg)](https://github.com/UKNCSP/CDDS-simulation-metadata/actions/workflows/deploy_pages.yml)
-[![Configuration file validation](https://github.com/UKNCSP/CDDS-simulation-metadata/actions/workflows/validate_metadata_files.yml/badge.svg)](https://github.com/UKNCSP/CDDS-simulation-metadata/actions/workflows/validate_metadata_files.yml)
 
 This CDDS simulation metadata repository is designed to process and store CMIP7 workflow metadata. If you have a new workflow that you wish to register, please fill out the issue form marked 'Add/Modify Workflow Metadata'. Upon form completion, you will receive a notification from our GitHub actions bot confirming your submission. If you wish to view the workflow metadata currently stored in the database, you can do so here: [CMIP7 Workflow Metadata](https://ukncsp.github.io/CDDS-simulation-metadata/ "A link to our GitHub pages"). Note that this table consists of only key metadata: to view the full metadata, click the link shown on the model workflow ID of interest.
 
