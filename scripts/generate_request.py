@@ -3,8 +3,6 @@
 """A script to generate a functional request file using information provided from a given workflow metadata
 configuration file.
 
-Example command line usage:
-python scripts/generate_request.py a-bc123
 """
 import os
 import re
