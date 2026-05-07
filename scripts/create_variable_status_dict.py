@@ -13,10 +13,9 @@ import json
 import sys
 
 from difflib import get_close_matches
-from pathlib import Path
 
 from scripts.common import read_json
-from scripts.constants import REF_INFO_DIR, MAPPINGS_FILE_LOCATION, APPROVED_VARIABLES_FILE_LOCATION
+from scripts.constants import REF_INFO_DIR, MAPPINGS_FILE_LOCATION
 
 
 def get_all_models(mappings_dict: list[dict]) -> set:
