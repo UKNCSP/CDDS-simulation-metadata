@@ -348,7 +348,6 @@ atmos/tas_tavg-h2m-hxy-u@1hr:ap9  # approved
 #atmos/ta_tavg-p39-hy-air@day:ap6  # embargoed
 #atmos/ta_tavg-p39-hy-air@mon:ap4  # embargoed
 #atmos/ta_tpt-al-hxy-u@6hr:ap7  # embargoed
-#atmos/ta_tpt-p7h-hxy-air@6hr:ap7  # embargoed
 #atmos/tas_tavg-h2m-hxy-u@6hr:ap7  # embargoed
 #atmos/tauu_tavg-u-hxy-u@day:ap6  # embargoed
 #atmos/tauv_tavg-u-hxy-u@day:ap6  # embargoed
@@ -719,21 +718,22 @@ atmos/tas_tavg-h2m-hxy-u@1hr:ap9  # approved
 #ocean/tnpeo_tavg-u-hxy-sea@yr:onm/grid-T  # embargoed, priority=low
 #ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # embargoed, priority=low
 #ocean/wo_tavg-ol-hxy-sea@day:ond/grid-W  # embargoed, priority=low
-#atmos/areacella_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
-#atmos/sftlf_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
+#atmos/ta_tpt-p7h-hxy-air@6hr:ap7  # known-issue, embargoed
+#atmos/areacella_ti-u-hxy-u@fx:afx  # do-not-produce (not available with this model)
+#atmos/sftlf_ti-u-hxy-u@fx:afx  # do-not-produce (not available with this model)
 #land/lai_tavg-u-hxy-lnd@mon:ap5  # do-not-produce (not available with this model)
-#land/mrsofc_ti-u-hxy-lnd@fx  # do-not-produce (not available with this model)
-#land/orog_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
-#land/rootd_ti-u-hxy-lnd@fx  # do-not-produce (not available with this model)
-#land/sftgif_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
-#land/slthick_ti-sl-hxy-lnd@fx  # do-not-produce (not available with this model)
-#ocean/areacello_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
-#ocean/basin_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
-#ocean/deptho_ti-u-hxy-sea@fx  # do-not-produce (not available with this model)
-#ocean/hfgeou_ti-u-hxy-sea@fx  # do-not-produce (not available with this model)
-#ocean/masscello_ti-ol-hxy-sea@fx  # do-not-produce (not available with this model)
-#ocean/sftof_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
-#ocean/thkcello_ti-ol-hxy-sea@fx  # do-not-produce (not available with this model)
+#land/mrsofc_ti-u-hxy-lnd@fx:afx  # do-not-produce (not available with this model)
+#land/orog_ti-u-hxy-u@fx:afx  # do-not-produce (not available with this model)
+#land/rootd_ti-u-hxy-lnd@fx:afx  # do-not-produce (not available with this model)
+#land/sftgif_ti-u-hxy-u@fx:afx  # do-not-produce (not available with this model)
+#land/slthick_ti-sl-hxy-lnd@fx:afx  # do-not-produce (not available with this model)
+#ocean/areacello_ti-u-hxy-u@fx:ofx  # do-not-produce (not available with this model)
+#ocean/basin_ti-u-hxy-u@fx:ofx  # do-not-produce (not available with this model)
+#ocean/deptho_ti-u-hxy-sea@fx:ofx  # do-not-produce (not available with this model)
+#ocean/hfgeou_ti-u-hxy-sea@fx:ofx  # do-not-produce (not available with this model)
+#ocean/masscello_ti-ol-hxy-sea@fx:ofx  # do-not-produce (not available with this model)
+#ocean/sftof_ti-u-hxy-u@fx:ofx  # do-not-produce (not available with this model)
+#ocean/thkcello_ti-ol-hxy-sea@fx:ofx  # do-not-produce (not available with this model)
 #aerosol/abs550bc_tavg-u-hxy-u@mon  # do-not-produce (not available with this model)
 #aerosol/abs550no3_tavg-u-hxy-u@mon  # do-not-produce (not available with this model)
 #aerosol/abs550oa_tavg-u-hxy-u@mon  # do-not-produce (not available with this model)
@@ -906,7 +906,7 @@ atmos/tas_tavg-h2m-hxy-u@1hr:ap9  # approved
 #atmosChem/ch4_tclm-p19-hxy-air@mon  # do-not-produce (not available with this model)
 #atmosChem/ch4_tclm-u-hm-air@mon  # do-not-produce (not available with this model)
 #atmosChem/ch4losssoil_tavg-u-hxy-u@mon:ap4  # do-not-produce (not available with this model)
-#atmosChem/ch4ref_ti-al-hxy-u@fx  # do-not-produce (not available with this model)
+#atmosChem/ch4ref_ti-al-hxy-u@fx:afx  # do-not-produce (not available with this model)
 #atmosChem/chegph2oo1d_tavg-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
 #atmosChem/chepnh4_tavg-al-hxy-u@mon  # do-not-produce (not available with this model)
 #atmosChem/chepno3_tavg-al-hxy-u@mon  # do-not-produce (not available with this model)
@@ -946,8 +946,8 @@ atmos/tas_tavg-h2m-hxy-u@1hr:ap9  # approved
 #atmosChem/o3_tavg-p39-hy-air@mon:ap4  # do-not-produce (not available with this model)
 #atmosChem/o3_tclm-p19-hxy-air@mon  # do-not-produce (not available with this model)
 #atmosChem/o3_tpt-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
-#atmosChem/o3ref_tclm-al-hxy-u@fx:ap4  # do-not-produce (not available with this model)
-#atmosChem/o3ref_ti-al-hxy-u@fx  # do-not-produce (not available with this model)
+#atmosChem/o3ref_tclm-al-hxy-u@fx:afx  # do-not-produce (not available with this model)
+#atmosChem/o3ref_ti-al-hxy-u@fx:afx  # do-not-produce (not available with this model)
 #atmosChem/o3ste_tavg-al-hxy-u@mon  # do-not-produce (not available with this model)
 #atmosChem/rlutch4ref_tavg-u-hxy-u@mon:ap5  # do-not-produce (not available with this model)
 #atmosChem/rlutcsch4ref_tavg-u-hxy-u@mon:ap5  # do-not-produce (not available with this model)
@@ -968,7 +968,7 @@ atmos/tas_tavg-h2m-hxy-u@1hr:ap9  # approved
 #atmosChem/wetno3_tavg-al-hxy-u@mon  # do-not-produce (not available with this model)
 #atmosChem/wetnoy_tavg-u-hxy-u@mon:ap4  # do-not-produce (not available with this model)
 #land/albc_tavg-u-hxy-veg@mon  # do-not-produce (not available with this model)
-#land/areacellr_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
+#land/areacellr_ti-u-hxy-u@fx:afx  # do-not-produce (not available with this model)
 #land/baresoilFrac_tavg-u-hxy-u@mon:ap5  # do-not-produce (not available with this model)
 #land/burntFractionAll_tavg-u-hxy-u@mon  # do-not-produce (not available with this model)
 #land/cGeologicStorage_tavg-u-hxy-u@mon  # do-not-produce (not available with this model)
@@ -985,8 +985,8 @@ atmos/tas_tavg-h2m-hxy-u@1hr:ap9  # approved
 #land/cStem_tavg-u-hxy-lnd@mon:ap5  # do-not-produce (not available with this model)
 #land/cVeg_tavg-u-hxy-lnd@mon:ap5  # do-not-produce (not available with this model)
 #land/dcw_tavg-u-hxy-lnd@day  # do-not-produce (not available with this model)
-#land/depthl_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
-#land/depthsl_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
+#land/depthl_ti-u-hxy-u@fx:afx  # do-not-produce (not available with this model)
+#land/depthsl_ti-u-hxy-u@fx:afx  # do-not-produce (not available with this model)
 #land/dslw_tavg-u-hxy-lnd@day  # do-not-produce (not available with this model)
 #land/fAnthDisturb_tavg-u-hxy-lnd@mon:ap5  # do-not-produce (not available with this model)
 #land/fBNF_tavg-u-hxy-lnd@mon:ap5  # do-not-produce (not available with this model)
@@ -1048,7 +1048,7 @@ atmos/tas_tavg-h2m-hxy-u@1hr:ap9  # approved
 #land/rsds_tavg-u-hxy-sn@mon  # do-not-produce (not available with this model)
 #land/rsus_tavg-u-hxy-lnd@mon  # do-not-produce (not available with this model)
 #land/rsus_tavg-u-hxy-sn@mon  # do-not-produce (not available with this model)
-#land/sftlaf_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
+#land/sftlaf_ti-u-hxy-u@fx:afx  # do-not-produce (not available with this model)
 #land/shrubFrac_tavg-u-hxy-u@mon:ap5  # do-not-produce (not available with this model)
 #land/tas_tavg-h2m-hxy-u@1hr  # do-not-produce (not available with this model)
 #land/treeFrac_tavg-u-hxy-u@mon:ap5  # do-not-produce (not available with this model)
@@ -1058,7 +1058,7 @@ atmos/tas_tavg-h2m-hxy-u@1hr:ap9  # approved
 #land/vegHeight_tavg-u-hxy-tree@mon:ap5  # do-not-produce (not available with this model)
 #land/vegHeight_tavg-u-hxy-veg@mon:ap5  # do-not-produce (not available with this model)
 #landIce/icem_tavg-u-hxy-is@mon:ap6  # do-not-produce (not available with this model)
-#landIce/lithk_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
+#landIce/lithk_ti-u-hxy-u@fx:afx  # do-not-produce (not available with this model)
 #landIce/orog_tavg-u-hxy-is@mon:ap5  # do-not-produce (not available with this model)
 #landIce/pflw_tavg-u-hxy-lnd@mon  # do-not-produce (not available with this model)
 #landIce/prra_tavg-u-hxy-is@mon:ap5  # do-not-produce (not available with this model)
@@ -1066,9 +1066,9 @@ atmos/tas_tavg-h2m-hxy-u@1hr:ap9  # approved
 #landIce/rsds_tavg-u-hxy-is@mon:ap5  # do-not-produce (not available with this model)
 #landIce/rsus_tavg-u-hxy-is@mon:ap5  # do-not-produce (not available with this model)
 #landIce/sftflf_tavg-u-hxy-u@mon  # do-not-produce (not available with this model)
-#landIce/sftflf_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
+#landIce/sftflf_ti-u-hxy-u@fx:afx  # do-not-produce (not available with this model)
 #landIce/sftgrf_tavg-u-hxy-u@mon  # do-not-produce (not available with this model)
-#landIce/sftgrf_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
+#landIce/sftgrf_ti-u-hxy-u@fx:afx  # do-not-produce (not available with this model)
 #landIce/snc_tavg-u-hxy-is@mon:ap6  # do-not-produce (not available with this model)
 #landIce/sootsn_tavg-u-hxy-lnd@mon  # do-not-produce (not available with this model)
 #landIce/tpf_tavg-u-hxy-lnd@mon  # do-not-produce (not available with this model)
@@ -1125,7 +1125,7 @@ atmos/tas_tavg-h2m-hxy-u@1hr:ap9  # approved
 #ocean/thkcello_tavg-ol-hxy-sea@dec  # do-not-produce (not available with this model)
 #ocean/tob_tavg-u-hxy-sea@mon  # do-not-produce (not available with this model)
 #ocean/volcello_tavg-ol-hxy-sea@dec  # do-not-produce (not available with this model)
-#ocean/volcello_ti-ol-hxy-sea@fx  # do-not-produce (not available with this model)
+#ocean/volcello_ti-ol-hxy-sea@fx:ofx  # do-not-produce (not available with this model)
 #ocean/volo_tavg-u-hm-sea@dec  # do-not-produce (not available with this model)
 #ocean/vsf_tavg-u-hxy-sea@mon  # do-not-produce (not available with this model)
 #ocean/wdir_tavg-u-hxy-sea@mon  # do-not-produce (not available with this model)
@@ -1439,7 +1439,7 @@ atmos/tas_tavg-h2m-hxy-u@1hr:ap9  # approved
 #atmos/rsdscsdiff_tavg-u-hxy-u@day  # do-not-produce (not available with this model), priority=low
 #atmos/tas_tmax-h2m-hxy-crp@day  # do-not-produce (not available with this model), priority=low
 #atmos/tas_tmin-h2m-hxy-crp@day  # do-not-produce (not available with this model), priority=low
-#atmos/zfull_ti-al-hxy-u@fx  # do-not-produce (not available with this model), priority=low
+#atmos/zfull_ti-al-hxy-u@fx:afx  # do-not-produce (not available with this model), priority=low
 #atmosChem/drynh3_tavg-u-hxy-u@day  # do-not-produce (not available with this model), priority=low
 #atmosChem/drynh4_tavg-u-hxy-u@day  # do-not-produce (not available with this model), priority=low
 #atmosChem/drynoy_tavg-u-hxy-u@day:ap6  # do-not-produce (not available with this model), priority=low
@@ -1471,12 +1471,12 @@ atmos/tas_tavg-h2m-hxy-u@1hr:ap9  # approved
 #ocean/diftrblo_tavg-ol-hxy-sea@yr  # do-not-produce (not available with this model), priority=low
 #ocean/diftrelo_tavg-ol-hxy-sea@yr  # do-not-produce (not available with this model), priority=low
 #ocean/dispkexyfo_tavg-u-hxy-sea@yr  # do-not-produce (not available with this model), priority=low
-#ocean/dxto_ti-u-hxy-u@fx  # do-not-produce (not available with this model), priority=low
-#ocean/dxuo_ti-u-hxy-u@fx  # do-not-produce (not available with this model), priority=low
-#ocean/dxvo_ti-u-hxy-u@fx  # do-not-produce (not available with this model), priority=low
-#ocean/dyto_ti-u-hxy-u@fx  # do-not-produce (not available with this model), priority=low
-#ocean/dyuo_ti-u-hxy-u@fx  # do-not-produce (not available with this model), priority=low
-#ocean/dyvo_ti-u-hxy-u@fx  # do-not-produce (not available with this model), priority=low
+#ocean/dxto_ti-u-hxy-u@fx:ofx  # do-not-produce (not available with this model), priority=low
+#ocean/dxuo_ti-u-hxy-u@fx:ofx  # do-not-produce (not available with this model), priority=low
+#ocean/dxvo_ti-u-hxy-u@fx:ofx  # do-not-produce (not available with this model), priority=low
+#ocean/dyto_ti-u-hxy-u@fx:ofx  # do-not-produce (not available with this model), priority=low
+#ocean/dyuo_ti-u-hxy-u@fx:ofx  # do-not-produce (not available with this model), priority=low
+#ocean/dyvo_ti-u-hxy-u@fx:ofx  # do-not-produce (not available with this model), priority=low
 #ocean/msftmmpa_tavg-rho-hyb-sea@mon  # do-not-produce (not available with this model), priority=low
 #ocean/msftmsmpa_tavg-ol-hyb-sea@mon  # do-not-produce (not available with this model), priority=low
 #ocean/msftypa_tavg-ol-ht-sea@mon  # do-not-produce (not available with this model), priority=low
