@@ -410,7 +410,6 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/ta_tavg-al-hxy-u@mon:ap5  # embargoed
 #atmos/ta_tavg-p39-hy-air@day:ap6  # embargoed
 #atmos/ta_tpt-al-hxy-u@6hr:ap7  # embargoed
-#atmos/ta_tpt-p7h-hxy-air@6hr:ap7  # embargoed
 #atmos/tas_tavg-h2m-hxy-u@6hr:ap7  # embargoed
 #atmos/tdps_tavg-h2m-hxy-u@mon:ap5  # embargoed
 #atmos/tnhus_tavg-al-hxy-u@mon:apu  # embargoed
@@ -715,6 +714,7 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # embargoed, priority=low
 #ocean/wo_tavg-ol-hxy-sea@day:ond/grid-W  # embargoed, priority=low
 #atmos/ps_tpt-u-hxy-u@6hr:ap7  # known-issue, embargoed
+#atmos/ta_tpt-p7h-hxy-air@6hr:ap7  # known-issue, embargoed
 #atmos/ts_tpt-u-hxy-u@6hr:ap7  # known-issue, embargoed
 #atmos/ua_tpt-p7h-hxy-air@6hr:ap7  # known-issue, embargoed
 #atmos/va_tpt-p7h-hxy-air@6hr:ap7  # known-issue, embargoed
