@@ -352,6 +352,9 @@ def reformat_variable_names(
         realm, variable_name, branding, frequency, region = parts[:5]
         stream = streams.get(variable, "")
 
+        if frequency == "yr":
+            comment.insert(0, "Yearly variables unable to be processed at this time")
+
         # Filter out any non global variables
         if region == "glb":
             new_variable_name = (f"{realm}/{variable_name}_{branding}@{frequency}:{stream}" if stream else
@@ -476,10 +479,12 @@ def sort_key(line: str) -> int:
         they appear at the top of the variable list.
     """
     if "do-not-produce (not available with this model)" in line:
-        return 5
-    elif "do-not-produce" in line:
         return 6
+    elif "do-not-produce" in line:
+        return 7
     elif "known-issue" in line:
+        return 5
+    elif "Yearly variables unable to be processed at this time" in line:
         return 4
     elif "embargoed" in line:
         return 3
