@@ -9,7 +9,11 @@
     "UKCM2-0-LL": {
         "*": {
             "*": {
-                "atmos/ta_tpt-p7h-hxy-air@6hr": "temperature field in model has fewer levels than is required by variable"
+                "atmos/ta_tpt-p7h-hxy-air@6hr": "temperature field in model has fewer levels than is required by variable",
+                "atmos/ps_tpt-u-hxy-u@6hr": "Stash 0,409 setup for time mean profile T6HRMN rather than time point T6HR",
+                "atmos/ts_tpt-u-hxy-u@6hr": "Stash 0,024 setup for time mean profile T6HRMN rather than time point T6HR",
+                "atmos/ua_tpt-p7h-hxy-air@6hr": "pressure level unit prefix mismatch (Pa rather than HPa) leading to cmor axis error (see CDDS issue #800)",
+                "atmos/va_tpt-p7h-hxy-air@6hr": "pressure level unit prefix mismatch (Pa rather than HPa) leading to cmor axis error (see CDDS issue #800)"
             }
         },
         "1pctCO2": {
@@ -36,15 +40,6 @@
                 "atmos/snrefr_tavg-u-hxy-is@mon": "STASH not in suite",
                 "atmos/tas_tavg-h2m-hxy-is@mon": "STASH not in suite",
                 "atmos/ts_tavg-u-hxy-is@mon": "STASH not in suite"
-            }
-        },
-        "historical": {
-            "*": {
-                "atmos/ps_tpt-u-hxy-u@6hr": "Stash 0,409 setup for time mean profile T6HRMN rather than time point T6HR",
-                "atmos/ts_tpt-u-hxy-u@6hr": "Stash 0,024 setup for time mean profile T6HRMN rather than time point T6HR",
-                "atmos/ua_tpt-p7h-hxy-air@6hr": "pressure level unit prefix mismatch (Pa rather than HPa) leading to cmor axis error (see CDDS issue #800)",
-                "atmos/va_tpt-p7h-hxy-air@6hr": "pressure level unit prefix mismatch (Pa rather than HPa) leading to cmor axis error (see CDDS issue #800)"
-
             }
         }
     }
