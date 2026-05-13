@@ -24,15 +24,14 @@ from constants import (
     MISC,
     PARENT_REQUIRED,
     REGEX_FORMAT,
-    REQUIRED
+    REQUIRED,
+    CMOR_CV_JSON
 )
-from common import read_json
 
 REGEX_DICT = {
     "workflow_pattern": re.compile(REGEX_FORMAT["model_workflow_id"]),
     "variant_pattern": re.compile(REGEX_FORMAT["variant_label"]),
 }
-CV_FILE_LOCATION = "reference_information/cmip7_cmor_tables.json"
 
 
 def get_issue() -> dict[str, str]:
@@ -90,7 +89,7 @@ def normalise_datetime(datetime: str, errors: dict[str, str], field: str) -> tup
     """
     try:
         parser = parse.TimePointParser()
-        normalised_str = str(parser.parse(datetime))
+        normalised_str = str(parser.parse(datetime)).replace("+01:00", "Z")
     except (IsodatetimeError, ISO8601SyntaxError):
         errors["datetime"] = f"invalid datetime format for {field}"
         normalised_str = datetime
@@ -413,7 +412,7 @@ def check_cvs(meta_dict: dict[str, str], errors: dict[str, str]) -> dict[str, st
     dict[str, str]
         The dictionary containing any triggered error messages.
     """
-    cv = read_json(Path(CV_FILE_LOCATION))
+    cv = CMOR_CV_JSON
     branch_method = meta_dict.get("branch_method")
     cv_errors = []
 
