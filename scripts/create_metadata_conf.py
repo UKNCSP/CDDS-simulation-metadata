@@ -89,7 +89,7 @@ def normalise_datetime(datetime: str, errors: dict[str, str], field: str) -> tup
     """
     try:
         parser = parse.TimePointParser()
-        normalised_str = str(parser.parse(datetime))
+        normalised_str = str(parser.parse(datetime)).replace("+01:00", "Z")
     except (IsodatetimeError, ISO8601SyntaxError):
         errors["datetime"] = f"invalid datetime format for {field}"
         normalised_str = datetime
