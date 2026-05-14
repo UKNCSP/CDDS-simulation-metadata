@@ -6,10 +6,29 @@
             }
         }
     },
+    "UKCM2a-0-HH": {
+        "*": {
+            "*": {
+                "atmos/ta_tpt-p7h-hxy-air@6hr": "temperature field in model has fewer levels than is required by variable",
+                "seaIce/siforcecoriolx_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
+                "seaIce/siforcecorioly_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
+                "seaIce/siforceintstrx_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
+                "seaIce/siforceintstry_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
+                "seaIce/siforcetiltx_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
+                "seaIce/siforcetilty_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting."
+            }
+        }
+    },
     "UKCM2-0-LL": {
         "*": {
             "*": {
-                "atmos/ta_tpt-p7h-hxy-air@6hr": "temperature field in model has fewer levels than is required by variable"
+                "atmos/ta_tpt-p7h-hxy-air@6hr": "temperature field in model has fewer levels than is required by variable",
+                "seaIce/siforcecoriolx_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
+                "seaIce/siforcecorioly_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
+                "seaIce/siforceintstrx_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
+                "seaIce/siforceintstry_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
+                "seaIce/siforcetiltx_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
+                "seaIce/siforcetilty_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting."
             }
         },
         "1pctCO2": {
