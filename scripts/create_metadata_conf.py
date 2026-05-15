@@ -32,7 +32,6 @@ REGEX_DICT = {
     "workflow_pattern": re.compile(REGEX_FORMAT["model_workflow_id"]),
     "variant_pattern": re.compile(REGEX_FORMAT["variant_label"]),
 }
-CV_FILE_LOCATION = "reference_information/cmip7_cmor_tables.json"
 
 
 def get_issue() -> dict[str, str]:
