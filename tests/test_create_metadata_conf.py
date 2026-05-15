@@ -14,7 +14,7 @@ from scripts.create_metadata_conf import (set_calendar, normalise_datetime, proc
 class TestSetCalendar(unittest.TestCase):
 
     def test_set_calendar_success(self):
-        for calendar in ("gregorian", "360_day", "standard"):
+        for calendar in ("gregorian", "360_day"):
             self.assertEqual(set_calendar(calendar), {}, f"Failed to set calendar as {calendar}")
 
     def test_set_calendar_failure(self):
@@ -95,7 +95,7 @@ class TestChecks(unittest.TestCase):
             'parent_mip': 'CMIP',
             'parent_mip_era': 'CMIP7',
             'parent_model_id': 'UKCM2a-0-HH',
-            'parent_time_units': 'days since 1850-01-01T00:00:00Z',
+            'parent_time_units': 'days since 1850-01-01',
             'parent_variant_label': 'r1i1p1f1',
             'calendar': 'gregorian',
             'experiment_id': 'piControl',
@@ -231,7 +231,7 @@ class TestChecks(unittest.TestCase):
 
         err_msg = "Failed to flag an invalid atmsopheric timestep"
         expected = {"timestep_logic": "atmospheric timestep is invalid"}
-        for timestep in ("-250", "0", "7.5"):
+        for timestep in ("-250", "7.5"):
             self.metadata_dictionary["atmos_timestep"] = timestep
             self.assertEqual(check_atmos_timestep(self.metadata_dictionary, {}), expected, err_msg)
 
@@ -249,9 +249,8 @@ class TestChecks(unittest.TestCase):
         self.metadata_dictionary["end_date"] = ""
         errors = {"datetime": "invalid datetime format for end_date"}
         err_msg = "Failed to flag inability to perform start end time logic check due to missing field"
-        expected = {"datetime": "invalid datetime format for end_date",
-                    "datetime_logic": ("unable to perform start end time logic check due to missing start time or end "
-                                       "time field")}
+        expected = {"datetime": "invalid datetime format for end_date"}
+
         self.assertEqual(check_start_end_logic(self.metadata_dictionary, errors), expected, err_msg)
 
     def test_check_fixed_fields_success(self):

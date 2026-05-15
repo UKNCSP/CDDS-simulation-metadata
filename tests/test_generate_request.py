@@ -126,7 +126,7 @@ class TestUpdateRequest(unittest.TestCase):
             }
         }
         config = configparser.ConfigParser()
-        config.read("tests/test_scripts/data/test_config.cfg")
+        config.read("tests/data/test_config.cfg")
         issue_info = {
             "model_workflow-id": "u-dv623",
             "streams": "ap4, ap5, ap6",
