@@ -16,7 +16,7 @@ import metomi.isodatetime.parsers as parse
 from metomi.isodatetime.data import Calendar
 from metomi.isodatetime.exceptions import ISO8601SyntaxError, IsodatetimeError
 
-from scripts.constants import (
+from constants import (
     DATA,
     DATETIME_FIELDS,
     META_FIELDS,
@@ -24,9 +24,9 @@ from scripts.constants import (
     MISC,
     PARENT_REQUIRED,
     REGEX_FORMAT,
-    REQUIRED
+    REQUIRED,
+    CMOR_CV_JSON
 )
-from scripts.common import read_json
 
 REGEX_DICT = {
     "workflow_pattern": re.compile(REGEX_FORMAT["model_workflow_id"]),
@@ -63,9 +63,7 @@ def set_calendar(calendar_type: str) -> dict[str, str]:
     """
     errors = {}
 
-    if calendar_type == "standard":
-        calendar_type = "gregorian"
-    if calendar_type in ("360_day", "gregorian"):
+    if calendar_type in ("360_day", "gregorian", "standard"):
         Calendar.default().set_mode(calendar_type)
     else:
         errors["calendar"] = "incompatible calendar: expected 360_day or gregorian/standard"
@@ -92,7 +90,7 @@ def normalise_datetime(datetime: str, errors: dict[str, str], field: str) -> tup
     """
     try:
         parser = parse.TimePointParser()
-        normalised_str = str(parser.parse(datetime))
+        normalised_str = str(parser.parse(datetime)).replace("+01:00", "Z")
     except (IsodatetimeError, ISO8601SyntaxError):
         errors["datetime"] = f"invalid datetime format for {field}"
         normalised_str = datetime
@@ -310,7 +308,7 @@ def check_atmos_timestep(meta_dict: dict[str, str], errors: dict[str, str]) -> d
         The dictionary containing any triggered error messages.
     """
     atmos_timestep = meta_dict.get("atmos_timestep")
-    if not atmos_timestep.isdigit() or int(atmos_timestep) <= 0:
+    if not atmos_timestep.isdigit() or int(atmos_timestep) < 0:
         errors["timestep_logic"] = "atmospheric timestep is invalid"
 
     # TO DO: Add in check against the default values given and warn user if their input deviates from the default
@@ -340,10 +338,7 @@ def check_start_end_logic(meta_dict: dict[str, str], errors: dict[str, str]) -> 
     end_date_err_msg = "invalid datetime format for end_date"
 
     try:
-        if start_date_err_msg in errors["datetime"] or end_date_err_msg in errors["datetime"]:
-            errors["datetime_logic"] = ("unable to perform start end time logic check due to missing start time or end "
-                                       "time field")
-        else:
+        if start_date_err_msg not in errors["datetime"] and end_date_err_msg not in errors["datetime"]:
             if parser.parse(end_date) < parser.parse(start_date):
                 errors["datetime_logic"] = "end date cannot be earlier than start date"
     except KeyError:
@@ -371,8 +366,8 @@ def check_fixed_fields(meta_dict: dict[str, str], errors: dict[str, str]) -> dic
     unrecognised_inputs = []
     base_date = meta_dict.get("base_date")
     if base_date != "1850-01-01T00:00:00Z":
-        unrecognised_inputs.append(f"base date '{base_date}' differs from the expected 1850-01-01T00:00:00Z. "
-                                   f"If you wish to use '{base_date}', please contact a member of the CDDS team")
+        unrecognised_inputs.append(f"base date {base_date} differs from the expected 1850-01-01T00:00:00Z. "
+                                   f"If you wish to use {base_date}, please contact a member of the CDDS team")
 
     if meta_dict.get("branch_method") not in ("no parent", "standard"):
         unrecognised_inputs.append("branch_method must have the value 'no parent' or 'standard'")
@@ -391,8 +386,8 @@ def check_fixed_fields(meta_dict: dict[str, str], errors: dict[str, str]) -> dic
         if model_id != meta_dict.get("parent_model_id"):
             unrecognised_inputs.append(f"parent_model_id must match model_id '{model_id}'")
 
-        if meta_dict.get("parent_time_units") != "days since 1850-01-01T00:00:00Z":
-            unrecognised_inputs.append("parent_time_units must have the value 'days since 1850-01-01T00:00:00Z'")
+        if meta_dict.get("parent_time_units") != "days since 1850-01-01":
+            unrecognised_inputs.append("parent_time_units must have the value 'days since 1850-01-01'")
 
     if meta_dict.get("mass_data_class") not in ("ens", "crum"):
         unrecognised_inputs.append("mass_data_class must have the value 'ens' or 'crum'")
@@ -418,7 +413,7 @@ def check_cvs(meta_dict: dict[str, str], errors: dict[str, str]) -> dict[str, st
     dict[str, str]
         The dictionary containing any triggered error messages.
     """
-    cv = read_json(Path(CV_FILE_LOCATION))
+    cv = CMOR_CV_JSON
     branch_method = meta_dict.get("branch_method")
     cv_errors = []
 
