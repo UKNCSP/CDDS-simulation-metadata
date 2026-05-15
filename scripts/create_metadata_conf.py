@@ -16,7 +16,7 @@ import metomi.isodatetime.parsers as parse
 from metomi.isodatetime.data import Calendar
 from metomi.isodatetime.exceptions import ISO8601SyntaxError, IsodatetimeError
 
-from constants import (
+from scripts.constants import (
     DATA,
     DATETIME_FIELDS,
     META_FIELDS,
