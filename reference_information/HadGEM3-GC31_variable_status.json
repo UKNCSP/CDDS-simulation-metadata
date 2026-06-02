@@ -196,7 +196,7 @@
     "atmos.cct.tpt-u-hs-u.subhr.glb": "do-not-produce",
     "atmos.cfadDbze94.tavg-h40-hxy-air.mon.glb": "embargoed",
     "atmos.cfadLidarsr532.tavg-h40-hxy-air.mon.glb": "embargoed",
-    "atmos.ci.tavg-u-hxy-u.mon.glb": "embargoed",
+    "atmos.ci.tavg-u-hxy-u.mon.glb": "approved",
     "atmos.ci.tpt-u-hs-u.subhr.glb": "embargoed",
     "atmos.cl.tavg-al-hxy-u.day.glb": "embargoed",
     "atmos.cl.tavg-al-hxy-u.mon.glb": "approved",

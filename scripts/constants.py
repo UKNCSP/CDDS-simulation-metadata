@@ -1,5 +1,6 @@
 # (C) British Crown Copyright 2026, Met Office.
 # Please see LICENSE.md for license details.
+import requests
 
 from pathlib import Path
 
@@ -172,3 +173,4 @@ MAPPING_FILE_VERSION = "v2026-05-29"
 KNOWN_ISSUES_DICT_FILE_LOCATION = REF_INFO_DIR / "known_issues.json"
 DR_FILE_LOCATION = REF_INFO_DIR / "dr-1.2.2.3_all.json"
 MIP_TABLE_DIR = "$CDDS_ETC/mip_tables/CMIP7/DR-1.2.2.3-v1.0.6"
+CMOR_CV_JSON = requests.get("https://raw.githubusercontent.com/WCRP-CMIP/cmip7-cmor-tables/refs/heads/main/tables-cvs/cmor-cvs.json").json()

@@ -26,6 +26,7 @@ jobs:
       - name: install dependencies
         run: |
           pip install metomi-isodatetime
+          pip install requests
         
       - name: create metadata file
         id: create-file
@@ -79,7 +80,7 @@ jobs:
           git push origin main
 
           gh issue comment "$ISSUE" --body "$BODY"
-          gh issue close --repo "$REPO" --comment "Closing issue $ISSUE" "$ISSUE"
+          gh issue close --repo "$REPO" "$ISSUE"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
