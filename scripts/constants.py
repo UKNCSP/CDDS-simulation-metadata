@@ -168,6 +168,7 @@ META_FIELDS = {
 
 REF_INFO_DIR = Path("reference_information")
 MAPPINGS_FILE_LOCATION = REF_INFO_DIR / "mappings.json"
+MAPPING_FILE_VERSION = "v2026-05-29"
 KNOWN_ISSUES_DICT_FILE_LOCATION = REF_INFO_DIR / "known_issues.json"
 DR_FILE_LOCATION = REF_INFO_DIR / "dr-1.2.2.3_all.json"
 MIP_TABLE_DIR = "$CDDS_ETC/mip_tables/CMIP7/DR-1.2.2.3-v1.0.6"
