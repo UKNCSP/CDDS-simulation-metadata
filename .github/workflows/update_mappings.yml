@@ -22,6 +22,10 @@ jobs:
         with:
           python-version: 3.11
 
+      - name: install dependencies
+        run: |
+          pip install requests
+
       - name: update mapping json
         id: update-mapping-json
         run: python scripts/update_mapping_file.py

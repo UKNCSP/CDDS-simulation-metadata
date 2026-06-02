@@ -4,7 +4,7 @@
 import requests
 import json
 
-from scripts.constants import MAPPINGS_FILE_LOCATION, MAPPING_FILE_VERSION
+from constants import MAPPINGS_FILE_LOCATION, MAPPING_FILE_VERSION
 
 link = (f"https://raw.githubusercontent.com/UKNCSP/CDDS-CMIP7-mappings/refs/tags/{MAPPING_FILE_VERSION}/data/"
         "condensed_mappings.json")

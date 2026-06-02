@@ -11,8 +11,8 @@ In the absence of a manual override, the variable status' are drawn from the map
 
 import json
 
-from scripts.common import read_json
-from scripts.constants import REF_INFO_DIR, MAPPINGS_FILE_LOCATION
+from common import read_json
+from constants import REF_INFO_DIR, MAPPINGS_FILE_LOCATION
 
 
 def get_all_models(mappings_dict: list[dict]) -> set:
