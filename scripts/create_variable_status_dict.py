@@ -11,8 +11,6 @@ In the absence of a manual override, the variable status' are drawn from the map
 
 import json
 
-from difflib import get_close_matches
-
 from scripts.common import read_json
 from scripts.constants import REF_INFO_DIR, MAPPINGS_FILE_LOCATION
 
@@ -59,7 +57,9 @@ def get_variable_status(mappings_dict: list[dict], model: str) -> dict:
     variable_status_dict = {}
     for mapping in mappings_dict:
         variable = mapping["branded_variable"]
-        if model in mapping["models_in_stash"] or model in mapping["XIOS entries"].keys():
+        if not mapping["models_in_stash"] and not mapping["XIOS entries"] and "do-not-produce" not in mapping["labels"]:
+            variable_status_dict[variable] = "unknown (no stream information available)"
+        elif model in mapping["models_in_stash"] or model in mapping["XIOS entries"].keys():
             labels = mapping["labels"]
             if "do-not-produce" in labels:
                 variable_status_dict[variable] = "do-not-produce"
