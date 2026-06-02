@@ -477,6 +477,8 @@ def sort_key(line: str) -> int:
     """
     if "do-not-produce (not available with this model)" in line:
         return 5
+    elif "unknown (no stream information available)" in line:
+        return 7
     elif "do-not-produce" in line:
         return 6
     elif "known-issue" in line:
