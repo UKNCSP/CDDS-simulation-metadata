@@ -13,9 +13,10 @@ jobs:
     permissions:
       contents: write
     steps: 
-      - uses: actions/checkout@main
-        with:
-          fetch-depth: 0 #full history
+      - name : Checkout
+        uses : actions/checkout@v4
+        with :
+          ref : main
 
       - name: setup python
         uses: actions/setup-python@v4
@@ -24,7 +25,7 @@ jobs:
   
       - name: install dependencies
         run: |
-          pip install requests
+          pip install requests==2.34.2
 
       - name: update html
         run: |
