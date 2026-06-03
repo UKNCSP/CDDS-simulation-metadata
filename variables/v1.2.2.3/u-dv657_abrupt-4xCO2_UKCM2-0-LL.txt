@@ -600,6 +600,90 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocean/rsdoabsorb_tavg-ol-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed, priority=low
 #ocean/somint_tavg-u-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed, priority=low
 #ocean/tnpeo_tavg-u-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed, priority=low
+#seaIce/siforcecoriolx_tavg-u-hxy-si@mon:inm/icemod  # known-issue, embargoed, priority=medium
+#seaIce/siforcecorioly_tavg-u-hxy-si@mon:inm/icemod  # known-issue, embargoed, priority=medium
+#seaIce/siforceintstrx_tavg-u-hxy-si@mon:inm/icemod  # known-issue, embargoed, priority=medium
+#seaIce/siforceintstry_tavg-u-hxy-si@mon:inm/icemod  # known-issue, embargoed, priority=medium
+#seaIce/siforcetiltx_tavg-u-hxy-si@mon:inm/icemod  # known-issue, embargoed, priority=medium
+#seaIce/siforcetilty_tavg-u-hxy-si@mon:inm/icemod  # known-issue, embargoed, priority=medium
+#atmos/areacella_ti-u-hxy-u@fx  # unknown (no stream information available)
+#atmos/sftlf_ti-u-hxy-u@fx  # unknown (no stream information available)
+#land/mrsofc_ti-u-hxy-lnd@fx  # unknown (no stream information available)
+#land/orog_ti-u-hxy-u@fx  # unknown (no stream information available)
+#land/rootd_ti-u-hxy-lnd@fx  # unknown (no stream information available)
+#land/sftgif_ti-u-hxy-u@fx  # unknown (no stream information available)
+#land/slthick_ti-sl-hxy-lnd@fx  # unknown (no stream information available)
+#ocean/areacello_ti-u-hxy-u@fx  # unknown (no stream information available)
+#ocean/basin_ti-u-hxy-u@fx  # unknown (no stream information available)
+#ocean/deptho_ti-u-hxy-sea@fx  # unknown (no stream information available)
+#ocean/hfgeou_ti-u-hxy-sea@fx  # unknown (no stream information available)
+#ocean/sftof_ti-u-hxy-u@fx  # unknown (no stream information available)
+#aerosol/vt100_tavg-100hPa-hy-air@mon  # unknown (no stream information available)
+#atmos/dmc_tavg-alh-hxy-u@mon  # unknown (no stream information available)
+#atmos/pr_tmax-u-hxy-u@day  # unknown (no stream information available)
+#atmos/smc_tavg-alh-hxy-u@mon  # unknown (no stream information available)
+#atmos/tauunoegw_tavg-p39-hy-air@day  # unknown (no stream information available)
+#atmos/tauunowgw_tavg-p39-hy-air@day  # unknown (no stream information available)
+#atmos/tauuogw_tavg-p39-hy-air@day  # unknown (no stream information available)
+#atmos/tauvnogw_tavg-p39-hy-air@day  # unknown (no stream information available)
+#atmos/tauvogw_tavg-p39-hy-air@day  # unknown (no stream information available)
+#atmos/utendogw_tavg-p39-hy-air@mon  # unknown (no stream information available)
+#atmosChem/ch4ref_ti-al-hxy-u@fx  # unknown (no stream information available)
+#land/areacellr_ti-u-hxy-u@fx  # unknown (no stream information available)
+#land/mrsow_tavg-u-hxy-lnd@day  # unknown (no stream information available)
+#land/sftlaf_ti-u-hxy-u@fx  # unknown (no stream information available)
+#ocean/agessc_tavg-ol-hxy-sea@mon  # unknown (no stream information available)
+#ocean/rsds_tavg-u-hxy-ifs@mon  # unknown (no stream information available)
+#ocean/rsus_tavg-u-hxy-ifs@mon  # unknown (no stream information available)
+#seaIce/prra_tavg-u-hxy-si@mon  # unknown (no stream information available)
+#seaIce/simassacrossline_tavg-u-ht-u@mon  # unknown (no stream information available)
+#seaIce/sirdgconc_tavg-u-hxy-si@mon  # unknown (no stream information available)
+#seaIce/sisndmasswind_tavg-u-hxy-si@mon  # unknown (no stream information available)
+#seaIce/sisnhc_tavg-u-hxy-si@mon  # unknown (no stream information available)
+#seaIce/sisnmassacrossline_tavg-u-ht-u@mon  # unknown (no stream information available)
+#atmos/tauunoegw_tavg-p19-hxy-air@mon  # unknown (no stream information available), priority=medium
+#atmos/tauunowgw_tavg-p19-hxy-air@mon  # unknown (no stream information available), priority=medium
+#atmos/tauuogw_tavg-p19-hxy-air@mon  # unknown (no stream information available), priority=medium
+#atmos/tauvnogw_tavg-p19-hxy-air@mon  # unknown (no stream information available), priority=medium
+#atmos/tauvogw_tavg-p19-hxy-air@mon  # unknown (no stream information available), priority=medium
+#atmos/wbgt_tavg-h2m-hxy-u@day  # unknown (no stream information available), priority=medium
+#atmos/wbgt_tmax-h2m-hxy-u@day  # unknown (no stream information available), priority=medium
+#ocnBgchem/chl_tavg-op20bar-hxy-sea@day  # unknown (no stream information available), priority=medium
+#seaIce/sidragbot_tavg-u-hxy-si@mon  # unknown (no stream information available), priority=medium
+#seaIce/sirdgconc_tavg-u-hxy-si@day  # unknown (no stream information available), priority=medium
+#seaIce/sithick_tavg-u-hxy-sir@day  # unknown (no stream information available), priority=medium
+#seaIce/sithick_tavg-u-hxy-sir@mon  # unknown (no stream information available), priority=medium
+#atmos/loadnh4_tavg-u-hxy-u@day  # unknown (no stream information available), priority=low
+#atmos/loadno3_tavg-u-hxy-u@day  # unknown (no stream information available), priority=low
+#atmos/loadpoa_tavg-u-hxy-u@day  # unknown (no stream information available), priority=low
+#atmos/loadsoa_tavg-u-hxy-u@day  # unknown (no stream information available), priority=low
+#atmos/tas_tmax-h2m-hxy-crp@day  # unknown (no stream information available), priority=low
+#atmos/tas_tmin-h2m-hxy-crp@day  # unknown (no stream information available), priority=low
+#ocean/difmxybo_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, unknown (no stream information available), priority=low
+#ocean/difmxylo_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, unknown (no stream information available), priority=low
+#ocean/diftrelo_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, unknown (no stream information available), priority=low
+#ocean/dxto_ti-u-hxy-u@fx  # unknown (no stream information available), priority=low
+#ocean/dxuo_ti-u-hxy-u@fx  # unknown (no stream information available), priority=low
+#ocean/dxvo_ti-u-hxy-u@fx  # unknown (no stream information available), priority=low
+#ocean/dyto_ti-u-hxy-u@fx  # unknown (no stream information available), priority=low
+#ocean/dyuo_ti-u-hxy-u@fx  # unknown (no stream information available), priority=low
+#ocean/dyvo_ti-u-hxy-u@fx  # unknown (no stream information available), priority=low
+#ocean/ocontemppadvect_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, unknown (no stream information available), priority=low
+#ocean/opottemppadvect_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, unknown (no stream information available), priority=low
+#ocean/osaltpadvect_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, unknown (no stream information available), priority=low
+#aerosol/mmrno3_tavg-h2m-hxy-u@day:ap6  # do-not-produce
+#atmos/tntmp_tavg-p39-hy-air@day:ap6  # do-not-produce
+#atmos/tntmp_tavg-p39-hy-air@mon:ap5  # do-not-produce
+#atmos/tntrl_tavg-p39-hy-air@day:ap6  # do-not-produce
+#atmos/tntrl_tavg-p39-hy-air@mon:ap5  # do-not-produce
+#atmos/tntrs_tavg-p39-hy-air@day:ap6  # do-not-produce
+#atmos/tntrs_tavg-p39-hy-air@mon:ap5  # do-not-produce
+#ocean/bigthetao_tavg-op20bar-hxy-sea@day:ond/grid-T  # do-not-produce
+#ocean/tos_tpt-u-hxy-sea@3hr:on3/grid-T  # do-not-produce
+#atmos/tntc_tavg-p39-hy-air@mon:ap5  # do-not-produce, priority=medium
+#atmos/tntrlcs_tavg-p39-hy-air@mon:ap5  # do-not-produce, priority=medium
+#atmos/tntrscs_tavg-p39-hy-air@mon:ap5  # do-not-produce, priority=medium
+#atmos/tntscp_tavg-p39-hy-air@mon:ap5  # do-not-produce, priority=medium
 #land/lai_tavg-u-hxy-lnd@mon:ap5  # do-not-produce (not available with this model)
 #ocean/masscello_ti-ol-hxy-sea@fx  # do-not-produce (not available with this model)
 #ocean/thkcello_ti-ol-hxy-sea@fx  # do-not-produce (not available with this model)
@@ -965,12 +1049,6 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocnBgchem/o2_tavg-op20bar-hxy-sea@day  # do-not-produce (not available with this model), priority=medium
 #ocnBgchem/ph_tavg-op20bar-hxy-sea@day  # do-not-produce (not available with this model), priority=medium
 #ocnBgchem/talk_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model), priority=medium
-#seaIce/siforcecoriolx_tavg-u-hxy-si@mon:inm/icemod  # known-issue, known-issue, embargoed, priority=medium
-#seaIce/siforcecorioly_tavg-u-hxy-si@mon:inm/icemod  # known-issue, known-issue, embargoed, priority=medium
-#seaIce/siforceintstrx_tavg-u-hxy-si@mon:inm/icemod  # known-issue, known-issue, embargoed, priority=medium
-#seaIce/siforceintstry_tavg-u-hxy-si@mon:inm/icemod  # known-issue, known-issue, embargoed, priority=medium
-#seaIce/siforcetiltx_tavg-u-hxy-si@mon:inm/icemod  # known-issue, known-issue, embargoed, priority=medium
-#seaIce/siforcetilty_tavg-u-hxy-si@mon:inm/icemod  # known-issue, known-issue, embargoed, priority=medium
 #aerosol/sfpm1_tavg-h2m-hxy-u@1hr  # do-not-produce (not available with this model), priority=low
 #atmos/cldnci_tavg-u-hxy-cl@day  # do-not-produce (not available with this model), priority=low
 #atmos/loadbc_tavg-u-hxy-u@day:ap6  # do-not-produce (not available with this model), priority=low
@@ -1016,81 +1094,3 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocean/opottemptend_tavg-ol-hxy-sea@dec  # do-not-produce (not available with this model), priority=low
 #ocean/osaltpsmadvect_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model), priority=low
 #ocean/osaltpsmadvect_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, do-not-produce (not available with this model), priority=low
-#aerosol/mmrno3_tavg-h2m-hxy-u@day:ap6  # do-not-produce
-#atmos/tntmp_tavg-p39-hy-air@day:ap6  # do-not-produce
-#atmos/tntmp_tavg-p39-hy-air@mon:ap5  # do-not-produce
-#atmos/tntrl_tavg-p39-hy-air@day:ap6  # do-not-produce
-#atmos/tntrl_tavg-p39-hy-air@mon:ap5  # do-not-produce
-#atmos/tntrs_tavg-p39-hy-air@day:ap6  # do-not-produce
-#atmos/tntrs_tavg-p39-hy-air@mon:ap5  # do-not-produce
-#ocean/bigthetao_tavg-op20bar-hxy-sea@day:ond/grid-T  # do-not-produce
-#ocean/tos_tpt-u-hxy-sea@3hr:on3/grid-T  # do-not-produce
-#atmos/tntc_tavg-p39-hy-air@mon:ap5  # do-not-produce, priority=medium
-#atmos/tntrlcs_tavg-p39-hy-air@mon:ap5  # do-not-produce, priority=medium
-#atmos/tntrscs_tavg-p39-hy-air@mon:ap5  # do-not-produce, priority=medium
-#atmos/tntscp_tavg-p39-hy-air@mon:ap5  # do-not-produce, priority=medium
-#atmos/areacella_ti-u-hxy-u@fx  # unknown (no stream information available)
-#atmos/sftlf_ti-u-hxy-u@fx  # unknown (no stream information available)
-#land/mrsofc_ti-u-hxy-lnd@fx  # unknown (no stream information available)
-#land/orog_ti-u-hxy-u@fx  # unknown (no stream information available)
-#land/rootd_ti-u-hxy-lnd@fx  # unknown (no stream information available)
-#land/sftgif_ti-u-hxy-u@fx  # unknown (no stream information available)
-#land/slthick_ti-sl-hxy-lnd@fx  # unknown (no stream information available)
-#ocean/areacello_ti-u-hxy-u@fx  # unknown (no stream information available)
-#ocean/basin_ti-u-hxy-u@fx  # unknown (no stream information available)
-#ocean/deptho_ti-u-hxy-sea@fx  # unknown (no stream information available)
-#ocean/hfgeou_ti-u-hxy-sea@fx  # unknown (no stream information available)
-#ocean/sftof_ti-u-hxy-u@fx  # unknown (no stream information available)
-#aerosol/vt100_tavg-100hPa-hy-air@mon  # unknown (no stream information available)
-#atmos/dmc_tavg-alh-hxy-u@mon  # unknown (no stream information available)
-#atmos/pr_tmax-u-hxy-u@day  # unknown (no stream information available)
-#atmos/smc_tavg-alh-hxy-u@mon  # unknown (no stream information available)
-#atmos/tauunoegw_tavg-p39-hy-air@day  # unknown (no stream information available)
-#atmos/tauunowgw_tavg-p39-hy-air@day  # unknown (no stream information available)
-#atmos/tauuogw_tavg-p39-hy-air@day  # unknown (no stream information available)
-#atmos/tauvnogw_tavg-p39-hy-air@day  # unknown (no stream information available)
-#atmos/tauvogw_tavg-p39-hy-air@day  # unknown (no stream information available)
-#atmos/utendogw_tavg-p39-hy-air@mon  # unknown (no stream information available)
-#atmosChem/ch4ref_ti-al-hxy-u@fx  # unknown (no stream information available)
-#land/areacellr_ti-u-hxy-u@fx  # unknown (no stream information available)
-#land/mrsow_tavg-u-hxy-lnd@day  # unknown (no stream information available)
-#land/sftlaf_ti-u-hxy-u@fx  # unknown (no stream information available)
-#ocean/agessc_tavg-ol-hxy-sea@mon  # unknown (no stream information available)
-#ocean/rsds_tavg-u-hxy-ifs@mon  # unknown (no stream information available)
-#ocean/rsus_tavg-u-hxy-ifs@mon  # unknown (no stream information available)
-#seaIce/prra_tavg-u-hxy-si@mon  # unknown (no stream information available)
-#seaIce/simassacrossline_tavg-u-ht-u@mon  # unknown (no stream information available)
-#seaIce/sirdgconc_tavg-u-hxy-si@mon  # unknown (no stream information available)
-#seaIce/sisndmasswind_tavg-u-hxy-si@mon  # unknown (no stream information available)
-#seaIce/sisnhc_tavg-u-hxy-si@mon  # unknown (no stream information available)
-#seaIce/sisnmassacrossline_tavg-u-ht-u@mon  # unknown (no stream information available)
-#atmos/tauunoegw_tavg-p19-hxy-air@mon  # unknown (no stream information available), priority=medium
-#atmos/tauunowgw_tavg-p19-hxy-air@mon  # unknown (no stream information available), priority=medium
-#atmos/tauuogw_tavg-p19-hxy-air@mon  # unknown (no stream information available), priority=medium
-#atmos/tauvnogw_tavg-p19-hxy-air@mon  # unknown (no stream information available), priority=medium
-#atmos/tauvogw_tavg-p19-hxy-air@mon  # unknown (no stream information available), priority=medium
-#atmos/wbgt_tavg-h2m-hxy-u@day  # unknown (no stream information available), priority=medium
-#atmos/wbgt_tmax-h2m-hxy-u@day  # unknown (no stream information available), priority=medium
-#ocnBgchem/chl_tavg-op20bar-hxy-sea@day  # unknown (no stream information available), priority=medium
-#seaIce/sidragbot_tavg-u-hxy-si@mon  # unknown (no stream information available), priority=medium
-#seaIce/sirdgconc_tavg-u-hxy-si@day  # unknown (no stream information available), priority=medium
-#seaIce/sithick_tavg-u-hxy-sir@day  # unknown (no stream information available), priority=medium
-#seaIce/sithick_tavg-u-hxy-sir@mon  # unknown (no stream information available), priority=medium
-#atmos/loadnh4_tavg-u-hxy-u@day  # unknown (no stream information available), priority=low
-#atmos/loadno3_tavg-u-hxy-u@day  # unknown (no stream information available), priority=low
-#atmos/loadpoa_tavg-u-hxy-u@day  # unknown (no stream information available), priority=low
-#atmos/loadsoa_tavg-u-hxy-u@day  # unknown (no stream information available), priority=low
-#atmos/tas_tmax-h2m-hxy-crp@day  # unknown (no stream information available), priority=low
-#atmos/tas_tmin-h2m-hxy-crp@day  # unknown (no stream information available), priority=low
-#ocean/difmxybo_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, unknown (no stream information available), priority=low
-#ocean/difmxylo_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, unknown (no stream information available), priority=low
-#ocean/diftrelo_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, unknown (no stream information available), priority=low
-#ocean/dxto_ti-u-hxy-u@fx  # unknown (no stream information available), priority=low
-#ocean/dxuo_ti-u-hxy-u@fx  # unknown (no stream information available), priority=low
-#ocean/dxvo_ti-u-hxy-u@fx  # unknown (no stream information available), priority=low
-#ocean/dyto_ti-u-hxy-u@fx  # unknown (no stream information available), priority=low
-#ocean/dyuo_ti-u-hxy-u@fx  # unknown (no stream information available), priority=low
-#ocean/dyvo_ti-u-hxy-u@fx  # unknown (no stream information available), priority=low
-#ocean/ocontemppadvect_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, unknown (no stream information available), priority=low
-#ocean/opottemppadvect_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, unknown (no stream information available), priority=low
-#ocean/osaltpadvect_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, unknown (no stream information available), priority=low

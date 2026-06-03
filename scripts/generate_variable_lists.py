@@ -393,7 +393,7 @@ def identify_known_issues(experiment: str, renamed_variable_dict: dict[str, str]
                 except KeyError:
                     variant_dict = known_issues_dict[source_id]["*"]
                 for variant_label, variable_list in variant_dict.items():
-                    if any(value in variable_list for value in (variable, variable.split(":")[0])):
+                    if variable.split(":")[0] in variable_list and "known-issue" not in renamed_variable_dict[variable]:
                         renamed_variable_dict[variable].insert(0, "known-issue")
 
     return renamed_variable_dict
@@ -479,10 +479,8 @@ def sort_key(line: str) -> int:
         they appear at the top of the variable list.
     """
     if "do-not-produce (not available with this model)" in line:
-        return 5
+        return 8
     elif "unknown (no stream information available)" in line:
-        return 7
-    elif "do-not-produce" in line:
         return 6
     elif "do-not-produce" in line:
         return 7
