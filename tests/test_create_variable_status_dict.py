@@ -15,7 +15,8 @@ class TestGetAllModels(unittest.TestCase):
         mappings_dict = read_json(MAPPINGS_FILE_LOCATION)
         all_models = get_all_models(mappings_dict)
         expected = {'HadGEM3-GC5', 'UKESM1-3', 'HadGEM3-GC31', 'UKESM1', 'UKESM2'}
-        self.assertEqual(get_all_models(mappings_dict), expected, f"Failed to identify all models in mappings:\nGot: {all_models}\nExpected: {expected}")
+        self.assertEqual(get_all_models(mappings_dict), expected, f"Failed to identify all models in mappings:\nGot: "
+                         f"{all_models}\nExpected: {expected}")
 
 
 if __name__ == "__main__":
