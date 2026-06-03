@@ -1,0 +1,49 @@
+# (C) British Crown Copyright 2026, Met Office.
+# Please see LICENSE.md for license details.
+
+name: "Update mappings"
+on:
+  workflow_dispatch: 
+
+jobs:
+  update-mappings:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+        
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: install dependencies
+        run: |
+          pip install requests
+
+      - name: update mapping json
+        id: update-mapping-json
+        run: python scripts/update_mapping_file.py
+
+      - name: update model status dicts
+        id: update-model-status-dicts
+        run: python scripts/create_variable_status_dict.py
+
+      - name: update variable lists
+        id: update_variable_lists
+        run: python scripts/update_all_variable_lists.py
+
+      - name: commit files
+        id: commit-files
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+
+          git add *.json *.txt
+          git commit -m "Update mappings file"
+          git push origin main
