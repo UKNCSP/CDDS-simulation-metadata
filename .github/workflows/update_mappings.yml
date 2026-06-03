@@ -3,7 +3,12 @@
 
 name: "Update mappings"
 on:
-  workflow_dispatch: 
+  workflow_dispatch:
+    inputs:
+      mapping_version:
+        type: string
+        description: Mappings tag version
+        required: true
 
 jobs:
   update-mappings:
@@ -28,7 +33,9 @@ jobs:
 
       - name: update mapping json
         id: update-mapping-json
-        run: python scripts/update_mapping_file.py
+        run: |
+          echo "Using mapping file version tag: ${{ github.event.inputs.mapping_version }}"
+          GH_ACTION_INPUT=${{ github.event.inputs.mapping_version }} python scripts/update_mapping_file.py
 
       - name: update model status dicts
         id: update-model-status-dicts
@@ -44,6 +51,6 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
 
-          git add *.json *.txt
-          git commit -m "Update mappings file"
+          git add *.json *.txt *.md
+          git commit -m "Update mappings file" || echo "No new changes to commit"
           git push origin main
