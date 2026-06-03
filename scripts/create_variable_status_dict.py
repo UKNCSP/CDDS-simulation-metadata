@@ -13,7 +13,6 @@ import json
 import sys
 
 from difflib import get_close_matches
-from pathlib import Path
 
 from scripts.common import read_json
 from scripts.constants import REF_INFO_DIR, MAPPINGS_FILE_LOCATION

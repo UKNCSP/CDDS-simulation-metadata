@@ -23,6 +23,10 @@
         "*": {
             "*": {
                 "atmos/ta_tpt-p7h-hxy-air@6hr": "temperature field in model has fewer levels than is required by variable",
+                "atmos/ps_tpt-u-hxy-u@6hr": "Stash 0,409 setup for time mean profile T6HRMN rather than time point T6HR",
+                "atmos/ts_tpt-u-hxy-u@6hr": "Stash 0,024 setup for time mean profile T6HRMN rather than time point T6HR",
+                "atmos/ua_tpt-p7h-hxy-air@6hr": "pressure level unit prefix mismatch (Pa rather than HPa) leading to cmor axis error (see CDDS issue #800)",
+                "atmos/va_tpt-p7h-hxy-air@6hr": "pressure level unit prefix mismatch (Pa rather than HPa) leading to cmor axis error (see CDDS issue #800)",
                 "seaIce/siforcecoriolx_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
                 "seaIce/siforcecorioly_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
                 "seaIce/siforceintstrx_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
