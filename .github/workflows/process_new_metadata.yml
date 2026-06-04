@@ -25,8 +25,8 @@ jobs:
 
       - name: install dependencies
         run: |
-          pip install metomi-isodatetime==3.0.0
-          pip install requests==2.34.2
+          pip install "metomi-isodatetime==3.0.0"
+          pip install "requests==2.34.2"
         
       - name: create metadata file
         id: create-file
