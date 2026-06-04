@@ -1,5 +1,4 @@
 <!--(C) British Crown Copyright 2025, Met Office. Please see LICENSE.md for license details.--> 
-**NOTE: Please note that use of GitHub Actions is currently suspended until further notice. Any issue forms will not trigger their associated actions, hence will not be processed at this time. We will handle these and take the steps to encorporate your contributions when possible.
 
 # CDDS Simulation Metadata For CMIP7
 [![Deploy static content to Pages](https://github.com/UKNCSP/CDDS-simulation-metadata/actions/workflows/deploy_pages.yml/badge.svg)](https://github.com/UKNCSP/CDDS-simulation-metadata/actions/workflows/deploy_pages.yml)
