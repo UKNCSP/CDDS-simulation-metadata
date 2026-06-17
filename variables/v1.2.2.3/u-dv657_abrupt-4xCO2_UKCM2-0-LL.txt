@@ -266,7 +266,6 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #aerosol/ec550aer_tpt-al-hxy-u@6hr:ap7  # embargoed
 #aerosol/emibc_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/emidms_tavg-u-hxy-u@mon:ap5  # embargoed
-#aerosol/emiisop_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/emiso2_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/emiso4_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/emiss_tavg-u-hxy-u@mon:ap4  # embargoed
@@ -600,6 +599,7 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocean/rsdoabsorb_tavg-ol-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed, priority=low
 #ocean/somint_tavg-u-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed, priority=low
 #ocean/tnpeo_tavg-u-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed, priority=low
+#aerosol/emiisop_tavg-u-hxy-u@mon:ap4  # known-issue, embargoed
 #seaIce/siforcecoriolx_tavg-u-hxy-si@mon:inm/icemod  # known-issue, embargoed, priority=medium
 #seaIce/siforcecorioly_tavg-u-hxy-si@mon:inm/icemod  # known-issue, embargoed, priority=medium
 #seaIce/siforceintstrx_tavg-u-hxy-si@mon:inm/icemod  # known-issue, embargoed, priority=medium

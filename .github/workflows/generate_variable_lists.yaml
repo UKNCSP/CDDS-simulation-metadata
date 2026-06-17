@@ -28,7 +28,7 @@ jobs:
 
       - name: install dependencies
         run: |
-          pip install requests
+          pip install requests==2.34.2
 
       - name: get commit
         id: get-commit

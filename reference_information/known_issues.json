@@ -15,7 +15,8 @@
                 "seaIce/siforceintstrx_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
                 "seaIce/siforceintstry_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
                 "seaIce/siforcetiltx_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
-                "seaIce/siforcetilty_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting."
+                "seaIce/siforcetilty_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
+                "aerosol/emiisop_tavg-u-hxy-u@mon": "Garbled data in UKCM2."
             }
         }
     },
@@ -32,7 +33,8 @@
                 "seaIce/siforceintstrx_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
                 "seaIce/siforceintstry_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
                 "seaIce/siforcetiltx_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
-                "seaIce/siforcetilty_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting."
+                "seaIce/siforcetilty_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
+                "aerosol/emiisop_tavg-u-hxy-u@mon": "Garbled data in UKCM2."
             }
         },
         "1pctCO2": {
