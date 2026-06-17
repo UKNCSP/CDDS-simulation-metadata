@@ -250,7 +250,6 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #aerosol/emibvoc_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/emico_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/emidms_tavg-u-hxy-u@mon:ap5  # embargoed
-#aerosol/emiisop_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/emilnox_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/eminh3_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/eminox_tavg-u-hxy-u@mon:ap4  # embargoed
@@ -708,6 +707,7 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocean/rsdoabsorb_tavg-ol-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed, priority=low
 #ocean/somint_tavg-u-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed, priority=low
 #ocean/tnpeo_tavg-u-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed, priority=low
+#aerosol/emiisop_tavg-u-hxy-u@mon:ap4  # known-issue, known-issue, embargoed
 #atmos/areacella_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
 #atmos/sftlf_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
 #land/mrsofc_ti-u-hxy-lnd@fx  # do-not-produce (not available with this model)
