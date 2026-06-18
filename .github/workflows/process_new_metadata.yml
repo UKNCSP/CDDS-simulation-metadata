@@ -21,11 +21,12 @@ jobs:
       - name: setup python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.11
+          python-version: 3.12
 
       - name: install dependencies
         run: |
-          pip install metomi-isodatetime
+          pip install "metomi-isodatetime==1!3.0.0"
+          pip install "requests==2.34.2"
         
       - name: create metadata file
         id: create-file
@@ -79,7 +80,7 @@ jobs:
           git push origin main
 
           gh issue comment "$ISSUE" --body "$BODY"
-          gh issue close --repo "$REPO" --comment "Closing issue $ISSUE" "$ISSUE"
+          gh issue close --repo "$REPO" "$ISSUE"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}

@@ -11,10 +11,8 @@ import sys
 from configparser import ConfigParser, SectionProxy
 from pathlib import Path
 
-from scripts.common import read_json
-from scripts.constants import MIP_TABLE_DIR
+from scripts.constants import MIP_TABLE_DIR, CMOR_CV_JSON
 
-CV_FILE_LOCATION = "reference_information/cmip7_cmor_tables.json"
 WORKFLOW_METADATA_DIR = "workflow_metadata"
 VARIABLE_LIST_DIR = "variables/v1.2.2.3"
 REQUEST_TEMPLATE = {
@@ -188,7 +186,7 @@ def validate_request(request: dict) -> None:
     RuntimeError
         If any request file content cannot be validated against cvs.
     """
-    cv = read_json(Path(CV_FILE_LOCATION))
+    cv = CMOR_CV_JSON
     cv_errors = []
 
     if request["metadata"]["institution_id"] not in cv["CV"]["institution_id"]:

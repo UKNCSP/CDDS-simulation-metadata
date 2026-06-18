@@ -359,6 +359,9 @@ def reformat_variable_names(
         realm, variable_name, branding, frequency, region = parts[:5]
         stream = streams.get(variable, "")
 
+        if frequency == "yr":
+            comment.insert(0, "Yearly variables unable to be processed at this time")
+
         # Filter out any non global variables
         if region == "glb":
             new_variable_name = (f"{realm}/{variable_name}_{branding}@{frequency}:{stream}" if stream else
@@ -397,7 +400,7 @@ def identify_known_issues(experiment: str, renamed_variable_dict: dict[str, str]
                 except KeyError:
                     variant_dict = known_issues_dict[source_id]["*"]
                 for variant_label, variable_list in variant_dict.items():
-                    if any(value in variable_list for value in (variable, variable.split(":")[0])):
+                    if variable.split(":")[0] in variable_list and "known-issue" not in renamed_variable_dict[variable]:
                         renamed_variable_dict[variable].insert(0, "known-issue")
 
     return renamed_variable_dict
@@ -483,10 +486,14 @@ def sort_key(line: str) -> int:
         they appear at the top of the variable list.
     """
     if "do-not-produce (not available with this model)" in line:
-        return 5
-    elif "do-not-produce" in line:
+        return 8
+    elif "unknown (no stream information available)" in line:
         return 6
+    elif "do-not-produce" in line:
+        return 7
     elif "known-issue" in line:
+        return 5
+    elif "Yearly variables unable to be processed at this time" in line:
         return 4
     elif "embargoed" in line:
         return 3

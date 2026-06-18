@@ -26,6 +26,10 @@ jobs:
         with:
           python-version: 3.11
 
+      - name: install dependencies
+        run: |
+          pip install requests==2.34.2
+
       - name: get commit
         id: get-commit
         run: |
