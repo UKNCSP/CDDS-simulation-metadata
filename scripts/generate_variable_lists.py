@@ -303,7 +303,7 @@ def get_streams(experiment_dict: dict, experiment: str, mappings_dict: list[dict
     for variable in all_labels:
         mapping = get_mapping(mappings_dict, variable)
         stream = mapping.get("stream").lower()
-        if "fx" in mapping.get("labels"):
+        if "fx" in mapping.get("labels") and not stream:
             realm = variable.split(".")[0]
             if realm in ["ocean", "ocnBgchem", "seaIce"]:
                 stream = "ofx"
