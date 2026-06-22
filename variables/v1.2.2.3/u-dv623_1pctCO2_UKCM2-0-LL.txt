@@ -233,16 +233,28 @@ atmos/reffsclwtop_tavg-u-hxy-scl@day:ap6  # approved, priority=low
 atmos/scldncl_tavg-u-hxy-scl@day:ap6  # approved, priority=low
 land/tran_tavg-u-hxy-lnd@mon:ap5  # approved, priority=low
 ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
+#atmos/areacella_ti-u-hxy-u@fx:afx  # embargoed
 #atmos/hurs_tavg-h2m-hxy-u@6hr:ap7  # embargoed
 #atmos/pr_tavg-u-hxy-u@1hr:ap9  # embargoed
 #atmos/rluscs_tavg-u-hxy-u@mon:ap5  # embargoed
+#atmos/sftlf_ti-u-hxy-u@fx:afx  # embargoed
 #atmos/ta_tpt-p3-hxy-air@6hr:ap7  # embargoed
 #atmos/ua_tpt-p3-hxy-air@6hr:ap7  # embargoed
 #atmos/uas_tpt-h10m-hxy-u@3hr:ap8  # embargoed
 #atmos/va_tpt-p3-hxy-air@6hr:ap7  # embargoed
 #atmos/vas_tpt-h10m-hxy-u@3hr:ap8  # embargoed
+#land/mrsofc_ti-u-hxy-lnd@fx:afx  # embargoed
 #land/mrsol_tavg-d10cm-hxy-lnd@mon:ap5  # embargoed
+#land/orog_ti-u-hxy-u@fx:afx  # embargoed
+#land/rootd_ti-u-hxy-lnd@fx:afx  # embargoed
+#land/sftgif_ti-u-hxy-u@fx:afx  # embargoed
+#land/slthick_ti-sl-hxy-lnd@fx:afx  # embargoed
+#ocean/areacello_ti-u-hxy-u@fx:ofx  # embargoed
+#ocean/basin_ti-u-hxy-u@fx:ofx  # embargoed
 #ocean/bigthetao_tavg-ol-hxy-sea@mon:onm/grid-T  # embargoed
+#ocean/deptho_ti-u-hxy-sea@fx:ofx  # embargoed
+#ocean/hfgeou_ti-u-hxy-sea@fx:ofx  # embargoed
+#ocean/sftof_ti-u-hxy-u@fx:ofx  # embargoed
 #ocean/sos_tavg-u-hxy-sea@day:ond/grid-T  # embargoed
 #ocean/zos_tavg-u-hxy-sea@day:ond/grid-T  # embargoed
 #ocean/zostoga_tavg-u-hm-sea@mon:onm/grid-T  # embargoed
@@ -411,6 +423,9 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/zg_tpt-p3-hxy-air@6hr:ap7  # embargoed
 #atmos/zg_tpt-p7h-hxy-air@6hr:ap7  # embargoed
 #atmos/ztp_tavg-u-hxy-u@mon:ap4  # embargoed
+#atmosChem/ch4ref_ti-al-hxy-u@fx:afx  # embargoed
+#atmosChem/o3ref_tclm-al-hxy-u@fx:ap4  # embargoed
+#land/areacellr_ti-u-hxy-u@fx:afx  # embargoed
 #land/evspsblpot_tavg-u-hxy-lnd@day:ap6  # embargoed
 #land/evspsblsoi_tavg-u-hxy-u@day:ap6  # embargoed
 #land/evspsblveg_tavg-u-hxy-u@day:ap6  # embargoed
@@ -418,6 +433,7 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #land/mrros_tavg-u-hxy-lnd@day:ap6  # embargoed
 #land/mrsfl_tavg-sl-hxy-lnd@day:ap6  # embargoed
 #land/sftgif_tavg-u-hxy-u@mon:ap5  # embargoed
+#land/sftlaf_ti-u-hxy-u@fx:afx  # embargoed
 #land/wetlandCH4_tavg-u-hxy-lnd@mon:ap5  # embargoed
 #land/wtd_tavg-u-hxy-lnd@day:ap6  # embargoed
 #landIce/acabf_tavg-u-hxy-is@mon:ap5  # embargoed
@@ -575,6 +591,12 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/hurs_tmin-h2m-hxy-crp@day:ap6  # embargoed, priority=low
 #atmos/rsds_tavg-u-hxy-u@1hr:ap9  # embargoed, priority=low
 #atmos/sfcWind_tavg-h10m-hxy-u@1hr:ap9  # embargoed, priority=low
+#ocean/dxto_ti-u-hxy-u@fx:ofx  # embargoed, priority=low
+#ocean/dxuo_ti-u-hxy-u@fx:ofx  # embargoed, priority=low
+#ocean/dxvo_ti-u-hxy-u@fx:ofx  # embargoed, priority=low
+#ocean/dyto_ti-u-hxy-u@fx:ofx  # embargoed, priority=low
+#ocean/dyuo_ti-u-hxy-u@fx:ofx  # embargoed, priority=low
+#ocean/dyvo_ti-u-hxy-u@fx:ofx  # embargoed, priority=low
 #ocean/sossq_tavg-u-hxy-sea@mon:onm/grid-T  # embargoed, priority=low
 #ocean/thkcelluo_tavg-ol-hxy-sea@mon:onm/grid-U  # embargoed, priority=low
 #ocean/thkcellvo_tavg-ol-hxy-sea@mon:onm/grid-V  # embargoed, priority=low
@@ -606,18 +628,6 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #seaIce/siforceintstry_tavg-u-hxy-si@mon:inm/icemod  # known-issue, embargoed, priority=medium
 #seaIce/siforcetiltx_tavg-u-hxy-si@mon:inm/icemod  # known-issue, embargoed, priority=medium
 #seaIce/siforcetilty_tavg-u-hxy-si@mon:inm/icemod  # known-issue, embargoed, priority=medium
-#atmos/areacella_ti-u-hxy-u@fx  # unknown (no stream information available)
-#atmos/sftlf_ti-u-hxy-u@fx  # unknown (no stream information available)
-#land/mrsofc_ti-u-hxy-lnd@fx  # unknown (no stream information available)
-#land/orog_ti-u-hxy-u@fx  # unknown (no stream information available)
-#land/rootd_ti-u-hxy-lnd@fx  # unknown (no stream information available)
-#land/sftgif_ti-u-hxy-u@fx  # unknown (no stream information available)
-#land/slthick_ti-sl-hxy-lnd@fx  # unknown (no stream information available)
-#ocean/areacello_ti-u-hxy-u@fx  # unknown (no stream information available)
-#ocean/basin_ti-u-hxy-u@fx  # unknown (no stream information available)
-#ocean/deptho_ti-u-hxy-sea@fx  # unknown (no stream information available)
-#ocean/hfgeou_ti-u-hxy-sea@fx  # unknown (no stream information available)
-#ocean/sftof_ti-u-hxy-u@fx  # unknown (no stream information available)
 #aerosol/vt100_tavg-100hPa-hy-air@mon  # unknown (no stream information available)
 #atmos/dmc_tavg-alh-hxy-u@mon  # unknown (no stream information available)
 #atmos/pr_tmax-u-hxy-u@day  # unknown (no stream information available)
@@ -628,10 +638,7 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/tauvnogw_tavg-p39-hy-air@day  # unknown (no stream information available)
 #atmos/tauvogw_tavg-p39-hy-air@day  # unknown (no stream information available)
 #atmos/utendogw_tavg-p39-hy-air@mon  # unknown (no stream information available)
-#atmosChem/ch4ref_ti-al-hxy-u@fx  # unknown (no stream information available)
-#land/areacellr_ti-u-hxy-u@fx  # unknown (no stream information available)
 #land/mrsow_tavg-u-hxy-lnd@day  # unknown (no stream information available)
-#land/sftlaf_ti-u-hxy-u@fx  # unknown (no stream information available)
 #ocean/agessc_tavg-ol-hxy-sea@mon  # unknown (no stream information available)
 #ocean/rsds_tavg-u-hxy-ifs@mon  # unknown (no stream information available)
 #ocean/rsus_tavg-u-hxy-ifs@mon  # unknown (no stream information available)
@@ -659,15 +666,11 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocean/difmxybo_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, unknown (no stream information available), priority=low
 #ocean/difmxylo_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, unknown (no stream information available), priority=low
 #ocean/diftrelo_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, unknown (no stream information available), priority=low
-#ocean/dxto_ti-u-hxy-u@fx  # unknown (no stream information available), priority=low
-#ocean/dxuo_ti-u-hxy-u@fx  # unknown (no stream information available), priority=low
-#ocean/dxvo_ti-u-hxy-u@fx  # unknown (no stream information available), priority=low
-#ocean/dyto_ti-u-hxy-u@fx  # unknown (no stream information available), priority=low
-#ocean/dyuo_ti-u-hxy-u@fx  # unknown (no stream information available), priority=low
-#ocean/dyvo_ti-u-hxy-u@fx  # unknown (no stream information available), priority=low
 #ocean/ocontemppadvect_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, unknown (no stream information available), priority=low
 #ocean/opottemppadvect_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, unknown (no stream information available), priority=low
 #ocean/osaltpadvect_tavg-ol-hxy-sea@yr  # Yearly variables unable to be processed at this time, unknown (no stream information available), priority=low
+#ocean/masscello_ti-ol-hxy-sea@fx:ofx  # do-not-produce
+#ocean/thkcello_ti-ol-hxy-sea@fx:ofx  # do-not-produce
 #aerosol/mmrno3_tavg-h2m-hxy-u@day:ap6  # do-not-produce
 #atmos/tntmp_tavg-p39-hy-air@day:ap6  # do-not-produce
 #atmos/tntmp_tavg-p39-hy-air@mon:ap5  # do-not-produce
@@ -675,15 +678,21 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/tntrl_tavg-p39-hy-air@mon:ap5  # do-not-produce
 #atmos/tntrs_tavg-p39-hy-air@day:ap6  # do-not-produce
 #atmos/tntrs_tavg-p39-hy-air@mon:ap5  # do-not-produce
+#atmosChem/o3ref_ti-al-hxy-u@fx:afx  # do-not-produce
+#land/depthl_ti-u-hxy-u@fx:afx  # do-not-produce
+#land/depthsl_ti-u-hxy-u@fx:afx  # do-not-produce
+#landIce/lithk_ti-u-hxy-u@fx:afx  # do-not-produce
+#landIce/sftflf_ti-u-hxy-u@fx:afx  # do-not-produce
+#landIce/sftgrf_ti-u-hxy-u@fx:afx  # do-not-produce
 #ocean/bigthetao_tavg-op20bar-hxy-sea@day:ond/grid-T  # do-not-produce
 #ocean/tos_tpt-u-hxy-sea@3hr:on3/grid-T  # do-not-produce
+#ocean/volcello_ti-ol-hxy-sea@fx:ofx  # do-not-produce
 #atmos/tntc_tavg-p39-hy-air@mon:ap5  # do-not-produce, priority=medium
 #atmos/tntrlcs_tavg-p39-hy-air@mon:ap5  # do-not-produce, priority=medium
 #atmos/tntrscs_tavg-p39-hy-air@mon:ap5  # do-not-produce, priority=medium
 #atmos/tntscp_tavg-p39-hy-air@mon:ap5  # do-not-produce, priority=medium
+#atmos/zfull_ti-al-hxy-u@fx:afx  # do-not-produce, priority=low
 #land/lai_tavg-u-hxy-lnd@mon:ap5  # do-not-produce (not available with this model)
-#ocean/masscello_ti-ol-hxy-sea@fx  # do-not-produce (not available with this model)
-#ocean/thkcello_ti-ol-hxy-sea@fx  # do-not-produce (not available with this model)
 #aerosol/abs550bc_tavg-u-hxy-u@mon  # do-not-produce (not available with this model)
 #aerosol/abs550no3_tavg-u-hxy-u@mon  # do-not-produce (not available with this model)
 #aerosol/abs550oa_tavg-u-hxy-u@mon  # do-not-produce (not available with this model)
@@ -869,8 +878,6 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmosChem/o3_tavg-p39-hy-air@mon:ap4  # do-not-produce (not available with this model)
 #atmosChem/o3_tclm-p19-hxy-air@mon  # do-not-produce (not available with this model)
 #atmosChem/o3_tpt-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
-#atmosChem/o3ref_tclm-al-hxy-u@fx:ap4  # do-not-produce (not available with this model)
-#atmosChem/o3ref_ti-al-hxy-u@fx  # do-not-produce (not available with this model)
 #atmosChem/o3ste_tavg-al-hxy-u@mon  # do-not-produce (not available with this model)
 #atmosChem/rlutch4ref_tavg-u-hxy-u@mon:ap5  # do-not-produce (not available with this model)
 #atmosChem/rlutcsch4ref_tavg-u-hxy-u@mon:ap5  # do-not-produce (not available with this model)
@@ -897,8 +904,6 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #land/cSoil_tavg-u-hxy-lnd@mon:ap5  # do-not-produce (not available with this model)
 #land/cVeg_tavg-u-hxy-lnd@mon:ap5  # do-not-produce (not available with this model)
 #land/dcw_tavg-u-hxy-lnd@day  # do-not-produce (not available with this model)
-#land/depthl_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
-#land/depthsl_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
 #land/dslw_tavg-u-hxy-lnd@day  # do-not-produce (not available with this model)
 #land/fFire_tavg-u-hxy-lnd@mon  # do-not-produce (not available with this model)
 #land/fFireAll_tavg-u-hxy-lnd@mon  # do-not-produce (not available with this model)
@@ -923,16 +928,13 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #land/vegFrac_tavg-u-hxy-u@mon:ap5  # do-not-produce (not available with this model)
 #land/vegHeight_tavg-u-hxy-veg@mon:ap5  # do-not-produce (not available with this model)
 #landIce/icem_tavg-u-hxy-is@mon:ap6  # do-not-produce (not available with this model)
-#landIce/lithk_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
 #landIce/orog_tavg-u-hxy-is@mon:ap5  # do-not-produce (not available with this model)
 #landIce/prra_tavg-u-hxy-is@mon:ap5  # do-not-produce (not available with this model)
 #landIce/prsn_tavg-u-hxy-is@mon:ap5  # do-not-produce (not available with this model)
 #landIce/rsds_tavg-u-hxy-is@mon:ap5  # do-not-produce (not available with this model)
 #landIce/rsus_tavg-u-hxy-is@mon:ap5  # do-not-produce (not available with this model)
 #landIce/sftflf_tavg-u-hxy-u@mon  # do-not-produce (not available with this model)
-#landIce/sftflf_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
 #landIce/sftgrf_tavg-u-hxy-u@mon  # do-not-produce (not available with this model)
-#landIce/sftgrf_ti-u-hxy-u@fx  # do-not-produce (not available with this model)
 #landIce/snc_tavg-u-hxy-is@mon:ap6  # do-not-produce (not available with this model)
 #landIce/tsn_tavg-u-hxy-is@mon  # do-not-produce (not available with this model)
 #landIce/tsn_tavg-u-hxy-lnd@mon  # do-not-produce (not available with this model)
@@ -984,7 +986,6 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocean/thkcello_tavg-ol-hxy-sea@dec  # do-not-produce (not available with this model)
 #ocean/tob_tavg-u-hxy-sea@mon  # do-not-produce (not available with this model)
 #ocean/volcello_tavg-ol-hxy-sea@dec  # do-not-produce (not available with this model)
-#ocean/volcello_ti-ol-hxy-sea@fx  # do-not-produce (not available with this model)
 #ocean/volo_tavg-u-hm-sea@dec  # do-not-produce (not available with this model)
 #ocean/wdir_tavg-u-hxy-sea@mon  # do-not-produce (not available with this model)
 #ocean/wdir_tpt-u-hxy-sea@3hr  # do-not-produce (not available with this model)
@@ -1057,7 +1058,6 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/loadss_tavg-u-hxy-u@day:ap6  # do-not-produce (not available with this model), priority=low
 #atmos/pr_tavg-u-hxy-crp@day  # do-not-produce (not available with this model), priority=low
 #atmos/rsdscsdiff_tavg-u-hxy-u@day  # do-not-produce (not available with this model), priority=low
-#atmos/zfull_ti-al-hxy-u@fx  # do-not-produce (not available with this model), priority=low
 #atmosChem/drynh3_tavg-u-hxy-u@day  # do-not-produce (not available with this model), priority=low
 #atmosChem/drynh4_tavg-u-hxy-u@day  # do-not-produce (not available with this model), priority=low
 #atmosChem/drynoy_tavg-u-hxy-u@day:ap6  # do-not-produce (not available with this model), priority=low

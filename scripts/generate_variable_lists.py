@@ -303,8 +303,15 @@ def get_streams(experiment_dict: dict, experiment: str, mappings_dict: list[dict
     for variable in all_labels:
         mapping = get_mapping(mappings_dict, variable)
         stream = mapping.get("stream").lower()
+        if "fx" in mapping.get("labels") and not stream:
+            realm = variable.split(".")[0]
+            if realm in ["ocean", "ocnBgchem", "seaIce"]:
+                stream = "ofx"
+            elif realm in ["atmos", "aerosol", "atmosChem", "land", "landIce"]:
+                stream = "afx"
         if not stream:
             stream = get_stream_from_XIOS(mapping, model, variable)
+
         streams[variable] = stream
 
     return streams

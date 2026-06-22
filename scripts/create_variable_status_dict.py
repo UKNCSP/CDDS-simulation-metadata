@@ -57,9 +57,17 @@ def get_variable_status(mappings_dict: list[dict], model: str) -> dict:
     variable_status_dict = {}
     for mapping in mappings_dict:
         variable = mapping["branded_variable"]
-        if not mapping["models_in_stash"] and not mapping["XIOS entries"] and "do-not-produce" not in mapping["labels"]:
+        if (
+            not mapping["models_in_stash"]
+            and not mapping["XIOS entries"]
+            and not any(label in mapping["labels"] for label in ('do-not-produce', 'fx'))
+        ):
             variable_status_dict[variable] = "unknown (no stream information available)"
-        elif model in mapping["models_in_stash"] or model in mapping["XIOS entries"].keys():
+        elif (
+            model in mapping["models_in_stash"]
+            or model in mapping["XIOS entries"].keys()
+            or "fx" in mapping["labels"]
+        ):
             labels = mapping["labels"]
             if "do-not-produce" in labels:
                 variable_status_dict[variable] = "do-not-produce"
