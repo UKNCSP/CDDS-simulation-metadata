@@ -11,6 +11,12 @@ body:
       value: |
         # Add or modify metadata for a CDDS workflow
 
+  - type: markdown
+    attributes:
+      value: |
+        ### NOTE: If your workflow uses NEMO data over years 1850-1900, the data may require an additional fix prior to processing.
+        Please contact CDDS team to discuss and we will supply you with a script to correct the model data.
+
   - type: dropdown
     id: issue_kind
     attributes:
@@ -168,6 +174,16 @@ body:
       default: 0
     validations:
       required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional Notes
+      description: Any additional notes about the workflow you are registering.
+      placeholder: |
+        Add any additional notes here. This could be information about the workflow itself or which platform hosts the input data (e.g. disk, MASS or moomin).
+        
+        NOTE: This is a public repository. Do not include confidential, sensitive information, or explicit data paths. Please perform the expected due diligence to confirm that any notes are suitable for public release.
 
   - type: markdown
     attributes:
