@@ -14,8 +14,8 @@ body:
   - type: markdown
     attributes:
       value: |
-        ### NOTE: If your workflow uses NEMO data over years 1850-1900, the data may require an additional fix prior to processing.
-        Please contact CDDS team to discuss and we will supply you with a script to correct the model data.
+        ### NOTE: If your workflow uses NEMO data over the years 1850-1900, the data may require an additional fix prior to processing.
+        Please contact the CDDS team to discuss this and we will supply you with a script to correct the model data.
 
   - type: dropdown
     id: issue_kind
