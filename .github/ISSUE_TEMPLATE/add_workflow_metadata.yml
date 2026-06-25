@@ -129,7 +129,7 @@ body:
     id: institution_id
     attributes:
       label: Institution ID
-      description: Institution identifier. PLease select UKNCSP unless discussed with the CMIP project team.
+      description: Institution identifier. Please select UKNCSP unless discussed with the CMIP project team.
       options:
         - "UKNCSP"
         - "MOHC"
