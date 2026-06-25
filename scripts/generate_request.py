@@ -55,7 +55,7 @@ REQUEST_TEMPLATE = {
         "root_data_dir": "$CDDS_DATA/data",
         "sites_file": "$CDDS_ETC/cfmip2/cfmip2-sites-orog.txt",
         "standard_names_dir": "$CDDS_ETC/standard_names/",
-        "standard_names_version": "latest",
+        "standard_names_version": "93",
         "workflow_basename": ""
     },
     "data": {
