@@ -112,6 +112,9 @@ def process_metadata(match: list) -> dict[str, str]:
     """
     meta_dict = {}
 
+    # Manually populate base_date, this is a fixed value that should** be the same for all workflows
+    match.append(('Base date', '1850-01-01T00:00:00Z'))
+
     # Clean parsed data
     for key, value in set(match):
         clean = key.strip().lower().replace(" ", "_")
@@ -125,9 +128,6 @@ def process_metadata(match: list) -> dict[str, str]:
     for key, value in meta_dict.items():
         if meta_dict[key] == "_No response_":
             meta_dict[key] = ""
-
-    # Manually populate base_date, this is a fixed value that should** be the same for all workflows
-    meta_dict["base_date"] = "1850-01-01T00:00:00Z"
 
     return meta_dict
 
