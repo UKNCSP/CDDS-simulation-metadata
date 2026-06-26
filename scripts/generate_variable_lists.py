@@ -16,6 +16,7 @@ Example command line usage:
 
 import re
 import os
+import sys
 from itertools import chain
 from pathlib import Path
 
@@ -40,7 +41,11 @@ def get_grouped_priority_labels(experiment_dict: dict, experiment: str) -> dict:
     dict
         A dictionary of labels grouped by priority (core, high, med, low).
     """
-    experiment_data = experiment_dict["experiment"][experiment]
+    try:
+        experiment_data = experiment_dict["experiment"][experiment]
+    except KeyError:
+        print(f"WARNING: Unable to find experiment {experiment} in the data request.")
+        sys.exit(1)
 
     return {
         "core": experiment_data.get("Core", []),

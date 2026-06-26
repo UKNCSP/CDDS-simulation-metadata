@@ -77,6 +77,7 @@ jobs:
               ${{ github.event.issue.body }}
         run: |
           python scripts/generate_variable_lists.py
+        continue-on-error: true
 
       - name: warn of missing variable list
         if: steps.generate-variable-list.outcome == 'failure' && steps.create-file.outcome == 'success'
