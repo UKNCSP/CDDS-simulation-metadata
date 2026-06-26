@@ -14,33 +14,15 @@ Example command line usage:
 "python scripts/generate_variable_lists.py a-bc123 1pctCO2 UKESM1-3"
 """
 
-import argparse
+import re
 import os
 from itertools import chain
 from pathlib import Path
 
-from common import read_json
+from common import read_json, get_issue, process_metadata
 from constants import REF_INFO_DIR, MAPPINGS_FILE_LOCATION, KNOWN_ISSUES_DICT_FILE_LOCATION, DR_FILE_LOCATION
 
 ICEMOD_STREAMS = ["inm", "ind"]
-
-
-def set_arg_parser() -> argparse.Namespace:
-    """Creates an argument parser to take source file paths from the command line.
-
-    Returns
-    -------
-    argparse.Namespace
-        The argument parser to handle source file paths.
-
-    """
-    parser = argparse.ArgumentParser(description="Generate a variable list (global variables only) for a given list "
-                                     "experiments using provided data request and mapping information.")
-    parser.add_argument("workflow_id", help="The workflow ID associated with this workflow.")
-    parser.add_argument("experiment", help="The experiment to generate a variable lists for.")
-    parser.add_argument("model", help="The model associated with the experiment that has been run.")
-
-    return parser.parse_args()
 
 
 def get_grouped_priority_labels(experiment_dict: dict, experiment: str) -> dict:
@@ -537,7 +519,13 @@ def generate_variable_lists() -> None:
     Generates the variable list files for all experiments.
     """
     # Call required source files.
-    args = set_arg_parser()
+    issue_body = get_issue()['body']
+    match = re.findall(r"### (.+?)\n\s*\n?(.+)", issue_body)
+    meta_dict = process_metadata(match)
+    experiment = meta_dict.get("experiment_id")
+    model = meta_dict.get("model_id")
+    workflow_id = meta_dict.get("model_workflow_id")
+
     experiment_dict = read_json(DR_FILE_LOCATION)
     mappings_dict = read_json(MAPPINGS_FILE_LOCATION)
 
@@ -546,10 +534,10 @@ def generate_variable_lists() -> None:
     os.makedirs(outdir, exist_ok=True)
 
     # Process and save the variable dictionary.
-    variable_dict, model = process_variable_dict(experiment_dict, args.experiment, args. model, mappings_dict)
-    save_outfile(outdir, args.workflow_id, args.experiment, model, variable_dict)
+    variable_dict, model = process_variable_dict(experiment_dict, experiment, model, mappings_dict)
+    save_outfile(outdir, workflow_id, experiment, model, variable_dict)
 
-    print(f"SUCCESSFULLY GENERATED VARIABLE LIST FOR {args.experiment}")
+    print(f"SUCCESSFULLY GENERATED VARIABLE LIST FOR {experiment}")
 
 
 if __name__ == "__main__":

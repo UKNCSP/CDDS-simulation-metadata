@@ -16,10 +16,10 @@ import metomi.isodatetime.parsers as parse
 from metomi.isodatetime.data import Calendar
 from metomi.isodatetime.exceptions import ISO8601SyntaxError, IsodatetimeError
 
+from common import get_issue, process_metadata
 from constants import (
     DATA,
     DATETIME_FIELDS,
-    META_FIELDS,
     METADATA,
     MISC,
     PARENT_REQUIRED,
@@ -32,19 +32,6 @@ REGEX_DICT = {
     "workflow_pattern": re.compile(REGEX_FORMAT["model_workflow_id"]),
     "variant_pattern": re.compile(REGEX_FORMAT["variant_label"]),
 }
-
-
-def get_issue() -> dict[str, str]:
-    """Extracts the issue body from the submitted issue form.
-
-    Returns
-    -------
-    dict[str, str]
-        The issue body as a dictionary.
-    """
-    return {
-        "body": os.environ.get("ISSUE_BODY"),
-    }
 
 
 def set_calendar(calendar_type: str) -> dict[str, str]:
@@ -95,38 +82,6 @@ def normalise_datetime(datetime: str, errors: dict[str, str], field: str) -> tup
         normalised_str = datetime
 
     return normalised_str, errors
-
-
-def process_metadata(match: list) -> dict[str, str]:
-    """Generates a dictionary from the loaded issue body and cleans the contents to ensure consistent formatting.
-
-    Parameters
-    ----------
-    match: list
-        The identified key-value pairs from the issue body.
-
-    Returns
-    -------
-    dict[str, str]
-        The dictionary containing the submitted metadata information.
-    """
-    meta_dict = {}
-
-    # Clean parsed data
-    for key, value in set(match):
-        clean = key.strip().lower().replace(" ", "_")
-        meta_dict[clean] = value.strip()
-
-    # Re map keys to correct CV format
-    for old_key, new_key in META_FIELDS.items():
-        meta_dict[new_key] = meta_dict.pop(old_key)
-
-    # Reformat blank fields.
-    for key, value in meta_dict.items():
-        if meta_dict[key] == "_No response_":
-            meta_dict[key] = ""
-
-    return meta_dict
 
 
 def check_for_missing_inputs(meta_dict: dict[str, str], errors: dict[str, str]) -> dict[str, str]:
