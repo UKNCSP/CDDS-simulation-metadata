@@ -79,7 +79,7 @@ jobs:
           python scripts/generate_variable_lists.py
 
       - name: warn of missing variable list
-        if: steps.generate-variable-list.outcome == "failure" && steps.create-file.outcome == 'success'
+        if: steps.generate-variable-list.outcome == 'failure' && steps.create-file.outcome == 'success'
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"

@@ -513,6 +513,8 @@ def save_outfile(
         for line in sorted(lines, key=sort_key):
             f.write(line)
 
+    return outfile
+
 
 def generate_variable_lists() -> None:
     """
@@ -535,7 +537,9 @@ def generate_variable_lists() -> None:
 
     # Process and save the variable dictionary.
     variable_dict, model = process_variable_dict(experiment_dict, experiment, model, mappings_dict)
-    save_outfile(outdir, workflow_id, experiment, model, variable_dict)
+    outfile = save_outfile(outdir, workflow_id, experiment, model, variable_dict)
+    with open(os.environ["GITHUB_OUTPUT"], "a") as gh:
+        gh.write(f"filename={outfile}")
 
     print(f"SUCCESSFULLY GENERATED VARIABLE LIST FOR {experiment}")
 
