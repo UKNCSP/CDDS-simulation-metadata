@@ -171,5 +171,5 @@ REF_INFO_DIR = Path("reference_information")
 MAPPINGS_FILE_LOCATION = REF_INFO_DIR / "mappings.json"
 KNOWN_ISSUES_DICT_FILE_LOCATION = REF_INFO_DIR / "known_issues.json"
 DR_FILE_LOCATION = REF_INFO_DIR / "dr-1.2.2.3_all.json"
-MIP_TABLE_DIR = "$CDDS_ETC/mip_tables/CMIP7/DR-1.2.2.3-v1.0.6"
+MIP_TABLE_DIR = "$CDDS_ETC/mip_tables/CMIP7/DR-1.2.2.4-v1.0.0"
 CMOR_CV_JSON = requests.get("https://raw.githubusercontent.com/WCRP-CMIP/cmip7-cmor-tables/refs/heads/main/tables-cvs/cmor-cvs.json").json()
