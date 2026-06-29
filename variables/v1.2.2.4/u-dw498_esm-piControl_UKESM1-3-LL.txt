@@ -230,7 +230,6 @@ ocean/hfevapds_tavg-u-hxy-ifs@mon:onm/grid-T  # approved, priority=medium
 ocean/hfibthermds_tavg-ol-hxy-sea@mon:onm/grid-T  # approved, priority=medium
 ocean/hfrainds_tavg-u-hxy-ifs@mon:onm/grid-T  # approved, priority=medium
 ocean/hfrunoffds_tavg-ol-hxy-sea@mon:onm/grid-T  # approved, priority=medium
-seaIce/sicompstren_tavg-u-hxy-si@mon:inm/icemod  # approved, priority=medium
 seaIce/sidmasstranx_tavg-u-hxy-u@mon:inm/icemod  # approved, priority=medium
 seaIce/sidmasstrany_tavg-u-hxy-u@mon:inm/icemod  # approved, priority=medium
 seaIce/sifb_tavg-u-hxy-si@mon:inm/icemod  # approved, priority=medium
@@ -889,6 +888,7 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #aerosol/emiisop_tavg-u-hxy-u@mon:ap4  # known-issue, embargoed
 #atmos/ps_tpt-u-hxy-u@6hr:ap7  # known-issue, embargoed
 #atmos/ts_tpt-u-hxy-u@6hr:ap7  # known-issue, embargoed
+seaIce/sicompstren_tavg-u-hxy-si@mon:inm/icemod  # known-issue, approved, priority=medium
 #seaIce/siforcecoriolx_tavg-u-hxy-si@mon:inm/icemod  # known-issue, embargoed, priority=medium
 #seaIce/siforcecorioly_tavg-u-hxy-si@mon:inm/icemod  # known-issue, embargoed, priority=medium
 #seaIce/siforceintstrx_tavg-u-hxy-si@mon:inm/icemod  # known-issue, embargoed, priority=medium
