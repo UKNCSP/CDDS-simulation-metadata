@@ -96,15 +96,6 @@ body:
       placeholder: "e.g. 2001-01-01T00:00:00Z"
     validations:
       required: true
-  
-  - type: input
-    id: base_date
-    attributes:
-      label: Base Date
-      description: Base date in the format yyyy-mm-ddTHH:MM:SSZ.
-      placeholder: "e.g. 1850-01-01T00:00:00Z"
-    validations:
-      required: true
 
   - type: dropdown
     id: branch_method
@@ -135,8 +126,9 @@ body:
     id: institution_id
     attributes:
       label: Institution ID
-      description: Institution identifier.
+      description: Institution identifier. Please select UKNCSP unless discussed with the CMIP project team.
       options:
+        - "UKNCSP"
         - "MOHC"
         - "NERC"
       default: 0

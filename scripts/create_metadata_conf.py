@@ -112,6 +112,9 @@ def process_metadata(match: list) -> dict[str, str]:
     """
     meta_dict = {}
 
+    # Manually populate base_date, this is a fixed value that should** be the same for all workflows
+    match.append(('Base date', '1850-01-01T00:00:00Z'))
+
     # Clean parsed data
     for key, value in set(match):
         clean = key.strip().lower().replace(" ", "_")
@@ -333,6 +336,7 @@ def check_start_end_logic(meta_dict: dict[str, str], errors: dict[str, str]) -> 
     parser = parse.TimePointParser()
     start_date = meta_dict.get("start_date")
     end_date = meta_dict.get("end_date")
+    base_date = meta_dict.get("base_date")
     start_date_err_msg = "invalid datetime format for start_date"
     end_date_err_msg = "invalid datetime format for end_date"
 
@@ -340,9 +344,13 @@ def check_start_end_logic(meta_dict: dict[str, str], errors: dict[str, str]) -> 
         if start_date_err_msg not in errors["datetime"] and end_date_err_msg not in errors["datetime"]:
             if parser.parse(end_date) < parser.parse(start_date):
                 errors["datetime_logic"] = "end date cannot be earlier than start date"
+            if parser.parse(start_date) < parser.parse(base_date):
+                errors["datetime_logic"] = "Start date cannot be earlier than the base date: 1850-01-01"
     except KeyError:
         if parser.parse(end_date) < parser.parse(start_date):
             errors["datetime_logic"] = "end date cannot be earlier than start date"
+        if parser.parse(start_date) < parser.parse(base_date):
+            errors["datetime_logic"] = "Start date cannot be earlier than the base date: 1850-01-01"
 
     return errors
 
@@ -363,10 +371,6 @@ def check_fixed_fields(meta_dict: dict[str, str], errors: dict[str, str]) -> dic
         The dictionary containing any triggered error messages.
     """
     unrecognised_inputs = []
-    base_date = meta_dict.get("base_date")
-    if base_date != "1850-01-01T00:00:00Z":
-        unrecognised_inputs.append(f"base date {base_date} differs from the expected 1850-01-01T00:00:00Z. "
-                                   f"If you wish to use {base_date}, please contact a member of the CDDS team")
 
     if meta_dict.get("branch_method") not in ("no parent", "standard"):
         unrecognised_inputs.append("branch_method must have the value 'no parent' or 'standard'")
