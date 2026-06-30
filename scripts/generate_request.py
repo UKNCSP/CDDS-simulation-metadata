@@ -11,10 +11,10 @@ import sys
 from configparser import ConfigParser, SectionProxy
 from pathlib import Path
 
-from scripts.constants import MIP_TABLE_DIR, CMOR_CV_JSON
+from constants import MIP_TABLE_DIR, CMOR_CV_JSON
 
 WORKFLOW_METADATA_DIR = "workflow_metadata"
-VARIABLE_LIST_DIR = "variables/v1.2.2.3"
+VARIABLE_LIST_DIR = "variables/v1.2.2.4"
 REQUEST_TEMPLATE = {
     "metadata": {
         "base_date": "",
@@ -55,7 +55,7 @@ REQUEST_TEMPLATE = {
         "root_data_dir": "$CDDS_DATA/data",
         "sites_file": "$CDDS_ETC/cfmip2/cfmip2-sites-orog.txt",
         "standard_names_dir": "$CDDS_ETC/standard_names/",
-        "standard_names_version": "latest",
+        "standard_names_version": "93",
         "workflow_basename": ""
     },
     "data": {
