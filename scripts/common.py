@@ -70,7 +70,7 @@ def process_metadata(match: list) -> dict[str, str]:
 
     # Reformat blank fields.
     for key, value in meta_dict.items():
-        if meta_dict[key] == "_No response_":
+        if meta_dict[key].lower() == "_no response_":
             meta_dict[key] = ""
 
     return meta_dict
