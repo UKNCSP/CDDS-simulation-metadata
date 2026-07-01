@@ -584,7 +584,6 @@ def generate_variable_lists() -> None:
     Generates the variable list files for all experiments.
     """
     workflow_id, experiment, model = collect_key_variables()
-
     experiment_dict = read_json(DR_FILE_LOCATION)
     mappings_dict = read_json(MAPPINGS_FILE_LOCATION)
 
