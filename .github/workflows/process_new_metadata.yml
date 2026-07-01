@@ -95,7 +95,7 @@ jobs:
           REPO: ${{ github.repository }}
           ISSUE: ${{ github.event.issue.number }}
           BODY: >
-            Your metadata file has been succesfully added to the repository as ${{ steps.create-file.outputs.filename }}, however we were unable to generate a corresponding variable list for this workflow.
+            Your metadata file has been successfully added to the repository as ${{ steps.create-file.outputs.filename }}, however we were unable to generate a corresponding variable list for this workflow.
             Please contact a member of the CDDS team so that we can investigate.
 
             Please DO NOT close this issue unless advised by a member of the CDDS team. 
