@@ -117,7 +117,7 @@ jobs:
           REPO: ${{ github.repository }}
           ISSUE: ${{ github.event.issue.number }}
           BODY: >
-            Your metadata file has been succesfully added to the repository as: 
+            Your metadata file has been successfully added to the repository as: 
             ${{ steps.create-file.outputs.filename }}
 
             A corresponding variable list has also been created for you as:
