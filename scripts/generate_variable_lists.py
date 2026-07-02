@@ -10,16 +10,21 @@ Each variable list is then saved to a plain text file containing the variables f
 THIS SCRIPT CURRENTLY CONSIDERS GLOBAL VARIABLES ONLY. NON-GLOBAL VARIABLES ARE FILTERED OUT WITHIN THE FUNCTION
 reformat_variable_names().
 
+This script can take inputs either directly from an issue body (as part of the github action `process_new_metadata.yml`)
+or through the command line for adhoc usage.
+
 Example command line usage:
-"python scripts/generate_variable_lists.py a-bc123 1pctCO2 UKESM1-3"
+"python scripts/generate_variable_lists.py --workflow_id a-bc123 --experiment 1pctCO2 --model UKESM1-3"
 """
 
 import argparse
+import re
 import os
+import sys
 from itertools import chain
 from pathlib import Path
 
-from common import read_json
+from common import read_json, get_issue, process_metadata
 from constants import REF_INFO_DIR, MAPPINGS_FILE_LOCATION, KNOWN_ISSUES_DICT_FILE_LOCATION, DR_FILE_LOCATION
 
 ICEMOD_STREAMS = ["inm", "ind"]
@@ -36,11 +41,47 @@ def set_arg_parser() -> argparse.Namespace:
     """
     parser = argparse.ArgumentParser(description="Generate a variable list (global variables only) for a given list "
                                      "experiments using provided data request and mapping information.")
-    parser.add_argument("workflow_id", help="The workflow ID associated with this workflow.")
-    parser.add_argument("experiment", help="The experiment to generate a variable lists for.")
-    parser.add_argument("model", help="The model associated with the experiment that has been run.")
+    parser.add_argument("--workflow_id", help="The workflow ID associated with this workflow.")
+    parser.add_argument("--experiment", help="The experiment to generate a variable lists for.")
+    parser.add_argument("--model", help="The model associated with the experiment that has been run.")
 
     return parser.parse_args()
+
+
+def collect_key_variables() -> tuple[str, str, str, str]:
+    """Collects key variables (workflow_id, experiment and model) used within the code. This can come directly from an
+    issue or the command line. If no command line arguments are given, the issue body is used. If neither are available,
+    a RuntimeError is raised.
+
+    Returns
+    -------
+    tuple(str, str, str, str)
+        input_method, workflow_id, experiment and model.
+
+    Raises
+    ------
+    RuntimeError
+        If no command line arguments or issue body can be found.
+    argparse.ArgumentError
+        If some but not all arguments are given.
+    """
+    args = set_arg_parser()
+    arguments = [args.workflow_id, args.experiment, args.model]
+    if not any(arguments):
+        if not get_issue()['body']:
+            raise RuntimeError("No command line arguments or issue body provided.")
+        else:
+            print("No command line arguments given, using workflow_id, experiment and model given in the issue body.")
+            match = re.findall(r"### (.+?)\n\s*\n?(.+)", get_issue()['body'])
+            meta_dict = process_metadata(match)
+
+            return "issue", meta_dict["model_workflow_id"], meta_dict["experiment_id"], meta_dict["model_id"]
+    else:
+        inputs = ["--workflow_id", "--experiment", "--model"]
+        for item, value in zip(inputs, arguments):
+            if not value:
+                raise argparse.ArgumentError(argument=value, message=f"Missing argument: {item}")
+        return "args", args.workflow_id, args.experiment, args.model
 
 
 def get_grouped_priority_labels(experiment_dict: dict, experiment: str) -> dict:
@@ -58,7 +99,11 @@ def get_grouped_priority_labels(experiment_dict: dict, experiment: str) -> dict:
     dict
         A dictionary of labels grouped by priority (core, high, med, low).
     """
-    experiment_data = experiment_dict["experiment"][experiment]
+    try:
+        experiment_data = experiment_dict["experiment"][experiment]
+    except KeyError:
+        print(f"WARNING: Unable to find experiment {experiment} in the data request.")
+        sys.exit(1)
 
     return {
         "core": experiment_data.get("Core", []),
@@ -531,13 +576,14 @@ def save_outfile(
         for line in sorted(lines, key=sort_key):
             f.write(line)
 
+    return outfile
+
 
 def generate_variable_lists() -> None:
     """
     Generates the variable list files for all experiments.
     """
-    # Call required source files.
-    args = set_arg_parser()
+    input_method, workflow_id, experiment, model = collect_key_variables()
     experiment_dict = read_json(DR_FILE_LOCATION)
     mappings_dict = read_json(MAPPINGS_FILE_LOCATION)
 
@@ -546,10 +592,15 @@ def generate_variable_lists() -> None:
     os.makedirs(outdir, exist_ok=True)
 
     # Process and save the variable dictionary.
-    variable_dict, model = process_variable_dict(experiment_dict, args.experiment, args. model, mappings_dict)
-    save_outfile(outdir, args.workflow_id, args.experiment, model, variable_dict)
+    variable_dict, model = process_variable_dict(experiment_dict, experiment, model, mappings_dict)
+    outfile = save_outfile(outdir, workflow_id, experiment, model, variable_dict)
 
-    print(f"SUCCESSFULLY GENERATED VARIABLE LIST FOR {args.experiment}")
+    # Print the output filename the gh env if using inputs from an issue.
+    if input_method == "issue":
+        with open(os.environ["GITHUB_OUTPUT"], "a") as gh:
+            gh.write(f"filename={outfile}")
+
+    print(f"Successfully generated variable list: {outfile}")
 
 
 if __name__ == "__main__":

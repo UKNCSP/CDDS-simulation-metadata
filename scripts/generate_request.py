@@ -11,10 +11,10 @@ import sys
 from configparser import ConfigParser, SectionProxy
 from pathlib import Path
 
-from constants import MIP_TABLE_DIR, CMOR_CV_JSON
+from constants import MIP_TABLE_DIR, CMOR_CV_JSON, DR_VERSION
 
 WORKFLOW_METADATA_DIR = "workflow_metadata"
-VARIABLE_LIST_DIR = "variables/v1.2.2.4"
+VARIABLE_LIST_DIR = f"variables/v{DR_VERSION}"
 REQUEST_TEMPLATE = {
     "metadata": {
         "base_date": "",
