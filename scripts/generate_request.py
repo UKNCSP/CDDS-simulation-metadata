@@ -48,7 +48,7 @@ REQUEST_TEMPLATE = {
         "mip_table_dir": MIP_TABLE_DIR,
         "mode": "strict",
         "package": "",
-        "root_ancil_dir": "$CDDS_ETC/ancil_testing/",
+        "root_ancil_dir": "$CDDS_ETC/ancil/",
         "root_hybrid_heights_dir": "$CDDS_ETC/vertical_coordinates/",
         "root_replacement_coordinates_dir": "$CDDS_ETC/horizontal_coordinates/",
         "root_proc_dir": "$CDDS_DATA/proc",
