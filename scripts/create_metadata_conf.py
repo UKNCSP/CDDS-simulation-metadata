@@ -520,7 +520,10 @@ def sort_to_categories(meta_dict: dict[str, str]) -> dict:
     organised_metadata["[metadata]"] = metadata_dict
     organised_metadata["[data]"] = data_dict
     organised_metadata["[misc]"] = misc_dict
-    organised_metadata["[ADDITIONAL INFO]"] = {"notes": meta_dict.get("additional_notes")}
+    organised_metadata["[ADDITIONAL INFO]"] = {
+        "notes": meta_dict.get("additional_notes"),
+        "updates": ""
+    }
 
     return organised_metadata
 
