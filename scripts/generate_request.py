@@ -11,10 +11,10 @@ import sys
 from configparser import ConfigParser, SectionProxy
 from pathlib import Path
 
-from scripts.constants import MIP_TABLE_DIR, CMOR_CV_JSON
+from constants import MIP_TABLE_DIR, CMOR_CV_JSON, DR_VERSION
 
 WORKFLOW_METADATA_DIR = "workflow_metadata"
-VARIABLE_LIST_DIR = "variables/v1.2.2.3"
+VARIABLE_LIST_DIR = f"variables/v{DR_VERSION}"
 REQUEST_TEMPLATE = {
     "metadata": {
         "base_date": "",
@@ -48,14 +48,14 @@ REQUEST_TEMPLATE = {
         "mip_table_dir": MIP_TABLE_DIR,
         "mode": "strict",
         "package": "",
-        "root_ancil_dir": "$CDDS_ETC/ancil_testing/",
+        "root_ancil_dir": "$CDDS_ETC/ancil/",
         "root_hybrid_heights_dir": "$CDDS_ETC/vertical_coordinates/",
         "root_replacement_coordinates_dir": "$CDDS_ETC/horizontal_coordinates/",
         "root_proc_dir": "$CDDS_DATA/proc",
         "root_data_dir": "$CDDS_DATA/data",
         "sites_file": "$CDDS_ETC/cfmip2/cfmip2-sites-orog.txt",
         "standard_names_dir": "$CDDS_ETC/standard_names/",
-        "standard_names_version": "latest",
+        "standard_names_version": "93",
         "workflow_basename": ""
     },
     "data": {
@@ -256,7 +256,7 @@ def generate_request_config() -> None:
     validate_request(request)
     filename = write_request(config["data"], request)
     with open(os.environ["GITHUB_OUTPUT"], "a") as gh:
-        gh.write(f"var_list={request['data']['variable_list_file']}")
+        gh.write(f"var_list={request['data']['variable_list_file']}\n")
         gh.write(f"request_filename={filename}")
 
 

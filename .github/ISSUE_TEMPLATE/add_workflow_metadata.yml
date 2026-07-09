@@ -11,6 +11,12 @@ body:
       value: |
         # Add or modify metadata for a CDDS workflow
 
+  - type: markdown
+    attributes:
+      value: |
+        ### NOTE: If your workflow uses NEMO data over the years 1850-1900, the data may require an additional fix prior to processing.
+        Please contact the CDDS team to discuss this and we will supply you with a script to correct the model data.
+
   - type: dropdown
     id: issue_kind
     attributes:
@@ -90,15 +96,6 @@ body:
       placeholder: "e.g. 2001-01-01T00:00:00Z"
     validations:
       required: true
-  
-  - type: input
-    id: base_date
-    attributes:
-      label: Base Date
-      description: Base date in the format yyyy-mm-ddTHH:MM:SSZ.
-      placeholder: "e.g. 1850-01-01T00:00:00Z"
-    validations:
-      required: true
 
   - type: dropdown
     id: branch_method
@@ -129,8 +126,9 @@ body:
     id: institution_id
     attributes:
       label: Institution ID
-      description: Institution identifier.
+      description: Institution identifier. Please select UKNCSP unless discussed with the CMIP project team.
       options:
+        - "UKNCSP"
         - "MOHC"
         - "NERC"
       default: 0
@@ -168,6 +166,16 @@ body:
       default: 0
     validations:
       required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional Notes
+      description: Any additional notes about the workflow you are registering.
+      placeholder: |
+        Add any additional notes here. This could be information about the workflow itself or which platform hosts the input data (e.g. disk, MASS or moomin).
+        
+        NOTE: This is a public repository. Do not include confidential, sensitive information, or explicit data paths. Please perform the expected due diligence to confirm that any notes are suitable for public release.
 
   - type: markdown
     attributes:

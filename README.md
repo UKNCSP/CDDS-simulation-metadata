@@ -5,6 +5,8 @@
 
 CURRENT MAPPINGS FILE VERSION: v2026-06-05
 
+CURRENT DATA REQUEST VERSION: v1.2.2.4
+
 This CDDS simulation metadata repository is designed to process and store CMIP7 workflow metadata. If you have a new
  workflow that you wish to register, please fill out the issue form marked 'Add/Modify Workflow Metadata'. Upon form
  completion, you will receive a notification from our GitHub actions bot confirming your submission. If you wish to

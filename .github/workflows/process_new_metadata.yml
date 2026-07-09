@@ -69,13 +69,44 @@ jobs:
             echo "exists=false"
           fi
 
-      - name: commit new file and close issue
+      - name: generate variable list
         if: steps.exists.outputs.exists == 'false' && steps.check-issues.outputs.input_error != 'true'
+        id: generate-variable-list
+        env:
+          ISSUE_BODY: |
+              ${{ github.event.issue.body }}
+        run: |
+          python scripts/generate_variable_lists.py
+        continue-on-error: true
+
+      - name: warn of missing variable list
+        if: steps.generate-variable-list.outcome == 'failure' && steps.create-file.outcome == 'success'
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
 
           git add *.cfg
+          git commit -m "New workflow metadata file added from issue #${{ github.event.issue.number }}"
+          git push origin main
+
+          gh issue comment "$ISSUE" --body "$BODY"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          ISSUE: ${{ github.event.issue.number }}
+          BODY: >
+            Your metadata file has been successfully added to the repository as ${{ steps.create-file.outputs.filename }}, however we were unable to generate a corresponding variable list for this workflow.
+            Please contact a member of the CDDS team so that we can investigate.
+
+            Please DO NOT close this issue unless advised by a member of the CDDS team. 
+
+      - name: commit new file and close issue
+        if: steps.exists.outputs.exists == 'false' && steps.check-issues.outputs.input_error != 'true' && steps.generate-variable-list.outcome == 'success'
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+
+          git add *.cfg *.txt
           git commit -m "New workflow metadata file added from issue #${{ github.event.issue.number }}"
           git push origin main
 
@@ -86,8 +117,13 @@ jobs:
           REPO: ${{ github.repository }}
           ISSUE: ${{ github.event.issue.number }}
           BODY: >
-            Your metadata file has been succesfully added to the repository as: 
+            Your metadata file has been successfully added to the repository as: 
             ${{ steps.create-file.outputs.filename }}
+
+            A corresponding variable list has also been created for you as:
+            ${{ steps.generate-variable-list.outputs.filename }}
+
+            If you would like to generate a CDDS request configuration file, please fill out the issue form titled 'Request The Generation Of A CDDS Request File'.
 
             Thank you for your contribution.
           

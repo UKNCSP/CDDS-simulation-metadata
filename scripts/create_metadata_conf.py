@@ -16,10 +16,10 @@ import metomi.isodatetime.parsers as parse
 from metomi.isodatetime.data import Calendar
 from metomi.isodatetime.exceptions import ISO8601SyntaxError, IsodatetimeError
 
+from common import get_issue, process_metadata
 from constants import (
     DATA,
     DATETIME_FIELDS,
-    META_FIELDS,
     METADATA,
     MISC,
     PARENT_REQUIRED,
@@ -32,19 +32,6 @@ REGEX_DICT = {
     "workflow_pattern": re.compile(REGEX_FORMAT["model_workflow_id"]),
     "variant_pattern": re.compile(REGEX_FORMAT["variant_label"]),
 }
-
-
-def get_issue() -> dict[str, str]:
-    """Extracts the issue body from the submitted issue form.
-
-    Returns
-    -------
-    dict[str, str]
-        The issue body as a dictionary.
-    """
-    return {
-        "body": os.environ.get("ISSUE_BODY"),
-    }
 
 
 def set_calendar(calendar_type: str) -> dict[str, str]:
@@ -95,38 +82,6 @@ def normalise_datetime(datetime: str, errors: dict[str, str], field: str) -> tup
         normalised_str = datetime
 
     return normalised_str, errors
-
-
-def process_metadata(match: list) -> dict[str, str]:
-    """Generates a dictionary from the loaded issue body and cleans the contents to ensure consistent formatting.
-
-    Parameters
-    ----------
-    match: list
-        The identified key-value pairs from the issue body.
-
-    Returns
-    -------
-    dict[str, str]
-        The dictionary containing the submitted metadata information.
-    """
-    meta_dict = {}
-
-    # Clean parsed data
-    for key, value in set(match):
-        clean = key.strip().lower().replace(" ", "_")
-        meta_dict[clean] = value.strip()
-
-    # Re map keys to correct CV format
-    for old_key, new_key in META_FIELDS.items():
-        meta_dict[new_key] = meta_dict.pop(old_key)
-
-    # Reformat blank fields.
-    for key, value in meta_dict.items():
-        if meta_dict[key] == "_No response_":
-            meta_dict[key] = ""
-
-    return meta_dict
 
 
 def check_for_missing_inputs(meta_dict: dict[str, str], errors: dict[str, str]) -> dict[str, str]:
@@ -333,6 +288,7 @@ def check_start_end_logic(meta_dict: dict[str, str], errors: dict[str, str]) -> 
     parser = parse.TimePointParser()
     start_date = meta_dict.get("start_date")
     end_date = meta_dict.get("end_date")
+    base_date = meta_dict.get("base_date")
     start_date_err_msg = "invalid datetime format for start_date"
     end_date_err_msg = "invalid datetime format for end_date"
 
@@ -340,9 +296,13 @@ def check_start_end_logic(meta_dict: dict[str, str], errors: dict[str, str]) -> 
         if start_date_err_msg not in errors["datetime"] and end_date_err_msg not in errors["datetime"]:
             if parser.parse(end_date) < parser.parse(start_date):
                 errors["datetime_logic"] = "end date cannot be earlier than start date"
+            if parser.parse(start_date) < parser.parse(base_date):
+                errors["datetime_logic"] = "Start date cannot be earlier than the base date: 1850-01-01"
     except KeyError:
         if parser.parse(end_date) < parser.parse(start_date):
             errors["datetime_logic"] = "end date cannot be earlier than start date"
+        if parser.parse(start_date) < parser.parse(base_date):
+            errors["datetime_logic"] = "Start date cannot be earlier than the base date: 1850-01-01"
 
     return errors
 
@@ -363,10 +323,6 @@ def check_fixed_fields(meta_dict: dict[str, str], errors: dict[str, str]) -> dic
         The dictionary containing any triggered error messages.
     """
     unrecognised_inputs = []
-    base_date = meta_dict.get("base_date")
-    if base_date != "1850-01-01T00:00:00Z":
-        unrecognised_inputs.append(f"base date {base_date} differs from the expected 1850-01-01T00:00:00Z. "
-                                   f"If you wish to use {base_date}, please contact a member of the CDDS team")
 
     if meta_dict.get("branch_method") not in ("no parent", "standard"):
         unrecognised_inputs.append("branch_method must have the value 'no parent' or 'standard'")
@@ -564,6 +520,10 @@ def sort_to_categories(meta_dict: dict[str, str]) -> dict:
     organised_metadata["[metadata]"] = metadata_dict
     organised_metadata["[data]"] = data_dict
     organised_metadata["[misc]"] = misc_dict
+    organised_metadata["[ADDITIONAL INFO]"] = {
+        "notes": meta_dict.get("additional_notes"),
+        "updates": ""
+    }
 
     return organised_metadata
 
