@@ -170,8 +170,8 @@ META_FIELDS = {
 REF_INFO_DIR = Path("reference_information")
 MAPPINGS_FILE_LOCATION = REF_INFO_DIR / "mappings.json"
 KNOWN_ISSUES_DICT_FILE_LOCATION = REF_INFO_DIR / "known_issues.json"
+CMOR_CV_JSON = requests.get("https://raw.githubusercontent.com/WCRP-CMIP/cmip7-cmor-tables/refs/heads/main/tables-cvs/cmor-cvs.json").json()
+
 DR_VERSION = "1.2.2.4"
 DR_FILE_LOCATION = REF_INFO_DIR / f"dr-{DR_VERSION}_all.json"
 MIP_TABLE_DIR = f"$CDDS_ETC/mip_tables/CMIP7/DR-{DR_VERSION}-v1.0.0"
-CMOR_CV_JSON = requests.get("https://raw.githubusercontent.com/WCRP-CMIP/cmip7-cmor-tables/refs/heads/main/tables-cvs/cmor-cvs.json").json()
-
