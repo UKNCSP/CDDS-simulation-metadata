@@ -31,7 +31,7 @@ def arg_parser() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def get_variable_list_filename(filename: Path, workflow_id: str) -> dict:
+def get_variable_list_filename(filename: Path, workflow_id: str) -> str:
     """Returns the name of the corresponding variable list file associated with the given workflow ID.
 
     Parameters
