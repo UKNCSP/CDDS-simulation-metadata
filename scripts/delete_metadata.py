@@ -31,7 +31,7 @@ def arg_parser() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def get_variable_list_fileame(filename: Path, workflow_id: str) -> dict:
+def get_variable_list_filename(filename: Path, workflow_id: str) -> dict:
     """Returns the name of the corresponding variable list file associated with the given workflow ID.
 
     Parameters
@@ -39,7 +39,7 @@ def get_variable_list_fileame(filename: Path, workflow_id: str) -> dict:
     filename: Path
         The path of the workflow metadata configuration file.
     workflow_id: str
-        The workflow ID whos information is being deleted
+        The workflow ID whose information is being deleted
 
     Returns
     -------
@@ -64,7 +64,7 @@ def main():
         sys.exit()
 
     # Identify the variable list path using information in the metadata config file
-    variable_list_filename = get_variable_list_fileame(config_file_path, workflow_id)
+    variable_list_filename = get_variable_list_filename(config_file_path, workflow_id)
     variable_list_file_path = Path("variables") / f"v{DR_VERSION}" / variable_list_filename
 
     count = 0
