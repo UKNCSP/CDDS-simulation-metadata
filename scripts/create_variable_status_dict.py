@@ -55,6 +55,7 @@ def get_variable_status(mappings_dict: list[dict], model: str) -> dict:
         A dictionary of each variable in a model and its associated status.
     """
     variable_status_dict = {}
+    approved_labels = ["diagnostic_review_ok", "diagnostic_review_ok_OI_UKCM", "diagnostic_review_ok_OI_UKESM"]
     for mapping in mappings_dict:
         variable = mapping["branded_variable"]
         if (
@@ -71,7 +72,7 @@ def get_variable_status(mappings_dict: list[dict], model: str) -> dict:
             labels = mapping["labels"]
             if "do-not-produce" in labels:
                 variable_status_dict[variable] = "do-not-produce"
-            elif "diagnostic_review_ok" in labels:
+            elif [item for item in approved_labels if item in labels]:
                 variable_status_dict[variable] = "approved"
             else:
                 variable_status_dict[variable] = "embargoed"
