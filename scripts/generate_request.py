@@ -157,7 +157,7 @@ def update_request(request: dict, config: ConfigParser, issue_info: dict) -> dic
                 request[section][key] = config[section][key]
 
     if request["metadata"]["calendar"] == "gregorian":
-        request["metadata"]["calendar"] = "standard"
+        request["metadata"]["calendar"] = "proleptic_gregorian"
 
     var_file = (f'{VARIABLE_LIST_DIR}/{config["data"]["model_workflow_id"]}_{config["metadata"]["experiment_id"]}'
                 f'_{config["metadata"]["model_id"]}.txt')
