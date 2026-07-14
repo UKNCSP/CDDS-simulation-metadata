@@ -159,7 +159,7 @@ body:
     id: mass_data_class
     attributes:
       label: Mass Data Class
-      description: Root of the location of input dataset on MASS. For data classes using the "ens" root, a mass ensemble ID is required. Please see below.
+      description: Root of the location of input dataset on MASS. If data exists only on JASMIN, please select the default value "crum". For data classes using the "ens" root, a mass ensemble ID is required. Please see below.
       options:
         - "crum"
         - "ens"
