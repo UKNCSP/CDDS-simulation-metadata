@@ -31,7 +31,7 @@ Please see below for additional information on what each of the different fields
 | Institution ID | This is used to identify the specific climate modelling centre or research institution that produced a climate dataset. Please select the default "UKNCSP" unless discussed with the CMIP project team. | |
 | MIP Era | This is the era of the model intercomparison project. We expect this to be CMIP7 for all submissions. | |
 | Atmospheric Timestep | This is the atmospheric time step used in seconds. This is usually 1200 for n=96, 900 for n=216 and 600 for n=512. | 
-| Mass Data Class | This is the root of the location of input dataset on MASS. This is will likely be "crum" for most submissions. When using the mass data class of "crum", the "Mass Ensemble Member ID" field at the base of the form can be safely ignored. However, if using a data class of "ens" this is required. | |
+| Mass Data Class | This is the root of the location of input dataset on MASS. This is will likely be "crum" for most submissions. When using the mass data class of "crum", the "Mass Ensemble Member ID" field at the base of the form can be safely ignored. However, if using a data class of "ens" this is required. If data exists only on JASMIN, please leave this as the default "crum": this will not affect your processing. | |
 | Additional Notes | This is an optional field that gives you the opportunity to note any additional information that you feel is important but not covered elsewhere in the form. Please note this is a public repository, do not include any sensitive information or explicit data paths. | "This data is stored on JASMIN" |
 
 #### Conditional fields
@@ -45,5 +45,5 @@ Please see below for additional information on what each of the different fields
 | Parent Model ID | The Model ID for the parent as described in the standard fields section. This should match the Model ID given for the experiment | Required when using a `branch method = standard`. | "UKCM2-0-LL" |
 | Parent Time Units | The time units for the parent experiment. We expect this to be "days since 1850-01-01" for most submissions. | Required when using a `branch method = standard`. | | 
 | Parent Variant Label | The variant label of the parent as described in the standard fields section. | Required when using a `branch method = standard`. | "r1i1p1f1" |
-| mass Ensemble Member ID | The mass ensemble member identifier. | Required when using ` Mass Data Class = ens`. | |
+| Mass Ensemble Member ID | The mass ensemble member identifier. | Required when using ` Mass Data Class = ens`. | |
 
