@@ -1,17 +1,21 @@
 # (C) British Crown Copyright 2026, Met Office.
 # Please see LICENSE.md for license details.
 """
-This script generates the variable lists for each CMIP experiment for each data request version.
+This script generates a variable list the given experiment at the current data request version.
 
 This script scans two source files containing CMIP experiments, their associated variables and the variable metadata
 such as priority level and production labels. Each variable is labelled accordingly and commented out as necessary.
-Each variable list is then saved to a plain text file containing the variables for that experiment.
+Each variable list is then saved to a plain text file.
 
 THIS SCRIPT CURRENTLY CONSIDERS GLOBAL VARIABLES ONLY. NON-GLOBAL VARIABLES ARE FILTERED OUT WITHIN THE FUNCTION
 reformat_variable_names().
 
-This script can take inputs either directly from an issue body (as part of the github action `process_new_metadata.yml`)
-or through the command line for adhoc usage.
+This script can take inputs either directly from an issue body (as part of the github action `process_new_metadata.yml`
+using '.github/ISSUE_TEMPLATE/add_workflow_metadata.yml') or through the command line for adhoc usage.
+
+Note that this script is used as part of '.github/workflows/process_new_metadata.yml' and is the backbone of
+'scripts/update-all_variable_lists.py' which is used in '.github/workflows/update_mappings.yml'. Changes to this script
+may result in errors when running these corresponding files.
 
 Example command line usage:
 "python scripts/generate_variable_lists.py --workflow_id a-bc123 --experiment 1pctCO2 --model UKESM1-3"
@@ -49,9 +53,9 @@ def set_arg_parser() -> argparse.Namespace:
 
 
 def collect_key_variables() -> tuple[str, str, str, str]:
-    """Collects key variables (workflow_id, experiment and model) used within the code. This can come directly from an
-    issue or the command line. If no command line arguments are given, the issue body is used. If neither are available,
-    a RuntimeError is raised.
+    """Collects key variables (workflow_id, experiment and model). This can come directly from an
+    issue body or the command line. If no command line arguments are given, the issue body is used. If neither are
+    available, a RuntimeError is raised.
 
     Returns
     -------
@@ -71,6 +75,7 @@ def collect_key_variables() -> tuple[str, str, str, str]:
         if not get_issue()['body']:
             raise RuntimeError("No command line arguments or issue body provided.")
         else:
+            # Note if an issue body is being used and get the required info
             print("No command line arguments given, using workflow_id, experiment and model given in the issue body.")
             match = re.findall(r"### (.+?)\n\s*\n?(.+)", get_issue()['body'])
             meta_dict = process_metadata(match)
@@ -85,7 +90,8 @@ def collect_key_variables() -> tuple[str, str, str, str]:
 
 
 def get_grouped_priority_labels(experiment_dict: dict, experiment: str) -> dict:
-    """Creates a dictionary of labels grouped by priority (core, high, med, low) for a single experiment.
+    """Creates a dictionary of labels grouped by priority (core, high, med, low) for a single experiment using the
+    current version of the data request.
 
     Parameters
     ----------
@@ -115,7 +121,7 @@ def get_grouped_priority_labels(experiment_dict: dict, experiment: str) -> dict:
 
 def standardise_grouped_priority_labels(experiment_dict: dict, experiment: str) -> dict:
     """Creates a standardised dictionary of variable names grouped by priority (core, high, med, low) for a single
-    experiment.
+    experiment. This mainly ensures the .glb is always given in lower case.
 
     Parameters
     ----------
@@ -158,6 +164,8 @@ def set_priority_comments(experiment_dict: dict, experiment: str) -> dict:
     priority_comments = {}
     priority_dict = standardise_grouped_priority_labels(experiment_dict, experiment)
     for level, variables in priority_dict.items():
+        # Only apply a priority label if the priority is medium or low. High and core priority variables are left
+        # without a priority comment.
         for variable in variables:
             priority_comments[variable] = ([f"priority={'medium' if level == 'med' else 'low'}"]
                                            if level in ("med", "low") else [])
@@ -203,6 +211,7 @@ def get_mapping(mappings_dict: list[dict], variable: str) -> dict:
     for mapping in mappings_dict:
         if variable == mapping["branded_variable"]:
             mapping = mapping
+            # Once the correct mapping has been found break the loop, this helps to reduce runtime.
             break
 
     return mapping
@@ -211,7 +220,8 @@ def get_mapping(mappings_dict: list[dict], variable: str) -> dict:
 def check_alias_dictionary(model: str) -> str:
     """If the model variable status file cannot be directly found, an alias list is checked to account for the crossover
     in naming convention between models. This function ensures that the script does not fail incorrectly and that each
-    model points to the correct variable status file.
+    model points to the correct variable status file. This is specifically put in place to handle cases where UKCM2 is
+    still being referred to as HadGem3-GC5.
 
     Parameters
     ----------
@@ -241,7 +251,8 @@ def check_alias_dictionary(model: str) -> str:
 
 
 def update_status_from_model(model: str, variable_dict: dict) -> tuple[dict, str]:
-    """Annotates each global variable with its production status (i.e. approved, embargoed or do not produce).
+    """Annotates each global variable with its production status (i.e. approved, embargoed or do not produce) given in
+    the model status dictionaries produced by 'scripts/create_variable_status_dict.py'.
 
     Parameters
     ----------
@@ -256,13 +267,17 @@ def update_status_from_model(model: str, variable_dict: dict) -> tuple[dict, str
         An updated dictionary of variables and their comments created based on priority level and production status.
         An updated model ID if the direct input is associated with an alias.
     """
+    # Attempt to use the original model given
     try:
         model_status_dict = read_json(REF_INFO_DIR / f"{model}_variable_status.json")
         new_model = model
+    # If there is no model status dictionary matching the given model, check for an alias
     except FileNotFoundError:
         new_model = check_alias_dictionary(model)
         model_status_dict = read_json(REF_INFO_DIR / f"{new_model}_variable_status.json")
 
+    # Apply status labels to each variable, these are added in a list format as a single variable can have multiple
+    # labels.
     for variable, comment in variable_dict.items():
         if variable in list(model_status_dict.keys()):
             variable_dict[variable].insert(0, f"{model_status_dict[variable]}")
@@ -311,10 +326,14 @@ def get_stream_from_XIOS(mapping: dict, model: str, variable: str) -> str:
     try:
         full_stream_info = xios_dict[model]
     except KeyError:
+        # If there is no streams in STASH, no streams in XIOS and the variable is global and not marked 'do-not-produce'
+        # throw an error to warn the user. This is not a critical issue but it is important to note since variables
+        # without stream information cannot be produced.
         if "do-not-produce" not in labels and ".glb" in variable:
             print(f"WARNING: Unable to find stream for {variable} in model {model}...")
         full_stream_info = ""
 
+    # Extract just the stream for the information given in the XIOS info.
     stream = full_stream_info.split("`")[0] if full_stream_info else ""
     if any(base_stream in stream for base_stream in ICEMOD_STREAMS):
         stream = modify_inm_onm_substreams(stream)
@@ -348,12 +367,14 @@ def get_streams(experiment_dict: dict, experiment: str, mappings_dict: list[dict
     for variable in all_labels:
         mapping = get_mapping(mappings_dict, variable)
         stream = mapping.get("stream").lower()
+        # Manually apply all fixed variables streams, these will not appear in XIOS or STASH info.
         if "fx" in mapping.get("labels") and not stream:
             realm = variable.split(".")[0]
             if realm in ["ocean", "ocnBgchem", "seaIce"]:
                 stream = "ofx"
             elif realm in ["atmos", "aerosol", "atmosChem", "land", "landIce"]:
                 stream = "afx"
+        # If theres no stream in STASH and the variable is not fx, look for a stream in the XIOS info.
         if not stream:
             stream = get_stream_from_XIOS(mapping, model, variable)
 
@@ -455,7 +476,7 @@ def process_variable_dict(
         experiment_dict: dict, experiment: str, model: str, mappings_dict: list[dict]
     ) -> tuple[dict, str]:
     """Processes the variable dictionary against all functions to get a complete dictionary of renamed variables and
-    their associated status.
+    their associated status. This serves as a wrapper script for all variable list processing.
 
     Parameters
     ----------
@@ -504,6 +525,7 @@ def format_outfile_content(renamed_variable_dict: dict[str, str]) -> list[str]:
     """
     lines = []
     for variable, comment in renamed_variable_dict.items():
+        # Comment out all variables apart from those marked as approved.
         if "approved" in comment:
             lines.append(f"{variable}  # {', '.join(comment)}\n")
         elif comment:
@@ -572,7 +594,7 @@ def save_outfile(
     outfile = outdir / f"{workflow_id}_{experiment}_{model}.txt"
     lines = format_outfile_content(renamed_variable_dict)
     with open(outfile, "w") as f:
-        f.write("# Note: only global variables are currently producible by CDDS\n")
+        f.write("# Note: only global variables are currently producible by CDDS\n")  # File header
         for line in sorted(lines, key=sort_key):
             f.write(line)
 

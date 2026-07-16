@@ -1,10 +1,15 @@
 # (C) British Crown Copyright 2025-2026, Met Office.
 # Please see LICENSE.md for license details.
-"""This script takes the body of an issue and uses its content to generate a structured metadata configuration file.
+"""This script takes the body of the issue form 'Add/Modify Workflow Metadata' and uses its content to generate a
+structured metadata configuration file. The config file is split into 3 sections: metadata, data and misc. The files
+produced by this script are used to populate request files generated through '.github/workflows/generate_request.yml'.
 
-The issue body content generated from an issue form is cleaned, validated and sorted into the required formatting for
+NOTE: This script is the backbone of '.github/workflows/process_new_metadata.yml' and relies upon
+'.github/ISSUE_TEMPLATE/add_workflow_metadata.yml'. Changes to any of these files may result in errors in the others.
+
+The issue body content generated from the issue form is cleaned, validated and sorted into the required formatting for
 metadata cfg files. This is then passed on into a workflow as an output file along with any errors that may have been
-flagged.
+flagged. Valid files will automatically be commited back to the repository by the action.
 """
 
 import os
@@ -35,7 +40,8 @@ REGEX_DICT = {
 
 
 def set_calendar(calendar_type: str) -> dict[str, str]:
-    """Sets the metomi.isodatetime calendar.
+    """Sets the metomi.isodatetime calendar. If the calendar is not one of '360_day', 'standard' or 'gregorian' an error
+    is noted to be returned to the user.
 
     Parameters
     ----------
@@ -76,7 +82,7 @@ def normalise_datetime(datetime: str, errors: dict[str, str], field: str) -> tup
     """
     try:
         parser = parse.TimePointParser()
-        normalised_str = str(parser.parse(datetime)).replace("+01:00", "Z")
+        normalised_str = str(parser.parse(datetime)).replace("+01:00", "Z")  # Handles changes daylight saving hours.
     except (IsodatetimeError, ISO8601SyntaxError):
         errors["datetime"] = f"invalid datetime format for {field}"
         normalised_str = datetime
@@ -85,7 +91,7 @@ def normalise_datetime(datetime: str, errors: dict[str, str], field: str) -> tup
 
 
 def check_for_missing_inputs(meta_dict: dict[str, str], errors: dict[str, str]) -> dict[str, str]:
-    """Checks for missing inputs.
+    """Checks for missing inputs in any of the required fields.
 
     Parameters
     ----------
@@ -111,8 +117,8 @@ def check_for_missing_inputs(meta_dict: dict[str, str], errors: dict[str, str]) 
 
 
 def check_parent_fields(meta_dict: dict[str, str], errors: dict[str, str]) -> dict[str, str]:
-    """Checks that parent attributes are present if branch method is stanard and checks that they are not present if
-    branch method no parent.
+    """Checks that parent attributes are present if branch method is 'stanard' and checks that they are not present if
+    branch method is 'no parent'.
 
     Parameters
     ----------
@@ -148,7 +154,8 @@ def check_parent_fields(meta_dict: dict[str, str], errors: dict[str, str]) -> di
 
 
 def check_mass_data_class_attributes(meta_dict: dict[str, str], errors: dict[str, str]) -> dict[str, str]:
-    """Checks that attributes related to mass_data_class are present as expected.
+    """Checks that attributes related to mass_data_class are present as expected. If mass_data_class is 'crum' no mass
+    ensemble member ID should be given. If mass_data_class is 'ens' then a mass ensemble member ID is required.
 
     Parameters
     ----------
@@ -188,6 +195,7 @@ def check_datetime_fields(meta_dict: dict[str, str], errors: dict[str, str]) -> 
     dict[str, str]
         The dictionary containing any triggered error messages.
     """
+    # Check parent time fields only when branch_method is 'standard'. Otherwise, these fields should be none.
     if meta_dict.get("branch_method") == "standard":
         DATETIME_FIELDS.add("branch_date_in_child")
         DATETIME_FIELDS.add("branch_date_in_parent")
@@ -199,7 +207,8 @@ def check_datetime_fields(meta_dict: dict[str, str], errors: dict[str, str]) -> 
 
 
 def check_model_workflow_id(meta_dict: dict[str, str], errors: dict[str, str]) -> dict[str, str]:
-    """Checks that model_workflow_id follows the expected format of 'a-bc123' or 'ab-cd123'.
+    """Checks that model_workflow_id follows the expected format of 'a-bc123'(most common) or 'ab-cd123'(rare but not
+    impossible).
 
     Parameters
     ----------
@@ -220,7 +229,7 @@ def check_model_workflow_id(meta_dict: dict[str, str], errors: dict[str, str]) -
 
 
 def check_variant_labels(meta_dict: dict[str, str], errors: dict[str, str]) -> dict[str, str]:
-    """Checks that variant labels follow the expected regex.
+    """Checks that variant labels follow the expected regex r{[1-9]}i{[1-9]}p{[1-9]}f{[1-9]}.
 
     Parameters
     ----------
@@ -235,6 +244,7 @@ def check_variant_labels(meta_dict: dict[str, str], errors: dict[str, str]) -> d
         The dictionary containing any triggered error messages.
     """
     labels = [meta_dict.get("variant_label")]
+    # Check the parent variable label only if branch method is standard. Otherwise this should be None.
     if meta_dict.get("branch_method") == "standard":
         labels.append(meta_dict.get("parent_variant_label"))
 
@@ -264,8 +274,6 @@ def check_atmos_timestep(meta_dict: dict[str, str], errors: dict[str, str]) -> d
     atmos_timestep = meta_dict.get("atmos_timestep")
     if not atmos_timestep.isdigit() or int(atmos_timestep) < 0:
         errors["timestep_logic"] = "atmospheric timestep is invalid"
-
-    # TO DO: Add in check against the default values given and warn user if their input deviates from the default
 
     return errors
 
@@ -310,6 +318,9 @@ def check_start_end_logic(meta_dict: dict[str, str], errors: dict[str, str]) -> 
 def check_fixed_fields(meta_dict: dict[str, str], errors: dict[str, str]) -> dict[str, str]:
     """Checks that all fields that can only be a fixed value or one of a set of fixed values are as expected.
 
+    Many of these fields are restricted by a dropdown menu in the issue form. However, since issues can be editted
+    manually, it is still important to verify these.
+
     Parameters
     ----------
     meta_dict: dict[str, str]
@@ -324,26 +335,32 @@ def check_fixed_fields(meta_dict: dict[str, str], errors: dict[str, str]) -> dic
     """
     unrecognised_inputs = []
 
+    # Check that branch method is either 'no parent' or 'standard'
     if meta_dict.get("branch_method") not in ("no parent", "standard"):
         unrecognised_inputs.append("branch_method must have the value 'no parent' or 'standard'")
 
+    # Confirm that mip era and parent mip era are both CMIP7
     if meta_dict.get("branch_method") == "standard":
         eras = (meta_dict.get("mip_era"), meta_dict.get("parent_mip_era"))
         for era in eras:
             if era != "CMIP7":
                 unrecognised_inputs.append("mip_era and parent_mip_era must have the value 'CMIP7'")
 
+    # Confirm that model ID is valid
     model_id = meta_dict.get("model_id")
     if model_id not in ("UKCM2-0-LL", "UKCM2a-0-HH", "UKESM1-3-LL", "HadGEM3-GC31-MM"):
         unrecognised_inputs.append("model_id must have the value 'UKCM2-0-LL', 'UKCM2a-0-HH', 'UKESM1-3-LL' or "
                                    "'HadGEM3-GC31-MM'")
+
     if meta_dict.get("branch_method") == "standard":
+        # The parent model ID and model ID should match
         if model_id != meta_dict.get("parent_model_id"):
             unrecognised_inputs.append(f"parent_model_id must match model_id '{model_id}'")
 
         if meta_dict.get("parent_time_units") != "days since 1850-01-01":
             unrecognised_inputs.append("parent_time_units must have the value 'days since 1850-01-01'")
 
+    # Confirm that mass_data_class is either ens or crum (default)
     if meta_dict.get("mass_data_class") not in ("ens", "crum"):
         unrecognised_inputs.append("mass_data_class must have the value 'ens' or 'crum'")
 
@@ -354,7 +371,11 @@ def check_fixed_fields(meta_dict: dict[str, str], errors: dict[str, str]) -> dic
 
 
 def check_cvs(meta_dict: dict[str, str], errors: dict[str, str]) -> dict[str, str]:
-    """Checks that inputs are present within the CV and are the expected value for a given experiment.
+    """Checks that inputs are present within the CV and are the expected value for a given experiment. Each experiment
+    is expected to have one of a specific list of parent experiments, mips etc. This must be checked and consistent to
+    avoid errors in CDDS. There may be cases where what is expected by the CVs does not match what was used in real
+    life. These cases should be handled independently so an erata can be issued noting that the metadata for that
+    workflow is not accurate. Complete transparency is important in these situations.
 
     Parameters
     ----------
@@ -388,6 +409,7 @@ def check_cvs(meta_dict: dict[str, str], errors: dict[str, str]) -> dict[str, st
     if mip not in mip_in_cv:
         cv_errors.append(f"mip '{mip}' does not match one of the expected values '{mip_in_cv}' given in the cvs")
 
+    # Check parent fields only when branch method is 'standard', otherwise these should be None.
     if branch_method == "standard":
         parent_experiment = meta_dict.get("parent_experiment_id")
         parent_experiment_in_cv = experiment_cv_info["parent_experiment_id"]
@@ -407,7 +429,7 @@ def check_cvs(meta_dict: dict[str, str], errors: dict[str, str]) -> dict[str, st
 
 
 def validate_meta_content(meta_dict: dict[str, str]) -> dict[str, str]:
-    """Validates the metadata dictionary contents.
+    """Wrapper function to handle all validation tasks.
 
     Parameters
     ----------
@@ -435,7 +457,8 @@ def validate_meta_content(meta_dict: dict[str, str]) -> dict[str, str]:
 
 
 def format_warning_message(errors: dict[str, str]) -> str:
-    """Formats the a human readable warning message to be returned to the user.
+    """Formats the a human readable warning message to be returned to the user in the comments of the issue but the
+    GitHub Actions bot.
 
     Parameters
     ----------
@@ -467,7 +490,7 @@ def format_warning_message(errors: dict[str, str]) -> str:
 
 
 def create_filename(meta_dict: dict[str, str]) -> str:
-    """Generates a filename based off of the input model workflow id and mass ensemble member.
+    """Generates a filename based off of the input model workflow id and mass ensemble member (if given).
 
     Parameters
     ----------
@@ -564,22 +587,25 @@ def main() -> None:
     filename = create_filename(meta_dict)
 
     if not errors:
-        print("Validating issue form inputs...  SUCCESSFUL")
+        print("Validating issue form inputs...  SUCCESSFUL")  # Printed to the action logs for debugging
         output_dir = Path("workflow_metadata")
         output_dir.mkdir(parents=True, exist_ok=True)
         output_file = output_dir / f"{filename}"
 
+        # Note the output filename to be provided to the user in the issue comments by the GitHub Actions bot.
         with open(os.environ["GITHUB_OUTPUT"], "a") as gh:
             gh.write(f"filename={output_file}")
 
         format_cfg_file(output_file, organised_metadata)
-        print(f"Saving metadata file as {output_file}...  SUCCESSFUL")
+        print(f"Saving metadata file as {output_file}...  SUCCESSFUL")  # Printed to the action logs for debugging
 
     else:
-        print("Validating issue form inputs...  FAILED")
+        print("Validating issue form inputs...  FAILED")  # Printed to the action logs for debugging purposes
         warnings = format_warning_message(errors)
-        print(warnings)
+        print(warnings)  # Printed to the action logs for debugging purposes
 
+        # Note any warnings to be provided to the user in the issue comments by the GitHub Actions bot. This must be
+        # written to the the github env in a way that can be interpreted rather than read line by line.
         delimiter = "EOF"
         with open(os.environ["GITHUB_OUTPUT"], "a") as gh:
             gh.write(f"warnings<<{delimiter}\n")

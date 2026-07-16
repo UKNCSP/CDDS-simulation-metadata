@@ -1,6 +1,12 @@
 # (C) British Crown Copyright 2026, Met Office.
 # Please see LICENSE.md for license details.
+"""This script is the backbone of '.github/workflows/update_mappings.yml' and serves as a template for the README.md on
+the front page of the repository. Changes to this script may result in the failure of this action.
 
+This script updates the mappings.json and notes the current mapping file version used on the front page of the
+repository. Any desired changes to the repo front page README should also be applied within this template to avoid them
+disappearing.
+"""
 import os
 import requests
 import json

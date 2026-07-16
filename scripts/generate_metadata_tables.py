@@ -1,6 +1,8 @@
 # (C) British Crown Copyright 2026, Met Office.
 # Please see LICENSE.md for license details.
-"""This script generates the table and HTML file for CDDS workflow metadata."""
+"""This script generates the table and HTML file for CDDS workflow metadata. This is used as part of
+'.github/workflows/update_webview.yml'. Changes to this script may result in errors in this workflow.
+"""
 
 from pathlib import Path
 import glob
