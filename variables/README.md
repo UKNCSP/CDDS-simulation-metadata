@@ -20,7 +20,7 @@ We use the model and experiment specified in the workflow metadata submission to
 ### Variable naming conventions
 The convention for naming variables has changed substantially since CMIP6. In CMIP7 the "branded variable" system was introduced to provide greater detail about the temporal and spatial sampling of the variable directly within its name.
 
-For example, `Amon.tas` (as it was known in CMIP6) is now shown in the variable list as `atmos/tas_tavg-h2m-hxy-u@mon`. This can be broken down generally into `<realm>/<variable_name>_<temporal_label>-<vertical_label>-<horizonal_label>-<area_type_label>@<frequency>`. Hence following on from our example of `Amon.tas`, we can immedietly tell the following about the variable:
+For example, `Amon.tas` (as it was known in CMIP6) is now shown in the variable list as `atmos/tas_tavg-h2m-hxy-u@mon`. This can be broken down generally into `<realm>/<variable_name>_<temporal_label>-<vertical_label>-<horizonal_label>-<area_type_label>@<frequency>`. Hence following on from our example of `Amon.tas`, we can immediately tell the following about the variable:
 | key | Value |
 | ----- | ----- |
 | realm | atmos (atmospheric) |
