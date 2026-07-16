@@ -3,9 +3,9 @@
 
 ## Finding Your Request
 > **NOTE:
->  In order to generate a request file, please navigate to the github issues page and fill out the issue form titled `Request The Generation Of A CDDS Request File`. You will need to know the model workflow ID that you would like to generate a request for, the type of request you would like (a standard Met Office request (default) or a JASMIN based request), the streams you would like to process with and a package name (used to distinguish between different runs using the same model workflow ID).
+>  In order to generate a request file, please navigate to the github issues page and fill out the issue form titled `Request The Generation Of A CDDS Request File`. You will need to know the model workflow ID that you would like to generate a request for, the type of request you would like (a standard Met Office request (default) or a JASMIN based request), the streams you would like the request to process and a package name (used to distinguish between different runs using the same model workflow ID).**
 
-The name of your request file will be noted in the comments of the issue that was opened upon filling out the `Request The Generation Of A CDDS Request File` issue form. Please be aware that this issue is likely to have been closed. Alternatively, you can easily identify your request file as the file that contains the model workflow ID and package name given in the `Request The Generation Of A CDDS Request File` issue form. Do not edit any request or variable list files directly within the repository. To make any changes, you must first download it and only make edits to your local copy.
+The name of your request file will be noted in the comments on the issue that is opened when you submit the Request The Generation Of A CDDS Request File issue form. Please be aware that this issue is likely to have been closed. Alternatively, you can easily identify your request file as the file that contains the model workflow ID and package name given in the `Request The Generation Of A CDDS Request File` issue form. Do not edit any request or variable list files directly within the repository. To make any changes, you must first download it and only make edits to your local copy.
 
 
 ## Getting Your Request Running

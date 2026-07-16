@@ -1,7 +1,7 @@
 <!--(C) British Crown Copyright 2026, Met Office. Please see LICENSE.md for license details.--> 
 ## Model Workflow Metadata
 
-The workflow metadata files in this folder are created when the `Add/Modify Workflow Metadata` issue form is submitted. Each file is named using the unique model workflow ID provided in the submission (for example, `u-dv341`). These files are used to populate any request configuration
+The workflow metadata files in this folder are created when the `Add/Modify Workflow Metadata` issue form is submitted. Each file is named using the unique model workflow ID provided in the submission (for example, `u-dv341`). These files are used to populate any associated request configuration files.
 
 > **IMPORTANT:
 >  Do not edit any workflow metadata config files directly within the repository. If you need to update information within a file or remove a configuration file, please open an issue and include the relevant model workflow ID, along with a clear description of the requested change.**

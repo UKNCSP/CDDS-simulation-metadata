@@ -9,7 +9,7 @@
 The variable lists in this folder are specifically designed to correspond to a workflow metadata submission created using the `Add/Modify Workflow Metadata` issue form. These are generated at the point of submission. The name of the corresponding variable list will have been left as a comment on the issue created when you submitted your workflow metadata using the `Add/Modify Workflow Metadata` issue form and under any request file generation issue created using the `Request The Generation Of A CDDS Request File` issue form. Please note that these issues will likely have been closed. Alternatively, you can identify the correct variable list by locating the file whose name begins with the corresponding model workflow ID. The variable list filename will also contain the experiment ID and model ID from the workflow metadata submission. For example, for the workflow metadata file [u-dv341.cfg](../workflow_metadata/u-dv341.cfg), the corresponding variable list is [u-dv341_piControl_UKCM2-0-LL.txt](v1.2.2.4/u-dv341_piControl_UKCM2-0-LL.txt).
 
 > **IMPORTANT:
->  Please always use the variable list contained within the most recent version folder, unless otherwise advised by a member of the CDDS team. This should align with the current version of the data request process that is being used.**
+>  Please always use the variable list contained within the most recent version folder, unless otherwise advised by a member of the CDDS team. This should align with the current version of the Data Request that is being used.**
 
 ## Understanding the Variable List
 We use the model and experiment specified in the workflow metadata submission to pre-identify the status of each variable available within the experiment (for example: approved, embargoed or do-not-produce). Not every experiment or model is able to produce every variable.
@@ -20,7 +20,7 @@ We use the model and experiment specified in the workflow metadata submission to
 ### Variable naming conventions
 The convention for naming variables has changed substantially since CMIP6. In CMIP7 the "branded variable" system was introduced to provide greater detail about the temporal and spatial sampling of the variable directly within its name.
 
-For example, `Amon.tas` (as it was known in CMIP6) is now shown in the variable list as `atmos/tas_tavg-h2m-hxy-u@mon`. This can be broken down generally into `<realm>/<variable_name>_<temporal_label>-<vertical_label>-<horizontal_label>-<area_type_label>@<frequency>`. Hence following on from our example of `Amon.tas`, we can immediately tell the following about the variable:
+For example, `Amon.tas` (as it was known in CMIP6) is now shown in the variable list as `atmos/tas_tavg-h2m-hxy-u@mon`. This can be broken down generally into `<realm>/<variable_name>_<temporal_label>-<vertical_label>-<horizontal_label>-<area_type_label>@<frequency>`. Hence, following on from our example of `Amon.tas`, we can immediately tell the following about the variable:
 | key | Value |
 | ----- | ----- |
 | realm | atmos (atmospheric) |
@@ -33,7 +33,7 @@ For example, `Amon.tas` (as it was known in CMIP6) is now shown in the variable 
 
 ### Variable Status Comments And What They Mean
 
-Within the variable list, each variable may have one or more inline comments next to it. This provides information on the status and priority of that variable. Any approved variables with no `priority=` type label can be assumed to be listed as either 'high' or 'core' priority in the current version of the data request. See the table below for more information about what each label means for you.
+Within the variable list, each variable may have one or more inline comments next to it. This provides information on the status and priority of that variable. Any approved variables with no `priority=` type label can be assumed to be listed as either 'high' or 'core' priority in the current version of the Data Request. See the table below for more information about what each label means for you.
 
 | Status Label | Meaning | 
 | ----- | ----- |
@@ -45,8 +45,8 @@ Within the variable list, each variable may have one or more inline comments nex
 | `Yearly variables unable to be processed at this time` | We are currently unable to produce variables at a yearly frequency. Attempting to do so will result in critical errors. |
 | `unknown (no stream information available)` | This variable is missing stream information and hence cannot currently be produced. |
 | `no-mapping-found` | This variable has no mapping information and hence cannot currently be produced. |
-| `priority=medium` | This variable is listed as 'medium' priority in the current version of the data request. |
-| `priority=low` | This variable is listed as 'low' priority in the current version of the data request. |
+| `priority=medium` | This variable is listed as 'medium' priority in the current version of the Data Request. |
+| `priority=low` | This variable is listed as 'low' priority in the current version of the Data Request. |
 
 
 
