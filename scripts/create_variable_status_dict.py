@@ -1,12 +1,10 @@
 # (C) British Crown Copyright 2026, Met Office.
 # Please see LICENSE.md for license details.
-"""This script generates the variable status dictionaries for each model/source ID.
+"""This script generates the variable status dictionaries for each model/source ID.  Variable status' are drawn from the
+mappings JSON and labelled appropriately.
 
-This script is intended for command line usage in which the user will be given the option to manually override an entire
-model variables status file with a given status. e.g. override all variables in UKESM1 with the status "embargoed". The
-accepted status' are "approved", "do-not-produce" and "embargoed".
-
-In the absence of a manual override, the variable status' are drawn from the mappings JSON and labelled appropriately.
+This script is intended for command line usage but is incorporated as part of '.github/workflows/update_mappings.yml'.
+Changes to this script may result in errors within this workflow.
 """
 
 import json
@@ -16,7 +14,7 @@ from constants import REF_INFO_DIR, MAPPINGS_FILE_LOCATION
 
 
 def get_all_models(mappings_dict: list[dict]) -> set:
-    """Gets a list of all models.
+    """Gets a set of all models present in the mappings.json.
 
     Parameters
     ----------
@@ -30,6 +28,7 @@ def get_all_models(mappings_dict: list[dict]) -> set:
     """
     models = set()
     for mapping in mappings_dict:
+        # Check for models in both the STASH and XIOS, each variable should have entried in one of these tables.
         stash_model_list = mapping["models_in_stash"]
         xios_model_list = list(mapping["XIOS entries"].keys())
         model_list = stash_model_list + xios_model_list
@@ -40,7 +39,18 @@ def get_all_models(mappings_dict: list[dict]) -> set:
 
 
 def get_variable_status(mappings_dict: list[dict], model: str) -> dict:
-    """Gets the status of each variable for a single model.
+    """Returns a dictionary of each variable and its status for the given model. The status can be one of:
+
+    - "approved" meaning that the variable has been produced and has passed the diagnostic review process successfully.
+    - "do-not-produce" meaning that the variable has been marked as do-not-produce in the mappings hence cannot be
+    produced, irrespective of the model used.
+    - "do-not-produce (not available with this model)" meaning that the variable has no mapping information for the
+    given model, hence it cannot be produced using this model.
+    - "embargoed" meaning that the variable is technically producible with this model but has NOT yet passed the
+    diagnostic review process successfully.
+    - "unknown (no stream information available)" meaning that the variable exists in the mappings.json but there is no
+    content in the stash or XIOS table and hence no stream information to use in processing. We have no way of knowing
+    if this variable can be produced by this model.
 
     Parameters
     ----------
@@ -56,14 +66,18 @@ def get_variable_status(mappings_dict: list[dict], model: str) -> dict:
     """
     variable_status_dict = {}
     approved_labels = ["diagnostic_review_ok", "diagnostic_review_ok_OI_UKCM", "diagnostic_review_ok_OI_UKESM"]
+
     for mapping in mappings_dict:
         variable = mapping["branded_variable"]
+        # Variables marked 'do-not-produce' and 'fx' are handled separately and unlikely to have any meaningfull
+        # stream information. These require a more specific label.
         if (
             not mapping["models_in_stash"]
             and not mapping["XIOS entries"]
             and not any(label in mapping["labels"] for label in ('do-not-produce', 'fx'))
         ):
             variable_status_dict[variable] = "unknown (no stream information available)"
+
         elif (
             model in mapping["models_in_stash"]
             or model in mapping["XIOS entries"].keys()
@@ -74,8 +88,12 @@ def get_variable_status(mappings_dict: list[dict], model: str) -> dict:
                 variable_status_dict[variable] = "do-not-produce"
             elif [item for item in approved_labels if item in labels]:
                 variable_status_dict[variable] = "approved"
+            # If all of the required information exists and a variable is not yet approved or marked as do-not-produce,
+            # it must be marked as embargoed
             else:
                 variable_status_dict[variable] = "embargoed"
+
+        # Flag variables with no mention of the given model in their mapping inforamtion.
         else:
             variable_status_dict[variable] = "do-not-produce (not available with this model)"
 
@@ -106,7 +124,7 @@ def generate_variable_status_dictionaries() -> None:
     for model in all_models:
         variable_status_dict = get_variable_status(mappings_dict, model)
         save_json(model, variable_status_dict)
-        print(f"Processing variables for {model}..... Done")
+        print(f"Processing variables for {model}..... Done")  # Printed to terminal or actions logs for debugging
 
 
 if __name__ == "__main__":

@@ -1,6 +1,7 @@
 # (C) British Crown Copyright 2026, Met Office.
 # Please see LICENSE.md for license details.
-"""This script is designed to delete workflow metadata configuration files and all other associated files.
+"""This script is designed to delete workflow metadata configuration files and all other associated files (e.g. workflow
+metadata config files and variable lists). Command line usage only.
 
 Example command line usage:
 `python scripts/delete_metadata.py <workflow_id>`
@@ -26,7 +27,7 @@ def arg_parser() -> argparse.Namespace:
     """
     parser = argparse.ArgumentParser(description="Delete a workflow metadata configuration file and all associated "
                                      "files.")
-    parser.add_argument("workflow_id", help="The workflow ID associated with the workflow.")
+    parser.add_argument("workflow_id", help="The workflow ID associated with the metadata to delete.")
 
     return parser.parse_args()
 

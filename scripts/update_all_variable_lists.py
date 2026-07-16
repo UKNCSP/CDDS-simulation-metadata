@@ -1,6 +1,7 @@
 # (C) British Crown Copyright 2026, Met Office.
 # Please see LICENSE.md for license details.
-"""Update all variables lists using existing workflow metadata."""
+"""Update all variables lists using existing workflow metadata. This script relies heavily on the content from
+'scripts/generate_variable_lists.py'"""
 
 import os
 import configparser

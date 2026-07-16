@@ -1,15 +1,24 @@
 # (C) British Crown Copyright 2026, Met Office.
 # Please see LICENSE.md for license details.
-"""Command line tool to append or remove an item to/from the known issues dictionary used for CMIP7 variables.
+"""Command line tool to append or remove an item to/from the known issues dictionary used for CMIP7 variables. The use
+of this tool can be requested by a user through filling out the issue form
+'.github/ISSUE_TEMPLATE/request_change_to_known_issues.yml'.
 
-Example command line usage: 'python scripts/edit_known_issues.py "UKESM1" "1pctCO2" "*" "atmos/tas_tavg-h2m-hxy-u@day"'.
+Note that input is taken from the user during script execution to confirm if the selection is to be added or removed
+from the known issues dictionary.
+
+Example command line usage: 'python scripts/edit_known_issues.py "UKESM1" "1pctCO2" "*" "atmos/tas_tavg-h2m-hxy-u@day"
+"Garbled data"'.
+
+Here, "*" is used as a wildcard indicator meaning all. This is explained more carefully in arg_parser().
 """
 
 import argparse
 import json
 import sys
-from difflib import get_close_matches
 import re
+
+from difflib import get_close_matches
 
 from common import read_json
 from constants import MAPPINGS_FILE_LOCATION, DR_FILE_LOCATION, KNOWN_ISSUES_DICT_FILE_LOCATION
@@ -50,6 +59,7 @@ def get_valid_source_ids() -> set:
     for dictionary in mappings:
         for model in dictionary["models_in_stash"]:
             valid_source_ids.add(model)
+    print(valid_source_ids)
     return valid_source_ids
 
 
@@ -69,7 +79,7 @@ def get_valid_experiment_ids() -> list:
 
 def verify_user_input(args: argparse.Namespace) -> None:
     """Verifies the user input for source id, experiment id and variant label against a list of valid values or regular
-    expression. If an exact match is not found then a closest match suggestion is given to the user.
+    expressions. If an exact match is not found then a closest match suggestion is given to the user.
 
     Parameters
     ----------
@@ -81,16 +91,13 @@ def verify_user_input(args: argparse.Namespace) -> None:
     ValueError
         If an invalid entry is provided as an argument by the user.
     """
-    # user_inputs = [args.source_id, args.experiment_id]
-    # valid_inputs = [get_valid_source_ids(), get_valid_experiment_ids()]
-
-    user_inputs = [args.experiment_id]
-    valid_inputs = [get_valid_experiment_ids()]
+    user_inputs = [args.source_id, args.experiment_id]
+    valid_inputs = get_valid_experiment_ids() + list(get_valid_source_ids())
 
     # Confirm that source id and experiment id are recognised and valid
-    for user_input, valid_input_list in zip(user_inputs, valid_inputs):
-        if user_input not in valid_input_list:
-            guess = get_close_matches(user_input, valid_input_list)
+    for user_input in user_inputs:
+        if user_input not in valid_inputs:
+            guess = get_close_matches(user_input, valid_inputs)
             std_msg = f"'{user_input}' not recognised."
             msg = f"'{user_input}' not recognised, did you mean '{guess[0]}'?" if guess else std_msg
             raise ValueError(f"Invalid input value. {msg}")
