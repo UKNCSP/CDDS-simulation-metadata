@@ -1,9 +1,19 @@
-## Getting Your Request File Running
+> **IMPORTANT:
+>  Do not edit any request or variable list files directly within the repository. To make any changes, you must first download it and only make edits to your local copy.**
+
+## Finding Your Request
+> **NOTE:
+>  In order to generate a request file, please navigate to the github issues page and fill out the issue form titled `Request The Generation Of A CDDS Request File`. You will need to know the model workflow ID that you would like to generate a request for, the type of request you would like (a standard Met Office request (default) or a JASMIN based request), the streams you would like the request to process and a package name (used to distinguish between different runs using the same model workflow ID).**
+
+The name of your request file will be noted in the comments on the issue that is opened when you submit the Request The Generation Of A CDDS Request File issue form. Please be aware that this issue is likely to have been closed. Alternatively, you can easily identify your request file as the file that contains the model workflow ID and package name given in the `Request The Generation Of A CDDS Request File` issue form. Do not edit any request or variable list files directly within the repository. To make any changes, you must first download it and only make edits to your local copy.
+
+
+## Getting Your Request Running
 To run your request file it is important that you download the request file and its corresponding variable list to within your $HOME directory BEFORE you make any changes. These files do not need to be in the same location, however it is often helpful to keep them together. 
 
 Please DO NOT make any changes to the request file on the repository itself.
 
-Once the request file and corresponding variable list file are in your $HOME space, you will need to update the path under 'variable_list_file' in the request in the section 'data'.
+Once the request file and corresponding variable list file are in your $HOME space, you will need to update the path under 'variable_list_file' in the request in the 'data' section. For those with a JASMIN request. You will also need to populate the 'jasmin_account' entry in the 'conversion' section.
 
 1. Activate the CDDS environment by giving the following command in the terminal:
     ```bash
@@ -25,4 +35,4 @@ Once the request file and corresponding variable list file are in your $HOME spa
     cdds_convert request.cfg
     ```
 
-For additional advice on common errors that you may encounter, please visit the [wiki](https://github.com/UKNCSP/CDDS-simulation-metadata/wiki) or contact a member of the CDDS team for support.
+For additional advice on common errors that you may encounter, please visit the [wiki](https://github.com/UKNCSP/CDDS-simulation-metadata/wiki) or contact a member of the CDDS team for support. You can also find operational procedure documentation for CMIP7 through the main CDDS repository [here](https://metoffice.github.io/CDDS/latest/operational_procedure/).
