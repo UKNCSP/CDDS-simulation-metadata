@@ -1,5 +1,9 @@
 # (C) British Crown Copyright 2026, Met Office.
 # Please see LICENSE.md for license details.
+
+# NOTE: This issue template is the required to feed the relavent information to '.github/workflows/generate_request.yml'
+# and 'scripts/generate_request.py'. Changes to this template may result in errors.
+
 name: "Request The Generation Of A CDDS Request File"
 description: Request The Generation Of A CDDS Request File. Please note, i order to generate a request file, workflow metadata form must have been completed and submitted for the appropriate model workflow ID.
 title: "Request The Generation Of A CDDS Request File: <insert model workflow id here>"
@@ -21,10 +25,22 @@ body:
       required: true
 
   - type: dropdown
+    id: request_type
+    attributes:
+      label: Request Type
+      description: The type of request to generate. Unless using JASMIN, please select the default "Standard Met Office Request".
+      options:
+        - Standard Met Office Request
+        - JASMIN Request
+      default: 0
+    validations:
+      required: true
+
+  - type: dropdown
     id: streams
     attributes:
       label: Streams
-      description: The streams you wish to process with.
+      description: The stream(s) you wish to process with.
       multiple: true
       options:
         - ap4
@@ -39,6 +55,8 @@ body:
         - onm 
         - ind
         - ond
+    validations:
+      required: true
 
   - type: input 
     id: package

@@ -3,6 +3,9 @@
 """A script to generate a functional request file using information provided from a given workflow metadata
 configuration file.
 
+NOTE: This script relies on inputs given from '.github/ISSUE_TEMPLATE/generate_request_file.yml' and is utilised by the
+'.github/workflows/generate_request.yml' workflow automatically upon issue submission.
+
 """
 import os
 import re
@@ -210,7 +213,7 @@ def validate_request(request: dict) -> None:
         raise RuntimeError(f"Unable to valdidate request file against cvs:\n{cv_errors}")
 
 
-def write_request(data: SectionProxy, request: dict) -> str:
+def write_request(filename_prefix, data: SectionProxy, request: dict) -> str:
     """Writes out the fully populated REQUEST TEMPLATE dictionary to a configuration file format.
 
     Parameters
@@ -225,7 +228,7 @@ def write_request(data: SectionProxy, request: dict) -> str:
     str
         The request filename.
     """
-    filename = f"request_{data['model_workflow_id']}_{request['common']['package']}.cfg"
+    filename = f"{filename_prefix}_request_{data['model_workflow_id']}_{request['common']['package']}.cfg"
     with open(Path("requests") / filename, "w") as f:
         for section_header, content in request.items():
             f.write(f"[{section_header}]\n")
@@ -242,6 +245,22 @@ def generate_request_config() -> None:
     issue_info = process_issue_form()
     request = REQUEST_TEMPLATE
 
+    # If the user needs a JASMIN request, an additional field is needed to identify their JASMIN account (to be updated
+    # locally by the user once the request has been downloaded).
+    if issue_info["request_type"] == "JASMIN Request":
+        request["conversion"].update({"jasmin_account": ""})
+        filename_prefix = "jasmin"  # Required to help immedietly identify JASMIN based requests
+    elif issue_info["request_type"] == "Standard Met Office Request":
+        filename_prefix = "mo"  # Required to help immedietly identify Met Office based requests
+    else:
+        err_msg = (f"Unrecognised request type: '{issue_info["request_type"]}'. Expected 'JASMIN Request' or "
+                   "'Standard Met Office Request'")
+        with open(os.environ["GITHUB_OUTPUT"], "a") as gh:
+            gh.write(f"err_msg={err_msg}")
+            sys.exit(1)
+
+    # Identify the workflow metadata config file associated with the workflow ID given in the issue. This file must
+    # exist to proceed.
     cfg_file = f"{WORKFLOW_METADATA_DIR}/{issue_info['model_workflow_id']}.cfg"
     if not os.path.exists(cfg_file):
         err_msg = (f"The given model workflow ID {issue_info['model_workflow_id']} does not have an associated "
@@ -252,9 +271,12 @@ def generate_request_config() -> None:
     config = ConfigParser()
     config.read(cfg_file)
 
+    # Populate the request template with values from the workflow metadata config file and re validate where possible.
     update_request(request, config, issue_info)
     validate_request(request)
-    filename = write_request(config["data"], request)
+    filename = write_request(filename_prefix, config["data"], request)
+
+    # Note the relative path to the generated request and assocaited variable list to help with user navigation.
     with open(os.environ["GITHUB_OUTPUT"], "a") as gh:
         gh.write(f"var_list={request['data']['variable_list_file']}\n")
         gh.write(f"request_filename={filename}")
