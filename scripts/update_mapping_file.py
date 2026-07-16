@@ -5,14 +5,15 @@ import os
 import requests
 import json
 
-from constants import MAPPINGS_FILE_LOCATION
+from constants import MAPPINGS_FILE_LOCATION, DR_VERSION
 
 README_TEMPLATE = """
-<!--(C) British Crown Copyright 2025, Met Office. Please see LICENSE.md for license details.--> 
+<!--(C) British Crown Copyright 2025-2026, Met Office. Please see LICENSE.md for license details.--> 
 # CDDS Simulation Metadata For CMIP7
 [![Deploy static content to Pages]({})]({})
 
 CURRENT MAPPINGS FILE VERSION: {}
+CURRENT DATA REQUEST VERSION: {}
 
 This CDDS simulation metadata repository is designed to process and store CMIP7 workflow metadata. If you have a new
  workflow that you wish to register, please fill out the issue form marked 'Add/Modify Workflow Metadata'. Upon form
@@ -41,4 +42,4 @@ with open(MAPPINGS_FILE_LOCATION, "w") as f:
 badge_link = "https://github.com/UKNCSP/CDDS-simulation-metadata/actions/workflows/deploy_pages.yml/badge.svg"
 workflow_link = "https://github.com/UKNCSP/CDDS-simulation-metadata/actions/workflows/deploy_pages.yml"
 with open("README.md", "w") as f:
-    f.write(README_TEMPLATE.format(badge_link, workflow_link, mapping_file_version))
+    f.write(README_TEMPLATE.format(badge_link, workflow_link, mapping_file_version, DR_VERSION))
