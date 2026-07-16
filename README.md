@@ -1,5 +1,5 @@
 
-<!--(C) British Crown Copyright 2025, Met Office. Please see LICENSE.md for license details.--> 
+<!--(C) British Crown Copyright 2025-2026, Met Office. Please see LICENSE.md for license details.--> 
 # CDDS Simulation Metadata For CMIP7
 [![Deploy static content to Pages](https://github.com/UKNCSP/CDDS-simulation-metadata/actions/workflows/deploy_pages.yml/badge.svg)](https://github.com/UKNCSP/CDDS-simulation-metadata/actions/workflows/deploy_pages.yml)
 
