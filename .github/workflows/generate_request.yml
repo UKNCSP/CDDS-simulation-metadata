@@ -1,7 +1,7 @@
 # (C) British Crown Copyright 2026, Met Office.
 # Please see LICENSE.md for license details.
 
-# NOTE: This workflow is triggered only when issues labeled "request_file_request" are opened/editted and relies on the
+# NOTE: This workflow is triggered only when issues labelled "request_file_request" are opened/editted and relies on the
 # inputs given by '.github/ISSUE_TEMPLATE/generate_request_file.yml'
 
 name: "Generate a request file"
