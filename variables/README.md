@@ -41,7 +41,7 @@ Within the variable list, each variable may have one or more inline comments nex
 | `embargoed` | We have not yet been able to confirm whether this variable is producible or verify its output. |
 | `do-not-produce`| This variable cannot be produced, attempting to do so will result in critical errors or an invalid output. |
 | `do-not-produce (not available with this model)` | This variable cannot be produced using the given experiment or model | 
-| `known-issue` | This variable is known to have an issue. This may be revisted in time to see if a fix can be applied. |
+| `known-issue` | This variable is known to have an issue. This may be revisited in time to see if a fix can be applied. |
 | `Yearly variables unable to be processed at this time` | We are currently unable to produce variables at a yearly frequency. Attempting to do so will result in critical errors. |
 | `unknown (no stream information available)` | This variable is missing stream information and hence cannot currently be produced. |
 | `no-mapping-found` | This variable has no mapping information and hence cannot currently be produced. |
