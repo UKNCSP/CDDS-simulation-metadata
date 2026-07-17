@@ -69,10 +69,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NUMBER: ${{ github.event.issue.number }}
           BODY: >
-            A request file has been created for you and can be found under requests/${{ steps.create-file.outputs.request_filename }}.
-            Along side this, you will need to download a copy of the associated variable list file ${{ steps.create-file.outputs.var_list }}.
+            A request file has been created for you as [${{ steps.create-file.outputs.request_filename }}](https://github.com/UKNCSP/CDDS-simulation-metadata/tree/main/requests/${{ steps.create-file.outputs.request_filename }}).
+            Along side this, you will need to download a copy of the associated variable list file [${{ steps.create-file.outputs.var_list }}](https://github.com/UKNCSP/CDDS-simulation-metadata/tree/main/${{ steps.create-file.outputs.var_list }}).
 
-            Please be sure to read the README.md in the requests directory for guidence on setting up your request file to run.
+            You will need to make changes to the variable list file path in your local copy of the request before it can be used.
+            Please be sure to read the README.md in the requests directory for guidence on setting up your request file.
+
 
 
 
