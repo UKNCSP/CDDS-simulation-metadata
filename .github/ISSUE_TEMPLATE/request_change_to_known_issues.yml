@@ -9,7 +9,10 @@ body:
   - type: markdown
     attributes:
       value: |
-        # Request a change to the known issues dictionary for CMIP7 variables
+        # Request a change to the known issues dictionary for CMIP7 variables.
+        ## This form is processed by a human. If you are unsure about one of your entries or feel that you need to
+        provide additional information beyond what is covered by the form, please add some notes to the "additional
+        notes" box at the base of the form. 
 
   - type: dropdown
     id: instruction
@@ -27,7 +30,9 @@ body:
     id: source_id
     attributes:
       label: Source ID
-      description: The short name identifying the model (known as source ID or Model ID).
+      description: |
+        The short name identifying the model (known as source ID or Model ID).
+        If this applies to all CMIP7 models, please enter "*".
       placeholder: "e.g. UKESM1"
     validations:
       required: true
@@ -36,7 +41,9 @@ body:
     id: experiment_id
     attributes:
       label: Experiment ID
-      description: The experiment identifier.
+      description: |
+        The experiment identifier.
+        If this applies to all experiments, please enter "*".
       placeholder: "e.g. piControl"
     validations:
       required: true
@@ -45,7 +52,9 @@ body:
     id: variant_label
     attributes:
       label: Variant label
-      description: The variant label.
+      description: |
+        The variant label.
+        If this applies to all variants, please enter "*".
       placeholder: "e.g. r1i1p1f2"
     validations:
       required: true
@@ -54,7 +63,14 @@ body:
     id: variable
     attributes:
       label: Variable
-      description: The variable that you wish to be added or deleted. 
+      description: |
+        The variable that you wish to be added or deleted.
+        This entry can take any format as long as it is clear which specifc variable you are referring to.
+        Some examples include:
+        "Amon.tas"
+        "atmos.tas.tavg-h2m-hxy-u.mon"
+        "atmos/tas_tavg-h2m-hxy-u@mon"
+        "CDDS-CMIP7-mappings issue #67"
       placeholder: "e.g. atmos/evspsbl_tavg-u-hxy-u@mon"
     validations:
       required: true
@@ -63,8 +79,18 @@ body:
     id: explanation
     attributes:
       label: Reason for addition / deletion
-      description: Please explain briefly why you are requesting this change. Do not include any information that could be considered sensitive.
+      description: |
+        Please explain briefly why you are requesting this change.
+        Do not include any information that could be considered sensitive.
       placeholder: "The issue with this variable has been resolved..."
     validations:
       required: true
+
+  - type: textarea
+    id: additional_info
+    attributes:
+      label: Additional Notes
+      description: |
+        Please explain briefly why you are requesting this change.
+        Do not include any information that could be considered sensitive.
 
