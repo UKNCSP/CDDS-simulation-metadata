@@ -90,7 +90,4 @@ body:
     id: additional_info
     attributes:
       label: Additional Notes
-      description: |
-        Please explain briefly why you are requesting this change.
-        Do not include any information that could be considered sensitive.
 
