@@ -166,7 +166,7 @@ def update_request(request: dict, config: ConfigParser, issue_info: dict) -> dic
                 f'_{config["metadata"]["model_id"]}.txt')
     basename = (f'{config["metadata"]["model_id"]}_{config["metadata"]["experiment_id"]}'
                 f'_{config["metadata"]["variant_label"]}')
-    request["data"]["variable_list_file"] = var_file
+    request["data"]["variable_list_file"] = f"<UPDATE_WITH_PATH>/{var_file}"
     request["data"]["streams"] = issue_info["streams"].replace(",", "")
     request["common"]["workflow_basename"] = basename
     request["common"]["package"] = issue_info["package_name"]
