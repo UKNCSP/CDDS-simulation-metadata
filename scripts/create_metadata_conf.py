@@ -55,8 +55,10 @@ def set_calendar(calendar_type: str) -> dict[str, str]:
     """
     errors = {}
 
-    if calendar_type in ("360_day", "proleptic_gregorian"):
+    if calendar_type == "360_day":
         Calendar.default().set_mode(calendar_type)
+    elif calendar_type == "proleptic_gregorian":
+        Calendar.default().set_mode("gregorian")
     else:
         errors["calendar"] = "incompatible calendar: expected 360_day or proleptic_gregorian"
 
