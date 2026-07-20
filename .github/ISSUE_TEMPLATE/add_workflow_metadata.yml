@@ -114,10 +114,10 @@ body:
     id: calendar
     attributes:
       label: Calendar Type
-      description: Type of calendar used.
+      description: Type of calendar used. If using a Gregorian calendar, please select "proleptic_gregorian".
       options:
+        - "proleptic_gregorian"
         - "360_day"
-        - "gregorian"
       default: 0
     validations:
       required: true
