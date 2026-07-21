@@ -40,8 +40,8 @@ REGEX_DICT = {
 
 
 def set_calendar(calendar_type: str) -> dict[str, str]:
-    """Sets the metomi.isodatetime calendar. If the calendar is not one of '360_day', 'standard' or 'gregorian' an error
-    is noted to be returned to the user.
+    """Sets the metomi.isodatetime calendar. If the calendar is not '360_day' or 'proleptic_gregorian' an error is noted
+    to be returned to the user.
 
     Parameters
     ----------
@@ -55,10 +55,12 @@ def set_calendar(calendar_type: str) -> dict[str, str]:
     """
     errors = {}
 
-    if calendar_type in ("360_day", "gregorian", "standard"):
+    if calendar_type == "360_day":
         Calendar.default().set_mode(calendar_type)
+    elif calendar_type == "proleptic_gregorian":
+        Calendar.default().set_mode("gregorian")
     else:
-        errors["calendar"] = "incompatible calendar: expected 360_day or gregorian/standard"
+        errors["calendar"] = "incompatible calendar: expected 360_day or proleptic_gregorian"
 
     return errors
 
