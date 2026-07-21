@@ -174,4 +174,4 @@ CMOR_CV_JSON = requests.get("https://raw.githubusercontent.com/WCRP-CMIP/cmip7-c
 
 DR_VERSION = "1.2.2.5"
 DR_FILE_LOCATION = REF_INFO_DIR / f"dr-{DR_VERSION}_all.json"
-MIP_TABLE_DIR = f"$CDDS_ETC/mip_tables/CMIP7/DR-{DR_VERSION}-v1.0.0"
+MIP_TABLE_DIR = f"$CDDS_ETC/mip_tables/CMIP7/DR-{DR_VERSION}-v1.0.1"
