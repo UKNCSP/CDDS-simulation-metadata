@@ -278,7 +278,7 @@ def generate_request_config() -> None:
 
     # Note the relative path to the generated request and assocaited variable list to help with user navigation.
     with open(os.environ["GITHUB_OUTPUT"], "a") as gh:
-        gh.write(f"var_list={request['data']['variable_list_file']}\n")
+        gh.write(f"var_list={request['data']['variable_list_file'].replace("<UPDATE_WITH_PATH>/", "")}\n")
         gh.write(f"request_filename={filename}")
 
 
