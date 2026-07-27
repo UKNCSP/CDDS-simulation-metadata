@@ -10,9 +10,7 @@ body:
     attributes:
       value: |
         # Request a change to the known issues dictionary for CMIP7 variables.
-        ## This form is processed by a member of the CDDS team. If you are unsure about one of your entries or feel that you need to
-        provide additional information beyond what is covered by the form, please add some notes to the "additional
-        notes" box at the base of the form. 
+        ## This form is processed by a member of the CDDS team. If you are unsure about one of your entries or feel that you need to provide additional information beyond what is covered by the form, please add some notes to the "additional notes" box at the base of the form. 
 
   - type: dropdown
     id: instruction
