@@ -339,6 +339,7 @@ def get_stream_from_XIOS(mapping: dict, model: str, variable: str) -> str:
 
     # Extract just the stream for the information given in the XIOS info.
     stream = full_stream_info.split("`")[0] if full_stream_info else ""
+    # All in* streams in UKCM2 models must be updated to use the icemod sub stream.
     if model in ICEMOD_STREAMS.keys():
         if any(base_stream in stream for base_stream in ICEMOD_STREAMS[model]):
             stream = modify_inm_onm_substreams(stream)
