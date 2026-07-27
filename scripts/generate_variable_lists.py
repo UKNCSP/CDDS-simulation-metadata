@@ -31,7 +31,11 @@ from pathlib import Path
 from common import read_json, get_issue, process_metadata
 from constants import REF_INFO_DIR, MAPPINGS_FILE_LOCATION, KNOWN_ISSUES_DICT_FILE_LOCATION, DR_FILE_LOCATION
 
-ICEMOD_STREAMS = ["inm", "ind"]
+ICEMOD_STREAMS = {
+    "UKCM2-0-LL": ["inm", "ind"],
+    "HadGEM3-GC5": ["inm", "ind"],
+    "UKCM2a-0-HH": ["inm", "ind"],
+}
 
 
 def set_arg_parser() -> argparse.Namespace:
@@ -335,8 +339,10 @@ def get_stream_from_XIOS(mapping: dict, model: str, variable: str) -> str:
 
     # Extract just the stream for the information given in the XIOS info.
     stream = full_stream_info.split("`")[0] if full_stream_info else ""
-    if any(base_stream in stream for base_stream in ICEMOD_STREAMS):
-        stream = modify_inm_onm_substreams(stream)
+    # All in* streams in UKCM2 models must be updated to use the icemod sub stream.
+    if model in ICEMOD_STREAMS.keys():
+        if any(base_stream in stream for base_stream in ICEMOD_STREAMS[model]):
+            stream = modify_inm_onm_substreams(stream)
 
     return stream
 
