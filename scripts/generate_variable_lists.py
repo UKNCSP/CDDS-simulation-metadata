@@ -33,6 +33,7 @@ from constants import REF_INFO_DIR, MAPPINGS_FILE_LOCATION, KNOWN_ISSUES_DICT_FI
 
 ICEMOD_STREAMS = {
     "UKCM2-0-LL": ["inm", "ind"],
+    "HadGEM3-GC5": ["inm", "ind"],
     "UKCM2a-0-HH": ["inm", "ind"],
 }
 
