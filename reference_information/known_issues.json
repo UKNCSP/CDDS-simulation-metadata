@@ -26,7 +26,9 @@
                 "aerosol/emiisop_tavg-u-hxy-u@mon": "Garbled data in UKCM2.",
                 "seaIce/sicompstren_tavg-u-hxy-si@mon": "Output has double weighting by sea ice area, rather than a single weighting.",
                 "land/slthick_ti-sl-hxy-lnd@fx": "No ancillary data available.",
-                "atmos/ta_tavg-al-hxy-u@mon": "corrupted data of unknown source"
+                "atmos/ta_tavg-al-hxy-u@mon": "corrupted data of unknown source",
+                "seaIce/ts_tavg-u-hxy-si@mon": "Insufficient matching coordinate metadata to resolve cubes, cannot map dimension (0,) of the RHS cube to the LHS cube.",
+                "seaIce/sidragtop_tavg-u-hxy-si@mon": "Insufficient matching coordinate metadata to resolve cubes, cannot map dimension (0,) of the RHS cube to the LHS cube."
             }
         }
     },
