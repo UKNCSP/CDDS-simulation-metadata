@@ -65,8 +65,6 @@ def get_variable_status(mappings_dict: list[dict], model: str) -> dict:
         A dictionary of each variable in a model and its associated status.
     """
     variable_status_dict = {}
-    approved_labels = ["diagnostic_review_ok", "diagnostic_review_ok_OI_UKCM", "diagnostic_review_ok_OI_UKESM"]
-
     for mapping in mappings_dict:
         variable = mapping["branded_variable"]
         # Variables marked 'do-not-produce' and 'fx' are handled separately and unlikely to have any meaningfull
@@ -86,7 +84,14 @@ def get_variable_status(mappings_dict: list[dict], model: str) -> dict:
             labels = mapping["labels"]
             if "do-not-produce" in labels:
                 variable_status_dict[variable] = "do-not-produce"
-            elif [item for item in approved_labels if item in labels]:
+            # If we have the standard diagnsotic review ok in the labels it can be approved for all models
+            elif "diagnostic_review_ok" in labels:
+                variable_status_dict[variable] = "approved"
+            # If we have model specific diagnsotic review ok in the labels it can only be approved for that specific
+            # model
+            elif "diagnostic_review_ok_OI_UKCM2" in labels and "UKCM2" in model:
+                variable_status_dict[variable] = "approved"
+            elif "diagnostic_review_ok_OI_UKESM" in labels and "UKESM" in model:
                 variable_status_dict[variable] = "approved"
             # If all of the required information exists and a variable is not yet approved or marked as do-not-produce,
             # it must be marked as embargoed
