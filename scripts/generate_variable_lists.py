@@ -32,7 +32,8 @@ from common import read_json, get_issue, process_metadata
 from constants import REF_INFO_DIR, MAPPINGS_FILE_LOCATION, KNOWN_ISSUES_DICT_FILE_LOCATION, DR_FILE_LOCATION
 
 ICEMOD_STREAMS = {
-    "UKCM2": ["inm", "ind"]
+    "UKCM2": ["inm", "ind"],
+    "HadGEM3-GC5": ["inm", "ind"]
 }
 
 
