@@ -580,7 +580,6 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/sfcWind_tavg-h10m-hxy-u@1hr:ap9  # embargoed
 #atmos/sfcWind_tavg-h10m-hxy-u@6hr:ap7  # embargoed
 #atmos/sfcWind_tmaxavg-h10m-hxy-u@mon:ap6  # embargoed
-#atmos/ta_tavg-al-hxy-u@mon:ap5  # embargoed
 #atmos/ta_tavg-p39-hy-air@day:ap6  # embargoed
 #atmos/ta_tpt-al-hxy-u@6hr:ap7  # embargoed
 #atmos/tas_tavg-h2m-hxy-u@6hr:ap7  # embargoed
@@ -1003,6 +1002,7 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #land/slthick_ti-sl-hxy-lnd@fx:afx  # known-issue, embargoed
 #aerosol/emiisop_tavg-u-hxy-u@mon:ap4  # known-issue, embargoed
 #atmos/ps_tpt-u-hxy-u@6hr:ap7  # known-issue, embargoed
+#atmos/ta_tavg-al-hxy-u@mon:ap5  # known-issue, embargoed
 #atmos/ta_tpt-p7h-hxy-air@6hr:ap7  # known-issue, embargoed
 #atmos/ts_tpt-u-hxy-u@6hr:ap7  # known-issue, embargoed
 #atmos/ua_tpt-p7h-hxy-air@6hr:ap7  # known-issue, embargoed

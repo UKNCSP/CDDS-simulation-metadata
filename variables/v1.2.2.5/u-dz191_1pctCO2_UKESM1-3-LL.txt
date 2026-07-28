@@ -498,7 +498,6 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/rsutcs4co2_tavg-u-hxy-u@mon:ap5  # embargoed
 #atmos/rv850_tpt-850hPa-hxy-air@6hr:ap7  # embargoed
 #atmos/scldncl_tavg-u-hxy-scl@mon:ap5  # embargoed
-#atmos/ta_tavg-al-hxy-u@mon:ap5  # embargoed
 #atmos/ta_tavg-p39-hy-air@day:ap6  # embargoed
 #atmos/tdps_tavg-h2m-hxy-u@mon:ap5  # embargoed
 #atmos/tnhusa_tavg-al-hxy-u@mon:apu  # embargoed
@@ -750,6 +749,7 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/co2mass_tavg-u-hm-u@mon:ap5  # known-issue, embargoed
 #atmos/evspsbl_tavg-u-hxy-lnd@day:ap6  # known-issue, embargoed
 #atmos/psl_tpt-u-hxy-u@1hr:ap9  # known-issue, embargoed
+#atmos/ta_tavg-al-hxy-u@mon:ap5  # known-issue, embargoed
 seaIce/sicompstren_tavg-u-hxy-si@mon:inm  # known-issue, approved, priority=medium
 #seaIce/siforcecoriolx_tavg-u-hxy-si@mon:inm  # known-issue, embargoed, priority=medium
 #seaIce/siforcecorioly_tavg-u-hxy-si@mon:inm  # known-issue, embargoed, priority=medium

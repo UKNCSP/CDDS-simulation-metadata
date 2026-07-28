@@ -491,7 +491,6 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/sfcWind_tmaxavg-h10m-hxy-u@mon:ap6  # embargoed
 #atmos/sfcWind_tpt-h10m-hs-u@subhr:apt  # embargoed
 #atmos/ta_tavg-al-hxy-u@day:ap6  # embargoed
-#atmos/ta_tavg-al-hxy-u@mon:ap5  # embargoed
 #atmos/ta_tavg-p39-hy-air@day:ap6  # embargoed
 #atmos/ta_tpt-al-hs-u@subhr:apt  # embargoed
 #atmos/tas_tpt-h2m-hs-u@subhr:apt  # embargoed
@@ -730,6 +729,7 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocean/tnpeo_tavg-u-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed, priority=low
 #land/slthick_ti-sl-hxy-lnd@fx:afx  # known-issue, embargoed
 #aerosol/emiisop_tavg-u-hxy-u@mon:ap4  # known-issue, embargoed
+#atmos/ta_tavg-al-hxy-u@mon:ap5  # known-issue, embargoed
 seaIce/sicompstren_tavg-u-hxy-si@mon:inm/icemod  # known-issue, approved, priority=medium
 #seaIce/siforcecoriolx_tavg-u-hxy-si@mon:inm/icemod  # known-issue, embargoed, priority=medium
 #seaIce/siforcecorioly_tavg-u-hxy-si@mon:inm/icemod  # known-issue, embargoed, priority=medium
