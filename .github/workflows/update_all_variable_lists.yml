@@ -22,6 +22,10 @@ jobs:
         with:
           python-version: 3.11
 
+      - name: install dependencies
+        run: |
+          pip install "requests==2.34.2"
+
       - name: update variable lists
         id: update_variable_lists
         run: python scripts/update_all_variable_lists.py
