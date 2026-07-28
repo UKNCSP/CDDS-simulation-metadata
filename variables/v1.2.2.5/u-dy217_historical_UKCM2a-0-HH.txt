@@ -82,6 +82,7 @@ ocean/so_tavg-ol-hxy-sea@mon:onm/grid-T  # approved
 ocean/sos_tavg-u-hxy-sea@mon:onm/grid-T  # approved
 ocean/thetao_tavg-ol-hxy-sea@mon:onm/grid-T  # approved
 ocean/thkcello_tavg-ol-hxy-sea@mon:onm/grid-T  # approved
+ocean/tos_tavg-u-hxy-sea@day:ond/grid-T  # approved
 ocean/tos_tavg-u-hxy-sea@mon:onm/grid-T  # approved
 ocean/umo_tavg-ol-hxy-sea@mon:onm/grid-U  # approved
 ocean/uo_tavg-ol-hxy-sea@mon:onm/grid-U  # approved
@@ -94,10 +95,6 @@ seaIce/siconc_tavg-u-hxy-u@mon:inm/icemod  # approved
 seaIce/simass_tavg-u-hxy-si@mon:inm/icemod  # approved
 seaIce/sithick_tavg-u-hxy-si@mon:inm/icemod  # approved
 seaIce/sitimefrac_tavg-u-hxy-sea@mon:inm/icemod  # approved
-seaIce/siu_tavg-u-hxy-si@mon:inm/icemod  # approved
-seaIce/siv_tavg-u-hxy-si@mon:inm/icemod  # approved
-seaIce/snd_tavg-u-hxy-sn@mon:inm/icemod  # approved
-seaIce/ts_tavg-u-hxy-si@mon:ap5  # approved
 aerosol/abs550aer_tavg-u-hxy-u@mon:ap4  # approved
 aerosol/cdnc_tavg-al-hxy-u@mon:ap4  # approved
 aerosol/depdust_tavg-u-hxy-u@mon:ap5  # approved
@@ -218,41 +215,27 @@ landIce/snm_tavg-u-hxy-lnd@mon:ap5  # approved
 #ocean/bigthetao_tavg-u-hm-sea@mon  # no-mapping-found
 ocean/ficeberg_tavg-ol-hxy-sea@mon:onm/grid-T  # approved
 ocean/friver_tavg-u-hxy-sea@mon:onm/grid-T  # approved
-ocean/hfbasin_tavg-u-hyb-sea@mon:onm/diaptr  # approved
-ocean/hfbasinpadv_tavg-u-hyb-sea@mon:onm/diaptr  # approved
-ocean/hfbasinpmadv_tavg-u-hyb-sea@mon:onm/diaptr  # approved
-ocean/hfbasinpmdiff_tavg-u-hyb-sea@mon:onm/diaptr  # approved
-ocean/htovgyre_tavg-u-hyb-sea@mon:onm/diaptr  # approved
-ocean/htovovrt_tavg-u-hyb-sea@mon:onm/diaptr  # approved
 ocean/mlotst_tmax-u-hxy-sea@mon:onm/grid-T  # approved
 ocean/mlotst_tmin-u-hxy-sea@mon:onm/grid-T  # approved
 ocean/msftbarot_tavg-u-hxy-sea@mon:onm/grid-U  # approved
 ocean/pbo_tavg-u-hxy-sea@mon:onm/grid-T  # approved
-ocean/sltovgyre_tavg-u-hyb-sea@mon:onm/diaptr  # approved
-ocean/sltovovrt_tavg-u-hyb-sea@mon:onm/diaptr  # approved
 #ocean/so_tavg-u-hm-sea@mon  # no-mapping-found
 ocean/sob_tavg-u-hxy-sea@mon:onm/grid-T  # approved
 ocean/t20d_tavg-u-hxy-sea@mon:onm/grid-T  # approved
 #ocean/thetao_tavg-u-hm-sea@mon  # no-mapping-found
 ocean/thetaot_tavg-u-hxy-sea@mon:onm/grid-T  # approved
+ocean/tossq_tavg-u-hxy-sea@day:ond/grid-T  # approved
 ocean/volcello_tavg-ol-hxy-sea@mon:onm/grid-T  # approved
 ocean/wfo_tavg-u-hxy-sea@mon:onm/grid-T  # approved
-seaIce/evspsbl_tavg-u-hxy-si@mon:inm/icemod  # approved
-seaIce/rlds_tavg-u-hxy-si@mon:ap5  # approved
-seaIce/rlus_tavg-u-hxy-si@mon:ap5  # approved
-seaIce/siconca_tavg-u-hxy-u@mon:ap5  # approved
 seaIce/sidconcdyn_tavg-u-hxy-sea@mon:inm/icemod  # approved
 seaIce/sidconcth_tavg-u-hxy-sea@mon:inm/icemod  # approved
 seaIce/sidmassgrowthbot_tavg-u-hxy-si@mon:inm/icemod  # approved
 seaIce/sidmassmeltbot_tavg-u-hxy-si@mon:inm/icemod  # approved
 seaIce/sidmassmelttop_tavg-u-hxy-si@mon:inm/icemod  # approved
+seaIce/sidmassth_tavg-u-hxy-si@mon:inm/icemod  # approved
 seaIce/sieqthick_tavg-u-hxy-si@mon:inm/icemod  # approved
-seaIce/siflcondbot_tavg-u-hxy-si@mon:inm/icemod  # approved
-seaIce/siflcondtop_tavg-u-hxy-si@mon:inm/icemod  # approved
 seaIce/sihc_tavg-u-hxy-sea@mon:inm/icemod  # approved
-seaIce/simpconc_tavg-u-hxy-si@mon:inm/icemod  # approved
 seaIce/sispeed_tavg-u-hxy-si@mon:inm/icemod  # approved
-seaIce/snc_tavg-u-hxy-si@mon:inm/icemod  # approved
 seaIce/snw_tavg-u-hxy-si@mon:inm/icemod  # approved
 atmos/rsdsdiff_tavg-u-hxy-u@day:ap6  # approved, priority=medium
 atmos/tauupbl_tavg-u-hxy-u@day:ap6  # approved, priority=medium
@@ -263,18 +246,17 @@ ocean/hfevapds_tavg-u-hxy-ifs@mon:onm/grid-T  # approved, priority=medium
 ocean/hfibthermds_tavg-ol-hxy-sea@mon:onm/grid-T  # approved, priority=medium
 ocean/hfrainds_tavg-u-hxy-ifs@mon:onm/grid-T  # approved, priority=medium
 ocean/hfrunoffds_tavg-ol-hxy-sea@mon:onm/grid-T  # approved, priority=medium
-seaIce/siage_tavg-u-hxy-si@mon:inm/icemod  # approved, priority=medium
+ocean/t20d_tavg-u-hxy-sea@day:ond/grid-T  # approved, priority=medium
 seaIce/sidmasstranx_tavg-u-hxy-u@mon:inm/icemod  # approved, priority=medium
 seaIce/sidmasstrany_tavg-u-hxy-u@mon:inm/icemod  # approved, priority=medium
 seaIce/sifb_tavg-u-hxy-si@mon:inm/icemod  # approved, priority=medium
-seaIce/sitempbot_tavg-u-hxy-si@mon:inm/icemod  # approved, priority=medium
 aerosol/ccldncl_tavg-u-hxy-ccl@day:ap6  # approved, priority=low
 atmos/loaddust_tavg-u-hxy-u@day:ap6  # approved, priority=low
 atmos/reffcclwtop_tavg-u-hxy-ccl@day:ap6  # approved, priority=low
 atmos/reffsclwtop_tavg-u-hxy-scl@day:ap6  # approved, priority=low
 atmos/scldncl_tavg-u-hxy-scl@day:ap6  # approved, priority=low
 #atmos/zhalf_ti-alh-hxy-u@fx  # no-mapping-found, priority=low
-ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
+ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/areacella_ti-u-hxy-u@fx:afx  # embargoed
 #atmos/hurs_tavg-h2m-hxy-u@6hr:ap7  # embargoed
 #atmos/pr_tavg-u-hxy-u@1hr:ap9  # embargoed
@@ -299,10 +281,12 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocean/sos_tavg-u-hxy-sea@day:ond/grid-T  # embargoed
 #ocean/tauuo_tavg-u-hxy-sea@mon:onm/grid-U  # embargoed
 #ocean/tauvo_tavg-u-hxy-sea@mon:onm/grid-V  # embargoed
-#ocean/tos_tavg-u-hxy-sea@day:ond/grid-T  # embargoed
 #ocean/zos_tavg-u-hxy-sea@day:ond/grid-T  # embargoed
 #ocean/zostoga_tavg-u-hm-sea@mon:onm/grid-T  # embargoed
 #seaIce/siconc_tavg-u-hxy-u@day:ind/icemod  # embargoed
+#seaIce/siu_tavg-u-hxy-si@mon:inm/icemod  # embargoed
+#seaIce/siv_tavg-u-hxy-si@mon:inm/icemod  # embargoed
+#seaIce/snd_tavg-u-hxy-sn@mon:inm/icemod  # embargoed
 #aerosol/abs550dust_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/airmass_tavg-al-hxy-u@mon:ap4  # embargoed
 #aerosol/ccldncl_tavg-u-hxy-ccl@mon:ap5  # embargoed
@@ -526,10 +510,16 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #landIce/tas_tavg-h2m-hxy-is@mon:ap5  # embargoed
 #landIce/ts_tavg-u-hxy-is@mon:ap5  # embargoed
 #ocean/flandice_tavg-u-hxy-sea@mon:onm/grid-T  # embargoed
+#ocean/hfbasin_tavg-u-hyb-sea@mon:onm/diaptr  # embargoed
+#ocean/hfbasinpadv_tavg-u-hyb-sea@mon:onm/diaptr  # embargoed
+#ocean/hfbasinpmadv_tavg-u-hyb-sea@mon:onm/diaptr  # embargoed
+#ocean/hfbasinpmdiff_tavg-u-hyb-sea@mon:onm/diaptr  # embargoed
 #ocean/hfx_tavg-u-hxy-sea@day:ond/grid-U  # embargoed
 #ocean/hfx_tavg-u-hxy-sea@mon:onm/grid-U  # embargoed
 #ocean/hfy_tavg-u-hxy-sea@day:ond/grid-V  # embargoed
 #ocean/hfy_tavg-u-hxy-sea@mon:onm/grid-V  # embargoed
+#ocean/htovgyre_tavg-u-hyb-sea@mon:onm/diaptr  # embargoed
+#ocean/htovovrt_tavg-u-hyb-sea@mon:onm/diaptr  # embargoed
 #ocean/masso_tavg-u-hm-sea@mon:onm/scalar  # embargoed
 #ocean/mlotst_tavg-u-hxy-sea@day:ond/grid-T  # embargoed
 #ocean/msfty_tavg-ol-ht-sea@mon:onm/diaptr  # embargoed
@@ -537,21 +527,25 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocean/sfx_tavg-u-hxy-sea@mon:onm/grid-U  # embargoed
 #ocean/sfy_tavg-u-hxy-sea@mon:onm/grid-V  # embargoed
 #ocean/sltbasin_tavg-u-hyb-sea@mon:onm/diaptr  # embargoed
+#ocean/sltovgyre_tavg-u-hyb-sea@mon:onm/diaptr  # embargoed
+#ocean/sltovovrt_tavg-u-hyb-sea@mon:onm/diaptr  # embargoed
 #ocean/sos_tavg-u-hm-sea@mon:onm/grid-T  # embargoed
 #ocean/thetao_tavg-d2000m-hxy-sea@mon:onm/grid-T  # embargoed
 #ocean/thetao_tavg-d300m-hxy-sea@mon:onm/grid-T  # embargoed
 #ocean/thetao_tavg-d700m-hxy-sea@mon:onm/grid-T  # embargoed
 #ocean/thetao_tavg-op20bar-hxy-sea@day:ond/grid-T  # embargoed
 #ocean/tos_tavg-u-hm-sea@mon:onm/grid-T  # embargoed
-#ocean/tossq_tavg-u-hxy-sea@day:ond/grid-T  # embargoed
 #ocean/uos_tavg-u-hxy-sea@day:ond/grid-U  # embargoed
 #ocean/volo_tavg-u-hm-sea@mon:onm/scalar  # embargoed
 #ocean/vos_tavg-u-hxy-sea@day:ond/grid-V  # embargoed
 #ocean/zossq_tavg-u-hxy-sea@mon:onm/grid-T  # embargoed
 #ocean/zostoga_tavg-u-hm-sea@day:ond/grid-T  # embargoed
+#seaIce/evspsbl_tavg-u-hxy-si@mon:inm/icemod  # embargoed
 #seaIce/prsn_tavg-u-hxy-si@mon:inm/icemod  # embargoed
 #seaIce/rlds_tavg-u-hxy-si@day:ap6  # embargoed
+#seaIce/rlds_tavg-u-hxy-si@mon:ap5  # embargoed
 #seaIce/rlus_tavg-u-hxy-si@day:ap6  # embargoed
+#seaIce/rlus_tavg-u-hxy-si@mon:ap5  # embargoed
 #seaIce/rsds_tavg-u-hxy-si@day:ap6  # embargoed
 #seaIce/rsds_tavg-u-hxy-si@mon:ap5  # embargoed
 #seaIce/rsus_tavg-u-hxy-si@day:ap6  # embargoed
@@ -559,13 +553,15 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #seaIce/sbl_tavg-u-hxy-si@mon:inm/icemod  # embargoed
 #seaIce/siage_tavg-u-hxy-si@day:ind/icemod  # embargoed
 #seaIce/siconca_tavg-u-hxy-u@day:ap6  # embargoed
+#seaIce/siconca_tavg-u-hxy-u@mon:ap5  # embargoed
 #seaIce/sidmassdyn_tavg-u-hxy-si@mon:inm/icemod  # embargoed
 #seaIce/sidmassgrowthsi_tavg-u-hxy-si@mon:inm/icemod  # embargoed
 #seaIce/sidmassgrowthwat_tavg-u-hxy-si@mon:inm/icemod  # embargoed
 #seaIce/sidmassmeltlat_tavg-u-hxy-si@mon:inm/icemod  # embargoed
-#seaIce/sidmassth_tavg-u-hxy-si@mon:inm/icemod  # embargoed
 #seaIce/siflcondbot_tavg-u-hxy-si@day:ind/icemod  # embargoed
+#seaIce/siflcondbot_tavg-u-hxy-si@mon:inm/icemod  # embargoed
 #seaIce/siflcondtop_tavg-u-hxy-si@day:ind/icemod  # embargoed
+#seaIce/siflcondtop_tavg-u-hxy-si@mon:inm/icemod  # embargoed
 #seaIce/sifllattop_tavg-u-hxy-si@day:ind/icemod  # embargoed
 #seaIce/sifllattop_tavg-u-hxy-si@mon:inm/icemod  # embargoed
 #seaIce/siflsensbot_tavg-u-hxy-si@day:ind/icemod  # embargoed
@@ -579,6 +575,7 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #seaIce/siitdsnconc_tavg-u-hxy-si@mon:inm/icemod  # embargoed
 #seaIce/siitdsnthick_tavg-u-hxy-si@mon:inm/icemod  # embargoed
 #seaIce/siitdthick_tavg-u-hxy-si@mon:inm/icemod  # embargoed
+#seaIce/simpconc_tavg-u-hxy-si@mon:inm/icemod  # embargoed
 #seaIce/sisaltmass_tavg-u-hxy-si@mon:inm/icemod  # embargoed
 #seaIce/sisndmassdyn_tavg-u-hxy-si@mon:inm/icemod  # embargoed
 #seaIce/sisndmasssi_tavg-u-hxy-si@mon:inm/icemod  # embargoed
@@ -595,6 +592,7 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #seaIce/sitimefrac_tavg-u-hxy-sea@day:ind/icemod  # embargoed
 #seaIce/siu_tavg-u-hxy-si@day:ind/icemod  # embargoed
 #seaIce/siv_tavg-u-hxy-si@day:ind/icemod  # embargoed
+#seaIce/snc_tavg-u-hxy-si@mon:inm/icemod  # embargoed
 #seaIce/snd_tavg-u-hxy-sn@day:ind/icemod  # embargoed
 #seaIce/snm_tavg-u-hxy-si@mon:inm/icemod  # embargoed
 #seaIce/ts_tavg-u-hxy-si@day:ap6  # embargoed
@@ -674,11 +672,10 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocean/hfsnthermds_tavg-u-hxy-sea@mon:onm/grid-T  # embargoed, priority=medium
 #ocean/sfdsi_tavg-u-hxy-sea@mon:inm/icemod  # embargoed, priority=medium
 #ocean/siflfwbot_tavg-u-hxy-sea@mon:onm/grid-T  # embargoed, priority=medium
-#ocean/t20d_tavg-u-hxy-sea@day:ond/grid-T  # embargoed, priority=medium
 #ocnBgchem/fgdms_tavg-u-hxy-sea@mon:ap5  # embargoed, priority=medium
 #seaIce/sfdsi_tavg-u-hxy-si@mon:inm/icemod  # embargoed, priority=medium
+#seaIce/siage_tavg-u-hxy-si@mon:inm/icemod  # embargoed, priority=medium
 #seaIce/sidivvel_tpt-u-hxy-si@mon:inm/icemod  # embargoed, priority=medium
-#seaIce/sidragtop_tavg-u-hxy-si@mon:ap5  # embargoed, priority=medium
 #seaIce/sifb_tavg-u-hxy-si@day:ind/icemod  # embargoed, priority=medium
 #seaIce/siflfwbot_tavg-u-hxy-si@mon:inm/icemod  # embargoed, priority=medium
 #seaIce/siflfwdrain_tavg-u-hxy-si@mon:inm/icemod  # embargoed, priority=medium
@@ -698,6 +695,7 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #seaIce/sisaltmass_tavg-u-hxy-si@day:ind/icemod  # embargoed, priority=medium
 #seaIce/sishearvel_tpt-u-hxy-si@mon:inm/icemod  # embargoed, priority=medium
 #seaIce/sitempbot_tavg-u-hxy-si@day:ind/icemod  # embargoed, priority=medium
+#seaIce/sitempbot_tavg-u-hxy-si@mon:inm/icemod  # embargoed, priority=medium
 #seaIce/sitempsnic_tavg-u-hxy-si@day:ind/icemod  # embargoed, priority=medium
 #aerosol/sfpm10_tavg-h2m-hxy-u@1hr:ap9  # embargoed, priority=low
 #atmos/hurs_tmin-h2m-hxy-crp@day:ap6  # embargoed, priority=low
@@ -707,10 +705,10 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocean/dyto_ti-u-hxy-u@fx:ofx  # embargoed, priority=low
 #ocean/dyuo_ti-u-hxy-u@fx:ofx  # embargoed, priority=low
 #ocean/dyvo_ti-u-hxy-u@fx:ofx  # embargoed, priority=low
-#ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # embargoed, priority=low
 #ocean/sossq_tavg-u-hxy-sea@mon:onm/grid-T  # embargoed, priority=low
 #ocean/thkcelluo_tavg-ol-hxy-sea@mon:onm/grid-U  # embargoed, priority=low
 #ocean/thkcellvo_tavg-ol-hxy-sea@mon:onm/grid-V  # embargoed, priority=low
+#ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # embargoed, priority=low
 #ocean/wo_tavg-ol-hxy-sea@day:ond/grid-W  # embargoed, priority=low
 #ocean/volcello_tavg-ol-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed
 #ocean/zfullo_tavg-ol-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed
@@ -730,6 +728,7 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocean/somint_tavg-u-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed, priority=low
 #ocean/tnpeo_tavg-u-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed, priority=low
 #land/slthick_ti-sl-hxy-lnd@fx:afx  # known-issue, embargoed
+#seaIce/ts_tavg-u-hxy-si@mon:ap5  # known-issue, embargoed
 #aerosol/emiisop_tavg-u-hxy-u@mon:ap4  # known-issue, embargoed
 #atmos/ps_tpt-u-hxy-u@6hr:ap7  # known-issue, embargoed
 #atmos/ta_tavg-al-hxy-u@mon:ap5  # known-issue, embargoed
@@ -738,6 +737,7 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/ua_tpt-p7h-hxy-air@6hr:ap7  # known-issue, embargoed
 #atmos/va_tpt-p7h-hxy-air@6hr:ap7  # known-issue, embargoed
 seaIce/sicompstren_tavg-u-hxy-si@mon:inm/icemod  # known-issue, approved, priority=medium
+#seaIce/sidragtop_tavg-u-hxy-si@mon:ap5  # known-issue, embargoed, priority=medium
 #seaIce/siforcecoriolx_tavg-u-hxy-si@mon:inm/icemod  # known-issue, embargoed, priority=medium
 #seaIce/siforcecorioly_tavg-u-hxy-si@mon:inm/icemod  # known-issue, embargoed, priority=medium
 #seaIce/siforceintstrx_tavg-u-hxy-si@mon:inm/icemod  # known-issue, embargoed, priority=medium
