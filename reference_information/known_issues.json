@@ -6,6 +6,13 @@
             }
         }
     },
+    "UKESM1-3-LL": {
+        "*": {
+            "*": {
+                "atmos/ta_tavg-al-hxy-u@mon": "corrupted data of unknown source"
+            }
+        }
+    },
     "UKCM2a-0-HH": {
         "*": {
             "*": {
@@ -18,7 +25,8 @@
                 "seaIce/siforcetilty_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
                 "aerosol/emiisop_tavg-u-hxy-u@mon": "Garbled data in UKCM2.",
                 "seaIce/sicompstren_tavg-u-hxy-si@mon": "Output has double weighting by sea ice area, rather than a single weighting.",
-                "land/slthick_ti-sl-hxy-lnd@fx": "No ancillary data available."
+                "land/slthick_ti-sl-hxy-lnd@fx": "No ancillary data available.",
+                "atmos/ta_tavg-al-hxy-u@mon": "corrupted data of unknown source"
             }
         }
     },
@@ -37,7 +45,8 @@
                 "seaIce/siforcetiltx_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
                 "seaIce/siforcetilty_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
                 "aerosol/emiisop_tavg-u-hxy-u@mon": "Garbled data in UKCM2.",
-                "seaIce/sicompstren_tavg-u-hxy-si@mon": "Output has double weighting by sea ice area, rather than a single weighting."
+                "seaIce/sicompstren_tavg-u-hxy-si@mon": "Output has double weighting by sea ice area, rather than a single weighting.",
+                "atmos/ta_tavg-al-hxy-u@mon": "corrupted data of unknown source"
             }
         },
         "1pctCO2": {
