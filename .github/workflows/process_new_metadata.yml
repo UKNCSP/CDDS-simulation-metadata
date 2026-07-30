@@ -169,7 +169,9 @@ jobs:
             A different version of this metadata file already exists, you can view the existing file here: 
             [${{ steps.create-file.outputs.filename }}](https://github.com/UKNCSP/CDDS-simulation-metadata/tree/main/${{ steps.create-file.outputs.filename }}).
 
-            A pull request has been opened to review your changes. PLEASE DO NOT MERGE THIS PULL REQUEST WITHOUT REVIEW FROM A CDDS TEAM MEMBER.
+            A pull request has been opened to review your changes.
+            
+            Please do NOT merge this pull request without review from a CDDS team member.
 
             Thank you for your contribution.
         
