@@ -167,9 +167,9 @@ jobs:
           NUMBER: ${{ github.event.issue.number }}
           BODY: >
             A different version of this metadata file already exists, you can view the existing file here: 
-            ${{ steps.create-file.outputs.filename }}.
+            [${{ steps.create-file.outputs.filename }}](https://github.com/UKNCSP/CDDS-simulation-metadata/tree/main/${{ steps.create-file.outputs.filename }}).
 
-            A pull request has been opened to review your changes. 
+            A pull request has been opened to review your changes. PLEASE DO NOT MERGE THIS PULL REQUEST WITHOUT REVIEW FROM A CDDS TEAM MEMBER.
 
             Thank you for your contribution.
         
@@ -184,6 +184,6 @@ jobs:
           ISSUE: ${{ github.event.issue.number }}
           BODY: >
             This metadata file already exists, you can view the existing file here: 
-            ${{ steps.create-file.outputs.filename }}.
+            [${{ steps.create-file.outputs.filename }}](https://github.com/UKNCSP/CDDS-simulation-metadata/tree/main/${{ steps.create-file.outputs.filename }}).
 
             Thank you for your contribution.
