@@ -1,4 +1,5 @@
 # Note: only global variables are currently producible by CDDS
+atmos/areacella_ti-u-hxy-u@fx:afx  # approved
 atmos/cl_tavg-al-hxy-u@mon:ap5  # approved
 atmos/cli_tavg-al-hxy-u@mon:ap5  # approved
 atmos/clivi_tavg-u-hxy-u@mon:ap5  # approved
@@ -43,6 +44,7 @@ atmos/rsut_tavg-u-hxy-u@mon:ap5  # approved
 atmos/rsutcs_tavg-u-hxy-u@mon:ap5  # approved
 atmos/sfcWind_tavg-h10m-hxy-u@day:ap6  # approved
 atmos/sfcWind_tavg-h10m-hxy-u@mon:ap5  # approved
+atmos/sftlf_ti-u-hxy-u@fx:afx  # approved
 atmos/ta_tavg-p19-hxy-air@day:ap6  # approved
 atmos/ta_tavg-p19-hxy-air@mon:ap5  # approved
 atmos/tas_tavg-h2m-hxy-u@day:ap6  # approved
@@ -72,12 +74,18 @@ land/evspsblveg_tavg-u-hxy-lnd@mon:ap5  # approved
 land/mrro_tavg-u-hxy-lnd@mon:ap5  # approved
 land/mrros_tavg-u-hxy-lnd@mon:ap5  # approved
 land/mrso_tavg-u-hxy-lnd@mon:ap5  # approved
+land/orog_ti-u-hxy-u@fx:afx  # approved
 landIce/mrfso_tavg-u-hxy-lnd@mon:ap5  # approved
 landIce/snc_tavg-u-hxy-lnd@mon:ap5  # approved
 landIce/snw_tavg-u-hxy-lnd@mon:ap5  # approved
+ocean/areacello_ti-u-hxy-u@fx:ofx  # approved
+ocean/basin_ti-u-hxy-u@fx:ofx  # approved
+ocean/deptho_ti-u-hxy-sea@fx:ofx  # approved
 ocean/hfds_tavg-u-hxy-sea@mon:onm/grid-T  # approved
+ocean/hfgeou_ti-u-hxy-sea@fx:ofx  # approved
 ocean/masscello_tavg-ol-hxy-sea@mon:onm/grid-T  # approved
 ocean/mlotst_tavg-u-hxy-sea@mon:onm/grid-T  # approved
+ocean/sftof_ti-u-hxy-u@fx:ofx  # approved
 ocean/so_tavg-ol-hxy-sea@mon:onm/grid-T  # approved
 ocean/sos_tavg-u-hxy-sea@mon:onm/grid-T  # approved
 ocean/thetao_tavg-ol-hxy-sea@mon:onm/grid-T  # approved
@@ -201,6 +209,7 @@ land/mrso_tavg-u-hxy-lnd@day:ap6  # approved
 land/mrsol_tavg-d10cm-hxy-lnd@day:ap6  # approved
 land/mrsol_tavg-sl-hxy-lnd@day:ap6  # approved
 land/mrsol_tavg-sl-hxy-lnd@mon:ap5  # approved
+land/sftlaf_ti-u-hxy-u@fx:afx  # approved
 land/tran_tavg-u-hxy-lnd@mon:ap5  # approved
 land/tsl_tavg-sl-hxy-lnd@day:ap6  # approved
 land/tsl_tavg-sl-hxy-lnd@mon:ap5  # approved
@@ -255,11 +264,9 @@ atmos/reffsclwtop_tavg-u-hxy-scl@day:ap6  # approved, priority=low
 atmos/scldncl_tavg-u-hxy-scl@day:ap6  # approved, priority=low
 #atmos/zhalf_ti-alh-hxy-u@fx  # no-mapping-found, priority=low
 ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
-#atmos/areacella_ti-u-hxy-u@fx:afx  # embargoed
 #atmos/hurs_tavg-h2m-hxy-u@6hr:ap7  # embargoed
 #atmos/pr_tavg-u-hxy-u@1hr:ap9  # embargoed
 #atmos/rluscs_tavg-u-hxy-u@mon:ap5  # embargoed
-#atmos/sftlf_ti-u-hxy-u@fx:afx  # embargoed
 #atmos/ta_tpt-p3-hxy-air@6hr:ap7  # embargoed
 #atmos/ua_tpt-p3-hxy-air@6hr:ap7  # embargoed
 #atmos/uas_tpt-h10m-hxy-u@3hr:ap8  # embargoed
@@ -267,15 +274,9 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/vas_tpt-h10m-hxy-u@3hr:ap8  # embargoed
 #land/mrsofc_ti-u-hxy-lnd@fx:afx  # embargoed
 #land/mrsol_tavg-d10cm-hxy-lnd@mon:ap5  # embargoed
-#land/orog_ti-u-hxy-u@fx:afx  # embargoed
 #land/rootd_ti-u-hxy-lnd@fx:afx  # embargoed
 #land/sftgif_ti-u-hxy-u@fx:afx  # embargoed
-#ocean/areacello_ti-u-hxy-u@fx:ofx  # embargoed
-#ocean/basin_ti-u-hxy-u@fx:ofx  # embargoed
 #ocean/bigthetao_tavg-ol-hxy-sea@mon:onm/grid-T  # embargoed
-#ocean/deptho_ti-u-hxy-sea@fx:ofx  # embargoed
-#ocean/hfgeou_ti-u-hxy-sea@fx:ofx  # embargoed
-#ocean/sftof_ti-u-hxy-u@fx:ofx  # embargoed
 #ocean/sos_tavg-u-hxy-sea@day:ond/grid-T  # embargoed
 #ocean/tauuo_tavg-u-hxy-sea@mon:onm/grid-U  # embargoed
 #ocean/tauvo_tavg-u-hxy-sea@mon:onm/grid-V  # embargoed
@@ -464,7 +465,6 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #land/mrros_tavg-u-hxy-lnd@day:ap6  # embargoed
 #land/mrsfl_tavg-sl-hxy-lnd@day:ap6  # embargoed
 #land/sftgif_tavg-u-hxy-u@mon:ap5  # embargoed
-#land/sftlaf_ti-u-hxy-u@fx:afx  # embargoed
 #land/wetlandCH4_tavg-u-hxy-lnd@mon:ap5  # embargoed
 #land/wtd_tavg-u-hxy-lnd@day:ap6  # embargoed
 #landIce/acabf_tavg-u-hxy-is@mon:ap5  # embargoed
@@ -666,7 +666,7 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/ps_tpt-u-hxy-u@6hr:ap7  # known-issue, embargoed
 #atmos/ta_tavg-al-hxy-u@mon:ap5  # known-issue, embargoed
 #atmos/ts_tpt-u-hxy-u@6hr:ap7  # known-issue, embargoed
-seaIce/sicompstren_tavg-u-hxy-si@mon:inm/icemod  # known-issue, approved, priority=medium
+#seaIce/sicompstren_tavg-u-hxy-si@mon:inm/icemod  # known-issue, embargoed, priority=medium
 #seaIce/sidragtop_tavg-u-hxy-si@mon:ap5  # known-issue, embargoed, priority=medium
 #seaIce/siforcecoriolx_tavg-u-hxy-si@mon:inm/icemod  # known-issue, embargoed, priority=medium
 #seaIce/siforcecorioly_tavg-u-hxy-si@mon:inm/icemod  # known-issue, embargoed, priority=medium
