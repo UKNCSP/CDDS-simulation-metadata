@@ -1,31 +1,194 @@
-<!--(C) British Crown Copyright 2025, Met Office. Please see LICENSE.md for license details.--> 
-# CDDS Workflow Metadata Configuration files
+# process_new_metadata.yml
 
-## Creating metadata files
+## Overview
 
-The 'process_new_metadata.yml' GitHub action workflow maintains and edits the database of CDDS workflow metadata seen in the 'workflow_metadata' directory. This set of actions allows for users to independently contribute to the database using a provided issue template ('add_workflow_metadata.yml'). The workflow structure combined with the form template and built-in sanity checks ensures that users submit metadata in the correct format, making it compatible with other systems. 
+The [process_new_metadata.yml](../../../.github/workflows/process_new_metadata.yml) workflow automates the processing of newly submitted simulation metadata.
 
-## The workflow components
+When a user submits an issue form to add or modify workflow metadata, this workflow validates the submission, generates the metadata configuration file and variable list, updates the metadata tables hosted on github pages, pushes new files directly to main, and notifies users of the output of their submission in real time. This workflow is designed to blend efficiency and accuracy, putting the power to drive changes into the hands of the users but in a way that ensure the information given is accurate, controlled, verified and tracable.
 
-| File | Functionality | 
-| -------- | --------|
-| .github/ISSUE_TEMPLATE/add_workflow_metadata.yml | The issue template file that structures the user issue submission. |
-| .github/workflows/process_new_metadata.yml | The main workflow file responsible for triggering the correct python scripts and responding to inputs based on conditional statements. |
-| scripts/create_metadata_conf.py | The python script responsible for parsing the issue body, validating the contents of the issue body and generated the structured configuration file. If any invalid inputs are detected this step will fail and provide feedback to the user. |
-| workflow_metadata/<model_workflow_id>.cfg | The directory and file naming structure of the metadata configuration files generated in 'create_metadata_conf.py'. |
-| scripts/generate_metadata_tables.py | The python script responsible for generating the searchable web view HTML file using the generated metadata files in 'workflow_metadata/<model_workflow_id>.cfg'. |
-| metadata_tables/index.html | The HTML file created in 'scripts/generate_metadata_tables.py'. |
-| scripts/constants.py | The HTML configuration and formatting script called upon by 'scripts/generate_metadata_tables.py'. |
-| .github/workflows/update_webview.yml | The workflow responsible for updating the HTML file ready to be deployed to pages. This workflow calls on 'scripts/generate_metadata_tables.py' and is triggered by the completion of the '.github/workflows/process_meta_issue.yml workflow'. |
-| .github/workflows/deploy_pages.yml | The workflow responsible for publishing the updated HTML to GitHub pages. This workflow is triggered by the completion of '.github/workflows/update_webview.yml'. |
+This workflow is triggered when any issue with the label `metadata entry` is created or editted. This label is automatically applied when users fill out the [add_workflow_metadata](../../../.github/ISSUE_TEMPLATE/add_workflow_metadata.yml) issue form.
 
-## Input sanity checks currently performed
+![image](../../../docs/developer_documentation/workflows/add_workflow_metadata_flowchart)
 
-| Validation Check | Associated Fields | Additional Details |
-| -------- | --------| -------- |
-| 'mass_data_class' dependencies | 'mass_data_class', 'mass_ensemble_member' | Ensure that when 'mass_data_class' is set to 'ens', the user also provides an input to 'mass_ensemble_member'. |
-| Parent field dependencies | 'branch_method', 'branch_date_in_child', 'branch_date_in_parent', 'parent_experiment_id', 'parent_mip', 'parent_model_id', 'parent_time_units', 'parent_variant_label' | Ensure that when 'branch_method' is set to 'standard', the user also provides an input to all parent fields. |
-| Datetime formatting | 'base_date', 'start_date', 'end_date', 'branch_date_in_child', 'branch_date_in_parent' | Ensure all datetime formatted fields adhere to 'YYY-MM-DDTHH:mm:ssZ' formatting. |
-| 'model_workflow_id' formatting | 'model_workflow_id' | Ensures the input workflow ID follows the valid 'a-bc123' OR 'ab-cd123' formatting. |
-| 'variant_label' formatting | 'variant_label' | Ensure that the input variant label follows the valid regex formatting. |
-| 'atmos_timestep' formatting | 'atmos_timestep' | Ensure that the input atmospheric timestep is a non-zero positive integer. |
+## Workflow Inputs
+
+| Input | Required | Description |
+|---------|---------|-------------|
+| `<input_name>` | Yes | Description of input. |
+| `<input_name>` | No | Description of input. |
+
+## Jobs
+
+### 1. Validation
+
+#### Purpose
+
+Ensures the submitted metadata is complete and correctly formatted.
+
+#### Actions
+
+- Check required fields.
+- Validate schema.
+- Verify workflow identifiers.
+- Confirm repository conventions are met.
+
+#### Failure Behaviour
+
+If validation fails:
+
+- Workflow stops.
+- Error details are reported to the user.
+- No repository changes are made.
+
+---
+
+### 2. Metadata Processing
+
+#### Purpose
+
+Transforms user-provided metadata into repository-managed files.
+
+#### Actions
+- Parse submission data.
+- Generate workflow metadata files.
+- Apply standard formatting.
+- Store outputs in the appropriate directory.
+
+#### Outputs
+
+| Output | Description |
+|----------|-------------|
+| Metadata file | Generated workflow metadata record. |
+
+---
+
+### 3. Derived Artefact Generation
+
+#### Purpose
+
+Updates generated content that depends on workflow metadata.
+
+#### Examples
+
+- Metadata tables.
+- Search indices.
+- Variable lists.
+- Documentation pages.
+
+#### Outputs
+
+| Output | Description |
+|----------|-------------|
+| Generated tables | Updated metadata summary tables. |
+| Generated files | Additional derived artefacts. |
+
+---
+
+### 4. Repository Update
+
+#### Purpose
+
+Commits generated changes back to the repository.
+
+#### Actions
+
+- Configure git credentials.
+- Commit generated files.
+- Push updates to the main branch.
+
+#### Commit Message Format
+
+```text
+Automated update from metadata submission
+```
+
+*(Replace with actual commit message used by workflow.)*
+
+---
+
+## Repository Locations
+
+### Inputs
+
+| Path | Description |
+|---------|-------------|
+| `workflow_metadata/` | Source metadata records. |
+| `reference_information/` | Supporting reference information. |
+
+### Outputs
+
+| Path | Description |
+|---------|-------------|
+| `metadata_tables/` | Generated metadata summaries. |
+| `docs/` | Published documentation assets. |
+
+## Dependencies
+
+### GitHub Actions
+
+| Action | Purpose |
+|----------|---------|
+| `actions/checkout` | Retrieve repository contents. |
+| `<action>` | `<purpose>` |
+
+### Python Scripts
+
+| Script | Purpose |
+|---------|---------|
+| `<script_name>.py` | Description. |
+
+## Error Handling
+
+The workflow will fail if:
+
+- Required metadata is missing.
+- Metadata schema validation fails.
+- Generated outputs cannot be created.
+- Repository updates cannot be committed.
+
+Common troubleshooting steps:
+ 
+1. Verify the submission contains all required fields.
+2. Check workflow logs in GitHub Actions.
+3. Confirm generated files are valid.
+4. Re-run the workflow after correcting issues.
+ 
+## Permissions
+ 
+The workflow requires permissions to:
+ 
+- Read repository contents.
+- Write generated files.
+- Create commits.
+- Update issues or comments.
+ 
+## Monitoring
+ 
+GitHub Actions logs can be viewed at:
+ 
+```text
+Actions → process_new_metadata
+```
+ 
+Key log sections:
+ 
+- Validation
+- Metadata generation
+- Artefact generation
+- Repository updates
+ 
+## Related Documentation
+ 
+- Repository README
+- Metadata submission process
+- Workflow metadata schema
+- CMIP7 operational procedure
+ 
+## Maintenance Notes
+ 
+When modifying this workflow:
+ 
+1. Preserve backward compatibility where possible.
+2. Update this documentation if triggers or jobs change.
+3. Test changes using a development branch before merging.
+4. Ensure generated artefacts remain reproducible.
