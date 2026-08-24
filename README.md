@@ -3,7 +3,7 @@
 # CDDS Simulation Metadata For CMIP7
 [![Deploy static content to Pages](https://github.com/UKNCSP/CDDS-simulation-metadata/actions/workflows/deploy_pages.yml/badge.svg)](https://github.com/UKNCSP/CDDS-simulation-metadata/actions/workflows/deploy_pages.yml)
 
-CURRENT MAPPINGS FILE VERSION: v2026-08-18
+CURRENT MAPPINGS FILE VERSION: CDDS-v4.0.1
 
 CURRENT DATA REQUEST VERSION: 1.2.2.5
 
