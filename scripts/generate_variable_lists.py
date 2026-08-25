@@ -531,7 +531,7 @@ def format_outfile_content(renamed_variable_dict: dict[str, str]) -> list[str]:
     lines = []
     for variable, comment in renamed_variable_dict.items():
         # Comment out all variables apart from those marked as approved.
-        if "approved" in comment:
+        if "approved" in comment and "known-issue" not in comment:
             lines.append(f"{variable}  # {', '.join(comment)}\n")
         elif comment:
             lines.append(f"#{variable}  # {', '.join(comment)}\n")
