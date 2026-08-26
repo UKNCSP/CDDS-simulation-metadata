@@ -1,1 +1,25 @@
-<!--(C) British Crown Copyright 2026, Met Office. Please see LICENSE.md for license details.--> 
+<!--(C) British Crown Copyright 2026, Met Office. Please see LICENSE.md for license details.-->
+
+# Updating Workflow Metadata For Developers
+
+Changes to workflow metadata files should always be done with support from a CDDS team member. This is to ensure that all changes are valid, expected and appropriately recorded. 
+
+## If a user has filled out [Add/Modify Workflow Metadata](../../../.github/ISSUE_TEMPLATE/add_workflow_metadata.yml) and a PR has been opened...
+
+If a user has filled out the [Add/Modify Workflow Metadata](../../../.github/ISSUE_TEMPLATE/add_workflow_metadata.yml) issue form and a pull request has been opened, this means that a workflow metadata configuration file in the [workflow_metadata](../../../workflow_metadata) directory already exists under the `model workflow ID` (.e.g `u-dv314`) that they have given in their issue form but the existing metadata does **not** match up with what they have given in their form. For example, a user may have filled out the form for `u-dv341` claiming that the `end_date` should be `2500-01-01T00:00:00Z`. However, if a metadata file for `u-dv341` already exists but has a different `end_date` listed, this is treated as someone requesting to "modify" the existing metadata and a pull request is opened.
+
+**This pull request should never be merged by the user themselves.** Users are warned against doing so by a comment left on the issue that is created when they fill out the form.
+
+The proceedure that you should follow as the developer when a pull request of this nature is opened is as follows:
+1. Identify if the person requesting the change is also the person who originally registered the metadata. The easiest way to confirm this is to look at the "User" field noted in the comment left at the top of the pull request by the GitHub actions bot. This is the username of the person who has requested the change. You should then look at the history of the file that is being updated and click on the link to the issue in the very first commit. This should have a message of the form "New workflow metadata file added from issue <issue number>". The author of this issue is the person who originaly registered the metadata.
+2. Confirm with the user requesting the change (and the user who originally submitted the metadata if they are not the same person) that they are intending to **update** the metadata as shown in the diff and that the change is expected and has been checked. In some circumstances we see users try to re submit metadata, unaware that it has already been registered. In these situations it is possible that unintended changes can be unknowingly introduced. It is important that we avoid this. **All changes to metadata must be expected and verified**. It can be very valuable if you can obtain a reason for the change from users to provide additional context to other developers who may need to trace these changes in the future.
+3. Once you have confirmed that the change(s) are expected and valid you will need to record the changes. There is an `updates` field in the `[ADDITIONAL INFO]` section of the metadata configuration file. If there are existing notes here that the PR is attempting to remove, **you must re add these back into the config file before merging the branch**. You should also add in a brief summary of the change currently being made to this along with the date that it was changed e.g. "start_date updated from 2000-01-01T00:00:00Z to 2500-01-01T00:00:00Z (2026/08/26).". This ensures we have a very quick way of tracking changes by simply looking at a file rather than having to dig into the commit history.
+4. Once you have persisted the update notes and confirmed the change, you can then **squash and merge** the branch, delete the branch and close the corresponding issue if it does not do so automatically. If closing the issue manually please leave a comment as you close it noting that the update has been completed with reference to the pull request. 
+
+## Blanket updates
+
+In the past it has been necessary to update more than one metadata configuration file. This is generally due to an error being spotted and a change in metadata requirements. 
+
+**Changes of this type should never occur directly on main**. If this is required, please open an issue noting the files that will need to be changed, the change being made and the reason for the change. The usual CDDS processes should be followed and a new branch created for the change. As described above, a note should be added to the `updates` field in the `[ADDITIONAL INFO]` section of each metadata configuration file being updated with a brief summary of the change and the date that it was changed.
+
+This should then be reviewed and "squash and merged" following the usual CDDS proceedure with a commit message of the form "#<issue number>: update <field> from <old value> to <new value>". There is no need to mention the date of the change in the commit message. 
