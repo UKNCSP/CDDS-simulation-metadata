@@ -175,7 +175,7 @@ class TestUpdateRequest(unittest.TestCase):
                 'sites_file': '$CDDS_ETC/cfmip2/cfmip2-sites-orog.txt',
                 'standard_names_dir': '$CDDS_ETC/standard_names/',
                 'standard_names_version': 'latest',
-                'workflow_basename': 'UKCM2-0-LL_1pctCO2_r2i1p1f1'
+                'workflow_basename': 'UKCM2-0-LL_1pctCO2_r2i1p1f1_test'
             },
             'data': {
                 'end_date': '2000-01-01T00:00:00Z',
