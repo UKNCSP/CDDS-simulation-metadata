@@ -385,6 +385,8 @@ def check_cvs(meta_dict: dict[str, str], errors: dict[str, str], warnings: dict[
         The dictionary containing the submitted metadata information.
     errors: dict[str, str]
         The dictionary containing any triggered error messages.
+    warnings: dict[str, str]
+            The dictionary containing any triggered warning messages.
 
     Returns
     -------
@@ -437,7 +439,7 @@ def check_cvs(meta_dict: dict[str, str], errors: dict[str, str], warnings: dict[
     return errors, warnings
 
 
-def validate_meta_content(meta_dict: dict[str, str]) -> dict[str, str]:
+def validate_meta_content(meta_dict: dict[str, str]) -> tuple[dict[str, str], dict[str, str]]:
     """Wrapper function to handle all validation tasks.
 
     Parameters
@@ -447,8 +449,8 @@ def validate_meta_content(meta_dict: dict[str, str]) -> dict[str, str]:
 
     Returns
     -------
-    dict[str, str]
-        A dictionary containing any errors caused by user input from the form.
+    tuple[dict[str, str], dict[str, str])
+        A dictionary containing any errors and a dictionary containing any warnings caused by user input from the form.
     """
     errors = set_calendar(meta_dict.get("calendar"))
     warnings = {}
@@ -463,7 +465,7 @@ def validate_meta_content(meta_dict: dict[str, str]) -> dict[str, str]:
     check_variant_labels(meta_dict, errors)
     check_atmos_timestep(meta_dict, errors)
 
-    return errors
+    return errors, warnings
 
 
 def format_message(msg: dict[str, str], msg_type) -> str:
