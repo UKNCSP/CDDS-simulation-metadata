@@ -429,7 +429,7 @@ def check_cvs(meta_dict: dict[str, str], errors: dict[str, str], warnings: dict[
     cv_end_year = experiment_cv_info["end_year"]
     if cv_end_year:
         end_year = meta_dict.get("end_date").split("-")[0]
-        if end_year != cv_end_year:
+        if str(end_year) != str(cv_end_year):
             warnings["end_date"] = ("end date does not match the value in the CVs. Expected an end year of "
                                     f"{cv_end_year}, got {end_year}")
 
@@ -594,7 +594,7 @@ def main() -> None:
     print("Extracting issue body...  SUCCESSFUL")
 
     # Validate and organise dictionary content.
-    errors = validate_meta_content(meta_dict)
+    errors, warnings = validate_meta_content(meta_dict)
     organised_metadata = sort_to_categories(meta_dict)
 
     # Create output file.
