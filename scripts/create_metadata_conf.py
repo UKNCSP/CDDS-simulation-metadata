@@ -10,6 +10,13 @@ NOTE: This script is the backbone of '.github/workflows/process_new_metadata.yml
 The issue body content generated from the issue form is cleaned, validated and sorted into the required formatting for
 metadata cfg files. This is then passed on into a workflow as an output file along with any errors that may have been
 flagged. Valid files will automatically be commited back to the repository by the action.
+
+Information given from the issue body is automatically checked and can trigger either an error or warning if a problem
+is found. Errors hold the same weight as a logger.critical flag: these are input problems that would prevent production
+and will result in validation failure. Warnings hold the same weight as a logger.warning flag: these are used to alert
+the user that a piece of information provided **may** be incorrect but will not cause any direct issues for production.
+If you are unsure a check failure constitutes an error or warning, please contact Lauren Boon or Matthew Mizielinski for
+guidance.
 """
 
 import os
@@ -426,6 +433,7 @@ def check_cvs(meta_dict: dict[str, str], errors: dict[str, str], warnings: dict[
             cv_errors.append(f"parent mip '{parent_mip}' does not match one of the expected values "
                              f"'{parent_mip_in_cv}' given in the cvs")
 
+    # Check whether the end date matches the year given in the CVs. This should only produce a warning.
     cv_end_year = experiment_cv_info["end_year"]
     if cv_end_year:
         end_year = meta_dict.get("end_date").split("-")[0]
@@ -601,6 +609,7 @@ def main() -> None:
     filename = create_filename(meta_dict)
     delimiter = "EOF"
 
+    # Add any warnings to the GitHub env. These are returned to the user on both validation success and failure.
     if warnings:
         warnings = format_message(warnings, "warning")
         print(warnings)
