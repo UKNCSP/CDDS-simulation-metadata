@@ -12,11 +12,11 @@ metadata cfg files. This is then passed on into a workflow as an output file alo
 flagged. Valid files will automatically be commited back to the repository by the action.
 
 Information given from the issue body is automatically checked and can trigger either an error or warning if a problem
-is found. Errors hold the same weight as a logger.critical flag: these are input problems that would prevent production
+is found. Errors hold the same weight as a logger.critical flag: these are problems that would prevent processing
 and will result in validation failure. Warnings hold the same weight as a logger.warning flag: these are used to alert
-the user that a piece of information provided **may** be incorrect but will not cause any direct issues for production.
-If you are unsure a check failure constitutes an error or warning, please contact Lauren Boon or Matthew Mizielinski for
-guidance.
+the user that a piece of information provided **may** be incorrect but will not cause any direct processing issues.
+If you are unsure whether a check should flag an error or warning, please contact Lauren Boon or Matthew Mizielinski
+for guidance.
 """
 
 import os
