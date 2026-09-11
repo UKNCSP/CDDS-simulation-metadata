@@ -278,8 +278,6 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #land/sftgif_ti-u-hxy-u@fx:afx  # embargoed
 #ocean/bigthetao_tavg-ol-hxy-sea@mon:onm/grid-T  # embargoed
 #ocean/sos_tavg-u-hxy-sea@day:ond/grid-T  # embargoed
-#ocean/tauuo_tavg-u-hxy-sea@mon:onm/grid-U  # embargoed
-#ocean/tauvo_tavg-u-hxy-sea@mon:onm/grid-V  # embargoed
 #ocean/zos_tavg-u-hxy-sea@day:ond/grid-T  # embargoed
 #ocean/zostoga_tavg-u-hm-sea@mon:onm/grid-T  # embargoed
 #seaIce/siconc_tavg-u-hxy-u@day:ind/icemod  # embargoed
@@ -661,6 +659,8 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocean/somint_tavg-u-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed, priority=low
 #ocean/tnpeo_tavg-u-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed, priority=low
 #land/slthick_ti-sl-hxy-lnd@fx:afx  # known-issue, embargoed
+#ocean/tauuo_tavg-u-hxy-sea@mon:onm/grid-U  # known-issue, embargoed
+#ocean/tauvo_tavg-u-hxy-sea@mon:onm/grid-V  # known-issue, embargoed
 #seaIce/ts_tavg-u-hxy-si@mon:ap5  # known-issue, embargoed
 #aerosol/emiisop_tavg-u-hxy-u@mon:ap4  # known-issue, embargoed
 #atmos/ps_tpt-u-hxy-u@6hr:ap7  # known-issue, embargoed
