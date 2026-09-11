@@ -10,7 +10,8 @@
         "*": {
             "*": {
                 "atmos/ta_tavg-al-hxy-u@mon": "corrupted data of unknown source",
-                "ocean/basin_ti-u-hxy-u@fx": "flag value and data type conflict"
+                "ocean/tauuo_tavg-u-hxy-sea@mon": "failure to extract with mask_3D_U",
+                "ocean/tauvo_tavg-u-hxy-sea@mon": "failure to extract with mask_3D_V"
             }
         }
     },
@@ -30,7 +31,8 @@
                 "atmos/ta_tavg-al-hxy-u@mon": "corrupted data of unknown source",
                 "seaIce/ts_tavg-u-hxy-si@mon": "Insufficient matching coordinate metadata to resolve cubes, cannot map dimension (0,) of the RHS cube to the LHS cube.",
                 "seaIce/sidragtop_tavg-u-hxy-si@mon": "Insufficient matching coordinate metadata to resolve cubes, cannot map dimension (0,) of the RHS cube to the LHS cube.",
-                "ocean/basin_ti-u-hxy-u@fx": "flag value and data type conflict"
+                "ocean/tauuo_tavg-u-hxy-sea@mon": "failure to extract with mask_3D_U",
+                "ocean/tauvo_tavg-u-hxy-sea@mon": "failure to extract with mask_3D_V"
             }
         }
     },
@@ -51,7 +53,8 @@
                 "aerosol/emiisop_tavg-u-hxy-u@mon": "Garbled data in UKCM2.",
                 "seaIce/sicompstren_tavg-u-hxy-si@mon": "Output has double weighting by sea ice area, rather than a single weighting.",
                 "atmos/ta_tavg-al-hxy-u@mon": "corrupted data of unknown source",
-                "ocean/basin_ti-u-hxy-u@fx": "flag value and data type conflict"
+                "ocean/tauuo_tavg-u-hxy-sea@mon": "failure to extract with mask_3D_U",
+                "ocean/tauvo_tavg-u-hxy-sea@mon": "failure to extract with mask_3D_V"
             }
         },
         "1pctCO2": {
