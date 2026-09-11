@@ -101,6 +101,8 @@ def generate_html(table_html: str) -> None:
     """
     print("Building full HTML...")
     html = (HEADER +
+            '<p style="text-align: right;"><a href="https://github.com/UKNCSP/CDDS-simulation-metadata">'
+            'Back to CDDS-simulation-metadata  </a></p>' +
             '<h2>CMIP7 Workflow Metadata</h2>' +
             '<p> </p>' + '<p>Use the search box to filter rows, e.g. search for "MOHC" or "NERC".</p>' + '<p> </p>' +
             '<p>To view the full metadata, click the model workflow ID link in the table.</p>' +
