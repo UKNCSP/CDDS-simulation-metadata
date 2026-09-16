@@ -19,7 +19,6 @@ atmos/hus_tavg-p19-hxy-u@mon:ap5  # approved
 atmos/huss_tavg-h2m-hxy-u@day:ap6  # approved
 atmos/huss_tavg-h2m-hxy-u@mon:ap5  # approved
 atmos/huss_tpt-h2m-hxy-u@3hr:ap8  # approved
-atmos/pr_tavg-u-hxy-u@3hr:ap8  # approved
 atmos/pr_tavg-u-hxy-u@day:ap6  # approved
 atmos/pr_tavg-u-hxy-u@mon:ap5  # approved
 atmos/prc_tavg-u-hxy-u@mon:ap5  # approved
@@ -145,7 +144,6 @@ atmos/pfull_tavg-al-hxy-u@mon:ap4  # approved
 atmos/phalf_tavg-alh-hxy-u@day:ap6  # approved
 atmos/phalf_tavg-alh-hxy-u@mon:ap4  # approved
 atmos/prc_tavg-u-hxy-u@day:ap6  # approved
-atmos/prsn_tavg-u-hxy-u@3hr:ap8  # approved
 atmos/prsn_tavg-u-hxy-u@day:ap6  # approved
 atmos/rld_tavg-alh-hxy-u@mon:ap5  # approved
 atmos/rldcs_tavg-alh-hxy-u@mon:ap5  # approved
@@ -171,7 +169,6 @@ atmos/sci_tavg-u-hxy-u@mon:ap5  # approved
 atmos/sfcWind_tmax-h10m-hxy-u@day:ap6  # approved
 atmos/ta_tavg-700hPa-hxy-air@day:ap6  # approved
 atmos/ta_tavg-p39-hy-air@mon:ap4  # approved
-atmos/tas_tavg-h2m-hxy-u@1hr:ap9  # approved
 atmos/tauu_tavg-u-hxy-u@day:ap6  # approved
 atmos/tauv_tavg-u-hxy-u@day:ap6  # approved
 atmos/tnhus_tavg-al-hxy-u@mon:apu  # approved
@@ -231,14 +228,11 @@ seaIce/sihc_tavg-u-hxy-sea@mon:inm/icemod  # approved
 seaIce/sispeed_tavg-u-hxy-si@mon:inm/icemod  # approved
 seaIce/snw_tavg-u-hxy-si@mon:inm/icemod  # approved
 atmos/ps_tpt-u-hxy-u@3hr:ap8  # approved, priority=medium
-atmos/rlds_tavg-u-hxy-u@3hr:ap8  # approved, priority=medium
 atmos/rls_tavg-u-hxy-u@mon:ap5  # approved, priority=medium
-atmos/rsds_tavg-u-hxy-u@3hr:ap8  # approved, priority=medium
 atmos/rss_tavg-u-hxy-u@mon:ap5  # approved, priority=medium
 atmos/tauupbl_tavg-u-hxy-u@day:ap6  # approved, priority=medium
 atmos/tauvpbl_tavg-u-hxy-u@day:ap6  # approved, priority=medium
 atmos/utendogw_tavg-p19-hxy-air@mon:ap5  # approved, priority=medium
-land/mrro_tavg-u-hxy-lnd@3hr:ap8  # approved, priority=medium
 land/mrsol_tpt-d10cm-hxy-lnd@3hr:ap8  # approved, priority=medium
 land/wetlandFrac_tavg-u-hxy-u@mon:ap5  # approved, priority=medium
 ocean/ficeberg_tavg-ol-hxy-sea@mon:onm/grid-T  # approved, priority=medium
@@ -259,8 +253,6 @@ atmos/rsdsdiff_tavg-u-hxy-u@day:ap6  # approved, priority=low
 atmos/scldncl_tavg-u-hxy-scl@day:ap6  # approved, priority=low
 #atmos/zhalf_ti-alh-hxy-u@fx  # no-mapping-found, priority=low
 ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
-#atmos/hurs_tavg-h2m-hxy-u@6hr:ap7  # embargoed
-#atmos/pr_tavg-u-hxy-u@1hr:ap9  # embargoed
 #atmos/rluscs_tavg-u-hxy-u@mon:ap5  # embargoed
 #atmos/ta_tpt-p3-hxy-air@6hr:ap7  # embargoed
 #atmos/ua_tpt-p3-hxy-air@6hr:ap7  # embargoed
@@ -321,7 +313,6 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #aerosol/rsutcsaf_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/sfpm10_tavg-al-hxy-u@mon:ap4  # embargoed
 #aerosol/sfpm10_tavg-h2m-hxy-u@day:ap6  # embargoed
-#aerosol/sfpm25_tavg-h2m-hxy-u@1hr:ap9  # embargoed
 #aerosol/sfpm25_tavg-h2m-hxy-u@day:ap6  # embargoed
 #aerosol/so2_tavg-h2m-hxy-u@day:ap6  # embargoed
 #aerosol/so2_tpt-h2m-hs-u@3hr:apt  # embargoed
@@ -405,7 +396,6 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/prw_tavg-u-hxy-u@day:ap6  # embargoed
 #atmos/prw_tpt-u-hs-u@subhr:apt  # embargoed
 #atmos/prw_tpt-u-hxy-u@6hr:ap7  # embargoed
-#atmos/ps_tavg-u-hxy-u@1hr:ap9  # embargoed
 #atmos/ps_tpt-u-hs-u@subhr:apt  # embargoed
 #atmos/psl_tpt-u-hs-u@subhr:apt  # embargoed
 #atmos/psl_tpt-u-hxy-u@1hr:ap9  # embargoed
@@ -433,10 +423,8 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/rlucs4co2_tavg-alh-hxy-u@mon:ap5  # embargoed
 #atmos/rlus_tpt-u-hs-u@subhr:apt  # embargoed
 #atmos/rluscs_tavg-u-hxy-u@day:ap6  # embargoed
-#atmos/rlut_tclmdc-u-hxy-u@1hr:ap9  # embargoed
 #atmos/rlut_tpt-u-hs-u@subhr:apt  # embargoed
 #atmos/rlut4co2_tavg-u-hxy-u@mon:ap5  # embargoed
-#atmos/rlutcs_tclmdc-u-hxy-u@1hr:ap9  # embargoed
 #atmos/rlutcs_tpt-u-hs-u@subhr:apt  # embargoed
 #atmos/rlutcs4co2_tavg-u-hxy-u@mon:ap5  # embargoed
 #atmos/rsd_tpt-alh-hs-u@subhr:apt  # embargoed
@@ -445,7 +433,6 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/rsdcs4co2_tavg-alh-hxy-u@mon:ap5  # embargoed
 #atmos/rsds_tpt-u-hs-u@subhr:apt  # embargoed
 #atmos/rsdscs_tpt-u-hs-u@subhr:apt  # embargoed
-#atmos/rsdt_tclmdc-u-hxy-u@1hr:ap9  # embargoed
 #atmos/rsdt_tpt-u-hs-u@subhr:apt  # embargoed
 #atmos/rsu_tpt-alh-hs-u@subhr:apt  # embargoed
 #atmos/rsu4co2_tavg-alh-hxy-u@mon:ap5  # embargoed
@@ -453,10 +440,8 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/rsucs4co2_tavg-alh-hxy-u@mon:ap5  # embargoed
 #atmos/rsus_tpt-u-hs-u@subhr:apt  # embargoed
 #atmos/rsuscs_tpt-u-hs-u@subhr:apt  # embargoed
-#atmos/rsut_tclmdc-u-hxy-u@1hr:ap9  # embargoed
 #atmos/rsut_tpt-u-hs-u@subhr:apt  # embargoed
 #atmos/rsut4co2_tavg-u-hxy-u@mon:ap5  # embargoed
-#atmos/rsutcs_tclmdc-u-hxy-u@1hr:ap9  # embargoed
 #atmos/rsutcs_tpt-u-hs-u@subhr:apt  # embargoed
 #atmos/rsutcs4co2_tavg-u-hxy-u@mon:ap5  # embargoed
 #atmos/rtmt_tpt-u-hs-u@subhr:apt  # embargoed
@@ -606,7 +591,6 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/hurs_tpt-h2m-hxy-u@3hr:ap8  # embargoed, priority=medium
 #atmos/rls_tavg-u-hxy-u@day:ap6  # embargoed, priority=medium
 #atmos/rss_tavg-u-hxy-u@day:ap6  # embargoed, priority=medium
-#atmos/sfcWind_tavg-h10m-hxy-u@3hr:ap8  # embargoed, priority=medium
 #atmos/ua_tpt-200hPa-hxy-u@6hr:ap7  # embargoed, priority=medium
 #atmos/utendnogw_tavg-p19-hxy-air@day:ap6  # embargoed, priority=medium
 #atmos/utendnogw_tavg-p19-hxy-air@mon:ap5  # embargoed, priority=medium
@@ -614,7 +598,6 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/va_tpt-200hPa-hxy-u@6hr:ap7  # embargoed, priority=medium
 #atmos/zg_tpt-700hPa-hxy-u@6hr:ap7  # embargoed, priority=medium
 #atmos/zg_tpt-925hPa-hxy-u@6hr:ap7  # embargoed, priority=medium
-#land/mrros_tavg-u-hxy-lnd@3hr:ap8  # embargoed, priority=medium
 #ocean/evspsbl_tavg-u-hxy-ifs@mon:onm/grid-T  # embargoed, priority=medium
 #ocean/hfsnthermds_tavg-u-hxy-sea@mon:onm/grid-T  # embargoed, priority=medium
 #ocean/sfdsi_tavg-u-hxy-sea@mon:inm/icemod  # embargoed, priority=medium
@@ -644,8 +627,6 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #seaIce/sistryubot_tavg-u-hxy-si@mon:inm/icemod  # embargoed, priority=medium
 #seaIce/sitempbot_tavg-u-hxy-si@mon:inm/icemod  # embargoed, priority=medium
 #seaIce/sitempsnic_tavg-u-hxy-si@mon:inm/icemod  # embargoed, priority=medium
-#aerosol/sfpm10_tavg-h2m-hxy-u@1hr:ap9  # embargoed, priority=low
-#atmos/hurs_tavg-h2m-hxy-u@1hr:ap9  # embargoed, priority=low
 #ocean/dxto_ti-u-hxy-u@fx:ofx  # embargoed, priority=low
 #ocean/dxuo_ti-u-hxy-u@fx:ofx  # embargoed, priority=low
 #ocean/dxvo_ti-u-hxy-u@fx:ofx  # embargoed, priority=low
@@ -672,12 +653,29 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocean/rsdoabsorb_tavg-ol-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed, priority=low
 #ocean/somint_tavg-u-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed, priority=low
 #ocean/tnpeo_tavg-u-hxy-sea@yr:onm/grid-T  # Yearly variables unable to be processed at this time, embargoed, priority=low
+#atmos/hurs_tavg-h2m-hxy-u@6hr:ap7  # known-issue, embargoed
+#atmos/pr_tavg-u-hxy-u@1hr:ap9  # known-issue, embargoed
+#atmos/pr_tavg-u-hxy-u@3hr:ap8  # known-issue, approved
 #land/slthick_ti-sl-hxy-lnd@fx:afx  # known-issue, embargoed
 #ocean/tauuo_tavg-u-hxy-sea@mon:onm/grid-U  # known-issue, embargoed
 #ocean/tauvo_tavg-u-hxy-sea@mon:onm/grid-V  # known-issue, embargoed
 #seaIce/ts_tavg-u-hxy-si@mon:ap5  # known-issue, embargoed
 #aerosol/emiisop_tavg-u-hxy-u@mon:ap4  # known-issue, embargoed
+#aerosol/sfpm25_tavg-h2m-hxy-u@1hr:ap9  # known-issue, embargoed
+#atmos/prsn_tavg-u-hxy-u@3hr:ap8  # known-issue, approved
+#atmos/ps_tavg-u-hxy-u@1hr:ap9  # known-issue, embargoed
+#atmos/rlut_tclmdc-u-hxy-u@1hr:ap9  # known-issue, embargoed
+#atmos/rlutcs_tclmdc-u-hxy-u@1hr:ap9  # known-issue, embargoed
+#atmos/rsdt_tclmdc-u-hxy-u@1hr:ap9  # known-issue, embargoed
+#atmos/rsut_tclmdc-u-hxy-u@1hr:ap9  # known-issue, embargoed
+#atmos/rsutcs_tclmdc-u-hxy-u@1hr:ap9  # known-issue, embargoed
 #atmos/ta_tavg-al-hxy-u@mon:ap5  # known-issue, embargoed
+#atmos/tas_tavg-h2m-hxy-u@1hr:ap9  # known-issue, approved
+#atmos/rlds_tavg-u-hxy-u@3hr:ap8  # known-issue, approved, priority=medium
+#atmos/rsds_tavg-u-hxy-u@3hr:ap8  # known-issue, approved, priority=medium
+#atmos/sfcWind_tavg-h10m-hxy-u@3hr:ap8  # known-issue, embargoed, priority=medium
+#land/mrro_tavg-u-hxy-lnd@3hr:ap8  # known-issue, approved, priority=medium
+#land/mrros_tavg-u-hxy-lnd@3hr:ap8  # known-issue, embargoed, priority=medium
 #seaIce/sicompstren_tavg-u-hxy-si@mon:inm/icemod  # known-issue, embargoed, priority=medium
 #seaIce/sidragtop_tavg-u-hxy-si@mon:ap5  # known-issue, embargoed, priority=medium
 #seaIce/siforcecoriolx_tavg-u-hxy-si@mon:inm/icemod  # known-issue, embargoed, priority=medium
@@ -686,6 +684,8 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #seaIce/siforceintstry_tavg-u-hxy-si@mon:inm/icemod  # known-issue, embargoed, priority=medium
 #seaIce/siforcetiltx_tavg-u-hxy-si@mon:inm/icemod  # known-issue, embargoed, priority=medium
 #seaIce/siforcetilty_tavg-u-hxy-si@mon:inm/icemod  # known-issue, embargoed, priority=medium
+#aerosol/sfpm10_tavg-h2m-hxy-u@1hr:ap9  # known-issue, embargoed, priority=low
+#atmos/hurs_tavg-h2m-hxy-u@1hr:ap9  # known-issue, embargoed, priority=low
 #aerosol/vt100_tavg-100hPa-hy-air@mon  # unknown (no stream information available)
 #atmos/dmc_tavg-alh-hxy-u@mon  # unknown (no stream information available)
 #atmos/pr_tmax-u-hxy-u@day  # unknown (no stream information available)
@@ -818,9 +818,9 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #aerosol/nh50_tavg-al-hxy-u@mon  # do-not-produce (not available with this model)
 #aerosol/no_tavg-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
 #aerosol/no2_tavg-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
-#aerosol/no2_tavg-h2m-hxy-u@1hr:ap9  # do-not-produce (not available with this model)
+#aerosol/no2_tavg-h2m-hxy-u@1hr:ap9  # known-issue, do-not-produce (not available with this model)
 #aerosol/noy_tavg-p39-hy-air@mon:ap4  # do-not-produce (not available with this model)
-#aerosol/o3_tavg-h2m-hxy-u@1hr:ap9  # do-not-produce (not available with this model)
+#aerosol/o3_tavg-h2m-hxy-u@1hr:ap9  # known-issue, do-not-produce (not available with this model)
 #aerosol/o3_tmax-h2m-hxy-u@day:ap6  # do-not-produce (not available with this model)
 #aerosol/o3loss_tavg-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
 #aerosol/o3prod_tavg-al-hxy-u@mon:ap4  # do-not-produce (not available with this model)
