@@ -13,6 +13,7 @@ from constants import REQUIRED, PARENT_REQUIRED, DATETIME_FIELDS, REGEX_DICT, CM
 class Validate:
     """A class for validate metadata files."""
     def __init__(self, metadata_info):
+        """Setup self"""
         self.errors = {}
         self.warnings = {}
 
@@ -22,6 +23,7 @@ class Validate:
             self.metadata_info = self._config_to_dict(metadata_info)
 
     def _config_to_dict(self, metadata_info):
+        """Converts ConfigParser objects to nested dictionary."""
         config_dict = {}
         for section in metadata_info:
             config_dict.update({section: {}})
@@ -32,7 +34,7 @@ class Validate:
 
     def set_calendar(self):
         """Sets the metomi.isodatetime calendar. If the calendar is not '360_day' or 'proleptic_gregorian' an error is
-        noted to be returned to the user"""
+        noted to be returned to the user."""
         calendar_type = self.metadata_info["metadata"].get("calendar")
         if calendar_type == "360_day":
             Calendar.default().set_mode(calendar_type)
@@ -58,8 +60,7 @@ class Validate:
 
     def check_parent_fields(self):
         """Checks that parent attributes are present if branch method is 'stanard' and checks that they are not present
-        if branch method is 'no parent'.
-        """
+        if branch method is 'no parent'."""
         missing_parent_fields = []
         unexpected_parent_fields = []
         branch_method = self.metadata_info["metadata"].get("branch_method")
@@ -131,8 +132,7 @@ class Validate:
 
     def check_model_workflow_id(self):
         """Checks that model_workflow_id follows the expected format of 'a-bc123'(most common) or 'ab-cd123'(rare but
-        not impossible).
-        """
+        not impossible)."""
         if not REGEX_DICT["workflow_pattern"].fullmatch(self.metadata_info["data"].get("model_workflow_id")):
             self.errors["workflow_id_format"] = (
                 "model workflow ID is incorrectly formatted: expected a-bc123 or ab-cd123"
