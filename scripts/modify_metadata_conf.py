@@ -24,9 +24,7 @@ def read_issue_body() -> dict:
     dict:
         Dictionary mapping the form field to its entry.
     """
-    #issue_body = get_issue()["body"]
-    with open("test.txt", "r") as f:
-        issue_body = f.read()
+    issue_body = get_issue()["body"]
 
     # Find key-value pairs and map them to dictionary.
     match = re.findall(r"### (.+?)\n\s*\n?(.+)", issue_body)
