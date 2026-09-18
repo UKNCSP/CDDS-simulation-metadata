@@ -92,13 +92,11 @@ jobs:
                     Issue title: ${{ github.event.issue.title }}
                     Issue ID: ${{ github.event.issue.number }}
                     Filename: ${{ steps.create-file.outputs.filename }}"  \
-            --add-assignee ${{ github.actor }} \
+            --add-assignee mo-laurenboon \
             --base main \
             --head $(git rev-parse --abbrev-ref HEAD)
 
           gh issue comment "$NUMBER" --body "$BODY"
-          gh pr edit ${{ github.event.pull_request.number }}
-            --add-assignee ${{ github.actor }}
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NUMBER: ${{ github.event.issue.number }}
