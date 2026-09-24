@@ -1,7 +1,13 @@
 # (C) British Crown Copyright 2026, Met Office.
 # Please see LICENSE.md for license details.
-"""This script ......
+"""This script takes the body of the issue form 'Add Workflow Metadata' and uses its content to generate a
+structured metadata configuration file. The config file is split into 3 sections: metadata, data and misc. The files
+produced by this script are used to populate request files generated through '.github/workflows/generate_request.yml'.
+
+NOTE: This script is the backbone of '.github/workflows/modify_metadata.yml' and relies upon
+'.github/ISSUE_TEMPLATE/modify_workflow_metadata.yml'. Changes to any of these files may result in errors in the others.
 """
+
 import re
 import configparser
 import os
@@ -38,8 +44,24 @@ def read_issue_body() -> dict:
     return meta_dict
 
 
-def read_metadata_file(filename: str):
-    """Reads in the existing workflow metadata file to be editted."""
+def read_metadata_file(filename: str) -> configparser.ConfigParser:
+    """Reads in the existing workflow metadata file to be editted.
+
+    Parameters
+    ----------
+    filename: str
+        The path of the config file to update.
+
+    Returns
+    -------
+    configparser.ConfigParser
+        The config file.
+
+    Raises
+    ------
+    FileNotFoundError:
+        If the configuration file does not exist.
+    """
     config = configparser.ConfigParser()
     if not os.path.exists(filename):
         raise FileNotFoundError(f"{filename} does not exist.")
@@ -48,7 +70,20 @@ def read_metadata_file(filename: str):
     return config
 
 
-def identify_changes(meta_dict):
+def identify_changes(meta_dict: dict) -> list:
+    """Generates a list of (key, new_value) changes to be made to the configuration file loaded in
+    `read_metadata_file()`.
+
+    Parameters
+    ----------
+    meta_dict: dict
+        The metadata parsed from the issue body as a dictionary.
+
+    Returns
+    -------
+    list
+        The list of changes to be made as (key, new_value).
+    """
     changes = []
     for field, value in meta_dict.items():
         if field == "model_workflow_id":
@@ -59,7 +94,19 @@ def identify_changes(meta_dict):
     return changes
 
 
-def identify_config_section(field_to_update: str):
+def identify_config_section(field_to_update: str) -> str:
+    """Identifies which section a single field belongs in.
+
+    Parameters
+    ----------
+    field_to_update: str
+        The field.
+
+    Returns
+    -------
+    str
+        The name of the section that the field exists within the config file.
+    """
     if field_to_update in METADATA:
         return "metadata"
     elif field_to_update in DATA:
@@ -70,13 +117,35 @@ def identify_config_section(field_to_update: str):
         raise RuntimeError(f"Unrecognised field: {field_to_update}")
 
 
-def log_update(metadata_config, field, old_value, new_value):
+def log_update(metadata_config: configparser.ConfigParser, field: str, old_value: str, new_value: str):
+    """Appends a note to the `updates` field of `[ADDITIONAL INFO] for a single field/change..
+
+    Parameters
+    ----------
+    metadata_config: configparser.ConfigParser
+        The updated config file as a ConfigParser object.
+    field: str
+        The field that has been updated.
+    old_value: str
+        The previous value of the field that was in the config when originally loaded in `read_metadata_file()`.
+    new_value: str
+        The updated value of the field taken from the issue body.
+    """
     update_str = f". {field.capitalize()} was updated from `{old_value}` to `{new_value}` ({DATE})"
     metadata_config["ADDITIONAL INFO"]["updates"] = (f'"{metadata_config["ADDITIONAL INFO"]["updates"].strip('"')}'
                                                      f'{update_str}"')
 
 
-def save_modified_metadata(filename, metadata_config):
+def save_modified_metadata(filename: str, metadata_config: configparser.ConfigParser):
+    """Saves the updated metadata config file.
+
+    Parameters
+    ----------
+    filename: str
+        The path of the config file to update.
+    metadata_config: configparser.ConfigParser
+        The updated config file as a ConfigParser object.
+    """
     with open(filename, 'w') as conf:
         metadata_config.write(conf)
 
@@ -84,6 +153,7 @@ def save_modified_metadata(filename, metadata_config):
 
 
 def main():
+    """Main modify metadata conf."""
     meta_dict = read_issue_body()
     workflow_id = meta_dict.get("model_workflow_id")
     if not workflow_id:

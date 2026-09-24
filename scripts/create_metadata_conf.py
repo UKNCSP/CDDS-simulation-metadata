@@ -1,6 +1,6 @@
 # (C) British Crown Copyright 2025-2026, Met Office.
 # Please see LICENSE.md for license details.
-"""This script takes the body of the issue form 'Add/Modify Workflow Metadata' and uses its content to generate a
+"""This script takes the body of the issue form 'Add Workflow Metadata' and uses its content to generate a
 structured metadata configuration file. The config file is split into 3 sections: metadata, data and misc. The files
 produced by this script are used to populate request files generated through '.github/workflows/generate_request.yml'.
 
