@@ -1,3 +1,4 @@
+# British Crown Copyright 2026, Met Office. Please see LICENSE.md for license details.
 site_name: CDDS CMIP7 Simulation Metadata
 theme:
   name: material
@@ -21,7 +22,7 @@ theme:
 nav:
   - Home:
     - About: index.md
-  - What Is CMIP7?:  a.md # provide a brief over view of the what and why of cmip7
+  - What Is CMIP7?:  what_is_cmip7.md # provide a brief over view of the what and why of cmip7
   - Workflow Metadata Explained: a.md # explain workflow metadata fields, what they mean etc
   - Registered Simulations:
     - The Registration Process: a.md # briefly outline the registration process, link to the operational proceeedure
