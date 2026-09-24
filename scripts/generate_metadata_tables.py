@@ -108,7 +108,7 @@ def generate_html(table_html: str) -> None:
             '<p>To view the full metadata, click the model workflow ID link in the table.</p>' +
             table_html + FOOTER)
 
-    output_directory = Path("metadata_tables")
+    output_directory = Path("docs/metadata_tables")
     output_directory.mkdir(parents=True, exist_ok=True)
 
     output_filepath = output_directory / "index.html"

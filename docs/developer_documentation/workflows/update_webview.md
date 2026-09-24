@@ -3,7 +3,7 @@
 
 ## Overview
 
-This workflow is triggered on a daily cron schedule at midnight (UCT) or via workflow dispatch. Its role is simply to run the script [generate_metadata_tables.py](../../../scripts/generate_metadata_tables.py). This generates a searchable html table using every `<workflow_id>.cfg` file present in the [workflow metadata](../../../workflow_metadata) directory (where each row of the table accounts for a single cfg file). The generated table is saved as [index.html](../../../metadata_tables/index.html).
+This workflow is triggered on a daily cron schedule at midnight (UCT) or via workflow dispatch. Its role is simply to run the script [generate_metadata_tables.py](../../../scripts/generate_metadata_tables.py). This generates a searchable html table using every `<workflow_id>.cfg` file present in the [workflow metadata](../../../workflow_metadata) directory (where each row of the table accounts for a single cfg file). The generated table is saved as [index.html](../../../docs/metadata_tables/index.html).
 
 
 ## Connected workflows
