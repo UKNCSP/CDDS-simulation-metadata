@@ -1,0 +1,91 @@
+site_name: CDDS CMIP7 Simulation Metadata
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.expand
+    - content.tabs.link
+  palette: 
+    # Palette toggle for light mode
+    - scheme: default
+      primary: light green
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: light green
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+nav:
+  - Home:
+    - About: index.md
+  - What Is CMIP7?:  a.md # provide a brief over view of the what and why of cmip7
+  - Workflow Metadata Explained: a.md # explain workflow metadata fields, what they mean etc
+  - Registered Simulations:
+    - The Registration Process: a.md # briefly outline the registration process, link to the operational proceeedure
+    - Table Of Registered Simulations: metadata_tables/index.html # link to the table of registered experiments
+  - Variable Status:
+    - Baseline Climate Variables: a.md # highlioght these, note what they are, which experiments are available in and if they are producible
+    - Variable Status Table: a.md # generate a table like the metadata tables to show the current status of each variable listed in the current mappings version, also look at the known issues
+  - ESGF Datasets:
+    - What is ESGF?: a.md
+    - Data: a.md # Link to ESGF datasets
+    - Errata: a.md # Link to relevant errata records
+  - CMIP7 Models: # Skeleton pages to be populated as and when suitable
+    - UKCM2-0-LL: a.md
+    - UKCM2a-0-HH: a.md
+    - UKESM1-3-LL: a.md
+  - CMIP7 MIPs: # Skeleton pages to be populated as and when suitable
+    - AerChemMIP: a.md
+    - C4MIP: a.md
+    - CFMIP: a.md
+    - CMIP: a.md
+    - DAMIP: a.md
+    - DCPP: a.md
+    - GeoMIP: a.md
+    - LMIP: a.md
+    - PMIP: a.md
+    - PolMIP: a.md
+    - RFMIP: a.md
+    - ScenarioMIP: a.md
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - md_in_html
+  - pymdownx.details
+  - footnotes
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji
+  - pymdownx.details
+  # - pymdownx.snippets:
+  #     auto_append:
+  #       - includes/abbreviations.md
+  - pymdownx.tabbed:
+      alternate_style: true
+extra:
+  version:
+    provider: mike
+plugins:
+- search  
+# - gen-files:
+#     scripts:
+#     - scripts/changes.py
+#     - scripts/mappings.py
+# - literate-nav:
+#     nav_file: SUMMARY.md
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          docstring_style: sphinx
+- section-index
