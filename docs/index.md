@@ -1,3 +1,4 @@
+<!--(C) British Crown Copyright 2026, Met Office. Please see LICENSE.md for license details.--> 
 # CDDS CMIP7 Simulation Metadata
 
 The Climate Data Dissemination System (CDDS) is a Python-based system that manages the reprocessing of

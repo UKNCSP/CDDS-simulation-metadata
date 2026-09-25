@@ -22,8 +22,8 @@ theme:
 nav:
   - Home:
     - About: index.md
-  - What Is CMIP7?:  what_is_cmip7.md # provide a brief over view of the what and why of cmip7
-  - Workflow Metadata Explained: a.md # explain workflow metadata fields, what they mean etc
+    - What Is CMIP7?:  what_is_cmip7.md
+  - Simulation Metadata Explained: simulation_metadata_explained.md
   - Registered Simulations:
     - The Registration Process: a.md # briefly outline the registration process, link to the operational proceeedure
     - Table Of Registered Simulations: metadata_tables/index.html # link to the table of registered experiments
