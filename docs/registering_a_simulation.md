@@ -1,0 +1,7 @@
+<!--(C) British Crown Copyright 2026, Met Office. Please see LICENSE.md for license details.--> 
+# Registering a Simulation
+To register the metadata for a new workflow , please navigate to the issue tab at the top of the page, click "new issue" and select "[Add Workflow Metadata](https://github.com/UKNCSP/CDDS-simulation-metadata/issues/new?template=add_workflow_metadata.yml)". This will open up an issue form for you to fill in. Once filled in , click the create button in the bottom right of the page. This will open an issue that will be automatically validated and processed. You will recieve an email and a comment under your issue from the github actions bot upon completion confirming your workflow registration and the closure of the issue (this typically takes up to a few minutes). Any errors will be communicated to you by the github actions bot in the comments of your issue which will remain open. If you make an error on your issue form, please edit the issue body with your changes or submit a new form containing the correct information.
+
+
+# Modifying a Simulation
+To modify a simulation that has already been registered, please fill out the "[Modify Workflow Metadata](https://github.com/UKNCSP/CDDS-simulation-metadata/issues/new?template=modify_workflow_metadata.yml)" issue form. You only need to provide the "model workflow ID" an any fields that you wish to change. This will, again, be processed and validated. A pull request will be opened and a member of our team will review your changes. Please do not attempt to merge this pull request yourself.

@@ -25,8 +25,8 @@ nav:
     - What Is CMIP7?:  what_is_cmip7.md
   - Simulation Metadata Explained: simulation_metadata_explained.md
   - Registered Simulations:
-    - The Registration Process: a.md # briefly outline the registration process, link to the operational proceeedure
-    - Table Of Registered Simulations: metadata_tables/index.html # link to the table of registered experiments
+    - The Registration Process: registering_a_simulation.md
+    - Table Of Registered Simulations: metadata_tables/index.html
   - Variable Status:
     - Baseline Climate Variables: a.md # highlioght these, note what they are, which experiments are available in and if they are producible
     - Variable Status Table: a.md # generate a table like the metadata tables to show the current status of each variable listed in the current mappings version, also look at the known issues
