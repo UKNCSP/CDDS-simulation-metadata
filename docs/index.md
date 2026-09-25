@@ -14,6 +14,6 @@ You can contact the CDDS team via cdds@metoffice.gov.uk.
 
 ## CMIP7 processing
 
-See [here](operational_procedure/cmip7.md) for the process for running CDDS for CMIP7
+See [here](https://metoffice.github.io/CDDS/latest/operational_procedure/cmip7/) for the process for running CDDS for CMIP7
 
-Explanations, and possibly solutions, to common issues can be found [here](operational_procedure/common_issues.md).
+Explanations, and possibly solutions, to common issues can be found [here](https://metoffice.github.io/CDDS/latest/operational_procedure/common_issues/).

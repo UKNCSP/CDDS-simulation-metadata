@@ -1,15 +1,15 @@
 <!--(C) British Crown Copyright 2026, Met Office. Please see LICENSE.md for license details.--> 
-# [process_new_metadata.yml](../../../.github/workflows/process_new_metadata.yml)
+# [process_new_metadata.yml](https://github.com/UKNCSP/CDDS-simulation-metadata/blob/main/.github/workflows/process_new_metadata.yml)
 
 ## Overview
 
-The [process_new_metadata.yml](../../../.github/workflows/process_new_metadata.yml) workflow automates the processing of newly submitted simulation metadata.
+The [process_new_metadata.yml](https://github.com/UKNCSP/CDDS-simulation-metadata/blob/main/.github/workflows/process_new_metadata.yml) workflow automates the processing of newly submitted simulation metadata.
 
-When a user submits the [Add/Modify Workflow Metadata](../../../.github/ISSUE_TEMPLATE/add_workflow_metadata.yml) issue form to register workflow metadata, this workflow validates the submission, generates the metadata configuration file, generates a variable list, updates the metadata tables hosted on github pages, pushes new files directly to main, and notifies users of the outcome of their submission in real time. This workflow is designed to blend efficiency and accuracy, putting the power to drive changes into the hands of the users in a way that ensures accurate, verifiable and tracable information.
+When a user submits the [Add Workflow Metadata](https://github.com/UKNCSP/CDDS-simulation-metadata/blob/main/.github/ISSUE_TEMPLATE/add_workflow_metadata.yml) issue form to register workflow metadata, this workflow validates the submission, generates the metadata configuration file, generates a variable list, updates the metadata tables hosted on github pages, pushes new files directly to main, and notifies users of the outcome of their submission in real time. This workflow is designed to blend efficiency and accuracy, putting the power to drive changes into the hands of the users in a way that ensures accurate, verifiable and tracable information.
 
-This workflow is triggered when any issue with the label `metadata entry` is created or editted. This label is automatically applied when users fill out the [Add/Modify Workflow Metadata](../../../.github/ISSUE_TEMPLATE/add_workflow_metadata.yml) issue form.
+This workflow is triggered when any issue with the label `metadata entry` is created or editted. This label is automatically applied when users fill out the [Add/Modify Workflow Metadata](https://github.com/UKNCSP/CDDS-simulation-metadata/blob/main/.github/ISSUE_TEMPLATE/add_workflow_metadata.yml) issue form.
 
-![image](../../../docs/developer_documentation/workflows/add_workflow_metadata_flowchart.png)
+![image](https://github.com/UKNCSP/CDDS-simulation-metadata/blob/main/docs/developer_documentation/workflows/add_worflow_metadata_flowchart.png)
 
 
 #### File Outputs
