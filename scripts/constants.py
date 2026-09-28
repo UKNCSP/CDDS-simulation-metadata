@@ -10,7 +10,7 @@ HEADINGS = ['Model Workflow ID', 'Model ID', 'Mass Data Class', 'MIP', 'Institut
 HEADER_ROW_TEMPLATE = ('  <thead>\n   <tr bgcolor="{0}">\n{1}   </tr>\n   \
                        <tr class="filters">\n{2}   </tr>\n   </thead>\n')
 ROW_TEMPLATE = '  <tr bgcolor="{0}">\n{1}  </tr>\n'
-CELL_TEMPLATE = '     <{0}>{1}</{0}>\n'
+CELL_TEMPLATE = '     <{0} bgcolor="{1}">{2}</{0}>\n'
 TABLE_TEMPLATE = '<table border=1, id="table_id", class="display">\n{}</table>\n'
 GITURL_MAPPING = 'https://github.com/UKNCSP/CDDS-simulation-metadata/tree/main/workflow_metadata/{}.cfg'
 HYPERLINK = '<a href="{0}">{1}</a>'

@@ -9,14 +9,13 @@ import requests
 from pathlib import Path
 
 from common import read_json
-from constants import (MAPPINGS_FILE_LOCATION, HEADER_ROW_TEMPLATE, ROW_TEMPLATE,
+from constants import (MAPPINGS_FILE_LOCATION, HEADER_ROW_TEMPLATE, ROW_TEMPLATE, CELL_TEMPLATE,
                        TABLE_TEMPLATE, BGCOLORS, HEADER, FOOTER, HYPERLINK)
 
 CLIMATE_RESOURCE_LINK = "https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/{}"
 HEADINGS = ["Variable", "Data Available (UKCM2-0-LL)", "Approved (UKCM2-0-LL)", "Published (UKCM2-0-LL)",
             "Data Available (UKCM2a-0-HH)", "Approved (UKCM2a-0-HH)", "Published (UKCM2a-0-HH)",
             "Data Available (UKESM1-3-LL)", "Approved (UKESM1-3-LL)", "Published (UKESM1-3-LL)"]
-CELL_TEMPLATE = '     <{0} bgcolor="{1}">{2}</{0}>\n'
 
 
 def get_data_availability(labels, model):

@@ -70,18 +70,18 @@ def build_table(table_data: list[list[str]]) -> str:
         filter_row_html = ''
         if i == 0:
             for entry in row:
-                row_html += CELL_TEMPLATE.format(cell_type, entry)
-                filter_row_html += CELL_TEMPLATE.format(cell_type, '')
+                row_html += CELL_TEMPLATE.format(cell_type, "LightGreen", entry)
+                filter_row_html += CELL_TEMPLATE.format(cell_type, "Azure", '')
             html += HEADER_ROW_TEMPLATE.format(BGCOLORS[i % len(BGCOLORS)], row_html, filter_row_html)
             continue
         else:
             filename = row.pop()
             for entry in row:
                 if entry == table_data[i][0]:
-                    row_html += CELL_TEMPLATE.format(cell_type,
+                    row_html += CELL_TEMPLATE.format(cell_type, "Azure",
                                                      HYPERLINK.format(GITURL_MAPPING.format(filename), entry))
                 else:
-                    row_html += CELL_TEMPLATE.format(cell_type, entry)
+                    row_html += CELL_TEMPLATE.format(cell_type, "Azure", entry)
 
             html += ROW_TEMPLATE.format(BGCOLORS[i % len(BGCOLORS)], row_html)
 
