@@ -46,9 +46,9 @@ nav:
     - DAMIP: mips/damip.md
     - DCPP: mips/dcpp.md
     - GeoMIP: mips/geomip.md
-    - LMIP: mips/LMIP.md
+    - LMIP: mips/lmip.md
     - PMIP: mips/pmip.md
-    - PolMIP: mips/polMIP.md
+    - PolMIP: mips/polmip.md
     - RFMIP: mips/rfmip.md
     - ScenarioMIP: mips/scenariomip.md
 markdown_extensions:
