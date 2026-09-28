@@ -10,7 +10,7 @@ from pathlib import Path
 
 from common import read_json
 from constants import (MAPPINGS_FILE_LOCATION, HEADER_ROW_TEMPLATE, ROW_TEMPLATE, CELL_TEMPLATE,
-                       TABLE_TEMPLATE, BGCOLORS, HEADER, FOOTER, HYPERLINK)
+                       TABLE_TEMPLATE, BGCOLORS, HEADER, FOOTER, HYPERLINK, LAST_UPDATED)
 
 CLIMATE_RESOURCE_LINK = "https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/{}"
 HEADINGS = ["Variable", "Data Available (UKCM2-0-LL)", "Approved (UKCM2-0-LL)", "Published (UKCM2-0-LL)",
@@ -125,6 +125,7 @@ def generate_html(table_html: str) -> None:
     html = (HEADER +
             '<p style="text-align: right;"><a href="https://github.com/UKNCSP/CDDS-simulation-metadata">'
             'Back to CDDS-simulation-metadata  </a></p>' +
+            f'<p style="text-align: right;"> Last Updated: {LAST_UPDATED} </p>' +
             '<h2>CMIP7 Baseline Climate Variables</h2>' +
             '<p> </p>' + '<p>Use the search box to filter rows.</p>' + '<p> </p>' +
             '<p>To view the ESGF climate information, click the variable name link in the table.</p>' +

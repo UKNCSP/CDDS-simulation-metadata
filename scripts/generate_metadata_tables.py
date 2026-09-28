@@ -8,7 +8,7 @@ from pathlib import Path
 import glob
 from configparser import ConfigParser
 from constants import (HEADINGS, HEADER_ROW_TEMPLATE, ROW_TEMPLATE, CELL_TEMPLATE, TABLE_TEMPLATE, BGCOLORS,
-                       GITURL_MAPPING, HEADER, FOOTER, HYPERLINK)
+                       GITURL_MAPPING, HEADER, FOOTER, HYPERLINK, LAST_UPDATED)
 
 
 def get_mappings() -> list[list[str]]:
@@ -103,6 +103,7 @@ def generate_html(table_html: str) -> None:
     html = (HEADER +
             '<p style="text-align: right;"><a href="https://github.com/UKNCSP/CDDS-simulation-metadata">'
             'Back to CDDS-simulation-metadata  </a></p>' +
+            f'<p style="text-align: right;"> Last Updated: {LAST_UPDATED} </p>' +
             '<h2>CMIP7 Workflow Metadata</h2>' +
             '<p> </p>' + '<p>Use the search box to filter rows, e.g. search for "MOHC" or "NERC".</p>' + '<p> </p>' +
             '<p>To view the full metadata, click the model workflow ID link in the table.</p>' +

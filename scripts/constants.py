@@ -4,6 +4,7 @@ import requests
 import re
 
 from pathlib import Path
+from datetime import datetime
 
 HEADINGS = ['Model Workflow ID', 'Model ID', 'Mass Data Class', 'MIP', 'Institution ID', 'Experiment ID',
             'Variant Label', 'Start Date', 'End Date']
@@ -182,3 +183,5 @@ REGEX_DICT = {
 }
 
 MIP_TABLE_DIR = f"$CDDS_ETC/mip_tables/CMIP7/DR-{DR_VERSION}-v1.0.2"
+
+LAST_UPDATED = datetime.today().strftime('%Y-%m-%d')
