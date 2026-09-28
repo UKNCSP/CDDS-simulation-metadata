@@ -1,0 +1,1681 @@
+
+<html>
+<head>
+<link rel="stylesheet" type="text/css" charset="UTF-8"
+href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css"/>
+<script type="text/javascript" charset="UTF-8" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script type="text/javascript" charset="UTF-8" src="https://cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+  var table = $('#table_id').DataTable({
+    orderCellsTop: true,
+    fixedHeader: true,
+    pageLength: 100,
+    initComplete: function () {
+      var api = this.api();
+
+      // Show the tables once DataTables has initialized
+      $('#table_id').css('visibility', 'visible');
+
+      // For each column, add a select filter to the second row
+      api.columns().eq(0).each(function (colIdx) {
+        var cell = $('.filters th').eq(colIdx);
+        if (cell.length) {
+          var select = $('<select><option value="">All</option></select>')
+            .appendTo(cell.empty())
+            .on('change', function () {
+              api.column(colIdx)
+                .search(this.value ? '^' + this.value + '$' : '', true, false)
+                .draw();
+            });
+
+          api.column(colIdx).data().unique().sort().each(function (d) {
+            if (d) select.append('<option value="' + d + '">' + d + '</option>');
+          });
+        }
+      });
+    }
+  });
+});
+</script>
+</head>
+<style>
+
+  /* Hide table until DataTables has fully initialized */
+    #table_id {
+    visibility: hidden;
+   }
+
+  /* Format the datatables */
+  table.dataTable {
+    table-layout: break-word;
+    width: 90%;
+  }
+
+  table.dataTable td {
+    max-width: 300px;
+    white-space: normal;
+    word-wrap: break-word;
+  }
+
+  pre, code {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  table.dataTable thead select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 4px;
+    font-size: 0.9em;
+  }
+
+   /* Tooltip container */
+   .tooltip {
+     position: relative;
+     display: inline-block;
+     border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+   }
+
+   /* Tooltip text */
+   .tooltip .tooltiptext {
+     visibility: hidden;
+     bottom: 100%;
+     left: 50%;
+     width: 600px;
+     background-color: #FFFFFF;
+     color: black;
+     text-align: left;
+     padding: 18px;
+     border-radius: 4px;
+     border: 1px solid #000;
+
+     /* Position the tooltip text - see examples below! */
+     position: absolute;
+     z-index: 1;
+   }
+
+   /* Show the tooltip text when you mouse over the tooltip container */
+   .tooltip:hover .tooltiptext {
+     visibility: visible;
+   }
+   </style>
+<body><p style="text-align: right;"><a href="https://github.com/UKNCSP/CDDS-simulation-metadata">Back to CDDS-simulation-metadata  </a></p><h2>CMIP7 Baseline Climate Variables</h2><p> </p><p>Use the search box to filter rows.</p><p> </p><p>To view the ESGF climate information, click the variable name link in the table.</p><table border=1, id="table_id", class="display">
+  <thead>
+   <tr bgcolor="#E0EEFF">
+     <th bgcolor="Azure">Variable</th>
+     <th bgcolor="Azure">Data Available (UKCM2-0-LL)</th>
+     <th bgcolor="Azure">Approved (UKCM2-0-LL)</th>
+     <th bgcolor="Azure">Published (UKCM2-0-LL)</th>
+     <th bgcolor="Azure">Data Available (UKCM2a-0-HH)</th>
+     <th bgcolor="Azure">Approved (UKCM2a-0-HH)</th>
+     <th bgcolor="Azure">Published (UKCM2a-0-HH)</th>
+     <th bgcolor="Azure">Data Available (UKESM1-3-LL)</th>
+     <th bgcolor="Azure">Approved (UKESM1-3-LL)</th>
+     <th bgcolor="Azure">Published (UKESM1-3-LL)</th>
+   </tr>
+                          <tr class="filters">
+     <th bgcolor="Azure"></th>
+     <th bgcolor="Azure"></th>
+     <th bgcolor="Azure"></th>
+     <th bgcolor="Azure"></th>
+     <th bgcolor="Azure"></th>
+     <th bgcolor="Azure"></th>
+     <th bgcolor="Azure"></th>
+     <th bgcolor="Azure"></th>
+     <th bgcolor="Azure"></th>
+     <th bgcolor="Azure"></th>
+   </tr>
+   </thead>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/landIce.snc.tavg-u-hxy-lnd.mon.glb">landIce.snc.tavg-u-hxy-lnd.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.sftlf.ti-u-hxy-u.fx.glb">atmos.sftlf.ti-u-hxy-u.fx.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/land.sftgif.ti-u-hxy-u.fx.glb">land.sftgif.ti-u-hxy-u.fx.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/land.rootd.ti-u-hxy-lnd.fx.glb">land.rootd.ti-u-hxy-lnd.fx.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/land.orog.ti-u-hxy-u.fx.glb">land.orog.ti-u-hxy-u.fx.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/land.mrsofc.ti-u-hxy-lnd.fx.glb">land.mrsofc.ti-u-hxy-lnd.fx.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.areacella.ti-u-hxy-u.fx.glb">atmos.areacella.ti-u-hxy-u.fx.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.zg.tavg-p19-hxy-air.day.glb">atmos.zg.tavg-p19-hxy-air.day.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.wap.tavg-p19-hxy-u.day.glb">atmos.wap.tavg-p19-hxy-u.day.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.vas.tavg-h10m-hxy-u.day.glb">atmos.vas.tavg-h10m-hxy-u.day.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.va.tavg-p19-hxy-air.day.glb">atmos.va.tavg-p19-hxy-air.day.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.uas.tavg-h10m-hxy-u.day.glb">atmos.uas.tavg-h10m-hxy-u.day.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.ua.tavg-p19-hxy-air.day.glb">atmos.ua.tavg-p19-hxy-air.day.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.tas.tmin-h2m-hxy-u.day.glb">atmos.tas.tmin-h2m-hxy-u.day.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.tas.tmax-h2m-hxy-u.day.glb">atmos.tas.tmax-h2m-hxy-u.day.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.tas.tavg-h2m-hxy-u.day.glb">atmos.tas.tavg-h2m-hxy-u.day.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.ta.tavg-p19-hxy-air.day.glb">atmos.ta.tavg-p19-hxy-air.day.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.sfcWind.tavg-h10m-hxy-u.day.glb">atmos.sfcWind.tavg-h10m-hxy-u.day.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.rsds.tavg-u-hxy-u.day.glb">atmos.rsds.tavg-u-hxy-u.day.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.psl.tavg-u-hxy-u.day.glb">atmos.psl.tavg-u-hxy-u.day.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.pr.tavg-u-hxy-u.day.glb">atmos.pr.tavg-u-hxy-u.day.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.huss.tavg-h2m-hxy-u.day.glb">atmos.huss.tavg-h2m-hxy-u.day.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.hus.tavg-p19-hxy-u.day.glb">atmos.hus.tavg-p19-hxy-u.day.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.hurs.tavg-h2m-hxy-u.day.glb">atmos.hurs.tavg-h2m-hxy-u.day.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.hur.tavg-p19-hxy-u.day.glb">atmos.hur.tavg-p19-hxy-u.day.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.clt.tavg-u-hxy-u.day.glb">atmos.clt.tavg-u-hxy-u.day.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/seaIce.siv.tavg-u-hxy-si.mon.glb">seaIce.siv.tavg-u-hxy-si.mon.glb</a></td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/seaIce.siu.tavg-u-hxy-si.mon.glb">seaIce.siu.tavg-u-hxy-si.mon.glb</a></td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/seaIce.sitimefrac.tavg-u-hxy-sea.mon.glb">seaIce.sitimefrac.tavg-u-hxy-sea.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/seaIce.sithick.tavg-u-hxy-si.mon.glb">seaIce.sithick.tavg-u-hxy-si.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/seaIce.ts.tavg-u-hxy-si.mon.glb">seaIce.ts.tavg-u-hxy-si.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/seaIce.snd.tavg-u-hxy-sn.mon.glb">seaIce.snd.tavg-u-hxy-sn.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/seaIce.simass.tavg-u-hxy-si.mon.glb">seaIce.simass.tavg-u-hxy-si.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/seaIce.siconc.tavg-u-hxy-u.mon.glb">seaIce.siconc.tavg-u-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/seaIce.siconc.tavg-u-hxy-u.day.glb">seaIce.siconc.tavg-u-hxy-u.day.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/ocean.zostoga.tavg-u-hm-sea.mon.glb">ocean.zostoga.tavg-u-hm-sea.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/ocean.zos.tavg-u-hxy-sea.mon.glb">ocean.zos.tavg-u-hxy-sea.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/ocean.wo.tavg-ol-hxy-sea.mon.glb">ocean.wo.tavg-ol-hxy-sea.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/ocean.wmo.tavg-ol-hxy-sea.mon.glb">ocean.wmo.tavg-ol-hxy-sea.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/ocean.vo.tavg-ol-hxy-sea.mon.glb">ocean.vo.tavg-ol-hxy-sea.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/ocean.vmo.tavg-ol-hxy-sea.mon.glb">ocean.vmo.tavg-ol-hxy-sea.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/ocean.uo.tavg-ol-hxy-sea.mon.glb">ocean.uo.tavg-ol-hxy-sea.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/ocean.umo.tavg-ol-hxy-sea.mon.glb">ocean.umo.tavg-ol-hxy-sea.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/ocean.tos.tavg-u-hxy-sea.mon.glb">ocean.tos.tavg-u-hxy-sea.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/ocean.thkcello.tavg-ol-hxy-sea.mon.glb">ocean.thkcello.tavg-ol-hxy-sea.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/ocean.thetao.tavg-ol-hxy-sea.mon.glb">ocean.thetao.tavg-ol-hxy-sea.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/ocean.tauvo.tavg-u-hxy-sea.mon.glb">ocean.tauvo.tavg-u-hxy-sea.mon.glb</a></td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/ocean.tauuo.tavg-u-hxy-sea.mon.glb">ocean.tauuo.tavg-u-hxy-sea.mon.glb</a></td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/ocean.sos.tavg-u-hxy-sea.mon.glb">ocean.sos.tavg-u-hxy-sea.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/ocean.so.tavg-ol-hxy-sea.mon.glb">ocean.so.tavg-ol-hxy-sea.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/ocean.mlotst.tavg-u-hxy-sea.mon.glb">ocean.mlotst.tavg-u-hxy-sea.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/ocean.masscello.tavg-ol-hxy-sea.mon.glb">ocean.masscello.tavg-ol-hxy-sea.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/ocean.hfds.tavg-u-hxy-sea.mon.glb">ocean.hfds.tavg-u-hxy-sea.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/ocean.bigthetao.tavg-ol-hxy-sea.mon.glb">ocean.bigthetao.tavg-ol-hxy-sea.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/ocean.sftof.ti-u-hxy-u.fx.glb">ocean.sftof.ti-u-hxy-u.fx.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/ocean.hfgeou.ti-u-hxy-sea.fx.glb">ocean.hfgeou.ti-u-hxy-sea.fx.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/ocean.deptho.ti-u-hxy-sea.fx.glb">ocean.deptho.ti-u-hxy-sea.fx.glb</a></td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/ocean.basin.ti-u-hxy-u.fx.glb">ocean.basin.ti-u-hxy-u.fx.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/ocean.areacello.ti-u-hxy-u.fx.glb">ocean.areacello.ti-u-hxy-u.fx.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/ocean.zos.tavg-u-hxy-sea.day.glb">ocean.zos.tavg-u-hxy-sea.day.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/ocean.tos.tavg-u-hxy-sea.day.glb">ocean.tos.tavg-u-hxy-sea.day.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/ocean.sos.tavg-u-hxy-sea.day.glb">ocean.sos.tavg-u-hxy-sea.day.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/land.mrsol.tavg-d10cm-hxy-lnd.mon.glb">land.mrsol.tavg-d10cm-hxy-lnd.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/land.mrso.tavg-u-hxy-lnd.mon.glb">land.mrso.tavg-u-hxy-lnd.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/land.mrros.tavg-u-hxy-lnd.mon.glb">land.mrros.tavg-u-hxy-lnd.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/land.mrro.tavg-u-hxy-lnd.mon.glb">land.mrro.tavg-u-hxy-lnd.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/landIce.mrfso.tavg-u-hxy-lnd.mon.glb">landIce.mrfso.tavg-u-hxy-lnd.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/land.lai.tavg-u-hxy-lnd.mon.glb">land.lai.tavg-u-hxy-lnd.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/land.evspsblveg.tavg-u-hxy-lnd.mon.glb">land.evspsblveg.tavg-u-hxy-lnd.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/land.evspsblsoi.tavg-u-hxy-lnd.mon.glb">land.evspsblsoi.tavg-u-hxy-lnd.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/landIce.snw.tavg-u-hxy-lnd.mon.glb">landIce.snw.tavg-u-hxy-lnd.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/land.slthick.ti-sl-hxy-lnd.fx.glb">land.slthick.ti-sl-hxy-lnd.fx.glb</a></td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.pr.tavg-u-hxy-u.1hr.glb">atmos.pr.tavg-u-hxy-u.1hr.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.ps.tavg-u-hxy-u.day.glb">atmos.ps.tavg-u-hxy-u.day.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.va.tpt-p3-hxy-air.6hr.glb">atmos.va.tpt-p3-hxy-air.6hr.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.ua.tpt-p3-hxy-air.6hr.glb">atmos.ua.tpt-p3-hxy-air.6hr.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.ta.tpt-p3-hxy-air.6hr.glb">atmos.ta.tpt-p3-hxy-air.6hr.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.hurs.tavg-h2m-hxy-u.6hr.glb">atmos.hurs.tavg-h2m-hxy-u.6hr.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.vas.tpt-h10m-hxy-u.3hr.glb">atmos.vas.tpt-h10m-hxy-u.3hr.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.uas.tpt-h10m-hxy-u.3hr.glb">atmos.uas.tpt-h10m-hxy-u.3hr.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.tas.tpt-h2m-hxy-u.3hr.glb">atmos.tas.tpt-h2m-hxy-u.3hr.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.pr.tavg-u-hxy-u.3hr.glb">atmos.pr.tavg-u-hxy-u.3hr.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.huss.tpt-h2m-hxy-u.3hr.glb">atmos.huss.tpt-h2m-hxy-u.3hr.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.zg.tavg-p19-hxy-air.mon.glb">atmos.zg.tavg-p19-hxy-air.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.wap.tavg-p19-hxy-air.mon.glb">atmos.wap.tavg-p19-hxy-air.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.vas.tavg-h10m-hxy-u.mon.glb">atmos.vas.tavg-h10m-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.va.tavg-p19-hxy-air.mon.glb">atmos.va.tavg-p19-hxy-air.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.uas.tavg-h10m-hxy-u.mon.glb">atmos.uas.tavg-h10m-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.ua.tavg-p19-hxy-air.mon.glb">atmos.ua.tavg-p19-hxy-air.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.ts.tavg-u-hxy-u.mon.glb">atmos.ts.tavg-u-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.tauv.tavg-u-hxy-u.mon.glb">atmos.tauv.tavg-u-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.tauu.tavg-u-hxy-u.mon.glb">atmos.tauu.tavg-u-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.tas.tminavg-h2m-hxy-u.mon.glb">atmos.tas.tminavg-h2m-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.tas.tmaxavg-h2m-hxy-u.mon.glb">atmos.tas.tmaxavg-h2m-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.tas.tavg-h2m-hxy-u.mon.glb">atmos.tas.tavg-h2m-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.ta.tavg-p19-hxy-air.mon.glb">atmos.ta.tavg-p19-hxy-air.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.sfcWind.tavg-h10m-hxy-u.mon.glb">atmos.sfcWind.tavg-h10m-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.rsutcs.tavg-u-hxy-u.mon.glb">atmos.rsutcs.tavg-u-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.rsut.tavg-u-hxy-u.mon.glb">atmos.rsut.tavg-u-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.rsuscs.tavg-u-hxy-u.mon.glb">atmos.rsuscs.tavg-u-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.rsus.tavg-u-hxy-u.mon.glb">atmos.rsus.tavg-u-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.rsdt.tavg-u-hxy-u.mon.glb">atmos.rsdt.tavg-u-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.rsdscs.tavg-u-hxy-u.mon.glb">atmos.rsdscs.tavg-u-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.rsds.tavg-u-hxy-u.mon.glb">atmos.rsds.tavg-u-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.rlutcs.tavg-u-hxy-u.mon.glb">atmos.rlutcs.tavg-u-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.rlut.tavg-u-hxy-u.mon.glb">atmos.rlut.tavg-u-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.rluscs.tavg-u-hxy-u.mon.glb">atmos.rluscs.tavg-u-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="Azure">False</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.rlus.tavg-u-hxy-u.mon.glb">atmos.rlus.tavg-u-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.rldscs.tavg-u-hxy-u.mon.glb">atmos.rldscs.tavg-u-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.rlds.tavg-u-hxy-u.mon.glb">atmos.rlds.tavg-u-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.psl.tavg-u-hxy-u.mon.glb">atmos.psl.tavg-u-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.ps.tavg-u-hxy-u.mon.glb">atmos.ps.tavg-u-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.prw.tavg-u-hxy-u.mon.glb">atmos.prw.tavg-u-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.prsn.tavg-u-hxy-u.mon.glb">atmos.prsn.tavg-u-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.prc.tavg-u-hxy-u.mon.glb">atmos.prc.tavg-u-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.pr.tavg-u-hxy-u.mon.glb">atmos.pr.tavg-u-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.huss.tavg-h2m-hxy-u.mon.glb">atmos.huss.tavg-h2m-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.hus.tavg-p19-hxy-u.mon.glb">atmos.hus.tavg-p19-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.hurs.tavg-h2m-hxy-u.mon.glb">atmos.hurs.tavg-h2m-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.hur.tavg-p19-hxy-air.mon.glb">atmos.hur.tavg-p19-hxy-air.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.hfss.tavg-u-hxy-u.mon.glb">atmos.hfss.tavg-u-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.hfls.tavg-u-hxy-u.mon.glb">atmos.hfls.tavg-u-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.evspsbl.tavg-u-hxy-u.mon.glb">atmos.evspsbl.tavg-u-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.clwvi.tavg-u-hxy-u.mon.glb">atmos.clwvi.tavg-u-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.clw.tavg-al-hxy-u.mon.glb">atmos.clw.tavg-al-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.clt.tavg-u-hxy-u.mon.glb">atmos.clt.tavg-u-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.clivi.tavg-u-hxy-u.mon.glb">atmos.clivi.tavg-u-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#E0EEFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.cli.tavg-al-hxy-u.mon.glb">atmos.cli.tavg-al-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+     <td bgcolor="Azure"><a href="https://www.climate-resource.com/tools/esm-model/cmip7-availability/variables/atmos.cl.tavg-al-hxy-u.mon.glb">atmos.cl.tavg-al-hxy-u.mon.glb</a></td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="Azure">False</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+     <td bgcolor="LightGreen">True</td>
+  </tr>
+</table>
+
+</body>
+</html>

@@ -28,7 +28,7 @@ nav:
     - The Registration Process: registering_a_simulation.md
     - Table Of Registered Simulations: metadata_tables/index.html
   - Variable Status:
-    - Baseline Climate Variables: a.md # highlioght these, note what they are, which experiments are available in and if they are producible
+    - Baseline Climate Variables: bcvs_table.html # highlioght these, note what they are, which experiments are available in and if they are producible
     - Variable Status Table: a.md # generate a table like the metadata tables to show the current status of each variable listed in the current mappings version, also look at the known issues
   - ESGF Datasets:
     - What is ESGF?: a.md
