@@ -28,16 +28,16 @@ nav:
     - The Registration Process: registering_a_simulation.md
     - Table Of Registered Simulations: metadata_tables/index.html
   - Variable Status:
-    - Baseline Climate Variables: bcvs.md # highlioght these, note what they are, which experiments are available in and if they are producible
-    - BCV Status Table: bcvs_table.html  # generate a table like the metadata tables to show the current status of each variable listed in the current mappings version, also look at the known issues
+    - Baseline Climate Variables: bcvs.md 
+    - BCV Status Table: bcvs_table.html
   - ESGF Datasets:
     - What is ESGF?: a.md
     - Data: a.md # Link to ESGF datasets
     - Errata: a.md # Link to relevant errata records
-  - CMIP7 Models: # Skeleton pages to be populated as and when suitable
-    - UKCM2-0-LL: a.md
-    - UKCM2a-0-HH: a.md
-    - UKESM1-3-LL: a.md
+  - CMIP7 Models:
+    - UKCM2-0-LL: models/ukcm2.md
+    - UKCM2a-0-HH: models/ukcm2a.md
+    - UKESM1-3-LL: models/ukesm1-3.md
   - CMIP7 MIPs: # Skeleton pages to be populated as and when suitable
     - AerChemMIP: a.md
     - C4MIP: a.md
