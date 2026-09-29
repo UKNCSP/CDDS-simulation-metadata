@@ -1301,7 +1301,7 @@
     "ocean.absscint.tavg-op4-hxy-sea.mon.glb": "do-not-produce (not available with this model)",
     "ocean.agessc.tavg-ol-hxy-sea.mon.glb": "unknown (no stream information available)",
     "ocean.areacello.ti-u-hxy-u.fx.glb": "approved",
-    "ocean.basin.ti-u-hxy-u.fx.glb": "approved",
+    "ocean.basin.ti-u-hxy-u.fx.glb": "embargoed",
     "ocean.bigthetao.tavg-ol-hm-sea.mon.glb": "do-not-produce (not available with this model)",
     "ocean.bigthetao.tavg-ol-hxy-sea.dec.glb": "do-not-produce (not available with this model)",
     "ocean.bigthetao.tavg-ol-hxy-sea.mon.glb": "do-not-produce (not available with this model)",

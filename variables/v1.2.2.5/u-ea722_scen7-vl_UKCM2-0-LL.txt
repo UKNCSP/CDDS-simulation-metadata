@@ -78,7 +78,6 @@ landIce/mrfso_tavg-u-hxy-lnd@mon:ap5  # approved
 landIce/snc_tavg-u-hxy-lnd@mon:ap5  # approved
 landIce/snw_tavg-u-hxy-lnd@mon:ap5  # approved
 ocean/areacello_ti-u-hxy-u@fx:ofx  # approved
-ocean/basin_ti-u-hxy-u@fx:ofx  # approved
 ocean/deptho_ti-u-hxy-sea@fx:ofx  # approved
 ocean/hfds_tavg-u-hxy-sea@mon:onm/grid-T  # approved
 ocean/hfgeou_ti-u-hxy-sea@fx:ofx  # approved
@@ -230,6 +229,7 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #land/mrsol_tavg-d10cm-hxy-lnd@mon:ap5  # embargoed
 #land/rootd_ti-u-hxy-lnd@fx:afx  # embargoed
 #land/sftgif_ti-u-hxy-u@fx:afx  # embargoed
+#ocean/basin_ti-u-hxy-u@fx:ofx  # embargoed
 #ocean/bigthetao_tavg-ol-hxy-sea@mon:onm/grid-T  # embargoed
 #ocean/sos_tavg-u-hxy-sea@day:ond/grid-T  # embargoed
 #ocean/zos_tavg-u-hxy-sea@day:ond/grid-T  # embargoed
@@ -301,7 +301,6 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/cli_tavg-al-hxy-u@day:ap6  # embargoed
 #atmos/clivimodis_tavg-u-hxy-u@mon:ap5  # embargoed
 #atmos/clmodis_tavg-p7c-hxy-air@mon:ap5  # embargoed
-#atmos/clt_tavg-u-hxy-lnd@day:ap6  # embargoed
 #atmos/cltcalipso_tavg-u-hxy-u@day:ap6  # embargoed
 #atmos/cltcalipso_tavg-u-hxy-u@mon:ap5  # embargoed
 #atmos/cltcalipso_tpt-u-hxy-u@3hr:ap8  # embargoed
@@ -703,6 +702,7 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocean/masscello_ti-ol-hxy-sea@fx:ofx  # do-not-produce
 #ocean/thkcello_ti-ol-hxy-sea@fx:ofx  # do-not-produce
 #aerosol/mmrno3_tavg-h2m-hxy-u@day:ap6  # do-not-produce
+#atmos/clt_tavg-u-hxy-lnd@day:ap6  # do-not-produce
 #atmosChem/o3ref_ti-al-hxy-u@fx:afx  # do-not-produce
 #land/depthl_ti-u-hxy-u@fx:afx  # do-not-produce
 #land/depthsl_ti-u-hxy-u@fx:afx  # do-not-produce
@@ -997,7 +997,7 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #land/vegFrac_tavg-u-hxy-u@mon:ap5  # do-not-produce (not available with this model)
 #land/vegHeight_tavg-u-hxy-tree@mon:ap5  # do-not-produce (not available with this model)
 #land/vegHeight_tavg-u-hxy-veg@mon:ap5  # do-not-produce (not available with this model)
-#landIce/icem_tavg-u-hxy-is@mon:ap6  # do-not-produce (not available with this model)
+#landIce/icem_tavg-u-hxy-is@mon:ap5  # do-not-produce (not available with this model)
 #landIce/orog_tavg-u-hxy-is@mon:ap5  # do-not-produce (not available with this model)
 #landIce/pflw_tavg-u-hxy-lnd@mon  # do-not-produce (not available with this model)
 #landIce/prra_tavg-u-hxy-is@mon:ap5  # do-not-produce (not available with this model)

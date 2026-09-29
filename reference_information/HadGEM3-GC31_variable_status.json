@@ -241,7 +241,7 @@
     "atmos.clmodisliquid.tavg-p7c-hxy-air.mon.glb": "do-not-produce (not available with this model)",
     "atmos.clmodisliquidReff.tavg-u-hxy-u.mon.glb": "do-not-produce (not available with this model)",
     "atmos.cls.tavg-al-hxy-u.mon.glb": "approved",
-    "atmos.clt.tavg-u-hxy-lnd.day.glb": "embargoed",
+    "atmos.clt.tavg-u-hxy-lnd.day.glb": "do-not-produce",
     "atmos.clt.tavg-u-hxy-u.1hr.30S-90S": "embargoed",
     "atmos.clt.tavg-u-hxy-u.3hr.glb": "embargoed",
     "atmos.clt.tavg-u-hxy-u.day.glb": "approved",
