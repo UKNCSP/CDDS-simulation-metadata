@@ -1,6 +1,6 @@
 # (C) British Crown Copyright 2026, Met Office.
 # Please see LICENSE.md for license details.
-"""Audits all global variables to determine their availability on esgf."""
+"""Audits all CMIP7 global variables to determine their availability on esgf and for which members."""
 
 import requests
 
@@ -30,7 +30,7 @@ ISSUE = "⚠️"
 
 
 def filter_esgf_archive(branded_variable: str) -> list[dict]:
-    """Filters information for all published data for a given variable in the ESGF searchable metagrid constrained for
+    """Filters information under published data for a given variable in the ESGF searchable metagrid constrained for
     UKNCSP data.
 
     Parameters
@@ -125,9 +125,11 @@ def check_if_known_issue(variable: str, model: str) -> bool:
     known_issues = read_json(KNOWN_ISSUES_DICT_FILE_LOCATION)
     realm, var, brand, freq, _ = variable.split(".")
     issues_for_model = []
+
+    # Get a list of all variables in the known issues for the given model regardless of experiment or variant
     filtered_dict = [v for v in known_issues[model].values() if isinstance(v, dict)]
-    for item in filtered_dict:
-        issues_for_model = issues_for_model + list(item["*"].keys())
+    for v in filtered_dict:
+        issues_for_model = issues_for_model + list(v["*"].keys())
 
     if f"{realm}/{var}_{brand}@{freq}" in issues_for_model:
         return True
@@ -153,14 +155,18 @@ def search_available_models(branded_var: str, freq: str) -> list[str]:
     available_models = []
     for model in CMIP7_MODELS:
         var_name = f"{".".join(branded_var.split("_"))}.{freq}.glb"
+        # Identify the base model used in naming `reference_information` variable status json files.
         if model in ("UKCM2-0-LL", "UKCM2a-0-HH"):
             base_model = "UKCM2"
         elif model == "UKESM1-3-LL":
             base_model = "UKESM1-3"
         else:
             raise RuntimeError(f"Model {model} not recognised.")
+
         model_info = read_json(f"reference_information/{base_model}_variable_status.json")
         for variable, status in model_info.items():
+            # Check the status assigned to each variable to determine which variables are theoretically producible with
+            # this model regardless of approval status.
             if var_name in variable and status in ("approved", "embargoed"):
                 available_models.append(model)
 
