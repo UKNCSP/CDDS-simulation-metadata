@@ -1,6 +1,6 @@
 <!--(C) British Crown Copyright 2026, Met Office. Please see LICENSE.md for license details.--> 
 # What are 'Baseline Climate Variables'?
-Baseline Climate Variables (otherwise known as 'BCVs') is a core list of scientifically vital variables derived from the most heavily utilized elements of previous cycles.
+The 'Baseline Climate Variables' (otherwise known as 'BCVs') make up a core list of scientifically vital variables derived from the most heavily utilized elements of previous cycles.
 
 - **atmos.areacella.ti-u-hxy-u.fx.glb** (fx.areacella): Grid-Cell Area for Atmospheric Grid Variables
 Cell areas for any grid used to report atmospheric variables and any other variable using that grid (e.g., soil moisture content). These cell areas should be defined to enable exact calculation of global integrals (e.g., of vertical fluxes of energy at the surface and top of the atmosphere).
