@@ -278,7 +278,7 @@ def generate_html(table_html: str) -> None:
 
     output_filepath = output_directory / "publication_table.html"
 
-    with open(output_filepath, 'w') as f:
+    with open(output_filepath, 'w', encoding="utf-8") as f:
         f.write(html)
 
 

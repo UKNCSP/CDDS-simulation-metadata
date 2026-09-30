@@ -4,8 +4,11 @@
 ## The CMIP7 Data Request Structure
 After taking on feedback from CMIP6, the data request task team have devised a controlled list of high priority
 variables that faciliate the majority of user needs. This structure includes 3 main parts:
+
 1. **Core**- These are the baseline climate variables (BCVs). They are requested as standard across all of CMIP7, ideally produced for all models and experiments to form a base.
+
 2. **Harmonised**- These are high priority variables tat faciliate the the majority of user needs whilst keeping the data request as managable as possible. This consists of variables across 5 thematic areas: ocean & sea-ice, land & land-ice, atmosphere, earth system, and impacts & adaptation.
+
 3. **Unharmonised**- This stage allows for MIPs and community activities to exploit the data request without the deadline and engagment restrictions present in the harmonised stage.
 
 
@@ -13,13 +16,21 @@ variables that faciliate the majority of user needs. This structure includes 3 m
 The way that CMIP7 variable names are written has changed notably since CMIP6 with the key aim of providing more instant information about the variable.
 
 For example, what was `Amon.tas` in CMIP6 is now written as `atmos/tas_tavg-h2m-hxy-u@mon` in CMIP7. The new structure can be explained as follows:
-- The realm (e.g. `atmos`): other examples include land, ocean, seaIce, landIce, ocnBgChem, atmosChem.
-- The variable ID (e.g. `tas`): this identifies the physical quantity and remains unchanged from CMIP6.
-- The temporal label (e.g. `tavg`): this identifies how the variable is sampled in the time domain.
-- The vertical label (e.g. `h2m`): this identifies how the variable is sampled in the vertical domain.
-- The horizontal label (e.g. `hxy`): this identifies how the variable is sampled horizontally. Note that this does **not** denote a particular choice of reporting grid.
-- The area label (e.g. `u`): this identifies the unmasked area type for which data are reported where `u` means that no masking is applied (`unmasked`).
-- The frequency (e.g. `mon`): this identifies the frequency at which variables are sampled.
+
+- **The realm** (e.g. `atmos`): other examples include land, ocean, seaIce, landIce, ocnBgChem, atmosChem.
+
+- **The variable** ID (e.g. `tas`): this identifies the physical quantity and remains unchanged from CMIP6.
+
+- **The temporal label** (e.g. `tavg`): this identifies how the variable is sampled in the time domain.
+
+- **The vertical label** (e.g. `h2m`): this identifies how the variable is sampled in the vertical domain.
+
+- **The horizontal label** (e.g. `hxy`): this identifies how the variable is sampled horizontally. Note that this does **not** denote a particular choice of reporting grid.
+
+- **The area label** (e.g. `u`): this identifies the unmasked area type for which data are reported where `u` means that no masking is applied (`unmasked`).
+
+- **The frequency** (e.g. `mon`): this identifies the frequency at which variables are sampled.
+
 
 Please see the [CMIP7 Guidance Docs](https://wcrp-cmip.github.io/cmip7-guidance/docs/CMIP7/Branded_Variables/) for more information.
 

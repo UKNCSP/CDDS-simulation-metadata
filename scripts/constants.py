@@ -19,6 +19,7 @@ BGCOLORS = ['#E0EEFF', '#FFFFFF']
 HEADER = """
 <html>
 <head>
+<meta charset="utf-8">
 <link rel="stylesheet" type="text/css" charset="UTF-8"
 href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css"/>
 <script type="text/javascript" charset="UTF-8" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
