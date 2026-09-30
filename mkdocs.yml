@@ -22,15 +22,14 @@ theme:
 nav:
   - Home:
     - About: index.md
-    - What Is CMIP7?:  what_is_cmip7.md
-  - Simulation Metadata Explained: simulation_metadata_explained.md
+  - Simulation Metadata Explained: simulation_information/simulation_metadata_explained.md
   - Registered Simulations:
-    - The Registration Process: registering_a_simulation.md
+    - The Registration Process: simulation_information/registering_a_simulation.md
     - Table Of Registered Simulations: metadata_tables/index.html
   - CMIP7 Variables:
-    - CMIP7 Climate Variables: cmip7_variables.md
-    - Baseline Climate Variables: bcvs.md 
-    - CMIP7 Variable Publication Table: publication_table.html
+    - CMIP7 Climate Variables: variable_information/cmip7_variables.md
+    - Baseline Climate Variables: variable_information/bcvs.md 
+    - CMIP7 Variable Publication Table: variable_information/publication_table.html
   - CMIP7 Models:
     - UKCM2-0-LL: models/ukcm2.md
     - UKCM2a-0-HH: models/ukcm2a.md

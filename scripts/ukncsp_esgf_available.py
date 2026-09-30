@@ -273,7 +273,7 @@ def generate_html(table_html: str) -> None:
             'known issue dictionary </a> for more information.</p>' +
             table_html + FOOTER)
 
-    output_directory = Path("docs")
+    output_directory = Path("docs/variable_information")
     output_directory.mkdir(parents=True, exist_ok=True)
 
     output_filepath = output_directory / "publication_table.html"
