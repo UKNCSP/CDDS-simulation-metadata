@@ -169,6 +169,7 @@ META_FIELDS = {
         "atmospheric_timestep": "atmos_timestep"
     }
 
+REQUESTS_DIR = Path("requests")
 WORKFLOW_METADATA_DIR = Path("workflow_metadata")
 REF_INFO_DIR = Path("reference_information")
 MAPPINGS_FILE_LOCATION = REF_INFO_DIR / "mappings.json"
@@ -185,3 +186,4 @@ REGEX_DICT = {
 
 MIP_TABLE_DIR = f"$CDDS_ETC/mip_tables/CMIP7/DR-{DR_VERSION}-v1.0.2"
 LAST_UPDATED = datetime.today().strftime('%Y-%m-%d')
+MIP_DOCS_DIR = Path("docs/mips")

@@ -10,3 +10,6 @@ For CMIP7, phase 2 of the Aerosol Chemistry Model Intercomparison Project ([AerC
 ## Experiments and Protocols
 
 
+## Simulations Currently Registered For This MIP
+
+No workflows/simulations are currently registered for this MIP.
