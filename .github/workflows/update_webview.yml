@@ -31,10 +31,11 @@ jobs:
         run: |
           python scripts/generate_metadata_tables.py
           python scripts/ukncsp_esgf_available.py
+          python scripts/metadata_per_mip.py
 
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
 
-          git add *.html
+          git add *.html *.md
           git commit -m "Webview updated" || echo "No new changes to commit"
           git push origin main
