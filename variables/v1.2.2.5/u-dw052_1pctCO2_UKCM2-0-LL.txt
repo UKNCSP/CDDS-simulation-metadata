@@ -371,19 +371,9 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/reffclwc_tavg-al-hxy-ccl@mon:ap5  # embargoed
 #atmos/reffclws_tavg-al-hxy-scl@mon:ap5  # embargoed
 #atmos/reffsclwtop_tavg-u-hxy-scl@mon:ap5  # embargoed
-#atmos/rld4co2_tavg-alh-hxy-u@mon:ap5  # embargoed
 #atmos/rldcs4co2_tavg-alh-hxy-u@mon:ap5  # embargoed
-#atmos/rlu4co2_tavg-alh-hxy-u@mon:ap5  # embargoed
-#atmos/rlucs4co2_tavg-alh-hxy-u@mon:ap5  # embargoed
 #atmos/rluscs_tavg-u-hxy-u@day:ap6  # embargoed
-#atmos/rlut4co2_tavg-u-hxy-u@mon:ap5  # embargoed
-#atmos/rlutcs4co2_tavg-u-hxy-u@mon:ap5  # embargoed
-#atmos/rsd4co2_tavg-alh-hxy-u@mon:ap5  # embargoed
-#atmos/rsdcs4co2_tavg-alh-hxy-u@mon:ap5  # embargoed
 #atmos/rsu4co2_tavg-alh-hxy-u@mon:ap5  # embargoed
-#atmos/rsucs4co2_tavg-alh-hxy-u@mon:ap5  # embargoed
-#atmos/rsut4co2_tavg-u-hxy-u@mon:ap5  # embargoed
-#atmos/rsutcs4co2_tavg-u-hxy-u@mon:ap5  # embargoed
 #atmos/rv850_tpt-850hPa-hxy-air@6hr:ap7  # embargoed
 #atmos/scldncl_tavg-u-hxy-scl@mon:ap5  # embargoed
 #atmos/ta_tavg-p39-hy-air@day:ap6  # embargoed
@@ -461,8 +451,6 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocean/sfx_tavg-u-hxy-sea@mon:onm/grid-U  # embargoed
 #ocean/sfy_tavg-u-hxy-sea@mon:onm/grid-V  # embargoed
 #ocean/sltbasin_tavg-u-hyb-sea@mon:onm/diaptr  # embargoed
-#ocean/sltovgyre_tavg-u-hyb-sea@mon:onm/diaptr  # embargoed
-#ocean/sltovovrt_tavg-u-hyb-sea@mon:onm/diaptr  # embargoed
 #ocean/sos_tavg-u-hm-sea@mon:onm/grid-T  # embargoed
 #ocean/thetao_tavg-op20bar-hxy-sea@day:ond/grid-T  # embargoed
 #ocean/tos_tavg-u-hm-sea@mon:onm/grid-T  # embargoed
@@ -609,8 +597,20 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/prsn_tavg-u-hxy-u@3hr:ap8  # known-issue, approved
 #atmos/ps_tavg-u-hxy-u@1hr:ap9  # known-issue, embargoed
 #atmos/psl_tpt-u-hxy-u@1hr:ap9  # known-issue, embargoed
+#atmos/rld4co2_tavg-alh-hxy-u@mon:ap5  # known-issue, embargoed
+#atmos/rlu4co2_tavg-alh-hxy-u@mon:ap5  # known-issue, embargoed
+#atmos/rlucs4co2_tavg-alh-hxy-u@mon:ap5  # known-issue, embargoed
+#atmos/rlut4co2_tavg-u-hxy-u@mon:ap5  # known-issue, embargoed
+#atmos/rlutcs4co2_tavg-u-hxy-u@mon:ap5  # known-issue, embargoed
+#atmos/rsd4co2_tavg-alh-hxy-u@mon:ap5  # known-issue, embargoed
+#atmos/rsdcs4co2_tavg-alh-hxy-u@mon:ap5  # known-issue, embargoed
+#atmos/rsucs4co2_tavg-alh-hxy-u@mon:ap5  # known-issue, embargoed
+#atmos/rsut4co2_tavg-u-hxy-u@mon:ap5  # known-issue, embargoed
+#atmos/rsutcs4co2_tavg-u-hxy-u@mon:ap5  # known-issue, embargoed
 #atmos/ta_tavg-al-hxy-u@mon:ap5  # known-issue, embargoed
 #atmos/tas_tavg-h2m-hxy-u@1hr:ap9  # known-issue, approved
+#ocean/sltovgyre_tavg-u-hyb-sea@mon:onm/diaptr  # known-issue, embargoed
+#ocean/sltovovrt_tavg-u-hyb-sea@mon:onm/diaptr  # known-issue, embargoed
 #atmos/rlds_tavg-u-hxy-u@3hr:ap8  # known-issue, approved, priority=medium
 #atmos/rsds_tavg-u-hxy-u@3hr:ap8  # known-issue, approved, priority=medium
 #atmos/sfcWind_tavg-h10m-hxy-u@3hr:ap8  # known-issue, embargoed, priority=medium
