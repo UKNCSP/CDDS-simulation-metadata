@@ -41,11 +41,13 @@ def calc_size_estimate(metadata: MetadataConfigTools) -> float:
     return round(gb_per_year * metadata._run_length_years * GB_TO_TB, 1)
 
 
-def check_for_hand_edits(hand_edits, path: str) -> bool:
+def check_for_hand_edits(hand_edits: list, path: str) -> bool:
     """Checks if a single workflow has entries in the HAND_EDITS list that need to be highlighted.
 
     Parameters
     ----------
+    hand_edits: list
+        The content of `MANUAL_ESTIMATES_PATH` as a list if lines.
     path: str
         The DRS path structure for the workflow being checked.
 
@@ -61,11 +63,13 @@ def check_for_hand_edits(hand_edits, path: str) -> bool:
     return False
 
 
-def write_estimates_to_file(hand_edits, generated_estimates) -> None:
+def write_estimates_to_file(hand_edits: list, generated_estimates: list) -> None:
     """Writes out the fileset storeage estimate to a txt file.
 
     Parameters
     ----------
+    hand_edits: list
+        The content of `MANUAL_ESTIMATES_PATH` as a list if lines.
     generated_estimate: list
         A list of DRS path structure for each workflow and its correspondind estimated storage requirement in TB.
     """
@@ -84,12 +88,16 @@ def main() -> None:
 
     all_metadata_configs = list(WORKFLOW_METADATA_DIR.glob('*.cfg'))
     for file in all_metadata_configs:
+        # Pull the workflow ID from the filename so that MetadataConfigTools knows which metadata file to read.
         workflow_id = str(file).split("/")[-1].strip(".cfg")
         metadata = MetadataConfigTools(workflow_id)
         metadata.read_config()
+
         size_est = calc_size_estimate(metadata)
         path = (f"{metadata._drs_specs}/{metadata._mip_era}/{metadata._mip}/{metadata._institution_id}/"
                 f"{metadata._model_id}/{metadata._experiment_id}/{metadata._variant_label}")
+
+        # If the path does not appear in `MANUAL_ESTIMATES_PATH`, add it to the list of generated estimates.
         if check_for_hand_edits(hand_edits, path) is False:
             generated_estimates.append(f"{path} {size_est}\n")
 
