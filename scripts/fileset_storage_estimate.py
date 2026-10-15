@@ -23,9 +23,9 @@ HAND_EDITS = [
     "MIP-DRS7/CMIP7/CMIP/UKNCSP/UKCM2a-0-HH/historical/*/glb/day 35.0\n",
     "MIP-DRS7/CMIP7/CMIP/UKNCSP/UKCM2a-0-HH/abrupt-4xCO2/*/glb/mon 48.0\n",
     "MIP-DRS7/CMIP7/CMIP/UKNCSP/UKCM2a-0-HH/abrupt-4xCO2/*/glb/day 32.0\n",
-    "#\n",
+    "\n",
     "# Various special cases for MIP-DRS7.CMIP7.CMIP.UKNCSP.UKCM2a-0-HH.piControl",
-    "#\n",
+    "\n",
     "# Monthly\n",
     "MIP-DRS7/CMIP7/CMIP/UKNCSP/UKCM2a-0-HH/piControl/r1i1p1f1/glb/mon/rsucs4co2 1.04\n",
     "MIP-DRS7/CMIP7/CMIP/UKNCSP/UKCM2a-0-HH/piControl/r1i1p1f1/glb/mon/rsucs 1.04\n",
@@ -99,7 +99,7 @@ HAND_EDITS = [
     "MIP-DRS7/CMIP7/CMIP/UKNCSP/UKCM2a-0-HH/piControl/r1i1p1f1/glb/6hr 74.0\n",
     "MIP-DRS7/CMIP7/CMIP/UKNCSP/UKCM2a-0-HH/piControl/r1i1p1f1/glb/3hr 56.0\n",
     "MIP-DRS7/CMIP7/CMIP/UKNCSP/UKCM2a-0-HH/piControl/r1i1p1f1/glb/1hr 18.0\n",
-    "#\n",
+    "\n",
 ]
 
 
