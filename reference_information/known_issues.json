@@ -162,6 +162,16 @@
                 "land/evspsblsoi_tavg-u-hxy-u@3hr": "incorrect file naming in cmor",
                 "atmos/clt_tavg-u-hxy-u@3hr": "incorrect file naming in cmor"
             }
+        },
+        "historical":{
+            "r1i1p1f1": {
+                "atmos/rlut_tavg-u-hxy-u@3hr": "STASH written to incorrect stream",
+                "atmos/rlut_tavg-u-hxy-u@mon": "STASH written to incorrect stream",
+                "atmos/rlut_tavg-u-hxy-u@day": "STASH written to incorrect stream",
+                "atmos/rlutcs_tavg-u-hxy-u@3hr": "STASH written to incorrect stream",
+                "atmos/rlutcs_tavg-u-hxy-u@mon": "STASH written to incorrect stream",
+                "atmos/rlutcs_tavg-u-hxy-u@day": "STASH written to incorrect stream"
+            }
         }
     },
     "UKCM2-0-LL": {
@@ -273,6 +283,22 @@
                 "atmos/snrefr_tavg-u-hxy-is@mon": "STASH not in suite",
                 "atmos/tas_tavg-h2m-hxy-is@mon": "STASH not in suite",
                 "atmos/ts_tavg-u-hxy-is@mon": "STASH not in suite"
+            },
+            "r1i1p1f1": {
+                "ocean/sltovgyre_tavg-u-hyb-sea@mon": "incorrect variable definition",
+                "ocean/sltovovrt_tavg-u-hyb-sea@mon": "incorrect variable definition",
+                "atmos/rsutcs4co2_tavg-u-hxy-u@mon": "improper setup of second radiation call",
+                "atmos/rsut4co2_tavg-u-hxy-u@mon": "improper setup of second radiation call",
+                "atmos/rsucs4co2_tavg-alh-hxy-u@mon": "improper setup of second radiation call",
+                "⁠atmos/rsu4co2_tavg-alh-hxy-u@mon": "improper setup of second radiation call",
+                "atmos/rsdcs4co2_tavg-alh-hxy-u@mon": "improper setup of second radiation call",
+                "atmos/rsd4co2_tavg-alh-hxy-u@mon": "improper setup of second radiation call",
+                "atmos/rlutcs4co2_tavg-u-hxy-u@mon": "improper setup of second radiation call",
+                "atmos/rlut4co2_tavg-u-hxy-u@mon": "improper setup of second radiation call",
+                "atmos/rlucs4co2_tavg-alh-hxy-u@mon": "improper setup of second radiation call",
+                "atmos/rlu4co2_tavg-alh-hxy-u@mon": "improper setup of second radiation call",
+                "⁠atmos/rldcs4co2_tavg-alh-hxy-u@mon": "improper setup of second radiation call",
+                "atmos/rld4co2_tavg-alh-hxy-u@mon": "improper setup of second radiation call"
             }
         }
     }
