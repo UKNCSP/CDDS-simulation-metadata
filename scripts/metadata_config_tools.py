@@ -47,6 +47,25 @@ class MetadataConfigTools:
         return self.config["ADDITIONAL INFO"]
 
     @property
+    def _mip_era(self):
+        return self._metadata_section["mip_era"]
+
+    @property
+    def _drs_specs(self):
+        if self._mip_era == "CMIP7":
+            return "MIP-DRS7"
+        else:
+            raise RuntimeError(f"Unable to identify drs_specs for {self._mip_era}")
+
+    @property
+    def _mip(self):
+        return self._metadata_section["mip"]
+
+    @property
+    def _institution_id(self):
+        return self._metadata_section["institution_id"]
+
+    @property
     def _model_id(self):
         return self._metadata_section["model_id"]
 

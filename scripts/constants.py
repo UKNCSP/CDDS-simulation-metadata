@@ -182,3 +182,5 @@ REGEX_DICT = {
 }
 
 MIP_TABLE_DIR = f"$CDDS_ETC/mip_tables/CMIP7/DR-{DR_VERSION}-v1.0.2"
+
+FILESET_ESTIMATES_DIR = Path("fileset_storage_estimates")
