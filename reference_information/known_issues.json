@@ -30,16 +30,6 @@
                 "seaIce/ts_tavg-u-hxy-si@mon": "Insufficient matching coordinate metadata to resolve cubes, cannot map dimension (0,) of the RHS cube to the LHS cube.",
                 "seaIce/sidragtop_tavg-u-hxy-si@mon": "Insufficient matching coordinate metadata to resolve cubes, cannot map dimension (0,) of the RHS cube to the LHS cube."
             }
-        },
-        "historical":{
-            "r1i1p1f1": {
-                "atmos/rlut_tavg-u-hxy-u@3hr": "STASH written to incorrect stream",
-                "atmos/rlut_tavg-u-hxy-u@mon": "STASH written to incorrect stream",
-                "atmos/rlut_tavg-u-hxy-u@day": "STASH written to incorrect stream",
-                "atmos/rlutcs_tavg-u-hxy-u@3hr": "STASH written to incorrect stream",
-                "atmos/rlutcs_tavg-u-hxy-u@mon": "STASH written to incorrect stream",
-                "atmos/rlutcs_tavg-u-hxy-u@day": "STASH written to incorrect stream"
-            }
         }
     },
     "UKCM2-0-LL": {
