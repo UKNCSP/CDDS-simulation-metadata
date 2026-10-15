@@ -9,8 +9,8 @@ from constants import WORKFLOW_METADATA_DIR
 GB_TO_TB = 1e-3  # 1GB = 0.001TB
 MODEL_DEFAULT_SIZE_GB_PER_YEAR = {
     "UKCM2-0-LL": 24,
-    "UKCM2a-0-HH": 40,
-    "UKESM1-3-LL": 1400
+    "UKCM2a-0-HH": 1400,
+    "UKESM1-3-LL": 40
 }
 OVERRIDES_GB_PER_YEAR = {
     "UKCM2a-0-HH/piControl": 480,
@@ -96,9 +96,7 @@ def main() -> None:
         metadata.read_config()
         size_est = calc_size_estimate(metadata)
         path = f"MIP-DRS7/CMIP7/CMIP/UKNCSP/{metadata._model_id}/{metadata._experiment_id}/{metadata._variant_label}"
-        if check_for_hand_edits(path) is True:
-            generated_estimates.append(f"{path} {size_est} # PLEASE CHECK HAND_EDITS SECTION FOR DETAILS\n")
-        else:
+        if check_for_hand_edits(path) is False:
             generated_estimates.append(f"{path} {size_est}\n")
 
     write_estimates_to_file(generated_estimates)
