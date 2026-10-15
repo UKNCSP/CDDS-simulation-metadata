@@ -103,7 +103,7 @@ def main() -> None:
             if size_est > MAXIMUM_EST:
                 generated_estimates.append(
                     f"# !!! Fileset estimate for {path} exceeds {MAXIMUM_EST}TB (estimate={size_est}TB), please create "
-                    f"manual estimate in {MANUAL_ESTIMATES_PATH}"
+                    f"manual estimate in {MANUAL_ESTIMATES_PATH}\n"
                 )
             else:
                 generated_estimates.append(f"{path} {size_est}\n")
