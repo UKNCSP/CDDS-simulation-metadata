@@ -6,6 +6,7 @@ overrides."""
 from metadata_config_tools import MetadataConfigTools
 from constants import WORKFLOW_METADATA_DIR, FILESET_ESTIMATES_DIR
 
+MAXIMUM_EST = 80
 GB_TO_TB = 1e-3  # 1GB = 0.001TB
 MANUAL_ESTIMATES_PATH = FILESET_ESTIMATES_DIR / "manual_updates.txt"
 MODEL_DEFAULT_SIZE_GB_PER_YEAR = {
@@ -99,7 +100,13 @@ def main() -> None:
 
         # If the path does not appear in `MANUAL_ESTIMATES_PATH`, add it to the list of generated estimates.
         if check_for_hand_edits(hand_edits, path) is False:
-            generated_estimates.append(f"{path} {size_est}\n")
+            if size_est > MAXIMUM_EST:
+                generated_estimates.append(
+                    f"# !!! Fileset estimate for {path} exceeds {MAXIMUM_EST}TB (estimate={size_est}TB), please create "
+                    f"manual estimate in {MANUAL_ESTIMATES_PATH}"
+                )
+            else:
+                generated_estimates.append(f"{path} {size_est}\n")
 
     write_estimates_to_file(hand_edits, generated_estimates)
 
