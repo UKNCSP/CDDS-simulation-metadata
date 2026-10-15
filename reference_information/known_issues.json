@@ -9,88 +9,88 @@
     "UKESM1-3-LL": {
         "*": {
             "*": {
-                "atmos/ta_tavg-al-hxy-u@mon": "corrupted data of unknown source"
+                "atmos/ta_tavg-al-hxy-u@mon": "corrupted data of unknown source (see CDDS-simulation-metadata issue #195) (see CDDS-CMIP7-mappings issue #563)"
             }
         }
     },
     "UKCM2a-0-HH": {
         "*": {
             "*": {
-                "atmos/ta_tpt-p7h-hxy-air@6hr": "temperature field in model has fewer levels than is required by variable",
-                "seaIce/siforcecoriolx_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
-                "seaIce/siforcecorioly_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
-                "seaIce/siforceintstrx_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
-                "seaIce/siforceintstry_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
-                "seaIce/siforcetiltx_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
-                "seaIce/siforcetilty_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
-                "aerosol/emiisop_tavg-u-hxy-u@mon": "Garbled data in UKCM2.",
-                "seaIce/sicompstren_tavg-u-hxy-si@mon": "Output has double weighting by sea ice area, rather than a single weighting.",
-                "land/slthick_ti-sl-hxy-lnd@fx": "No ancillary data available.",
-                "atmos/ta_tavg-al-hxy-u@mon": "corrupted data of unknown source",
-                "seaIce/ts_tavg-u-hxy-si@mon": "Insufficient matching coordinate metadata to resolve cubes, cannot map dimension (0,) of the RHS cube to the LHS cube.",
-                "seaIce/sidragtop_tavg-u-hxy-si@mon": "Insufficient matching coordinate metadata to resolve cubes, cannot map dimension (0,) of the RHS cube to the LHS cube."
+                "atmos/ta_tpt-p7h-hxy-air@6hr": "temperature field in model has fewer levels than is required by variable (see CDDS issue #899) (see CDDS-CMIP7-mappings issue #181)",
+                "seaIce/siforcecoriolx_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting (see CDDS-simulation-metadata issue #97)",
+                "seaIce/siforcecorioly_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting (see CDDS-simulation-metadata issue #97)",
+                "seaIce/siforceintstrx_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting (see CDDS-simulation-metadata issue #97)",
+                "seaIce/siforceintstry_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting (see CDDS-simulation-metadata issue #97)",
+                "seaIce/siforcetiltx_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting (see CDDS-simulation-metadata issue #97)",
+                "seaIce/siforcetilty_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting (see CDDS-simulation-metadata issue #97)",
+                "aerosol/emiisop_tavg-u-hxy-u@mon": "Garbled data in UKCM2 (see CDDS-simulation-metadata issue #116)",
+                "seaIce/sicompstren_tavg-u-hxy-si@mon": "Output has double weighting by sea ice area, rather than a single weighting (see CDDS-simulation-metadata issue #146)",
+                "land/slthick_ti-sl-hxy-lnd@fx": "No ancillary data available (see CDDS-simulation-metadata issue #184)",
+                "atmos/ta_tavg-al-hxy-u@mon": "corrupted data of unknown source (see CDDS-simulation-metadata issue #195) (see CDDS-CMIP7-mappings issue #563)",
+                "seaIce/ts_tavg-u-hxy-si@mon": "Insufficient matching coordinate metadata to resolve cubes, cannot map dimension (0,) of the RHS cube to the LHS cube (see CDDS issue #812) (see CDDS-simulation-metadata issue #198)",
+                "seaIce/sidragtop_tavg-u-hxy-si@mon": "Insufficient matching coordinate metadata to resolve cubes, cannot map dimension (0,) of the RHS cube to the LHS cube (see CDDS issue #812) (see CDDS-simulation-metadata issue #198)"
             }
         }
     },
     "UKCM2-0-LL": {
         "*": {
             "*": {
-                "atmos/ta_tpt-p7h-hxy-air@6hr": "temperature field in model has fewer levels than is required by variable",
-                "atmos/ps_tpt-u-hxy-u@6hr": "Stash 0,409 setup for time mean profile T6HRMN rather than time point T6HR",
-                "atmos/ts_tpt-u-hxy-u@6hr": "Stash 0,024 setup for time mean profile T6HRMN rather than time point T6HR",
-                "atmos/ua_tpt-p7h-hxy-air@6hr": "pressure level unit prefix mismatch (Pa rather than HPa) leading to cmor axis error (see CDDS issue #800)",
-                "atmos/va_tpt-p7h-hxy-air@6hr": "pressure level unit prefix mismatch (Pa rather than HPa) leading to cmor axis error (see CDDS issue #800)",
-                "seaIce/siforcecoriolx_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
-                "seaIce/siforcecorioly_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
-                "seaIce/siforceintstrx_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
-                "seaIce/siforceintstry_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
-                "seaIce/siforcetiltx_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
-                "seaIce/siforcetilty_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting.",
-                "aerosol/emiisop_tavg-u-hxy-u@mon": "Garbled data in UKCM2.",
-                "seaIce/sicompstren_tavg-u-hxy-si@mon": "Output has double weighting by sea ice area, rather than a single weighting.",
-                "atmos/ta_tavg-al-hxy-u@mon": "corrupted data of unknown source"
+                "atmos/ta_tpt-p7h-hxy-air@6hr": "temperature field in model has fewer levels than is required by variable (see CDDS issue #899) (see CDDS-CMIP7-mappings issue #181)",
+                "atmos/ps_tpt-u-hxy-u@6hr": "Stash 0,409 setup for time mean profile T6HRMN rather than time point T6HR (see CDDS-simulation-metadata issue #85)",
+                "atmos/ts_tpt-u-hxy-u@6hr": "Stash 0,024 setup for time mean profile T6HRMN rather than time point T6HR (see CDDS-simulation-metadata issue #85)",
+                "atmos/ua_tpt-p7h-hxy-air@6hr": "pressure level unit prefix mismatch (Pa rather than HPa) leading to cmor axis error (see CDDS issue #800)(see CDDS-simulation-metadata issue #85)",
+                "atmos/va_tpt-p7h-hxy-air@6hr": "pressure level unit prefix mismatch (Pa rather than HPa) leading to cmor axis error (see CDDS issue #800)(see CDDS-simulation-metadata issue #85)",
+                "seaIce/siforcecoriolx_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting (see CDDS-simulation-metadata issue #97)",
+                "seaIce/siforcecorioly_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting (see CDDS-simulation-metadata issue #97)",
+                "seaIce/siforceintstrx_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting (see CDDS-simulation-metadata issue #97)",
+                "seaIce/siforceintstry_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting (see CDDS-simulation-metadata issue #97)",
+                "seaIce/siforcetiltx_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting (see CDDS-simulation-metadata issue #97)",
+                "seaIce/siforcetilty_tavg-u-hxy-si@mon": "output has double weighting by sea ice area, rather than a single weighting (see CDDS-simulation-metadata issue #97)",
+                "aerosol/emiisop_tavg-u-hxy-u@mon": "Garbled data in UKCM2 (see CDDS-simulation-metadata issue #116)",
+                "seaIce/sicompstren_tavg-u-hxy-si@mon": "Output has double weighting by sea ice area, rather than a single weighting (see CDDS-simulation-metadata issue #146)",
+                "atmos/ta_tavg-al-hxy-u@mon": "corrupted data of unknown source (see CDDS-simulation-metadata issue #195) (see CDDS-CMIP7-mappings issue #563)"
             }
         },
         "1pctCO2": {
             "*": {
-                "atmos/psl_tpt-u-hxy-u@1hr": "STASH not in suite",
-                "atmos/evspsbl_tavg-u-hxy-lnd@day": "STASH not in suite",
-                "atmos/evspsblpot_tavg-u-hxy-lnd@day": "STASH not in suite",
-                "atmos/snc_tavg-u-hxy-lnd@day": "STASH not in suite",
-                "atmos/snw_tavg-u-hxy-lnd@day": "STASH not in suite",
-                "atmos/clmisr_tavg-h16-hxy-air@mon": "STASH not in suite",
-                "atmos/co2mass_tavg-u-hm-u@mon": "STASH not in suite",
-                "atmos/acabf_tavg-u-hxy-is@mon": "STASH not in suite",
-                "atmos/hfls_tavg-u-hxy-is@mon": "STASH not in suite",
-                "atmos/hfss_tavg-u-hxy-is@mon": "STASH not in suite",
-                "atmos/litemptop_tavg-u-hxy-is@mon": "STASH not in suite",
-                "atmos/mrro_tavg-u-hxy-is@mon": "STASH not in suite",
-                "atmos/rlds_tavg-u-hxy-is@mon": "STASH not in suite",
-                "atmos/rlus_tavg-u-hxy-is@mon": "STASH not in suite",
-                "atmos/sbl_tavg-u-hxy-is@mon": "STASH not in suite",
-                "atmos/snd_tavg-u-hxy-lnd@mon": "STASH not in suite",
-                "atmos/snicem_tavg-u-hxy-is@mon": "STASH not in suite",
-                "atmos/snm_tavg-u-hxy-is@mon": "STASH not in suite",
-                "atmos/snm_tavg-u-hxy-lnd@mon": "STASH not in suite",
-                "atmos/snrefr_tavg-u-hxy-is@mon": "STASH not in suite",
-                "atmos/tas_tavg-h2m-hxy-is@mon": "STASH not in suite",
-                "atmos/ts_tavg-u-hxy-is@mon": "STASH not in suite"
+                "atmos/psl_tpt-u-hxy-u@1hr": "STASH not in initial run setup (See CDDS-simulation-metadata issue #47)",
+                "atmos/evspsbl_tavg-u-hxy-lnd@day": "STASH not in initial run setup (See CDDS-simulation-metadata issue #47)",
+                "atmos/evspsblpot_tavg-u-hxy-lnd@day": "STASH not in initial run setup (See CDDS-simulation-metadata issue #47)",
+                "atmos/snc_tavg-u-hxy-lnd@day": "STASH not in initial run setup (See CDDS-simulation-metadata issue #47)",
+                "atmos/snw_tavg-u-hxy-lnd@day": "STASH not in initial run setup (See CDDS-simulation-metadata issue #47)",
+                "atmos/clmisr_tavg-h16-hxy-air@mon": "STASH not in initial run setup (See CDDS-simulation-metadata issue #47)",
+                "atmos/co2mass_tavg-u-hm-u@mon": "STASH not in initial run setup (See CDDS-simulation-metadata issue #47)",
+                "atmos/acabf_tavg-u-hxy-is@mon": "STASH not in initial run setup (See CDDS-simulation-metadata issue #47)",
+                "atmos/hfls_tavg-u-hxy-is@mon": "STASH not in initial run setup (See CDDS-simulation-metadata issue #47)",
+                "atmos/hfss_tavg-u-hxy-is@mon": "STASH not in initial run setup (See CDDS-simulation-metadata issue #47)",
+                "atmos/litemptop_tavg-u-hxy-is@mon": "STASH not in initial run setup (See CDDS-simulation-metadata issue #47)",
+                "atmos/mrro_tavg-u-hxy-is@mon": "STASH not in initial run setup (See CDDS-simulation-metadata issue #47)",
+                "atmos/rlds_tavg-u-hxy-is@mon": "STASH not in initial run setup (See CDDS-simulation-metadata issue #47)",
+                "atmos/rlus_tavg-u-hxy-is@mon": "STASH not in initial run setup (See CDDS-simulation-metadata issue #47)",
+                "atmos/sbl_tavg-u-hxy-is@mon": "STASH not in initial run setup (See CDDS-simulation-metadata issue #47)",
+                "atmos/snd_tavg-u-hxy-lnd@mon": "STASH not in initial run setup (See CDDS-simulation-metadata issue #47)",
+                "atmos/snicem_tavg-u-hxy-is@mon": "STASH not in initial run setup (See CDDS-simulation-metadata issue #47)",
+                "atmos/snm_tavg-u-hxy-is@mon": "STASH not in initial run setup (See CDDS-simulation-metadata issue #47)",
+                "atmos/snm_tavg-u-hxy-lnd@mon": "STASH not in initial run setup (See CDDS-simulation-metadata issue #47)",
+                "atmos/snrefr_tavg-u-hxy-is@mon": "STASH not in initial run setup (See CDDS-simulation-metadata issue #47)",
+                "atmos/tas_tavg-h2m-hxy-is@mon": "STASH not in initial run setup (See CDDS-simulation-metadata issue #47)",
+                "atmos/ts_tavg-u-hxy-is@mon": "STASH not in initial run setup (See CDDS-simulation-metadata issue #47)"
             },
             "r1i1p1f1": {
-                "ocean/sltovgyre_tavg-u-hyb-sea@mon": "incorrect variable definition",
-                "ocean/sltovovrt_tavg-u-hyb-sea@mon": "incorrect variable definition",
-                "atmos/rsutcs4co2_tavg-u-hxy-u@mon": "improper setup of second radiation call",
-                "atmos/rsut4co2_tavg-u-hxy-u@mon": "improper setup of second radiation call",
-                "atmos/rsucs4co2_tavg-alh-hxy-u@mon": "improper setup of second radiation call",
-                "⁠atmos/rsu4co2_tavg-alh-hxy-u@mon": "improper setup of second radiation call",
-                "atmos/rsdcs4co2_tavg-alh-hxy-u@mon": "improper setup of second radiation call",
-                "atmos/rsd4co2_tavg-alh-hxy-u@mon": "improper setup of second radiation call",
-                "atmos/rlutcs4co2_tavg-u-hxy-u@mon": "improper setup of second radiation call",
-                "atmos/rlut4co2_tavg-u-hxy-u@mon": "improper setup of second radiation call",
-                "atmos/rlucs4co2_tavg-alh-hxy-u@mon": "improper setup of second radiation call",
-                "atmos/rlu4co2_tavg-alh-hxy-u@mon": "improper setup of second radiation call",
-                "⁠atmos/rldcs4co2_tavg-alh-hxy-u@mon": "improper setup of second radiation call",
-                "atmos/rld4co2_tavg-alh-hxy-u@mon": "improper setup of second radiation call"
+                "ocean/sltovgyre_tavg-u-hyb-sea@mon": "incorrect variable definition (see CDDS-simulation-metadata issue #218)",
+                "ocean/sltovovrt_tavg-u-hyb-sea@mon": "incorrect variable definition (see CDDS-simulation-metadata issue #218)",
+                "atmos/rsutcs4co2_tavg-u-hxy-u@mon": "improper setup of second radiation call (see CDDS-simulation-metadata issue #218)",
+                "atmos/rsut4co2_tavg-u-hxy-u@mon": "improper setup of second radiation call (see CDDS-simulation-metadata issue #218)",
+                "atmos/rsucs4co2_tavg-alh-hxy-u@mon": "improper setup of second radiation call (see CDDS-simulation-metadata issue #218)",
+                "⁠atmos/rsu4co2_tavg-alh-hxy-u@mon": "improper setup of second radiation call (see CDDS-simulation-metadata issue #218)",
+                "atmos/rsdcs4co2_tavg-alh-hxy-u@mon": "improper setup of second radiation call (see CDDS-simulation-metadata issue #218)",
+                "atmos/rsd4co2_tavg-alh-hxy-u@mon": "improper setup of second radiation call (see CDDS-simulation-metadata issue #218)",
+                "atmos/rlutcs4co2_tavg-u-hxy-u@mon": "improper setup of second radiation call (see CDDS-simulation-metadata issue #218)",
+                "atmos/rlut4co2_tavg-u-hxy-u@mon": "improper setup of second radiation call (see CDDS-simulation-metadata issue #218)",
+                "atmos/rlucs4co2_tavg-alh-hxy-u@mon": "improper setup of second radiation call (see CDDS-simulation-metadata issue #218)",
+                "atmos/rlu4co2_tavg-alh-hxy-u@mon": "improper setup of second radiation call (see CDDS-simulation-metadata issue #218)",
+                "⁠atmos/rldcs4co2_tavg-alh-hxy-u@mon": "improper setup of second radiation call (see CDDS-simulation-metadata issue #218)",
+                "atmos/rld4co2_tavg-alh-hxy-u@mon": "improper setup of second radiation call (see CDDS-simulation-metadata issue #218)"
             }
         }
     }
