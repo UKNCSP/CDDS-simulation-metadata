@@ -162,7 +162,6 @@ atmos/rsut_tavg-u-hxy-u@day:ap6  # approved
 atmos/rsutcs_tavg-u-hxy-u@day:ap6  # approved
 atmos/rtmt_tavg-u-hxy-u@mon:ap5  # approved
 atmos/sci_tavg-u-hxy-u@mon:ap5  # approved
-atmos/sfcWind_tmax-h10m-hxy-u@day:ap6  # approved
 atmos/ta_tavg-700hPa-hxy-air@day:ap6  # approved
 atmos/ta_tavg-p39-hy-air@mon:ap4  # approved
 atmos/tnhus_tavg-al-hxy-u@mon:apu  # approved
@@ -546,6 +545,7 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #aerosol/emiisop_tavg-u-hxy-u@mon:ap4  # known-issue, embargoed
 #aerosol/sfpm25_tavg-h2m-hxy-u@1hr:ap9  # known-issue, embargoed
 #atmos/ps_tavg-u-hxy-u@1hr:ap9  # known-issue, embargoed
+#atmos/sfcWind_tmax-h10m-hxy-u@day:ap6  # known-issue, approved
 #atmos/ta_tavg-al-hxy-u@mon:ap5  # known-issue, embargoed
 #atmos/tas_tavg-h2m-hxy-u@1hr:ap9  # known-issue, approved
 #atmos/prsn_tavg-u-hxy-u@3hr:ap8  # known-issue, approved, priority=medium
