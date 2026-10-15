@@ -34,11 +34,8 @@ def calc_size_estimate(metadata: MetadataConfigTools) -> float:
     float
         Estiamted storage needs for a single workflow to in TB 1dp.
     """
-    if f"{metadata._model_id}/{metadata._experiment_id}" in OVERRIDES_GB_PER_YEAR:
-        gb_per_year = OVERRIDES_GB_PER_YEAR.get(f"{metadata._model_id}/{metadata._experiment_id}")
-    else:
-        # If there are no matching overrides, use default values.
-        gb_per_year = MODEL_DEFAULT_SIZE_GB_PER_YEAR.get(metadata._model_id)
+    gb_per_year = OVERRIDES_GB_PER_YEAR.get(f"{metadata._model_id}/{metadata._experiment_id}",
+                                            MODEL_DEFAULT_SIZE_GB_PER_YEAR.get(metadata._model_id))
 
     # Round to the nearest decimal place since this is an estimate.
     return round(gb_per_year * metadata._run_length_years * GB_TO_TB, 1)
