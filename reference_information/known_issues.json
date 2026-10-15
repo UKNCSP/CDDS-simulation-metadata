@@ -9,7 +9,8 @@
     "UKESM1-3-LL": {
         "*": {
             "*": {
-                "atmos/ta_tavg-al-hxy-u@mon": "corrupted data of unknown source (see CDDS-simulation-metadata issue #195) (see CDDS-CMIP7-mappings issue #563)"
+                "atmos/ta_tavg-al-hxy-u@mon": "corrupted data of unknown source (see CDDS-simulation-metadata issue #195) (see CDDS-CMIP7-mappings issue #563)",
+                "atmos/sfcWind_tmax-h10m-hxy-u@day": "Persistent `No cubes found using constraints` errors in production (see CDDS issue #1168) (see CDDS-CMIP7-mappings issue #1828)"
             }
         }
     },
