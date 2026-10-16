@@ -30,7 +30,6 @@ jobs:
       - name: update html
         run: |
           python scripts/generate_metadata_tables.py
-          python scripts/ukncsp_esgf_available.py
           python scripts/metadata_per_mip.py
 
           git config user.name "github-actions"
