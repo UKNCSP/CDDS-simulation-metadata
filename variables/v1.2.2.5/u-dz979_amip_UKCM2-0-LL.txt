@@ -1098,8 +1098,8 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocean/wppswell_tpt-u-hxy-sea@3hr  # do-not-produce (not available with this model)
 #ocean/wppwindsea_tavg-u-hxy-sea@mon  # do-not-produce (not available with this model)
 #ocean/wppwindsea_tpt-u-hxy-sea@3hr  # do-not-produce (not available with this model)
-#ocnBgchem/chl_tavg-ols-hxy-sea@mon  # do-not-produce (not available with this model)
-#ocnBgchem/dfe_tavg-ols-hxy-sea@mon  # do-not-produce (not available with this model)
+#ocnBgchem/chl_tavg-ols-hxy-sea@mon  # known-issue, do-not-produce (not available with this model)
+#ocnBgchem/dfe_tavg-ols-hxy-sea@mon  # known-issue, do-not-produce (not available with this model)
 #ocnBgchem/fgco2_tavg-u-hxy-sea@mon  # do-not-produce (not available with this model)
 #ocnBgchem/intpp_tavg-u-hxy-sea@mon  # do-not-produce (not available with this model)
 #atmos/co2_tavg-h2m-hxy-u@mon:ap5  # do-not-produce (not available with this model), priority=medium
@@ -1149,11 +1149,11 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocnBgchem/calc_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model), priority=medium
 #ocnBgchem/calc_tavg-ols-hxy-sea@mon  # do-not-produce (not available with this model), priority=medium
 #ocnBgchem/chl_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model), priority=medium
-#ocnBgchem/chl_tavg-ols-hxy-sea@day  # do-not-produce (not available with this model), priority=medium
+#ocnBgchem/chl_tavg-ols-hxy-sea@day  # known-issue, do-not-produce (not available with this model), priority=medium
 #ocnBgchem/chl_tavg-op20bar-hxy-sea@day  # do-not-produce (not available with this model), priority=medium
-#ocnBgchem/co3_tavg-ols-hxy-sea@day  # do-not-produce (not available with this model), priority=medium
+#ocnBgchem/co3_tavg-ols-hxy-sea@day  # known-issue, do-not-produce (not available with this model), priority=medium
 #ocnBgchem/co3_tavg-op20bar-hxy-sea@day  # do-not-produce (not available with this model), priority=medium
-#ocnBgchem/co3satarag_tavg-ols-hxy-sea@day  # do-not-produce (not available with this model), priority=medium
+#ocnBgchem/co3satarag_tavg-ols-hxy-sea@day  # known-issue, do-not-produce (not available with this model), priority=medium
 #ocnBgchem/co3satarag_tavg-op20bar-hxy-sea@day  # do-not-produce (not available with this model), priority=medium
 #ocnBgchem/dfe_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model), priority=medium
 #ocnBgchem/dissic_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model), priority=medium
@@ -1165,22 +1165,22 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocnBgchem/intpp_tavg-u-hxy-sea@day  # do-not-produce (not available with this model), priority=medium
 #ocnBgchem/nh4_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model), priority=medium
 #ocnBgchem/no3_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model), priority=medium
-#ocnBgchem/no3_tavg-ols-hxy-sea@mon  # do-not-produce (not available with this model), priority=medium
+#ocnBgchem/no3_tavg-ols-hxy-sea@mon  # known-issue, do-not-produce (not available with this model), priority=medium
 #ocnBgchem/o2_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model), priority=medium
-#ocnBgchem/o2_tavg-ols-hxy-sea@day  # do-not-produce (not available with this model), priority=medium
-#ocnBgchem/o2_tavg-ols-hxy-sea@mon  # do-not-produce (not available with this model), priority=medium
+#ocnBgchem/o2_tavg-ols-hxy-sea@day  # known-issue, do-not-produce (not available with this model), priority=medium
+#ocnBgchem/o2_tavg-ols-hxy-sea@mon  # known-issue, do-not-produce (not available with this model), priority=medium
 #ocnBgchem/o2_tavg-op20bar-hxy-sea@day  # do-not-produce (not available with this model), priority=medium
 #ocnBgchem/ph_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model), priority=medium
-#ocnBgchem/ph_tavg-ols-hxy-sea@day  # do-not-produce (not available with this model), priority=medium
+#ocnBgchem/ph_tavg-ols-hxy-sea@day  # known-issue, do-not-produce (not available with this model), priority=medium
 #ocnBgchem/ph_tavg-op20bar-hxy-sea@day  # do-not-produce (not available with this model), priority=medium
 #ocnBgchem/phyc_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model), priority=medium
-#ocnBgchem/phyc_tavg-ols-hxy-sea@day  # do-not-produce (not available with this model), priority=medium
-#ocnBgchem/phyc_tavg-ols-hxy-sea@mon  # do-not-produce (not available with this model), priority=medium
+#ocnBgchem/phyc_tavg-ols-hxy-sea@day  # known-issue, do-not-produce (not available with this model), priority=medium
+#ocnBgchem/phyc_tavg-ols-hxy-sea@mon  # known-issue, do-not-produce (not available with this model), priority=medium
 #ocnBgchem/phyc_tavg-op20bar-hxy-sea@day  # do-not-produce (not available with this model), priority=medium
 #ocnBgchem/po4_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model), priority=medium
-#ocnBgchem/pp_tavg-ols-hxy-sea@mon  # do-not-produce (not available with this model), priority=medium
+#ocnBgchem/pp_tavg-ols-hxy-sea@mon  # known-issue, do-not-produce (not available with this model), priority=medium
 #ocnBgchem/si_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model), priority=medium
-#ocnBgchem/si_tavg-ols-hxy-sea@mon  # do-not-produce (not available with this model), priority=medium
+#ocnBgchem/si_tavg-ols-hxy-sea@mon  # known-issue, do-not-produce (not available with this model), priority=medium
 #ocnBgchem/spco2_tavg-u-hxy-sea@mon  # do-not-produce (not available with this model), priority=medium
 #ocnBgchem/talk_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model), priority=medium
 #ocnBgchem/zooc_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model), priority=medium

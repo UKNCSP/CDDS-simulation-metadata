@@ -327,6 +327,8 @@ ocean/hfevapds_tavg-u-hxy-ifs@mon:onm/grid-T  # approved, priority=medium
 ocean/hfibthermds_tavg-ol-hxy-sea@mon:onm/grid-T  # approved, priority=medium
 ocean/hfrainds_tavg-u-hxy-ifs@mon:onm/grid-T  # approved, priority=medium
 ocean/hfrunoffds_tavg-ol-hxy-sea@mon:onm/grid-T  # approved, priority=medium
+ocnBgchem/dissic_tavg-ol-hxy-sea@mon:onm/ptrc-T  # approved, priority=medium
+ocnBgchem/talk_tavg-ol-hxy-sea@mon:onm/ptrc-T  # approved, priority=medium
 seaIce/siage_tavg-u-hxy-si@mon:inm  # approved, priority=medium
 seaIce/sidmasstranx_tavg-u-hxy-u@mon:inm  # approved, priority=medium
 seaIce/sidmasstrany_tavg-u-hxy-u@mon:inm  # approved, priority=medium
@@ -589,7 +591,7 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #landIce/rsus_tavg-u-hxy-is@mon:ap5  # embargoed
 #landIce/sbl_tavg-u-hxy-is@mon:ap5  # embargoed
 #landIce/sbl_tavg-u-hxy-u@mon:ap5  # embargoed
-#landIce/snc_tavg-u-hxy-is@mon:ap6  # embargoed
+#landIce/snc_tavg-u-hxy-is@mon:ap5  # embargoed
 #landIce/snd_tavg-u-hxy-lnd@mon:ap5  # embargoed
 #landIce/snicem_tavg-u-hxy-is@mon:ap5  # embargoed
 #landIce/snm_tavg-u-hxy-is@mon:ap5  # embargoed
@@ -671,10 +673,8 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocean/siflfwbot_tavg-u-hxy-sea@mon:onm/grid-T  # embargoed, priority=medium
 #ocean/so_tavg-ol-hxy-sea@day:ond/grid-T  # embargoed, priority=medium
 #ocnBgchem/chl_tavg-op20bar-hxy-sea@day:ond/ptrc-T  # embargoed, priority=medium
-#ocnBgchem/dissic_tavg-ol-hxy-sea@mon:onm/ptrc-T  # embargoed, priority=medium
 #ocnBgchem/o2_tavg-op20bar-hxy-sea@day:ond/ptrc-T  # embargoed, priority=medium
 #ocnBgchem/ph_tavg-op20bar-hxy-sea@day:ond/diad-T  # embargoed, priority=medium
-#ocnBgchem/talk_tavg-ol-hxy-sea@mon:onm/ptrc-T  # embargoed, priority=medium
 #seaIce/sfdsi_tavg-u-hxy-si@mon:inm  # embargoed, priority=medium
 #seaIce/sidivvel_tpt-u-hxy-si@mon:inm  # embargoed, priority=medium
 #seaIce/sifb_tavg-u-hxy-si@day:ind  # embargoed, priority=medium

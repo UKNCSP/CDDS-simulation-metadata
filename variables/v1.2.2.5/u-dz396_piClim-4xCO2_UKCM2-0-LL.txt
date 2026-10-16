@@ -896,7 +896,7 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocean/wppwindsea_tavg-u-hxy-sea@mon  # do-not-produce (not available with this model)
 #ocean/wppwindsea_tpt-u-hxy-sea@3hr  # do-not-produce (not available with this model)
 #ocnBgchem/chl_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model)
-#ocnBgchem/dfe_tavg-ols-hxy-sea@mon  # do-not-produce (not available with this model)
+#ocnBgchem/dfe_tavg-ols-hxy-sea@mon  # known-issue, do-not-produce (not available with this model)
 #ocnBgchem/dissic_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model)
 #ocnBgchem/fgco2_tavg-u-hxy-sea@mon  # do-not-produce (not available with this model)
 #ocnBgchem/no3_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model)

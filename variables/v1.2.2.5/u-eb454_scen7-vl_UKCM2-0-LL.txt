@@ -1006,7 +1006,7 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #landIce/rsus_tavg-u-hxy-is@mon:ap5  # do-not-produce (not available with this model)
 #landIce/sftflf_tavg-u-hxy-u@mon  # do-not-produce (not available with this model)
 #landIce/sftgrf_tavg-u-hxy-u@mon  # do-not-produce (not available with this model)
-#landIce/snc_tavg-u-hxy-is@mon:ap6  # do-not-produce (not available with this model)
+#landIce/snc_tavg-u-hxy-is@mon:ap5  # do-not-produce (not available with this model)
 #landIce/sootsn_tavg-u-hxy-lnd@mon  # do-not-produce (not available with this model)
 #landIce/tpf_tavg-u-hxy-lnd@mon  # do-not-produce (not available with this model)
 #landIce/tsn_tavg-u-hxy-is@mon  # do-not-produce (not available with this model)
@@ -1080,17 +1080,17 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocean/wppwindsea_tavg-u-hxy-sea@mon  # do-not-produce (not available with this model)
 #ocean/wppwindsea_tpt-u-hxy-sea@3hr  # do-not-produce (not available with this model)
 #ocnBgchem/chl_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model)
-#ocnBgchem/chl_tavg-ols-hxy-sea@day  # do-not-produce (not available with this model)
+#ocnBgchem/chl_tavg-ols-hxy-sea@day  # known-issue, do-not-produce (not available with this model)
 #ocnBgchem/chldiat_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model)
 #ocnBgchem/chldiaz_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model)
 #ocnBgchem/chlmisc_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model)
 #ocnBgchem/chlpico_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model)
 #ocnBgchem/detoc_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model)
 #ocnBgchem/dfe_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model)
-#ocnBgchem/dfe_tavg-ols-hxy-sea@mon  # do-not-produce (not available with this model)
+#ocnBgchem/dfe_tavg-ols-hxy-sea@mon  # known-issue, do-not-produce (not available with this model)
 #ocnBgchem/dissic_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model)
 #ocnBgchem/dissoc_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model)
-#ocnBgchem/dmso_tavg-ols-hxy-sea@mon  # do-not-produce (not available with this model)
+#ocnBgchem/dmso_tavg-ols-hxy-sea@mon  # known-issue, do-not-produce (not available with this model)
 #ocnBgchem/dpco2_tavg-u-hxy-sea@mon  # do-not-produce (not available with this model)
 #ocnBgchem/dpo2_tavg-u-hxy-sea@mon  # do-not-produce (not available with this model)
 #ocnBgchem/expc_tavg-d1000m-hxy-sea@mon  # do-not-produce (not available with this model)
@@ -1114,7 +1114,7 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocnBgchem/ocfriver_tavg-u-hxy-sea@mon  # do-not-produce (not available with this model)
 #ocnBgchem/ph_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model)
 #ocnBgchem/phyc_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model)
-#ocnBgchem/phyc_tavg-ols-hxy-sea@mon  # do-not-produce (not available with this model)
+#ocnBgchem/phyc_tavg-ols-hxy-sea@mon  # known-issue, do-not-produce (not available with this model)
 #ocnBgchem/phycalc_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model)
 #ocnBgchem/phydiat_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model)
 #ocnBgchem/phydiaz_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model)
@@ -1368,13 +1368,13 @@ ocean/mlotstsq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocnBgchem/fg13co2_tavg-u-hxy-sea@mon  # do-not-produce (not available with this model), priority=low
 #ocnBgchem/fg14co2abio_tavg-u-hxy-sea@mon  # do-not-produce (not available with this model), priority=low
 #ocnBgchem/intpoc_tavg-u-hxy-sea@day  # do-not-produce (not available with this model), priority=low
-#ocnBgchem/o2_tavg-ols-hxy-sea@day  # do-not-produce (not available with this model), priority=low
+#ocnBgchem/o2_tavg-ols-hxy-sea@day  # known-issue, do-not-produce (not available with this model), priority=low
 #ocnBgchem/o2min_tavg-u-hxy-sea@day  # do-not-produce (not available with this model), priority=low
 #ocnBgchem/phyc_tavg-op20bar-hxy-sea@day  # do-not-produce (not available with this model), priority=low
 #ocnBgchem/phycalc_tavg-ol-hxy-sea@day  # do-not-produce (not available with this model), priority=low
-#ocnBgchem/phydiat_tavg-ols-hxy-sea@day  # do-not-produce (not available with this model), priority=low
+#ocnBgchem/phydiat_tavg-ols-hxy-sea@day  # known-issue, do-not-produce (not available with this model), priority=low
 #ocnBgchem/phydiaz_tavg-ols-hxy-sea@day  # do-not-produce (not available with this model), priority=low
-#ocnBgchem/phymisc_tavg-ols-hxy-sea@day  # do-not-produce (not available with this model), priority=low
+#ocnBgchem/phymisc_tavg-ols-hxy-sea@day  # known-issue, do-not-produce (not available with this model), priority=low
 #ocnBgchem/phynano_tavg-u-hxy-sea@day  # do-not-produce (not available with this model), priority=low
 #ocnBgchem/phypico_tavg-ol-hxy-sea@day  # do-not-produce (not available with this model), priority=low
 #ocnBgchem/zmeso_tavg-ol-hxy-sea@day  # do-not-produce (not available with this model), priority=low

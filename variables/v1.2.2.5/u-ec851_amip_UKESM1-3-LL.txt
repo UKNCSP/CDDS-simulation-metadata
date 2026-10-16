@@ -324,11 +324,22 @@ ocean/hfevapds_tavg-u-hxy-ifs@mon:onm/grid-T  # approved, priority=medium
 ocean/hfibthermds_tavg-ol-hxy-sea@mon:onm/grid-T  # approved, priority=medium
 ocean/hfrainds_tavg-u-hxy-ifs@mon:onm/grid-T  # approved, priority=medium
 ocean/hfrunoffds_tavg-ol-hxy-sea@mon:onm/grid-T  # approved, priority=medium
+ocnBgchem/chl_tavg-ol-hxy-sea@mon:onm/ptrc-T  # approved, priority=medium
+ocnBgchem/dfe_tavg-ol-hxy-sea@mon:onm/ptrc-T  # approved, priority=medium
+ocnBgchem/dissic_tavg-ol-hxy-sea@mon:onm/ptrc-T  # approved, priority=medium
 ocnBgchem/epsi_tavg-d100m-hxy-sea@mon:onm/diad-T  # approved, priority=medium
 ocnBgchem/expc_tavg-d100m-hxy-sea@mon:onm/diad-T  # approved, priority=medium
+ocnBgchem/expc_tavg-ol-hxy-sea@mon:onm/diad-T  # approved, priority=medium
 ocnBgchem/expcalc_tavg-d100m-hxy-sea@mon:onm/diad-T  # approved, priority=medium
+ocnBgchem/no3_tavg-ol-hxy-sea@mon:onm/ptrc-T  # approved, priority=medium
+ocnBgchem/o2_tavg-ol-hxy-sea@mon:onm/ptrc-T  # approved, priority=medium
 ocnBgchem/ph_tavg-ol-hxy-sea@mon:onm/diad-T  # approved, priority=medium
+ocnBgchem/phyc_tavg-ol-hxy-sea@mon:onm/ptrc-T  # approved, priority=medium
+ocnBgchem/po4_tavg-ol-hxy-sea@mon:onm/ptrc-T  # approved, priority=medium
+ocnBgchem/si_tavg-ol-hxy-sea@mon:onm/ptrc-T  # approved, priority=medium
 ocnBgchem/spco2_tavg-u-hxy-sea@mon:onm/diad-T  # approved, priority=medium
+ocnBgchem/talk_tavg-ol-hxy-sea@mon:onm/ptrc-T  # approved, priority=medium
+ocnBgchem/zooc_tavg-ol-hxy-sea@mon:onm/ptrc-T  # approved, priority=medium
 seaIce/siage_tavg-u-hxy-si@mon:inm  # approved, priority=medium
 seaIce/sidmasstranx_tavg-u-hxy-u@mon:inm  # approved, priority=medium
 seaIce/sidmasstrany_tavg-u-hxy-u@mon:inm  # approved, priority=medium
@@ -704,8 +715,6 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocean/vos_tavg-u-hxy-sea@day:ond/grid-V  # embargoed
 #ocean/zossq_tavg-u-hxy-sea@mon:onm/grid-T  # embargoed
 #ocean/zostoga_tavg-u-hm-sea@day:ond/grid-T  # embargoed
-#ocnBgchem/chl_tavg-ols-hxy-sea@mon:onm/ptrc-T  # embargoed
-#ocnBgchem/dfe_tavg-ols-hxy-sea@mon:onm/ptrc-T  # embargoed
 #seaIce/prsn_tavg-u-hxy-si@mon:inm  # embargoed
 #seaIce/rlds_tavg-u-hxy-si@day:ap6  # embargoed
 #seaIce/rlus_tavg-u-hxy-si@day:ap6  # embargoed
@@ -758,35 +767,13 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocean/siflfwbot_tavg-u-hxy-sea@mon:onm/grid-T  # embargoed, priority=medium
 #ocean/so_tavg-ol-hxy-sea@day:ond/grid-T  # embargoed, priority=medium
 #ocean/t20d_tavg-u-hxy-sea@day:ond/grid-T  # embargoed, priority=medium
-#ocnBgchem/chl_tavg-ol-hxy-sea@mon:onm/ptrc-T  # embargoed, priority=medium
-#ocnBgchem/chl_tavg-ols-hxy-sea@day:ond/ptrc-T  # embargoed, priority=medium
 #ocnBgchem/chl_tavg-op20bar-hxy-sea@day:ond/ptrc-T  # embargoed, priority=medium
-#ocnBgchem/co3_tavg-ols-hxy-sea@day:ond/diad-T  # embargoed, priority=medium
 #ocnBgchem/co3_tavg-op20bar-hxy-sea@day:ond/diad-T  # embargoed, priority=medium
-#ocnBgchem/co3satarag_tavg-ols-hxy-sea@day:ond/diad-T  # embargoed, priority=medium
 #ocnBgchem/co3satarag_tavg-op20bar-hxy-sea@day:ond/diad-T  # embargoed, priority=medium
-#ocnBgchem/dfe_tavg-ol-hxy-sea@mon:onm/ptrc-T  # embargoed, priority=medium
-#ocnBgchem/dissic_tavg-ol-hxy-sea@mon:onm/ptrc-T  # embargoed, priority=medium
-#ocnBgchem/expc_tavg-ol-hxy-sea@mon:onm/diad-T  # embargoed, priority=medium
 #ocnBgchem/intpp_tavg-u-hxy-sea@day:ond/diad-T  # embargoed, priority=medium
-#ocnBgchem/no3_tavg-ol-hxy-sea@mon:onm/ptrc-T  # embargoed, priority=medium
-#ocnBgchem/no3_tavg-ols-hxy-sea@mon:onm/ptrc-T  # embargoed, priority=medium
-#ocnBgchem/o2_tavg-ol-hxy-sea@mon:onm/ptrc-T  # embargoed, priority=medium
-#ocnBgchem/o2_tavg-ols-hxy-sea@day:ond/ptrc-T  # embargoed, priority=medium
-#ocnBgchem/o2_tavg-ols-hxy-sea@mon:onm/ptrc-T  # embargoed, priority=medium
 #ocnBgchem/o2_tavg-op20bar-hxy-sea@day:ond/ptrc-T  # embargoed, priority=medium
-#ocnBgchem/ph_tavg-ols-hxy-sea@day:ond/diad-T  # embargoed, priority=medium
 #ocnBgchem/ph_tavg-op20bar-hxy-sea@day:ond/diad-T  # embargoed, priority=medium
-#ocnBgchem/phyc_tavg-ol-hxy-sea@mon:onm/ptrc-T  # embargoed, priority=medium
-#ocnBgchem/phyc_tavg-ols-hxy-sea@day:ond/ptrc-T  # embargoed, priority=medium
-#ocnBgchem/phyc_tavg-ols-hxy-sea@mon:onm/ptrc-T  # embargoed, priority=medium
 #ocnBgchem/phyc_tavg-op20bar-hxy-sea@day:ond/ptrc-T  # embargoed, priority=medium
-#ocnBgchem/po4_tavg-ol-hxy-sea@mon:onm/ptrc-T  # embargoed, priority=medium
-#ocnBgchem/pp_tavg-ols-hxy-sea@mon:onm/diad-T  # embargoed, priority=medium
-#ocnBgchem/si_tavg-ol-hxy-sea@mon:onm/ptrc-T  # embargoed, priority=medium
-#ocnBgchem/si_tavg-ols-hxy-sea@mon:onm/ptrc-T  # embargoed, priority=medium
-#ocnBgchem/talk_tavg-ol-hxy-sea@mon:onm/ptrc-T  # embargoed, priority=medium
-#ocnBgchem/zooc_tavg-ol-hxy-sea@mon:onm/ptrc-T  # embargoed, priority=medium
 #seaIce/sfdsi_tavg-u-hxy-si@mon:inm  # embargoed, priority=medium
 #seaIce/sidivvel_tpt-u-hxy-si@mon:inm  # embargoed, priority=medium
 #seaIce/sifb_tavg-u-hxy-si@day:ind  # embargoed, priority=medium
@@ -871,6 +858,8 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/sfcWind_tmax-h10m-hxy-u@day:ap6  # known-issue, approved
 #atmos/ta_tavg-al-hxy-u@mon:ap5  # known-issue, embargoed
 #atmos/tas_tavg-h2m-hxy-u@1hr:ap9  # known-issue, approved
+#ocnBgchem/chl_tavg-ols-hxy-sea@mon:onm/ptrc-T  # known-issue, approved
+#ocnBgchem/dfe_tavg-ols-hxy-sea@mon:onm/ptrc-T  # known-issue, approved
 #atmos/pr_tavg-u-hxy-u@6hr:ap7  # known-issue, embargoed, priority=medium
 #atmos/psl_tavg-u-hxy-u@6hr:ap7  # known-issue, embargoed, priority=medium
 #atmos/rlds_tavg-u-hxy-u@3hr:ap8  # known-issue, approved, priority=medium
@@ -884,6 +873,14 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/zg_tavg-1000hPa-hxy-air@6hr:ap7  # known-issue, embargoed, priority=medium
 #land/mrro_tavg-u-hxy-lnd@3hr:ap8  # known-issue, approved, priority=medium
 #land/mrros_tavg-u-hxy-lnd@3hr:ap8  # known-issue, embargoed, priority=medium
+#ocnBgchem/co3_tavg-ols-hxy-sea@day:ond/diad-T  # known-issue, embargoed, priority=medium
+#ocnBgchem/co3satarag_tavg-ols-hxy-sea@day:ond/diad-T  # known-issue, embargoed, priority=medium
+#ocnBgchem/no3_tavg-ols-hxy-sea@mon:onm/ptrc-T  # known-issue, approved, priority=medium
+#ocnBgchem/o2_tavg-ols-hxy-sea@mon:onm/ptrc-T  # known-issue, approved, priority=medium
+#ocnBgchem/ph_tavg-ols-hxy-sea@day:ond/diad-T  # known-issue, embargoed, priority=medium
+#ocnBgchem/phyc_tavg-ols-hxy-sea@mon:onm/ptrc-T  # known-issue, approved, priority=medium
+#ocnBgchem/pp_tavg-ols-hxy-sea@mon:onm/diad-T  # known-issue, approved, priority=medium
+#ocnBgchem/si_tavg-ols-hxy-sea@mon:onm/ptrc-T  # known-issue, approved, priority=medium
 #seaIce/sicompstren_tavg-u-hxy-si@mon:inm  # known-issue, approved, priority=medium
 #seaIce/sidragtop_tavg-u-hxy-si@mon:ap5  # known-issue, embargoed, priority=medium
 #seaIce/siforcecoriolx_tavg-u-hxy-si@mon:inm  # known-issue, embargoed, priority=medium
@@ -1194,8 +1191,11 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocnBgchem/arag_tavg-ols-hxy-sea@mon  # do-not-produce (not available with this model), priority=medium
 #ocnBgchem/calc_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model), priority=medium
 #ocnBgchem/calc_tavg-ols-hxy-sea@mon  # do-not-produce (not available with this model), priority=medium
+#ocnBgchem/chl_tavg-ols-hxy-sea@day  # known-issue, do-not-produce (not available with this model), priority=medium
 #ocnBgchem/dissoc_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model), priority=medium
 #ocnBgchem/nh4_tavg-ol-hxy-sea@mon  # do-not-produce (not available with this model), priority=medium
+#ocnBgchem/o2_tavg-ols-hxy-sea@day  # known-issue, do-not-produce (not available with this model), priority=medium
+#ocnBgchem/phyc_tavg-ols-hxy-sea@day  # known-issue, do-not-produce (not available with this model), priority=medium
 #seaIce/siareaacrossline_tavg-u-ht-u@mon  # do-not-produce (not available with this model), priority=medium
 #seaIce/siitdconc_tavg-u-hxy-si@mon  # do-not-produce (not available with this model), priority=medium
 #seaIce/siitdthick_tavg-u-hxy-si@day  # do-not-produce (not available with this model), priority=medium
