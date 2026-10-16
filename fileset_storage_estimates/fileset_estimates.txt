@@ -80,6 +80,13 @@ MIP-DRS7/CMIP7/CMIP/UKNCSP/UKCM2a-0-HH/piControl/r1i1p1f1/glb/6hr 74.0
 MIP-DRS7/CMIP7/CMIP/UKNCSP/UKCM2a-0-HH/piControl/r1i1p1f1/glb/3hr 56.0
 MIP-DRS7/CMIP7/CMIP/UKNCSP/UKCM2a-0-HH/piControl/r1i1p1f1/glb/1hr 18.0
 
+# 1pctCO2 (total ~210 TB)
+MIP-DRS7/CMIP7/CMIP/UKNCSP/UKCM2a-0-HH/1pctCO2/r1i1p1f1/glb/mon 96.3
+MIP-DRS7/CMIP7/CMIP/UKNCSP/UKCM2a-0-HH/1pctCO2/r1i1p1f1/glb/day 66.2
+MIP-DRS7/CMIP7/CMIP/UKNCSP/UKCM2a-0-HH/1pctCO2/r1i1p1f1/glb/6hr 26.7
+MIP-DRS7/CMIP7/CMIP/UKNCSP/UKCM2a-0-HH/1pctCO2/r1i1p1f1/glb/3hr 20.3
+MIP-DRS7/CMIP7/CMIP/UKNCSP/UKCM2a-0-HH/1pctCO2/r1i1p1f1/glb/1hr 6.4
+
 # Scenarios
 #MIP-DRS7/CMIP7/ScenarioMIP/UKNCSP/UKCM2a-0-HH/scen7-h/r1i1p1f1 110.7
 MIP-DRS7/CMIP7/ScenarioMIP/UKNCSP/UKCM2a-0-HH/scen7-h/r1i1p1f1/glb/mon 50.7
@@ -100,7 +107,6 @@ MIP-DRS7/CMIP7/ScenarioMIP/UKNCSP/UKCM2a-0-HH/scen7-vl/r2i1p1f1 63.0
 
 
 # Auto generated estimations from metadata
-# !!! Fileset estimate for MIP-DRS7/CMIP7/CMIP/UKNCSP/UKCM2a-0-HH/1pctCO2/r1i1p1f1 exceeds 80TB (estimate=210.1TB), please create manual estimate in fileset_storage_estimates/manual_updates.txt
 MIP-DRS7/CMIP7/CFMIP/UKNCSP/UKCM2a-0-HH/amip-p4K/r1i1p1f1 60.2
 MIP-DRS7/CMIP7/CMIP/UKNCSP/UKCM2-0-LL/1pctCO2/r1i1p1f1 3.6
 MIP-DRS7/CMIP7/CMIP/UKNCSP/UKCM2-0-LL/1pctCO2/r2i1p1f1 3.6
