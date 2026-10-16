@@ -23,7 +23,7 @@ jobs:
           python-version: 3.11
 
       - name: update fileset estimates
-        id: update fileset estimates
+        id: update-fileset-estimates
         run: python scripts/fileset_storage_estimate.py
 
       - name: commit files
