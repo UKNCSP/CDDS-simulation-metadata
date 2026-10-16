@@ -2,6 +2,8 @@
   {
     "version": "docs",
     "title": "docs",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   }
 ]
