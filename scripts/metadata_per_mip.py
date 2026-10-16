@@ -10,7 +10,6 @@ from pathlib import Path
 from constants import WORKFLOW_METADATA_DIR, REQUESTS_DIR, MIP_DOCS_DIR
 
 MARKDOWN_TABLE_TITLE = "## Simulations Currently Registered For This MIP"
-MARKDOWN_TABLE_HEADER = ["\n", "| Simulation | Model Workflow ID | In Processing? |\n", "| ----- | ----- | ----- |\n"]
 TICK = "✅"
 CROSS = "❌"
 
@@ -122,12 +121,11 @@ def restruct_dict_to_table(workflow_mips_dict: dict, mip: str) -> list[str]:
         A markdown style table of the key information for workflows associated with the given mip where each item in the
         list is a new line.
     """
-    table_data = MARKDOWN_TABLE_HEADER
-    for mip in workflow_mips_dict:
-        # Get the information for only the given MIP.
-        info = workflow_mips_dict.get(mip)
-        for entry in sorted(info):
-            table_data.append(entry)
+    table_data = ["\n", "| Simulation | Model Workflow ID | In Processing? |\n", "| ----- | ----- | ----- |\n"]
+    # Get the information for only the given MIP.
+    info = workflow_mips_dict.get(mip)
+    for entry in sorted(info):
+        table_data.append(entry)
 
     return table_data
 
