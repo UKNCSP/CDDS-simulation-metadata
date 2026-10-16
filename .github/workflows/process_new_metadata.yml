@@ -91,6 +91,7 @@ jobs:
               ${{ github.event.issue.body }}
         run: |
           python scripts/generate_variable_lists.py
+          python scripts/fileset_storage_estimate.py
         continue-on-error: true
 
       - name: warn of missing variable list
@@ -99,7 +100,7 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
 
-          git add *.cfg
+          git add *.cfg *.txt
           git commit -m "New workflow metadata file added from issue #${{ github.event.issue.number }}"
           git push origin main
 

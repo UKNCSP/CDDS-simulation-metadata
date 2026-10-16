@@ -13,6 +13,7 @@ import sys
 
 from configparser import ConfigParser, SectionProxy
 from pathlib import Path
+from datetime import datetime
 
 from constants import MIP_TABLE_DIR, CMOR_CV_JSON, DR_VERSION
 
@@ -62,6 +63,7 @@ REQUEST_TEMPLATE = {
         "workflow_basename": ""
     },
     "data": {
+        "data_version": f"v{datetime.today().strftime('%Y%m%d')}",
         "end_date": "",
         "mass_data_class": "",
         "mass_ensemble_member": "",

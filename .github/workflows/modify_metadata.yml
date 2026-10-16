@@ -47,7 +47,9 @@ jobs:
           ISSUE_BODY: |
               ${{ github.event.issue.body }}
           # pipe preseves newline properties for multilines
-        run: python scripts/modify_metadata_conf.py
+        run: |
+          python scripts/modify_metadata_conf.py
+          python scripts/fileset_storage_estimate.py
         continue-on-error: true
 
       - name: return issues to user
@@ -80,7 +82,7 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
 
-          git add *.cfg
+          git add *.cfg *.txt
           git commit -m "Workflow metadata file modified from issue #${{ github.event.issue.number }}"
           git push origin "$branch"
           
