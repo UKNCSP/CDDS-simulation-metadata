@@ -4,13 +4,14 @@ import requests
 import re
 
 from pathlib import Path
+from datetime import datetime
 
 HEADINGS = ['Model Workflow ID', 'Model ID', 'Mass Data Class', 'MIP', 'Institution ID', 'Experiment ID',
             'Variant Label', 'Start Date', 'End Date']
 HEADER_ROW_TEMPLATE = ('  <thead>\n   <tr bgcolor="{0}">\n{1}   </tr>\n   \
                        <tr class="filters">\n{2}   </tr>\n   </thead>\n')
 ROW_TEMPLATE = '  <tr bgcolor="{0}">\n{1}  </tr>\n'
-CELL_TEMPLATE = '     <{0}>{1}</{0}>\n'
+CELL_TEMPLATE = '     <{0} bgcolor="{1}">{2}</{0}>\n'
 TABLE_TEMPLATE = '<table border=1, id="table_id", class="display">\n{}</table>\n'
 GITURL_MAPPING = 'https://github.com/UKNCSP/CDDS-simulation-metadata/tree/main/workflow_metadata/{}.cfg'
 HYPERLINK = '<a href="{0}">{1}</a>'
@@ -18,6 +19,7 @@ BGCOLORS = ['#E0EEFF', '#FFFFFF']
 HEADER = """
 <html>
 <head>
+<meta charset="utf-8">
 <link rel="stylesheet" type="text/css" charset="UTF-8"
 href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css"/>
 <script type="text/javascript" charset="UTF-8" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -167,6 +169,7 @@ META_FIELDS = {
         "atmospheric_timestep": "atmos_timestep"
     }
 
+REQUESTS_DIR = Path("requests")
 WORKFLOW_METADATA_DIR = Path("workflow_metadata")
 REF_INFO_DIR = Path("reference_information")
 MAPPINGS_FILE_LOCATION = REF_INFO_DIR / "mappings.json"
@@ -182,5 +185,7 @@ REGEX_DICT = {
 }
 
 MIP_TABLE_DIR = f"$CDDS_ETC/mip_tables/CMIP7/DR-{DR_VERSION}-v1.0.2"
+LAST_UPDATED = datetime.today().strftime('%Y-%m-%d')
+MIP_DOCS_DIR = Path("docs/mips")
 
 FILESET_ESTIMATES_DIR = Path("fileset_storage_estimates")

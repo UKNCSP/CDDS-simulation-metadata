@@ -1,0 +1,71 @@
+# British Crown Copyright 2026, Met Office. Please see LICENSE.md for license details.
+site_name: CDDS CMIP7 Simulation Metadata
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.expand
+    - content.tabs.link
+  palette: 
+    # Palette toggle for light mode
+    - scheme: default
+      primary: light green
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: light green
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+nav:
+  - Home:
+    - About: index.md
+  - Simulation Metadata Explained: simulation_information/simulation_metadata_explained.md
+  - Registered Simulations:
+    - The Registration Process: simulation_information/registering_a_simulation.md
+    - Table Of Registered Simulations: metadata_tables/index.html
+  - CMIP7 Variables:
+    - CMIP7 Climate Variables: variable_information/cmip7_variables.md
+    - Baseline Climate Variables: variable_information/bcvs.md
+  - CMIP7 Models:
+    - UKCM2-0-LL: models/ukcm2-0-ll.md
+    - UKCM2a-0-HH: models/ukcm2a-0-hh.md
+    - UKESM1-3-LL: models/ukesm1-3-ll.md
+  - CMIP7 MIPs:
+    - CFMIP: mips/cfmip.md
+    - CMIP: mips/cmip.md
+    - PMIP: mips/pmip.md
+    - RFMIP: mips/rfmip.md
+    - ScenarioMIP: mips/scenariomip.md
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - md_in_html
+  - pymdownx.details
+  - footnotes
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji
+  - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
+extra:
+  version:
+    provider: mike
+plugins:
+- search  
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          docstring_style: sphinx
+- section-index
