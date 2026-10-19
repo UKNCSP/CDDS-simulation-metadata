@@ -3,10 +3,6 @@
 
 name : Deploy static content to Pages
 on :
-  workflow_run:
-    workflows: ["Generate and deploy webview"]
-    types:
-      - completed
   workflow_dispatch :
 permissions :
   contents : read
