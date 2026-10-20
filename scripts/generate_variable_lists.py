@@ -29,12 +29,18 @@ from itertools import chain
 from pathlib import Path
 
 from common import read_json, get_issue, process_metadata
-from constants import REF_INFO_DIR, MAPPINGS_FILE_LOCATION, KNOWN_ISSUES_DICT_FILE_LOCATION, DR_FILE_LOCATION
+from constants import (REF_INFO_DIR, MAPPINGS_FILE_LOCATION, KNOWN_ISSUES_DICT_FILE_LOCATION, DR_FILE_LOCATION,
+                       DR_VERSION)
 
 ICEMOD_STREAMS = {
     "UKCM2": ["inm", "ind"],
     "HadGEM3-GC5": ["inm", "ind"]
 }
+FILE_HEADER = "# Note: only global variables are currently producible by CDDS\n"
+BLANK_FILE_CONTENT = [FILE_HEADER,
+                      "\n# This experiment is not currently defined in the data request.\n",
+                      "# As a result, a variable list could not be generated automatically.\n",
+                      "# The required variables for this experiment must be defined manually.\n"]
 
 
 def set_arg_parser() -> argparse.Namespace:
@@ -108,11 +114,7 @@ def get_grouped_priority_labels(experiment_dict: dict, experiment: str) -> dict:
     dict
         A dictionary of labels grouped by priority (core, high, med, low).
     """
-    try:
-        experiment_data = experiment_dict["experiment"][experiment]
-    except KeyError:
-        print(f"WARNING: Unable to find experiment {experiment} in the data request.")
-        sys.exit(1)
+    experiment_data = experiment_dict["experiment"][experiment]
 
     return {
         "core": experiment_data.get("Core", []),
@@ -325,15 +327,12 @@ def get_stream_from_XIOS(mapping: dict, model: str, variable: str) -> str:
         The corresponding stream for the given variable within the given model. Returns "" if no stream can be found.
     """
     xios_dict = mapping.get("XIOS entries")
-    labels = mapping.get("labels")
     try:
         full_stream_info = xios_dict[model]
     except KeyError:
         # If there is no streams in STASH, no streams in XIOS and the variable is global and not marked 'do-not-produce'
         # throw an error to warn the user. This is not a critical issue but it is important to note since variables
         # without stream information cannot be produced.
-        if "do-not-produce" not in labels and ".glb" in variable:
-            print(f"WARNING: Unable to find stream for {variable} in model {model}...")
         full_stream_info = ""
 
     # Extract just the stream for the information given in the XIOS info.
@@ -577,33 +576,22 @@ def sort_key(line: str) -> int:
     return 0
 
 
-def save_outfile(
-        outdir: Path, workflow_id: str, experiment: str, model: str, renamed_variable_dict: dict[str, str]
-    ) -> None:
+def save_outfile(outfile: Path, renamed_variable_dict: dict[str, str]) -> None:
     """Saves a single file to a plain text format.
 
     Parameters
     ----------
-    outdir: Path
-        The output directory.
-    workflow_id: str
-        The workflow ID associated with this workflow.
-    experiment: str
-        The experiment whose variables are being saved.
-    model: str
-        The model associated with the experiment that has been run.
+    outfile: Path
+        The output path.
     renamed_variable_dict: dict[str, str]
         An updated dictionary containing the reformatted variable names as keys and priority/production status as
         values.
     """
-    outfile = outdir / f"{workflow_id}_{experiment}_{model}.txt"
     lines = format_outfile_content(renamed_variable_dict)
     with open(outfile, "w") as f:
-        f.write("# Note: only global variables are currently producible by CDDS\n")  # File header
+        f.write(FILE_HEADER)
         for line in sorted(lines, key=sort_key):
             f.write(line)
-
-    return outfile
 
 
 def generate_variable_lists() -> None:
@@ -615,12 +603,17 @@ def generate_variable_lists() -> None:
     mappings_dict = read_json(MAPPINGS_FILE_LOCATION)
 
     # Create output file path.
-    outdir = Path(f"variables/{experiment_dict['Header']['dreq content version']}")
+    outdir = Path(f"variables/v{DR_VERSION}")
+    outfile = outdir / f"{workflow_id}_{experiment}_{model}.txt"
     os.makedirs(outdir, exist_ok=True)
 
-    # Process and save the variable dictionary.
-    variable_dict, model = process_variable_dict(experiment_dict, experiment, model, mappings_dict)
-    outfile = save_outfile(outdir, workflow_id, experiment, model, variable_dict)
+    if not experiment_dict.get(experiment, None):
+        with open(outfile, "w") as f:
+            f.writelines(BLANK_FILE_CONTENT)
+    else:
+        # Process and save the variable dictionary.
+        variable_dict, model = process_variable_dict(experiment_dict, experiment, model, mappings_dict)
+        save_outfile(outfile, variable_dict)
 
     # Print the output filename the gh env if using inputs from an issue.
     if input_method == "issue":

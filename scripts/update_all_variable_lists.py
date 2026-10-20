@@ -9,7 +9,7 @@ import configparser
 from pathlib import Path
 
 from common import read_json
-from constants import DR_FILE_LOCATION, MAPPINGS_FILE_LOCATION
+from constants import DR_FILE_LOCATION, MAPPINGS_FILE_LOCATION, DR_VERSION
 from generate_variable_lists import process_variable_dict, save_outfile
 
 WORKFLOW_METADATA_FILE_LOCATION = Path("workflow_metadata")
@@ -56,7 +56,7 @@ def main():
     mappings_dict = read_json(MAPPINGS_FILE_LOCATION)
 
     # Create output file path.
-    outdir = Path(f"variables/{experiment_dict['Header']['dreq content version']}")
+    outdir = Path(f"variables/v{DR_VERSION}")
     os.makedirs(outdir, exist_ok=True)
 
     all_workflow_metadata = get_all_workflow_metadata()
@@ -68,14 +68,17 @@ def main():
             key_info = extract_key_workflow_information(filename)
             variable_dict, model = process_variable_dict(experiment_dict, key_info["experiment_id"],
                                                          key_info["model_id"], mappings_dict)
-            save_outfile(outdir, key_info["workflow_id"], key_info["experiment_id"], model, variable_dict)
+            outfile = outdir / f"{key_info['workflow_id']}_{key_info['experiment_id']}_{model}.txt"
+            save_outfile(outfile, variable_dict)
             num_successful_files += 1
-        except Exception as e:
-            print(f"WARNING: Unable to generate updated variable list for {key_info['workflow_id']}. \n{e}")
+        except Exception:
+            print(f"WARNING: Unable to generate updated variable list for {key_info['workflow_id']}. This may be due "
+                  f"to the experiment ID being undefined in current data request (v{DR_VERSION}), if this is the case, "
+                  "its variable list will be blank.")
             num_failed_files += 1
 
     success_msg = f"\n SUCCESSFULLY REGENERATED {num_successful_files}/{num_successful_files + num_failed_files} FILES"
-    failure_msg = f"\nWARNING: {num_failed_files} files failed."
+    failure_msg = f"\n WARNING: {num_failed_files} files failed."
     print("\n", "=" * 50, success_msg) if num_failed_files == 0 else print("\n", "=" * 50, success_msg, failure_msg)
 
 
