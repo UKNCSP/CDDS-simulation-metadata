@@ -108,6 +108,7 @@ seaIce/sitimefrac_tavg-u-hxy-sea@mon:inm  # approved
 seaIce/siu_tavg-u-hxy-si@mon:inm  # approved
 seaIce/siv_tavg-u-hxy-si@mon:inm  # approved
 seaIce/snd_tavg-u-hxy-sn@mon:inm  # approved
+seaIce/ts_tavg-u-hxy-si@mon:ap5  # approved
 aerosol/abs550aer_tavg-u-hxy-u@mon:ap4  # approved
 aerosol/bry_tavg-p39-hy-air@mon:ap4  # approved
 aerosol/c2h6_tavg-al-hxy-u@mon:ap4  # approved
@@ -200,6 +201,7 @@ atmos/phalf_tavg-alh-hxy-u@mon:ap4  # approved
 atmos/prc_tavg-u-hxy-u@day:ap6  # approved
 atmos/prsn_tavg-u-hxy-u@day:ap6  # approved
 atmos/ps_tpt-u-hxy-u@3hr:ap8  # approved
+atmos/ps_tpt-u-hxy-u@6hr:ap7  # approved
 atmos/rld_tavg-alh-hxy-u@mon:ap5  # approved
 atmos/rldcs_tavg-alh-hxy-u@mon:ap5  # approved
 atmos/rlds_tavg-u-hxy-u@day:ap6  # approved
@@ -238,6 +240,7 @@ atmos/tntr_tavg-al-hxy-u@mon:apu  # approved
 atmos/tntrl_tavg-al-hxy-u@mon:apu  # approved
 atmos/tntrs_tavg-al-hxy-u@mon:apu  # approved
 atmos/tntscpbl_tavg-al-hxy-u@mon:apu  # approved
+atmos/ts_tpt-u-hxy-u@6hr:ap7  # approved
 atmos/ua_tavg-al-hxy-u@mon:ap4  # approved
 atmos/ua_tavg-p39-hy-air@day:ap6  # approved
 atmos/ua_tpt-al-hxy-u@6hr:ap7  # approved
@@ -462,6 +465,7 @@ ocnBgchem/limnmisc_tavg-u-hxy-sea@mon:onm/diad-T  # approved, priority=medium
 ocnBgchem/o2sat_tavg-ol-hxy-sea@mon:onm/diad-T  # approved, priority=medium
 ocnBgchem/pp_tavg-ol-hxy-sea@mon:onm/diad-T  # approved, priority=medium
 seaIce/siage_tavg-u-hxy-si@mon:inm  # approved, priority=medium
+seaIce/sicompstren_tavg-u-hxy-si@mon:inm  # approved, priority=medium
 seaIce/sidmasstranx_tavg-u-hxy-u@mon:inm  # approved, priority=medium
 seaIce/sidmasstrany_tavg-u-hxy-u@mon:inm  # approved, priority=medium
 seaIce/sifb_tavg-u-hxy-si@mon:inm  # approved, priority=medium
@@ -487,6 +491,7 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #land/mrsofc_ti-u-hxy-lnd@fx:afx  # embargoed
 #land/rootd_ti-u-hxy-lnd@fx:afx  # embargoed
 #land/sftgif_ti-u-hxy-u@fx:afx  # embargoed
+#land/slthick_ti-sl-hxy-lnd@fx:afx  # embargoed
 #ocean/basin_ti-u-hxy-u@fx:ofx  # embargoed
 #ocean/sos_tavg-u-hxy-sea@day:ond/grid-T  # embargoed
 #ocean/zos_tavg-u-hxy-sea@day:ond/grid-T  # embargoed
@@ -510,6 +515,7 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #aerosol/emibc_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/emibvoc_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/emidms_tavg-u-hxy-u@mon:ap5  # embargoed
+#aerosol/emiisop_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/emilnox_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/eminh3_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/emiso2_tavg-u-hxy-u@mon:ap4  # embargoed
@@ -634,6 +640,7 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/scldncl_tavg-u-hxy-scl@mon:ap5  # embargoed
 #atmos/sfcWind_tmaxavg-h10m-hxy-u@mon:ap6  # embargoed
 #atmos/ta_tavg-p39-hy-air@day:ap6  # embargoed
+#atmos/ta_tpt-p7h-hxy-air@6hr:ap7  # embargoed
 #atmos/tdps_tavg-h2m-hxy-u@mon:ap5  # embargoed
 #atmos/tnhusa_tavg-al-hxy-u@mon:apu  # embargoed
 #atmos/tnhusmp_tavg-al-hxy-u@mon:apu  # embargoed
@@ -648,11 +655,13 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/ts_tavg-u-hxy-u@day:ap6  # embargoed
 #atmos/ts_tpt-u-hxy-u@3hr:ap8  # embargoed
 #atmos/ua_tavg-p39-hy-air@mon:ap4  # embargoed
+#atmos/ua_tpt-p7h-hxy-air@6hr:ap7  # embargoed
 #atmos/uas_tpt-h10m-hxy-u@1hr:ap9  # embargoed
 #atmos/uas_tpt-h10m-hxy-u@6hr:ap7  # embargoed
 #atmos/utendnogw_tavg-p39-hy-air@mon:ap5  # embargoed
 #atmos/va_tavg-al-hxy-u@mon:ap4  # embargoed
 #atmos/va_tavg-p39-hy-air@mon:ap4  # embargoed
+#atmos/va_tpt-p7h-hxy-air@6hr:ap7  # embargoed
 #atmos/vas_tpt-h10m-hxy-u@1hr:ap9  # embargoed
 #atmos/vas_tpt-h10m-hxy-u@6hr:ap7  # embargoed
 #atmos/zg_tavg-1000hPa-hxy-air@day:ap6  # embargoed
@@ -857,9 +866,16 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocnBgchem/phyc_tavg-op20bar-hxy-sea@day:ond/ptrc-T  # embargoed, priority=medium
 #seaIce/sfdsi_tavg-u-hxy-si@mon:inm  # embargoed, priority=medium
 #seaIce/sidivvel_tpt-u-hxy-si@mon:inm  # embargoed, priority=medium
+#seaIce/sidragtop_tavg-u-hxy-si@mon:ap5  # embargoed, priority=medium
 #seaIce/sifb_tavg-u-hxy-si@day:ind  # embargoed, priority=medium
 #seaIce/siflfwbot_tavg-u-hxy-si@mon:inm  # embargoed, priority=medium
 #seaIce/siflfwdrain_tavg-u-hxy-si@mon:inm  # embargoed, priority=medium
+#seaIce/siforcecoriolx_tavg-u-hxy-si@mon:inm  # embargoed, priority=medium
+#seaIce/siforcecorioly_tavg-u-hxy-si@mon:inm  # embargoed, priority=medium
+#seaIce/siforceintstrx_tavg-u-hxy-si@mon:inm  # embargoed, priority=medium
+#seaIce/siforceintstry_tavg-u-hxy-si@mon:inm  # embargoed, priority=medium
+#seaIce/siforcetiltx_tavg-u-hxy-si@mon:inm  # embargoed, priority=medium
+#seaIce/siforcetilty_tavg-u-hxy-si@mon:inm  # embargoed, priority=medium
 #seaIce/siitdconc_tavg-u-hxy-si@day:ind  # embargoed, priority=medium
 #seaIce/siitdsnconc_tavg-u-hxy-si@day:ind  # embargoed, priority=medium
 #seaIce/siitdsnthick_tavg-u-hxy-si@day:ind  # embargoed, priority=medium
@@ -921,9 +937,6 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/hurs_tavg-h2m-hxy-u@6hr:ap7  # known-issue, embargoed
 #atmos/pr_tavg-u-hxy-u@1hr:ap9  # known-issue, embargoed
 #atmos/pr_tavg-u-hxy-u@3hr:ap8  # known-issue, approved
-#land/slthick_ti-sl-hxy-lnd@fx:afx  # known-issue, embargoed
-#seaIce/ts_tavg-u-hxy-si@mon:ap5  # known-issue, approved
-#aerosol/emiisop_tavg-u-hxy-u@mon:ap4  # known-issue, embargoed
 #aerosol/no2_tavg-h2m-hxy-u@1hr:ap9  # known-issue, embargoed
 #aerosol/o3_tavg-h2m-hxy-u@1hr:ap9  # known-issue, embargoed
 #aerosol/sfpm25_tavg-h2m-hxy-u@1hr:ap9  # known-issue, embargoed
@@ -940,7 +953,6 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/prw_tavg-u-hxy-u@3hr:ap8  # known-issue, embargoed
 #atmos/ps_tavg-u-hxy-u@1hr:ap9  # known-issue, embargoed
 #atmos/ps_tavg-u-hxy-u@6hr:ap7  # known-issue, embargoed
-#atmos/ps_tpt-u-hxy-u@6hr:ap7  # known-issue, approved
 #atmos/rlds_tavg-u-hxy-u@1hr:ap9  # known-issue, embargoed
 #atmos/rlds_tavg-u-hxy-u@3hr:ap8  # known-issue, approved
 #atmos/rlds_tavg-u-hxy-u@6hr:ap7  # known-issue, embargoed
@@ -957,13 +969,9 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/sfcWind_tavg-h10m-hxy-u@6hr:ap7  # known-issue, embargoed
 #atmos/sfcWind_tmax-h10m-hxy-u@day:ap6  # known-issue, approved
 #atmos/ta_tavg-al-hxy-u@mon:ap5  # known-issue, embargoed
-#atmos/ta_tpt-p7h-hxy-air@6hr:ap7  # known-issue, embargoed
 #atmos/tas_tavg-h2m-hxy-u@1hr:ap9  # known-issue, approved
 #atmos/tas_tavg-h2m-hxy-u@6hr:ap7  # known-issue, embargoed
 #atmos/ts_tavg-u-hxy-u@6hr:ap7  # known-issue, embargoed
-#atmos/ts_tpt-u-hxy-u@6hr:ap7  # known-issue, approved
-#atmos/ua_tpt-p7h-hxy-air@6hr:ap7  # known-issue, embargoed
-#atmos/va_tpt-p7h-hxy-air@6hr:ap7  # known-issue, embargoed
 #atmos/wsg_tmax-h10m-hxy-u@1hr:ap9  # known-issue, embargoed
 #land/srfrad_tavg-u-hxy-u@3hr  # known-issue, embargoed
 #ocnBgchem/chl_tavg-ols-hxy-sea@mon:onm/ptrc-T  # known-issue, approved
@@ -998,14 +1006,6 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocnBgchem/ph_tavg-ols-hxy-sea@day:ond/diad-T  # known-issue, embargoed, priority=medium
 #ocnBgchem/pp_tavg-ols-hxy-sea@mon:onm/diad-T  # known-issue, approved, priority=medium
 #ocnBgchem/si_tavg-ols-hxy-sea@mon:onm/ptrc-T  # known-issue, approved, priority=medium
-#seaIce/sicompstren_tavg-u-hxy-si@mon:inm  # known-issue, approved, priority=medium
-#seaIce/sidragtop_tavg-u-hxy-si@mon:ap5  # known-issue, embargoed, priority=medium
-#seaIce/siforcecoriolx_tavg-u-hxy-si@mon:inm  # known-issue, embargoed, priority=medium
-#seaIce/siforcecorioly_tavg-u-hxy-si@mon:inm  # known-issue, embargoed, priority=medium
-#seaIce/siforceintstrx_tavg-u-hxy-si@mon:inm  # known-issue, embargoed, priority=medium
-#seaIce/siforceintstry_tavg-u-hxy-si@mon:inm  # known-issue, embargoed, priority=medium
-#seaIce/siforcetiltx_tavg-u-hxy-si@mon:inm  # known-issue, embargoed, priority=medium
-#seaIce/siforcetilty_tavg-u-hxy-si@mon:inm  # known-issue, embargoed, priority=medium
 #aerosol/sfpm10_tavg-h2m-hxy-u@1hr:ap9  # known-issue, embargoed, priority=low
 #ocnBgchem/phydiat_tavg-ols-hxy-sea@day:ond/ptrc-T  # known-issue, embargoed, priority=low
 #ocnBgchem/phymisc_tavg-ols-hxy-sea@day:ond/ptrc-T  # known-issue, embargoed, priority=low

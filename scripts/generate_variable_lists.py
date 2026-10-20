@@ -18,7 +18,8 @@ Note that this script is used as part of '.github/workflows/process_new_metadata
 may result in errors when running these corresponding files.
 
 Example command line usage:
-"python scripts/generate_variable_lists.py --workflow_id a-bc123 --experiment 1pctCO2 --model UKESM1-3"
+"python scripts/generate_variable_lists.py --workflow_id a-bc123 --experiment 1pctCO2 --model UKESM1-3
+--variant_label r1i1p1f1"
 """
 
 import argparse
@@ -57,6 +58,7 @@ def set_arg_parser() -> argparse.Namespace:
     parser.add_argument("--workflow_id", help="The workflow ID associated with this workflow.")
     parser.add_argument("--experiment", help="The experiment to generate a variable lists for.")
     parser.add_argument("--model", help="The model associated with the experiment that has been run.")
+    parser.add_argument("--variant_label", help="The variant label associated with the experiment that has been run.")
 
     return parser.parse_args()
 
@@ -68,8 +70,8 @@ def collect_key_variables() -> tuple[str, str, str, str]:
 
     Returns
     -------
-    tuple(str, str, str, str)
-        input_method, workflow_id, experiment and model.
+    tuple(str, str, str, str, str)
+        input_method, workflow_id, experiment, model and variant label.
 
     Raises
     ------
@@ -79,7 +81,7 @@ def collect_key_variables() -> tuple[str, str, str, str]:
         If some but not all arguments are given.
     """
     args = set_arg_parser()
-    arguments = [args.workflow_id, args.experiment, args.model]
+    arguments = [args.workflow_id, args.experiment, args.model, args.variant_label]
     if not any(arguments):
         if not get_issue()['body']:
             raise RuntimeError("No command line arguments or issue body provided.")
@@ -89,13 +91,14 @@ def collect_key_variables() -> tuple[str, str, str, str]:
             match = re.findall(r"### (.+?)\n\s*\n?(.+)", get_issue()['body'])
             meta_dict = process_metadata(match)
 
-            return "issue", meta_dict["model_workflow_id"], meta_dict["experiment_id"], meta_dict["model_id"]
+            return ("issue", meta_dict["model_workflow_id"], meta_dict["experiment_id"], meta_dict["model_id"],
+                    meta_dict["variant_label"])
     else:
-        inputs = ["--workflow_id", "--experiment", "--model"]
+        inputs = ["--workflow_id", "--experiment", "--model", "--variant_label"]
         for item, value in zip(inputs, arguments):
             if not value:
                 raise argparse.ArgumentError(argument=value, message=f"Missing argument: {item}")
-        return "args", args.workflow_id, args.experiment, args.model
+        return "args", args.workflow_id, args.experiment, args.model, args.variant_label
 
 
 def get_grouped_priority_labels(experiment_dict: dict, experiment: str) -> dict:
@@ -443,14 +446,19 @@ def reformat_variable_names(
     return renamed_variable_dict
 
 
-def identify_known_issues(experiment: str, renamed_variable_dict: dict[str, str]) -> dict[str, str]:
+def identify_known_issues(
+        model: str, experiment: str, variant_label: str, renamed_variable_dict: dict[str, str]) -> dict[str, str]:
     """Identify all variables marked as "known issues" in a single experiment. This function is capable of flagging a
     variable as a known issue regardless of whether a stream is provided within the known issues dictionary or not.
 
     Parameters
     ----------
+    model: str
+        The model.
     experiment: str
         The experiment whose variables are being updated.
+    variant_label: str
+        The variant label.
     renamed_variable_dict: dict[str, str]
         An updated dictionary containing the reformatted variable names as keys and priority/production status as
         values.
@@ -464,20 +472,23 @@ def identify_known_issues(experiment: str, renamed_variable_dict: dict[str, str]
     known_issues_dict = read_json(KNOWN_ISSUES_DICT_FILE_LOCATION)
     for variable in renamed_variable_dict.keys():
         for source_id, experiment_id in known_issues_dict.items():
-            if any(value in list(known_issues_dict[source_id].keys()) for value in (experiment, "*")):
+            if source_id == model:
                 try:
-                    variant_dict = known_issues_dict[source_id][experiment]
+                    variant_dicts = (known_issues_dict[source_id][experiment], known_issues_dict[source_id]["*"])  # Check for experiment specific entries
                 except KeyError:
-                    variant_dict = known_issues_dict[source_id]["*"]
-                for variant_label, variable_list in variant_dict.items():
-                    if variable.split(":")[0] in variable_list and "known-issue" not in renamed_variable_dict[variable]:
-                        renamed_variable_dict[variable].insert(0, "known-issue")
+                    variant_dicts = [known_issues_dict[source_id]["*"]]  # Check "all experiment" glob
+                for variant_dict in variant_dicts:
+                    for known_issues_variant_label, variable_list in variant_dict.items():
+                        if known_issues_variant_label in ("*", variant_label):
+                            if (variable.split(":")[0] in variable_list and
+                                "known-issue" not in renamed_variable_dict[variable]):
+                                renamed_variable_dict[variable].insert(0, "known-issue")
 
     return renamed_variable_dict
 
 
 def process_variable_dict(
-        experiment_dict: dict, experiment: str, model: str, mappings_dict: list[dict]
+        experiment_dict: dict, experiment: str, model: str, variant_label: str, mappings_dict: list[dict]
     ) -> tuple[dict, str]:
     """Processes the variable dictionary against all functions to get a complete dictionary of renamed variables and
     their associated status. This serves as a wrapper script for all variable list processing.
@@ -490,6 +501,8 @@ def process_variable_dict(
         The experiment whose variables are being updated.
     model: str
         The model ID.
+    variant_label: str
+        The variant label.
     mappings_dict: list[dict]
         The dictionary containing mapping information for all variables.
 
@@ -503,7 +516,7 @@ def process_variable_dict(
     variable_dict = set_priority_comments(experiment_dict, experiment)
     variable_dict, new_model = update_status_from_model(model, variable_dict)
     variable_dict = reformat_variable_names(experiment_dict, experiment, mappings_dict, variable_dict, new_model)
-    variable_dict = identify_known_issues(experiment, variable_dict)
+    variable_dict = identify_known_issues(model, experiment, variant_label, variable_dict)
 
     return variable_dict, model
 
@@ -598,7 +611,7 @@ def generate_variable_lists() -> None:
     """
     Generates the variable list files for all experiments.
     """
-    input_method, workflow_id, experiment, model = collect_key_variables()
+    input_method, workflow_id, experiment, model, variant_label = collect_key_variables()
     experiment_dict = read_json(DR_FILE_LOCATION)
     mappings_dict = read_json(MAPPINGS_FILE_LOCATION)
 
@@ -612,7 +625,7 @@ def generate_variable_lists() -> None:
             f.writelines(BLANK_FILE_CONTENT)
     else:
         # Process and save the variable dictionary.
-        variable_dict, model = process_variable_dict(experiment_dict, experiment, model, mappings_dict)
+        variable_dict, model = process_variable_dict(experiment_dict, experiment, model, variant_label, mappings_dict)
         save_outfile(outfile, variable_dict)
 
     # Print the output filename the gh env if using inputs from an issue.

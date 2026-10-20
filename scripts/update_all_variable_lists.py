@@ -46,6 +46,7 @@ def extract_key_workflow_information(filename: Path) -> dict:
     return {
         "experiment_id": config["metadata"]["experiment_id"],
         "model_id": config["metadata"]["model_id"],
+        "variant_label": config["metadata"]["variant_label"],
         "workflow_id": config["data"]["model_workflow_id"]
     }
 
@@ -67,7 +68,7 @@ def main():
         try:
             key_info = extract_key_workflow_information(filename)
             variable_dict, model = process_variable_dict(experiment_dict, key_info["experiment_id"],
-                                                         key_info["model_id"], mappings_dict)
+                                                         key_info["model_id"], key_info["variant_label"], mappings_dict)
             outfile = outdir / f"{key_info['workflow_id']}_{key_info['experiment_id']}_{model}.txt"
             save_outfile(outfile, variable_dict)
             num_successful_files += 1
