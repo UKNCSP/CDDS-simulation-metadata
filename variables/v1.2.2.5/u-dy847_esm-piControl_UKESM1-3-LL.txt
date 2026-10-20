@@ -92,6 +92,7 @@ ocean/tauuo_tavg-u-hxy-sea@mon:onm/grid-U  # approved
 ocean/tauvo_tavg-u-hxy-sea@mon:onm/grid-V  # approved
 ocean/thetao_tavg-ol-hxy-sea@mon:onm/grid-T  # approved
 ocean/thkcello_tavg-ol-hxy-sea@mon:onm/grid-T  # approved
+ocean/tos_tavg-u-hxy-sea@day:ond/grid-T  # approved
 ocean/tos_tavg-u-hxy-sea@mon:onm/grid-T  # approved
 ocean/umo_tavg-ol-hxy-sea@mon:onm/grid-U  # approved
 ocean/uo_tavg-ol-hxy-sea@mon:onm/grid-U  # approved
@@ -438,7 +439,6 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #land/sftgif_ti-u-hxy-u@fx:afx  # embargoed
 #ocean/basin_ti-u-hxy-u@fx:ofx  # embargoed
 #ocean/sos_tavg-u-hxy-sea@day:ond/grid-T  # embargoed
-#ocean/tos_tavg-u-hxy-sea@day:ond/grid-T  # embargoed
 #ocean/zos_tavg-u-hxy-sea@day:ond/grid-T  # embargoed
 #ocean/zostoga_tavg-u-hm-sea@mon:onm/grid-T  # embargoed
 #seaIce/siconc_tavg-u-hxy-u@day:ind  # embargoed
