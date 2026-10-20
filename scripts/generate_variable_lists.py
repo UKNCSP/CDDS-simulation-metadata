@@ -607,7 +607,7 @@ def generate_variable_lists() -> None:
     outfile = outdir / f"{workflow_id}_{experiment}_{model}.txt"
     os.makedirs(outdir, exist_ok=True)
 
-    if not experiment_dict.get(experiment, None):
+    if not experiment_dict["experiment"].get(experiment, None):
         with open(outfile, "w") as f:
             f.writelines(BLANK_FILE_CONTENT)
     else:
