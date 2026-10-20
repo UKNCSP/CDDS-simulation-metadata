@@ -593,8 +593,6 @@ def save_outfile(outfile: Path, renamed_variable_dict: dict[str, str]) -> None:
         for line in sorted(lines, key=sort_key):
             f.write(line)
 
-    return outfile
-
 
 def generate_variable_lists() -> None:
     """
@@ -615,7 +613,7 @@ def generate_variable_lists() -> None:
     else:
         # Process and save the variable dictionary.
         variable_dict, model = process_variable_dict(experiment_dict, experiment, model, mappings_dict)
-        outfile = save_outfile(outfile, variable_dict)
+        save_outfile(outfile, variable_dict)
 
     # Print the output filename the gh env if using inputs from an issue.
     if input_method == "issue":
