@@ -234,6 +234,11 @@ class Validate:
             return
 
         experiment_cv_info = CMOR_CV_JSON["CV"]["experiment_id"][experiment]
+        if branch_method == "no parent" and experiment_cv_info.get("parent_experiment_id"):
+            cv_errors.append(f"CVs expects branch_method = `standard` for experiment {experiment}")
+        elif branch_method == "standard" and not experiment_cv_info.get("parent_experiment_id"):
+            cv_errors.append(f"CVs expects branch_method = `no parent` for experiment {experiment}")
+
         mip = self.metadata_info["metadata"].get("mip")
         mip_in_cv = experiment_cv_info["activity_id"]
         if mip not in mip_in_cv:
