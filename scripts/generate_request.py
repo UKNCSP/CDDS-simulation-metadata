@@ -10,6 +10,7 @@ NOTE: This script relies on inputs given from '.github/ISSUE_TEMPLATE/generate_r
 import os
 import re
 import sys
+import requests
 
 from configparser import ConfigParser, SectionProxy
 from pathlib import Path
@@ -230,8 +231,11 @@ def write_request(filename_prefix, data: SectionProxy, request: dict) -> str:
     str
         The request filename.
     """
+    cdds_version = requests.get("https://api.github.com/repos/MetOffice/CDDS/releases").json()[0].get("tag_name")
     filename = f"{filename_prefix}_request_{data['model_workflow_id']}_{request['common']['package']}.cfg"
     with open(Path("requests") / filename, "w") as f:
+        f.write(f"# At the point of request generation the latest CDDS release is {cdds_version}.\n")
+        f.write(f"# Activate this with the command `source ~cdds/bin/setup_env_for_cdds {cdds_version.lstrip('v')}`\n")
         for section_header, content in request.items():
             f.write(f"[{section_header}]\n")
             if isinstance(content, dict):
