@@ -443,7 +443,7 @@ def reformat_variable_names(
     return renamed_variable_dict
 
 
-def identify_known_issues(experiment: str, renamed_variable_dict: dict[str, str]) -> dict[str, str]:
+def identify_known_issues(model: str, experiment: str, renamed_variable_dict: dict[str, str]) -> dict[str, str]:
     """Identify all variables marked as "known issues" in a single experiment. This function is capable of flagging a
     variable as a known issue regardless of whether a stream is provided within the known issues dictionary or not.
 
@@ -464,11 +464,11 @@ def identify_known_issues(experiment: str, renamed_variable_dict: dict[str, str]
     known_issues_dict = read_json(KNOWN_ISSUES_DICT_FILE_LOCATION)
     for variable in renamed_variable_dict.keys():
         for source_id, experiment_id in known_issues_dict.items():
-            if any(value in list(known_issues_dict[source_id].keys()) for value in (experiment, "*")):
+            if source_id == model:
                 try:
-                    variant_dict = known_issues_dict[source_id][experiment]
+                    variant_dict = known_issues_dict[source_id][experiment]  # Check for experiment specific entries
                 except KeyError:
-                    variant_dict = known_issues_dict[source_id]["*"]
+                    variant_dict = known_issues_dict[source_id]["*"]  # Check "all experiment" glob
                 for variant_label, variable_list in variant_dict.items():
                     if variable.split(":")[0] in variable_list and "known-issue" not in renamed_variable_dict[variable]:
                         renamed_variable_dict[variable].insert(0, "known-issue")
@@ -503,7 +503,7 @@ def process_variable_dict(
     variable_dict = set_priority_comments(experiment_dict, experiment)
     variable_dict, new_model = update_status_from_model(model, variable_dict)
     variable_dict = reformat_variable_names(experiment_dict, experiment, mappings_dict, variable_dict, new_model)
-    variable_dict = identify_known_issues(experiment, variable_dict)
+    variable_dict = identify_known_issues(model, experiment, variable_dict)
 
     return variable_dict, model
 
@@ -607,7 +607,7 @@ def generate_variable_lists() -> None:
     outfile = outdir / f"{workflow_id}_{experiment}_{model}.txt"
     os.makedirs(outdir, exist_ok=True)
 
-    if not experiment_dict.get(experiment, None):
+    if not experiment_dict["experiment"].get(experiment, None):
         with open(outfile, "w") as f:
             f.writelines(BLANK_FILE_CONTENT)
     else:
