@@ -240,6 +240,7 @@ atmos/wap_tavg-500hPa-hxy-air@day:ap6  # approved
 atmos/wtem_tavg-p39-hy-air@day:ap6  # approved
 atmos/wtem_tavg-p39-hy-air@mon:ap5  # approved
 atmos/zg_tavg-500hPa-hxy-air@day:ap6  # approved
+atmosChem/ch4_tavg-al-hxy-u@mon:ap5  # approved
 atmosChem/ch4_tavg-p39-hy-air@mon:ap4  # approved
 atmosChem/dms_tavg-al-hxy-u@mon:ap4  # approved
 atmosChem/n2o_tavg-p39-hy-air@mon:ap4  # approved
@@ -649,7 +650,6 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmosChem/cfc11_tavg-u-hm-air@mon:ap5  # embargoed
 #atmosChem/cfc12_tavg-u-hm-air@mon:ap5  # embargoed
 #atmosChem/ch3oh_tavg-al-hxy-u@mon:ap4  # embargoed
-#atmosChem/ch4_tavg-al-hxy-u@mon:ap5  # embargoed
 #atmosChem/ch4_tavg-p19-hxy-air@mon:ap5  # embargoed
 #atmosChem/ch4_tavg-u-hm-air@mon:ap5  # embargoed
 #atmosChem/ch4losssoil_tavg-u-hxy-u@mon:ap4  # embargoed
