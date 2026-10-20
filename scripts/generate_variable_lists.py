@@ -474,14 +474,15 @@ def identify_known_issues(
         for source_id, experiment_id in known_issues_dict.items():
             if source_id == model:
                 try:
-                    variant_dict = known_issues_dict[source_id][experiment]  # Check for experiment specific entries
+                    variant_dicts = (known_issues_dict[source_id][experiment], known_issues_dict[source_id]["*"])  # Check for experiment specific entries
                 except KeyError:
-                    variant_dict = known_issues_dict[source_id]["*"]  # Check "all experiment" glob
-                for known_issues_variant_label, variable_list in variant_dict.items():
-                    if known_issues_variant_label in ("*", variant_label):
-                        if (variable.split(":")[0] in variable_list and
-                            "known-issue" not in renamed_variable_dict[variable]):
-                            renamed_variable_dict[variable].insert(0, "known-issue")
+                    variant_dicts = [known_issues_dict[source_id]["*"]]  # Check "all experiment" glob
+                for variant_dict in variant_dicts:
+                    for known_issues_variant_label, variable_list in variant_dict.items():
+                        if known_issues_variant_label in ("*", variant_label):
+                            if (variable.split(":")[0] in variable_list and
+                                "known-issue" not in renamed_variable_dict[variable]):
+                                renamed_variable_dict[variable].insert(0, "known-issue")
 
     return renamed_variable_dict
 
