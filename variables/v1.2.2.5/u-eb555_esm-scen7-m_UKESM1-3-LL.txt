@@ -108,7 +108,6 @@ seaIce/sitimefrac_tavg-u-hxy-sea@mon:inm  # approved
 seaIce/siu_tavg-u-hxy-si@mon:inm  # approved
 seaIce/siv_tavg-u-hxy-si@mon:inm  # approved
 seaIce/snd_tavg-u-hxy-sn@mon:inm  # approved
-seaIce/ts_tavg-u-hxy-si@mon:ap5  # approved
 aerosol/abs550aer_tavg-u-hxy-u@mon:ap4  # approved
 aerosol/bry_tavg-p39-hy-air@mon:ap4  # approved
 aerosol/c2h6_tavg-al-hxy-u@mon:ap4  # approved
@@ -889,6 +888,7 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/hurs_tavg-h2m-hxy-u@6hr:ap7  # known-issue, embargoed
 #atmos/pr_tavg-u-hxy-u@1hr:ap9  # known-issue, embargoed
 #atmos/pr_tavg-u-hxy-u@3hr:ap8  # known-issue, approved
+#seaIce/ts_tavg-u-hxy-si@mon:ap5  # known-issue, approved
 #aerosol/no2_tavg-h2m-hxy-u@1hr:ap9  # known-issue, embargoed
 #aerosol/o3_tavg-h2m-hxy-u@1hr:ap9  # known-issue, embargoed
 #aerosol/sfpm25_tavg-h2m-hxy-u@1hr:ap9  # known-issue, embargoed
