@@ -92,7 +92,8 @@
                 "ocnBgchem/phymisc_tavg-ols-hxy-sea@day": "problems with CMIP7 QC checks: vertical coordinate `seasurface` must include a positive attribute that is either 'up' or 'down' (see CDDS-simulation-metadata issue #485)",
                 "ocnBgchem/phydiat_tavg-ols-hxy-sea@day": "problems with CMIP7 QC checks: vertical coordinate `seasurface` must include a positive attribute that is either 'up' or 'down' (see CDDS-simulation-metadata issue #485)",
                 "ocnBgchem/co3satarag_tavg-ols-hxy-sea@day": "problems with CMIP7 QC checks: vertical coordinate `seasurface` must include a positive attribute that is either 'up' or 'down' (see CDDS-simulation-metadata issue #485)",
-                "ocnBgchem/co3_tavg-ols-hxy-sea@day": "problems with CMIP7 QC checks: vertical coordinate `seasurface` must include a positive attribute that is either 'up' or 'down' (see CDDS-simulation-metadata issue #485)"
+                "ocnBgchem/co3_tavg-ols-hxy-sea@day": "problems with CMIP7 QC checks: vertical coordinate `seasurface` must include a positive attribute that is either 'up' or 'down' (see CDDS-simulation-metadata issue #485)",
+                "seaIce/ts_tavg-u-hxy-si@mon": "Insufficient matching coordinate metadata to resolve cubes, cannot map dimension (0,) of the RHS cube to the LHS cube (see CDDS issue #812) (see CDDS-simulation-metadata issue #198)"
             }
         }
     },
