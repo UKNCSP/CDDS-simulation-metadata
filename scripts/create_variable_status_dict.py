@@ -29,11 +29,8 @@ def get_all_models(mappings_dict: list[dict]) -> set:
     models = set()
     for mapping in mappings_dict:
         # Check for models in both the STASH and XIOS, each variable should have entried in one of these tables.
-        stash_model_list = mapping["models_in_stash"]
-        xios_model_list = list(mapping["XIOS entries"].keys())
-        model_list = stash_model_list + xios_model_list
-        for model in model_list:
-            models.add(model)
+        models.update(mapping.get("models_in_stash"))
+        models.update(list(mapping.get("XIOS entries").keys()))
 
     return models
 
@@ -66,39 +63,30 @@ def get_variable_status(mappings_dict: list[dict], model: str) -> dict:
     """
     variable_status_dict = {}
     for mapping in mappings_dict:
-        variable = mapping["branded_variable"]
-        # Variables marked 'do-not-produce' and 'fx' are handled separately and unlikely to have any meaningfull
-        # stream information. These require a more specific label.
-        if (
-            not mapping["models_in_stash"]
-            and not mapping["XIOS entries"]
-            and not any(label in mapping["labels"] for label in ('do-not-produce', 'fx'))
-        ):
+        variable = mapping.get("branded_variable")
+        models_from_stash = mapping.get("models_in_stash")
+        models_from_xios = list(mapping.get("XIOS entries"))
+        labels = mapping.get("labels")
+        # Variables marked 'do-not-produce' and 'fx' are handled separately and require a more specific label.
+        if not any([models_from_stash, models_from_xios]) and not any(x in labels for x in ('do-not-produce', 'fx')):
             variable_status_dict[variable] = "unknown (no stream information available)"
 
-        elif (
-            model in mapping["models_in_stash"]
-            or model in mapping["XIOS entries"].keys()
-            or "fx" in mapping["labels"]
-        ):
-            labels = mapping["labels"]
+        elif model in (models_from_stash + models_from_xios) or "fx" in labels:
             if "do-not-produce" in labels:
                 variable_status_dict[variable] = "do-not-produce"
-            # If we have the standard diagnsotic review ok in the labels it can be approved for all models
+            # If we have the standard diagnsotic review ok in the labels it can be approved for all models.
             elif "diagnostic_review_ok" in labels:
                 variable_status_dict[variable] = "approved"
-            # If we have model specific diagnsotic review ok in the labels it can only be approved for that specific
-            # model
+            # If we have model specific diagnsotic review ok in the labels it can only be approved for that model.
             elif "diagnostic_review_ok_OI_UKCM2" in labels and "UKCM2" in model:
                 variable_status_dict[variable] = "approved"
             elif "diagnostic_review_ok_OI_UKESM" in labels and "UKESM" in model:
                 variable_status_dict[variable] = "approved"
-            # If all of the required information exists and a variable is not yet approved or marked as do-not-produce,
-            # it must be marked as embargoed
+            # If the variable is not yet approved and not marked as do-not-produce, it must is embargoed
             else:
                 variable_status_dict[variable] = "embargoed"
 
-        # Flag variables with no mention of the given model in their mapping inforamtion.
+        # If the model does not exist in the mapping inforamtion, the variable cannot be produced with that model.
         else:
             variable_status_dict[variable] = "do-not-produce (not available with this model)"
 
@@ -117,6 +105,7 @@ def save_json(model: str, dictionary: dict) -> None:
     """
     outfile_path = REF_INFO_DIR / f"{model}_variable_status.json"
     with open(outfile_path, "w") as fh:
+        # The lambda function below uses the first element of each item as the value to sort by
         json.dump(dict(sorted(dictionary.items(), key=lambda x: x[0])), fh, indent=4)
 
 
