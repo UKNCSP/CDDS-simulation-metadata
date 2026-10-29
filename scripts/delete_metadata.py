@@ -49,8 +49,9 @@ def get_variable_list_filename(filename: Path, workflow_id: str) -> str:
     """
     config = configparser.ConfigParser()
     config.read(filename)
+    metadata = config['metadata']
 
-    return f"{workflow_id}_{config['metadata']['experiment_id']}_{config['metadata']['model_id']}.txt"
+    return f"{workflow_id}_{metadata['experiment_id']}_{metadata['model_id']}.txt"
 
 
 def main():
