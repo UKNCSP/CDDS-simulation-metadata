@@ -62,10 +62,15 @@ def set_arg_parser() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def collect_key_variables(args) -> tuple[str, str, str, str]:
+def collect_key_variables(args: argparse.Namespace) -> tuple[str, str, str, str]:
     """Collects key variables (workflow_id, experiment and model). This can come directly from an
     issue body or the command line. If no command line arguments are given, the issue body is used. If neither are
     available, a RuntimeError is raised.
+
+    Parameters
+    ----------
+    args: argparse.Namespace
+        Command line arguments consisting of workflow_id, experiment, model and variant label, or None
 
     Returns
     -------
@@ -235,11 +240,6 @@ def check_alias_dictionary(model: str) -> str:
     -------
     str
         The corrected model based off of the model alias dictionary.
-
-    Raises
-    ------
-    RuntimeError
-        If no corrected model alias can be found.
     """
     alias_dict = read_json(REF_INFO_DIR / "model_id_alias.json")
     for accepted_model, alias in alias_dict.items():
@@ -265,6 +265,11 @@ def update_status_from_model(model: str, variable_dict: dict) -> tuple[dict, str
     tuple[dict, str]
         An updated dictionary of variables and their comments created based on priority level and production status.
         An updated model ID if the direct input is associated with an alias.
+
+    Raises
+    ------
+    FileNotFoundError
+        If unable to find a corresponding variable status dictionary
     """
     # Attempt to use the original model given
     model = check_alias_dictionary(model)
@@ -295,6 +300,7 @@ def get_stream_from_XIOS(mapping: dict, model: str) -> str:
         The model associated with the experiment that has been run.
 
     Returns
+    -------
     str:
         The corresponding stream for the given variable within the given model. Returns "" if no stream can be found.
     """
@@ -351,7 +357,25 @@ def get_streams(experiment_dict: dict, experiment: str, mappings_dict: list[dict
     return streams
 
 
-def apply_fx_streams(variable):
+def apply_fx_streams(variable: str) -> str:
+    """Identifies the stream tha tshould be applied to the given fixed variable. Any variable in an ocean realm will be
+    assigned 'ofx' while all others will be assigned 'afx'.
+
+    Parameters
+    ----------
+    variable: str
+        The fix variable to identify the stream for.
+
+    Returns
+    -------
+    str:
+        The stream.
+
+    Raises
+    ------
+    RuntimeError
+        If unable to assign a stream due to an unrecognised realm.
+    """
     realm = variable.split(".")[0]
     if realm in ["ocean", "ocnBgchem", "seaIce"]:
         return "ofx"
@@ -457,7 +481,7 @@ def identify_known_issues(
 
 def process_variable_dict(
         experiment_dict: dict, experiment: str, model: str, variant_label: str, mappings_dict: list[dict]
-    ) -> tuple[dict, str]:
+    ) -> dict:
     """Processes the variable dictionary against all functions to get a complete dictionary of renamed variables and
     their associated status. This serves as a wrapper script for all variable list processing.
 
@@ -476,9 +500,8 @@ def process_variable_dict(
 
     Returns
     -------
-    tuple[dict, str]
+    dict
         An updated dictionary containing the reformatted variable names and their associated status.
-        The given model ID.
     """
     variable_dict = {}
     variable_dict = set_priority_comments(experiment_dict, experiment)
