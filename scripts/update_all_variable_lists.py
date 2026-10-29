@@ -67,9 +67,9 @@ def main():
     for filename in all_workflow_metadata:
         try:
             key_info = extract_key_workflow_information(filename)
-            variable_dict, model = process_variable_dict(experiment_dict, key_info["experiment_id"],
+            variable_dict = process_variable_dict(experiment_dict, key_info["experiment_id"],
                                                          key_info["model_id"], key_info["variant_label"], mappings_dict)
-            outfile = outdir / f"{key_info['workflow_id']}_{key_info['experiment_id']}_{model}.txt"
+            outfile = outdir / f"{key_info['workflow_id']}_{key_info['experiment_id']}_{key_info["model_id"]}.txt"
             save_outfile(outfile, variable_dict)
             num_successful_files += 1
         except Exception:

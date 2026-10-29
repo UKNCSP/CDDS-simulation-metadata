@@ -25,7 +25,6 @@ Example command line usage:
 import argparse
 import re
 import os
-import sys
 from itertools import chain
 from pathlib import Path
 
@@ -63,7 +62,7 @@ def set_arg_parser() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def collect_key_variables() -> tuple[str, str, str, str]:
+def collect_key_variables(args) -> tuple[str, str, str, str]:
     """Collects key variables (workflow_id, experiment and model). This can come directly from an
     issue body or the command line. If no command line arguments are given, the issue body is used. If neither are
     available, a RuntimeError is raised.
@@ -80,24 +79,24 @@ def collect_key_variables() -> tuple[str, str, str, str]:
     argparse.ArgumentError
         If some but not all arguments are given.
     """
-    args = set_arg_parser()
     arguments = [args.workflow_id, args.experiment, args.model, args.variant_label]
-    if not any(arguments):
-        if not get_issue()['body']:
-            raise RuntimeError("No command line arguments or issue body provided.")
-        else:
-            # Note if an issue body is being used and get the required info
-            print("No command line arguments given, using workflow_id, experiment and model given in the issue body.")
-            match = re.findall(r"### (.+?)\n\s*\n?(.+)", get_issue()['body'])
-            meta_dict = process_metadata(match)
+    issue_body = get_issue()['body']
+    if not any(arguments) and not issue_body:
+        raise RuntimeError("No command line arguments or issue body provided.")
 
-            return ("issue", meta_dict["model_workflow_id"], meta_dict["experiment_id"], meta_dict["model_id"],
-                    meta_dict["variant_label"])
-    else:
+    if issue_body:
+        # Note if an issue body is being used and get the required info
+        print("No command line arguments given, using workflow_id, experiment and model given in the issue body.")
+        match = re.findall(r"### (.+?)\n\s*\n?(.+)", issue_body)
+        meta_dict = process_metadata(match)
+        return ("issue", meta_dict["model_workflow_id"], meta_dict["experiment_id"], meta_dict["model_id"],
+                meta_dict["variant_label"])
+
+    elif args:
         inputs = ["--workflow_id", "--experiment", "--model", "--variant_label"]
-        for item, value in zip(inputs, arguments):
-            if not value:
-                raise argparse.ArgumentError(argument=value, message=f"Missing argument: {item}")
+        for input_flag, argument in zip(inputs, arguments):
+            if not argument:
+                raise argparse.ArgumentError(argument=argument, message=f"Missing argument: {input_flag}")
         return "args", args.workflow_id, args.experiment, args.model, args.variant_label
 
 
@@ -218,11 +217,7 @@ def get_mapping(mappings_dict: list[dict], variable: str) -> dict:
     """
     for mapping in mappings_dict:
         if variable == mapping["branded_variable"]:
-            mapping = mapping
-            # Once the correct mapping has been found break the loop, this helps to reduce runtime.
-            break
-
-    return mapping
+            return mapping
 
 
 def check_alias_dictionary(model: str) -> str:
@@ -246,16 +241,12 @@ def check_alias_dictionary(model: str) -> str:
     RuntimeError
         If no corrected model alias can be found.
     """
-    correct_model = ""
     alias_dict = read_json(REF_INFO_DIR / "model_id_alias.json")
     for accepted_model, alias in alias_dict.items():
         if model in alias:
-            correct_model = accepted_model
+            return accepted_model
 
-    if not correct_model:
-        raise RuntimeError("The provided model cannot be found and has no known aliases.")
-
-    return correct_model
+    return model
 
 
 def update_status_from_model(model: str, variable_dict: dict) -> tuple[dict, str]:
@@ -276,43 +267,23 @@ def update_status_from_model(model: str, variable_dict: dict) -> tuple[dict, str
         An updated model ID if the direct input is associated with an alias.
     """
     # Attempt to use the original model given
-    try:
-        model_status_dict = read_json(REF_INFO_DIR / f"{model}_variable_status.json")
-        new_model = model
-    # If there is no model status dictionary matching the given model, check for an alias
-    except FileNotFoundError:
-        new_model = check_alias_dictionary(model)
-        model_status_dict = read_json(REF_INFO_DIR / f"{new_model}_variable_status.json")
+    model = check_alias_dictionary(model)
+    status_dict_path = REF_INFO_DIR / f"{model}_variable_status.json"
+    if not status_dict_path.exists():
+        raise FileNotFoundError(f"Status dictionary for {model} does not exist at {status_dict_path}")
 
-    # Apply status labels to each variable, these are added in a list format as a single variable can have multiple
-    # labels.
+    # Apply status labels to each variable, a single variable can have multiple labels.
+    model_status_dict = read_json(status_dict_path)
     for variable, comment in variable_dict.items():
-        if variable in list(model_status_dict.keys()):
+        if variable in model_status_dict:
             variable_dict[variable].insert(0, f"{model_status_dict[variable]}")
         else:
             variable_dict[variable].insert(0, "no-mapping-found")
 
-    return variable_dict, new_model
+    return variable_dict, model
 
 
-def modify_inm_onm_substreams(stream: str) -> str:
-    """Manually overrides the substream to "iccemod" for all XIOS entries that have streams contained in ICEMOD_STREAMS.
-
-    Parameters
-    ----------
-    stream: str
-        The stream and substream to modify, this takes the form "base_stream/sub_stream" (e.g. inm/grid-T).
-
-    Returns
-    -------
-    str:
-        The complete stream containing the updated substream (e.g. inm/icemod)
-    """
-
-    return f"{stream.split('/')[0]}/icemod"
-
-
-def get_stream_from_XIOS(mapping: dict, model: str, variable: str) -> str:
+def get_stream_from_XIOS(mapping: dict, model: str) -> str:
     """If there are no streams listed from the stash, this function aims to access a stream/substream from the XIOS
     entries for a single variable within a model.
 
@@ -322,28 +293,20 @@ def get_stream_from_XIOS(mapping: dict, model: str, variable: str) -> str:
         The mapping information for a single variable.
     model: str
         The model associated with the experiment that has been run.
-    variable:
-        The variable whose stream we wish to extract.
 
     Returns
     str:
         The corresponding stream for the given variable within the given model. Returns "" if no stream can be found.
     """
     xios_dict = mapping.get("XIOS entries")
-    try:
-        full_stream_info = xios_dict[model]
-    except KeyError:
-        # If there is no streams in STASH, no streams in XIOS and the variable is global and not marked 'do-not-produce'
-        # throw an error to warn the user. This is not a critical issue but it is important to note since variables
-        # without stream information cannot be produced.
-        full_stream_info = ""
+    full_stream_info = xios_dict.get(model, "")
 
     # Extract just the stream for the information given in the XIOS info.
     stream = full_stream_info.split("`")[0] if full_stream_info else ""
-    # All in* streams in UKCM2 models must be updated to use the icemod sub stream.
-    if model in ICEMOD_STREAMS.keys():
-        if any(base_stream in stream for base_stream in ICEMOD_STREAMS[model]):
-            stream = modify_inm_onm_substreams(stream)
+    # ind/inm streams in UKCM2 models must be overriden to use the /icemod sub stream.
+    if model in ICEMOD_STREAMS:
+        if any(base_stream in stream for base_stream in ICEMOD_STREAMS.get(model)):
+            stream = f"{stream.split('/')[0]}/icemod"
 
     return stream
 
@@ -368,26 +331,34 @@ def get_streams(experiment_dict: dict, experiment: str, mappings_dict: list[dict
         A dictionary containing variables and their associated output stream.
     """
     streams = {}
-
     # Access stash entries for each variable and check if it contains values.
     all_labels = get_all_variables(experiment_dict, experiment)
     for variable in all_labels:
         mapping = get_mapping(mappings_dict, variable)
+        if not mapping:
+            streams[variable] = ""
+            continue
+
         stream = mapping.get("stream").lower()
-        # Manually apply all fixed variables streams, these will not appear in XIOS or STASH info.
         if "fx" in mapping.get("labels") and not stream:
-            realm = variable.split(".")[0]
-            if realm in ["ocean", "ocnBgchem", "seaIce"]:
-                stream = "ofx"
-            elif realm in ["atmos", "aerosol", "atmosChem", "land", "landIce"]:
-                stream = "afx"
-        # If theres no stream in STASH and the variable is not fx, look for a stream in the XIOS info.
+            stream = apply_fx_streams(variable)
+        # If theres no stream in STASH and the variable is not fixed, look for a stream in the XIOS info.
         if not stream:
-            stream = get_stream_from_XIOS(mapping, model, variable)
+            stream = get_stream_from_XIOS(mapping, model)
 
         streams[variable] = stream
 
     return streams
+
+
+def apply_fx_streams(variable):
+    realm = variable.split(".")[0]
+    if realm in ["ocean", "ocnBgchem", "seaIce"]:
+        return "ofx"
+    elif realm in ["atmos", "aerosol", "atmosChem", "land", "landIce"]:
+        return "afx"
+    else:
+        raise RuntimeError(f"Unable to apply stream to {variable}, unrecognsied realm `{realm}`")
 
 
 def reformat_variable_names(
@@ -427,8 +398,7 @@ def reformat_variable_names(
     for variable, comment in variable_dict.items():
         parts = variable.split(".")
         if len(parts) < 5:
-            raise KeyError(f"{variable} has unexpected format. Expected: realm.variable.branding.frequency.region")
-
+            raise KeyError(f"{variable} has unexpected format. Expected: realm.variable_id.branding.frequency.region")
         realm, variable_name, branding, frequency, region = parts[:5]
         stream = streams.get(variable, "")
 
@@ -470,17 +440,15 @@ def identify_known_issues(
         values.
     """
     known_issues_dict = read_json(KNOWN_ISSUES_DICT_FILE_LOCATION)
-    for variable in renamed_variable_dict.keys():
+    for variable in renamed_variable_dict:
         for source_id, experiment_id in known_issues_dict.items():
             if source_id == model:
-                try:
-                    variant_dicts = (known_issues_dict[source_id][experiment], known_issues_dict[source_id]["*"])  # Check for experiment specific entries
-                except KeyError:
-                    variant_dicts = [known_issues_dict[source_id]["*"]]  # Check "all experiment" glob
+                model_known_issues = known_issues_dict[source_id]
+                variant_dicts = (model_known_issues.get(experiment), model_known_issues.get("*"))
                 for variant_dict in variant_dicts:
-                    for known_issues_variant_label, variable_list in variant_dict.items():
-                        if known_issues_variant_label in ("*", variant_label):
-                            if (variable.split(":")[0] in variable_list and
+                    if variant_dict:
+                        for known_issues_variant, var_list in variant_dict.items():
+                            if (known_issues_variant in ("*", variant_label) and variable.split(":")[0] in var_list and
                                 "known-issue" not in renamed_variable_dict[variable]):
                                 renamed_variable_dict[variable].insert(0, "known-issue")
 
@@ -518,7 +486,7 @@ def process_variable_dict(
     variable_dict = reformat_variable_names(experiment_dict, experiment, mappings_dict, variable_dict, new_model)
     variable_dict = identify_known_issues(model, experiment, variant_label, variable_dict)
 
-    return variable_dict, model
+    return variable_dict
 
 
 def format_outfile_content(renamed_variable_dict: dict[str, str]) -> list[str]:
@@ -611,7 +579,8 @@ def generate_variable_lists() -> None:
     """
     Generates the variable list files for all experiments.
     """
-    input_method, workflow_id, experiment, model, variant_label = collect_key_variables()
+    args = set_arg_parser()
+    input_method, workflow_id, experiment, model, variant_label = collect_key_variables(args)
     experiment_dict = read_json(DR_FILE_LOCATION)
     mappings_dict = read_json(MAPPINGS_FILE_LOCATION)
 
@@ -625,7 +594,7 @@ def generate_variable_lists() -> None:
             f.writelines(BLANK_FILE_CONTENT)
     else:
         # Process and save the variable dictionary.
-        variable_dict, model = process_variable_dict(experiment_dict, experiment, model, variant_label, mappings_dict)
+        variable_dict = process_variable_dict(experiment_dict, experiment, model, variant_label, mappings_dict)
         save_outfile(outfile, variable_dict)
 
     # Print the output filename the gh env if using inputs from an issue.
