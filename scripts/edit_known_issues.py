@@ -20,8 +20,8 @@ import re
 
 from difflib import get_close_matches
 
-from common import read_json
-from constants import MAPPINGS_FILE_LOCATION, DR_FILE_LOCATION, KNOWN_ISSUES_DICT_FILE_LOCATION
+from scripts.common import read_json
+from scripts.constants import MAPPINGS_FILE_LOCATION, DR_FILE_LOCATION, KNOWN_ISSUES_DICT_FILE_LOCATION
 
 
 def arg_parser() -> argparse.Namespace:
@@ -59,7 +59,6 @@ def get_valid_source_ids() -> set:
     for dictionary in mappings:
         for model in dictionary["models_in_stash"]:
             valid_source_ids.add(model)
-    print(valid_source_ids)
     return valid_source_ids
 
 
