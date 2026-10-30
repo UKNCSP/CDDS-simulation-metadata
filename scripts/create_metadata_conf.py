@@ -26,14 +26,14 @@ from pathlib import Path
 
 from metomi.isodatetime.data import Calendar
 
-from common import get_issue, process_metadata, format_message
-from constants import (
+from scripts.common import get_issue, process_metadata, format_message
+from scripts.constants import (
     DATA,
     METADATA,
     MISC,
     REGEX_FORMAT,
 )
-from validate_metadata import Validate
+from scripts.validate_metadata import Validate
 
 REGEX_DICT = {
     "workflow_pattern": re.compile(REGEX_FORMAT["model_workflow_id"]),

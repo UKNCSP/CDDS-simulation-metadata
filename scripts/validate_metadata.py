@@ -7,7 +7,7 @@ from configparser import ConfigParser
 from metomi.isodatetime.exceptions import ISO8601SyntaxError, IsodatetimeError
 from metomi.isodatetime.data import Calendar
 
-from constants import REQUIRED, PARENT_REQUIRED, DATETIME_FIELDS, REGEX_DICT, CMOR_CV_JSON
+from scripts.constants import REQUIRED, PARENT_REQUIRED, DATETIME_FIELDS, REGEX_DICT, CMOR_CV_JSON
 
 
 class Validate:
