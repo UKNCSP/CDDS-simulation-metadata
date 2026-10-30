@@ -13,7 +13,7 @@ import sys
 
 from pathlib import Path
 
-from constants import DR_VERSION
+from scripts.constants import DR_VERSION
 
 
 def arg_parser() -> argparse.Namespace:
