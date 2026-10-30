@@ -9,8 +9,8 @@ Changes to this script may result in errors within this workflow.
 
 import json
 
-from common import read_json
-from constants import REF_INFO_DIR, MAPPINGS_FILE_LOCATION
+from scripts.common import read_json
+from scripts.constants import REF_INFO_DIR, MAPPINGS_FILE_LOCATION
 
 
 def get_all_models(mappings_dict: list[dict]) -> set:
