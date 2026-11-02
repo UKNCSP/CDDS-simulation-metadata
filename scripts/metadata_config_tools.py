@@ -6,7 +6,7 @@ from metomi.isodatetime.data import Calendar
 
 from configparser import ConfigParser
 
-from constants import WORKFLOW_METADATA_DIR
+from scripts.constants import WORKFLOW_METADATA_DIR
 
 
 class MetadataConfigTools:
@@ -21,6 +21,8 @@ class MetadataConfigTools:
         self.config.read(file_path)
         if not self.config:
             raise FileNotFoundError(f"{file_path} does not exist.")
+
+        return self
 
     def set_calendar(self):
         if self._calendar == "360_day":

@@ -3,8 +3,8 @@
 """Generates estimated storage requirements in TB for each file in `workflow_metadata/*cfg` and applies some manual
 overrides."""
 
-from metadata_config_tools import MetadataConfigTools
-from constants import WORKFLOW_METADATA_DIR, FILESET_ESTIMATES_DIR
+from scripts.metadata_config_tools import MetadataConfigTools
+from scripts.constants import WORKFLOW_METADATA_DIR, FILESET_ESTIMATES_DIR
 
 MAXIMUM_EST = 80
 GB_TO_TB = 1e-3  # 1GB = 0.001TB
