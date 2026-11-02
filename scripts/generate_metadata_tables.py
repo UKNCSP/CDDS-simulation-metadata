@@ -4,11 +4,13 @@
 '.github/workflows/update_webview.yml'. Changes to this script may result in errors in this workflow.
 """
 
-from pathlib import Path
 import glob
+
+from pathlib import Path
 from configparser import ConfigParser
-from constants import (HEADINGS, HEADER_ROW_TEMPLATE, ROW_TEMPLATE, CELL_TEMPLATE, TABLE_TEMPLATE, BGCOLORS,
-                       GITURL_MAPPING, HEADER, FOOTER, HYPERLINK, LAST_UPDATED)
+
+from scripts.constants import (HEADINGS, HEADER_ROW_TEMPLATE, ROW_TEMPLATE, CELL_TEMPLATE, TABLE_TEMPLATE, BGCOLORS,
+                               GITURL_MAPPING, HEADER, FOOTER, HYPERLINK, LAST_UPDATED)
 
 
 def get_mappings() -> list[list[str]]:
