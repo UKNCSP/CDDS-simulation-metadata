@@ -15,7 +15,7 @@ from configparser import ConfigParser, SectionProxy
 from pathlib import Path
 from datetime import datetime
 
-from constants import MIP_TABLE_DIR, CMOR_CV_JSON, DR_VERSION, LATEST_CDDS_RELEASE
+from scripts.constants import MIP_TABLE_DIR, CMOR_CV_JSON, DR_VERSION, LATEST_CDDS_RELEASE
 
 WORKFLOW_METADATA_DIR = "workflow_metadata"
 VARIABLE_LIST_DIR = f"variables/v{DR_VERSION}"
