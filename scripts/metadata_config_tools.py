@@ -30,7 +30,7 @@ class MetadataConfigTools:
         elif self._calendar == "proleptic_gregorian":
             Calendar.default().set_mode("gregorian")
         else:
-            raise RuntimeError(f"Unrecognsied calednar: {self._calendar}")
+            raise RuntimeError(f"Unrecognsied calendar: {self._calendar}")
 
     @property
     def _metadata_section(self):
