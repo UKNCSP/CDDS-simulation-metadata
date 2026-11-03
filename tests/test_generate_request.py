@@ -4,6 +4,7 @@
 import unittest
 import os
 import configparser
+from datetime import datetime
 
 from scripts.generate_request import (process_issue_form, identify_mip_convert_plugin, update_request, REQUEST_TEMPLATE,
                                       validate_request, write_request)
@@ -145,7 +146,7 @@ class TestUpdateRequest(unittest.TestCase):
                 'skip_extract_validation': 'False',
                 'skip_qc': 'False'},
             'data': {
-                'data_version': 'v20261102',
+                'data_version': f"v{datetime.today().strftime('%Y%m%d')}",
                 'end_date': '2100',
                 'mass_data_class': 'crum',
                 'mass_ensemble_member': '',

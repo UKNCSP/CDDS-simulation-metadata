@@ -22,6 +22,7 @@ class TestCollectKeyVariables(unittest.TestCase):
         return self
 
     def test_collect_key_variables_command_line_success(self):
+        os.environ = {}
         args = argparse.Namespace()
         args.workflow_id = "a-bc123"
         args.experiment = "1pctCO2"
