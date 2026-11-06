@@ -117,6 +117,7 @@ seaIce/sitimefrac_tavg-u-hxy-sea@mon:inm  # approved
 seaIce/siu_tavg-u-hxy-si@mon:inm  # approved
 seaIce/siv_tavg-u-hxy-si@mon:inm  # approved
 seaIce/snd_tavg-u-hxy-sn@mon:inm  # approved
+seaIce/ts_tavg-u-hxy-si@mon:ap5  # approved
 aerosol/abs550aer_tavg-u-hxy-u@mon:ap4  # approved
 aerosol/bry_tavg-p39-hy-air@mon:ap4  # approved
 aerosol/c2h6_tavg-al-hxy-u@mon:ap4  # approved
@@ -240,8 +241,12 @@ atmos/uas_tpt-h10m-hxy-u@1hr:ap9  # approved
 atmos/va_tavg-al-hxy-u@mon:ap4  # approved
 atmos/va_tavg-p39-hy-air@mon:ap4  # approved
 atmos/vas_tpt-h10m-hxy-u@1hr:ap9  # approved
+atmos/zg_tavg-1000hPa-hxy-air@day:ap6  # approved
 atmos/zg_tavg-500hPa-hxy-air@day:ap6  # approved
+atmos/zg_tavg-al-hxy-u@mon:ap4  # approved
+atmos/zg_tavg-p39-hy-air@mon:ap4  # approved
 atmos/zg_tpt-500hPa-hxy-air@6hr:ap7  # approved
+atmos/ztp_tavg-u-hxy-u@mon:ap4  # approved
 atmosChem/ch4_tavg-al-hxy-u@mon:ap5  # approved
 atmosChem/ch4_tavg-p39-hy-air@mon:ap4  # approved
 atmosChem/dms_tavg-al-hxy-u@mon:ap4  # approved
@@ -550,10 +555,6 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/mcu_tavg-alh-hxy-u@mon:ap5  # embargoed
 #atmos/prra_tavg-u-hxy-lnd@day:ap6  # embargoed
 #atmos/psl_tpt-u-hxy-u@1hr:ap9  # embargoed
-#atmos/zg_tavg-1000hPa-hxy-air@day:ap6  # embargoed
-#atmos/zg_tavg-al-hxy-u@mon:ap4  # embargoed
-#atmos/zg_tavg-p39-hy-air@mon:ap4  # embargoed
-#atmos/ztp_tavg-u-hxy-u@mon:ap4  # embargoed
 #atmosChem/ch3oh_tavg-al-hxy-u@mon:ap4  # embargoed
 #atmosChem/ch4losssoil_tavg-u-hxy-u@mon:ap4  # embargoed
 #atmosChem/ch4ref_ti-al-hxy-u@fx:afx  # embargoed
@@ -643,7 +644,6 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/hurs_tavg-h2m-hxy-u@6hr:ap7  # known-issue, approved
 #atmos/pr_tavg-u-hxy-u@1hr:ap9  # known-issue, approved
 #atmos/pr_tavg-u-hxy-u@3hr:ap8  # known-issue, approved
-#seaIce/ts_tavg-u-hxy-si@mon:ap5  # known-issue, approved
 #aerosol/no2_tavg-h2m-hxy-u@1hr:ap9  # known-issue, embargoed
 #aerosol/o3_tavg-h2m-hxy-u@1hr:ap9  # known-issue, embargoed
 #aerosol/sfpm25_tavg-h2m-hxy-u@1hr:ap9  # known-issue, embargoed

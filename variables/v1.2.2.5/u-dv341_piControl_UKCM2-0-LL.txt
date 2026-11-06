@@ -173,8 +173,13 @@ atmos/hus_tavg-al-hxy-u@mon:ap5  # approved
 atmos/hus_tpt-al-hxy-u@6hr:ap7  # approved
 atmos/hus_tpt-p7h-hxy-air@6hr:ap7  # approved
 atmos/intuadse_tavg-u-hxy-u@day:ap6  # approved
+atmos/intuaw_tavg-u-hxy-u@day:ap6  # approved
 atmos/intuaw_tavg-u-hxy-u@mon:ap5  # approved
 atmos/intuaw_tpt-u-hxy-u@6hr:ap7  # approved
+atmos/intvadse_tavg-u-hxy-u@day:ap6  # approved
+atmos/intvadse_tavg-u-hxy-u@mon:ap5  # approved
+atmos/intvaw_tavg-u-hxy-u@day:ap6  # approved
+atmos/intvaw_tavg-u-hxy-u@mon:ap5  # approved
 atmos/intvaw_tpt-u-hxy-u@6hr:ap7  # approved
 atmos/pctisccp_tavg-u-hxy-cl@day:ap6  # approved
 atmos/pctisccp_tavg-u-hxy-cl@mon:ap5  # approved
@@ -274,10 +279,15 @@ atmos/vtem_tavg-p39-hy-air@mon:ap5  # approved
 atmos/wap_tavg-500hPa-hxy-air@day:ap6  # approved
 atmos/wtem_tavg-p39-hy-air@day:ap6  # approved
 atmos/wtem_tavg-p39-hy-air@mon:ap5  # approved
+atmos/zg_tavg-1000hPa-hxy-air@day:ap6  # approved
 atmos/zg_tavg-500hPa-hxy-air@day:ap6  # approved
+atmos/zg_tavg-al-hxy-u@mon:ap4  # approved
+atmos/zg_tavg-p39-hy-air@day:ap6  # approved
+atmos/zg_tavg-p39-hy-air@mon:ap4  # approved
 atmos/zg_tpt-500hPa-hxy-air@6hr:ap7  # approved
 atmos/zg_tpt-p3-hxy-air@6hr:ap7  # approved
 atmos/zg_tpt-p7h-hxy-air@6hr:ap7  # approved
+atmos/ztp_tavg-u-hxy-u@mon:ap4  # approved
 atmosChem/dms_tavg-al-hxy-u@mon:ap4  # approved
 #atmosChem/o3ref_tclm-al-hxy-u@mon  # no-mapping-found
 land/evspsblpot_tavg-u-hxy-lnd@mon:ap5  # approved
@@ -458,11 +468,6 @@ ocean/thkcellvo_tavg-ol-hxy-sea@mon:onm/grid-V  # approved, priority=low
 #atmos/evspsbl_tavg-u-hxy-lnd@day:ap6  # embargoed
 #atmos/huss_tpt-h2m-hxy-u@1hr:ap9  # embargoed
 #atmos/intuadse_tavg-u-hxy-u@mon:ap5  # embargoed
-#atmos/intuaw_tavg-u-hxy-u@day:ap6  # embargoed
-#atmos/intvadse_tavg-u-hxy-u@day:ap6  # embargoed
-#atmos/intvadse_tavg-u-hxy-u@mon:ap5  # embargoed
-#atmos/intvaw_tavg-u-hxy-u@day:ap6  # embargoed
-#atmos/intvaw_tavg-u-hxy-u@mon:ap5  # embargoed
 #atmos/mc_tavg-alh-hxy-u@mon:ap5  # embargoed
 #atmos/mcd_tavg-alh-hxy-u@mon:ap5  # embargoed
 #atmos/mcu_tavg-alh-hxy-u@mon:ap5  # embargoed
@@ -479,11 +484,6 @@ ocean/thkcellvo_tavg-ol-hxy-sea@mon:onm/grid-V  # approved, priority=low
 #atmos/tntrscs_tavg-al-hxy-u@mon:apu  # embargoed
 #atmos/tntscp_tavg-al-hxy-u@mon:apu  # embargoed
 #atmos/utendnogw_tavg-p39-hy-air@mon:ap5  # embargoed
-#atmos/zg_tavg-1000hPa-hxy-air@day:ap6  # embargoed
-#atmos/zg_tavg-al-hxy-u@mon:ap4  # embargoed
-#atmos/zg_tavg-p39-hy-air@day:ap6  # embargoed
-#atmos/zg_tavg-p39-hy-air@mon:ap4  # embargoed
-#atmos/ztp_tavg-u-hxy-u@mon:ap4  # embargoed
 #atmosChem/ch4ref_ti-al-hxy-u@fx:afx  # embargoed
 #land/areacellr_ti-u-hxy-u@fx:afx  # embargoed
 #land/evspsblpot_tavg-u-hxy-lnd@day:ap6  # embargoed
@@ -658,11 +658,11 @@ ocean/thkcellvo_tavg-ol-hxy-sea@mon:onm/grid-V  # approved, priority=low
 #atmos/psl_tavg-u-hxy-u@6hr:ap7  # known-issue, approved, priority=medium
 #atmos/rlds_tavg-u-hxy-u@3hr:ap8  # known-issue, approved, priority=medium
 #atmos/rsds_tavg-u-hxy-u@3hr:ap8  # known-issue, approved, priority=medium
-#atmos/rv850_tavg-850hPa-hxy-air@6hr:ap7  # known-issue, embargoed, priority=medium
+#atmos/rv850_tavg-850hPa-hxy-air@6hr:ap7  # known-issue, approved, priority=medium
 #atmos/sfcWind_tavg-h10m-hxy-u@3hr:ap8  # known-issue, approved, priority=medium
 #atmos/uas_tavg-h10m-hxy-u@6hr:ap7  # known-issue, approved, priority=medium
 #atmos/vas_tavg-h10m-hxy-u@6hr:ap7  # known-issue, approved, priority=medium
-#atmos/zg_tavg-1000hPa-hxy-air@6hr:ap7  # known-issue, embargoed, priority=medium
+#atmos/zg_tavg-1000hPa-hxy-air@6hr:ap7  # known-issue, approved, priority=medium
 #land/mrro_tavg-u-hxy-lnd@3hr:ap8  # known-issue, approved, priority=medium
 #land/mrros_tavg-u-hxy-lnd@3hr:ap8  # known-issue, embargoed, priority=medium
 #seaIce/sicompstren_tavg-u-hxy-si@mon:inm/icemod  # known-issue, embargoed, priority=medium
