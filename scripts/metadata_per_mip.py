@@ -7,7 +7,7 @@ import configparser
 
 from pathlib import Path
 
-from constants import WORKFLOW_METADATA_DIR, REQUESTS_DIR, MIP_DOCS_DIR
+from scripts.constants import WORKFLOW_METADATA_DIR, REQUESTS_DIR, MIP_DOCS_DIR
 
 MARKDOWN_TABLE_TITLE = "## Simulations Currently Registered For This MIP"
 TICK = "✅"
