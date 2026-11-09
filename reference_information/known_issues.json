@@ -92,8 +92,7 @@
                 "ocnBgchem/phymisc_tavg-ols-hxy-sea@day": "problems with CMIP7 QC checks: vertical coordinate `seasurface` must include a positive attribute that is either 'up' or 'down' (see CDDS-simulation-metadata issue #485)",
                 "ocnBgchem/phydiat_tavg-ols-hxy-sea@day": "problems with CMIP7 QC checks: vertical coordinate `seasurface` must include a positive attribute that is either 'up' or 'down' (see CDDS-simulation-metadata issue #485)",
                 "ocnBgchem/co3satarag_tavg-ols-hxy-sea@day": "problems with CMIP7 QC checks: vertical coordinate `seasurface` must include a positive attribute that is either 'up' or 'down' (see CDDS-simulation-metadata issue #485)",
-                "ocnBgchem/co3_tavg-ols-hxy-sea@day": "problems with CMIP7 QC checks: vertical coordinate `seasurface` must include a positive attribute that is either 'up' or 'down' (see CDDS-simulation-metadata issue #485)",
-                "seaIce/ts_tavg-u-hxy-si@mon": "Insufficient matching coordinate metadata to resolve cubes, cannot map dimension (0,) of the RHS cube to the LHS cube (see CDDS issue #812) (see CDDS-simulation-metadata issue #198)"
+                "ocnBgchem/co3_tavg-ols-hxy-sea@day": "problems with CMIP7 QC checks: vertical coordinate `seasurface` must include a positive attribute that is either 'up' or 'down' (see CDDS-simulation-metadata issue #485)"
             }
         }
     },
@@ -339,6 +338,38 @@
                 "atmos/rlu4co2_tavg-alh-hxy-u@mon": "improper setup of second radiation call (see CDDS-simulation-metadata issue #218)",
                 "⁠atmos/rldcs4co2_tavg-alh-hxy-u@mon": "improper setup of second radiation call (see CDDS-simulation-metadata issue #218)",
                 "atmos/rld4co2_tavg-alh-hxy-u@mon": "improper setup of second radiation call (see CDDS-simulation-metadata issue #218)"
+            }
+        },
+        "historical": {
+            "*": {
+                "atmos/rsutcs4co2_tavg-u-hxy-u@mon": "improper STASH/radiation call setup (see CDDS-simulation-metadata issue #558)",
+                "atmos/rsut4co2_tavg-u-hxy-u@mon": "improper STASH/radiation call setup (see CDDS-simulation-metadata issue #558)",
+                "atmos/rsucs4co2_tavg-alh-hxy-u@mon": "improper STASH/radiation call setup (see CDDS-simulation-metadata issue #558)",
+                "atmos/rsu4co2_tavg-alh-hxy-u@mon": "improper STASH/radiation call setup (see CDDS-simulation-metadata issue #558)",
+                "atmos/rsdcs4co2_tavg-alh-hxy-u@mon": "improper STASH/radiation call setup (see CDDS-simulation-metadata issue #558)",
+                "atmos/rsd4co2_tavg-alh-hxy-u@mon": "improper STASH/radiation call setup (see CDDS-simulation-metadata issue #558)",
+                "atmos/rlutcs4co2_tavg-u-hxy-u@mon": "improper STASH/radiation call setup (see CDDS-simulation-metadata issue #558)",
+                "atmos/rlut4co2_tavg-u-hxy-u@mon": "improper STASH/radiation call setup (see CDDS-simulation-metadata issue #558)",
+                "atmos/rlucs4co2_tavg-alh-hxy-u@mon": "improper STASH/radiation call setup (see CDDS-simulation-metadata issue #558)",
+                "atmos/rlu4co2_tavg-alh-hxy-u@mon": "improper STASH/radiation call setup (see CDDS-simulation-metadata issue #558)",
+                "atmos/rldcs4co2_tavg-alh-hxy-u@mon": "improper STASH/radiation call setup (see CDDS-simulation-metadata issue #558)",
+                "atmos/rld4co2_tavg-alh-hxy-u@mon": "improper STASH/radiation call setup (see CDDS-simulation-metadata issue #558)"
+            }
+        },
+        "piControl": {
+            "r1i1p1f1": {
+                "atmos/rsutcs4co2_tavg-u-hxy-u@mon": "improper STASH/radiation call setup (see CDDS-simulation-metadata issue #555)",
+                "atmos/rsut4co2_tavg-u-hxy-u@mon": "improper STASH/radiation call setup (see CDDS-simulation-metadata issue #555)",
+                "atmos/rsucs4co2_tavg-alh-hxy-u@mon": "improper STASH/radiation call setup (see CDDS-simulation-metadata issue #555)",
+                "atmos/rsu4co2_tavg-alh-hxy-u@mon": "improper STASH/radiation call setup (see CDDS-simulation-metadata issue #555)",
+                "atmos/rsdcs4co2_tavg-alh-hxy-u@mon": "improper STASH/radiation call setup (see CDDS-simulation-metadata issue #555)",
+                "atmos/rsd4co2_tavg-alh-hxy-u@mon": "improper STASH/radiation call setup (see CDDS-simulation-metadata issue #555)",
+                "atmos/rlutcs4co2_tavg-u-hxy-u@mon": "improper STASH/radiation call setup (see CDDS-simulation-metadata issue #555)",
+                "atmos/rlut4co2_tavg-u-hxy-u@mon": "improper STASH/radiation call setup (see CDDS-simulation-metadata issue #555)",
+                "atmos/rlucs4co2_tavg-alh-hxy-u@mon": "improper STASH/radiation call setup (see CDDS-simulation-metadata issue #555)",
+                "atmos/rlu4co2_tavg-alh-hxy-u@mon": "improper STASH/radiation call setup (see CDDS-simulation-metadata issue #555)",
+                "atmos/rldcs4co2_tavg-alh-hxy-u@mon": "improper STASH/radiation call setup (see CDDS-simulation-metadata issue #555)",
+                "atmos/rld4co2_tavg-alh-hxy-u@mon": "improper STASH/radiation call setup (see CDDS-simulation-metadata issue #555)"
             }
         }
     }

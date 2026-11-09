@@ -168,6 +168,9 @@ def main() -> None:
 
     # Create output file.
     filename = create_filename(meta_dict)
+    output_dir = Path("workflow_metadata")
+    output_dir.mkdir(parents=True, exist_ok=True)
+    output_file = output_dir / f"{filename}"
     delimiter = "EOF"
 
     # Add any warnings to the GitHub env. These are returned to the user on both validation success and failure.
@@ -178,12 +181,10 @@ def main() -> None:
             gh.write(f"warnings<<{delimiter}\n")
             gh.write(f"{warnings}\n")
             gh.write(f"{delimiter}\n")
+            gh.write(f"filename={output_file}")
 
     if not errors:
         print("Validating issue form inputs...  SUCCESSFUL")  # Printed to the action logs for debugging
-        output_dir = Path("workflow_metadata")
-        output_dir.mkdir(parents=True, exist_ok=True)
-        output_file = output_dir / f"{filename}"
 
         # Note the output filename to be provided to the user in the issue comments by the GitHub Actions bot.
         with open(os.environ["GITHUB_OUTPUT"], "a") as gh:
@@ -194,14 +195,19 @@ def main() -> None:
 
     else:
         print("Validating issue form inputs...  FAILED")  # Printed to the action logs for debugging purposes
-        errors = format_message(errors, "error")
-        print(errors)  # Printed to the action logs for debugging purposes
+        errors_msg = format_message(errors, "error")
+        print(errors_msg)  # Printed to the action logs for debugging purposes
         # Note any warnings to be provided to the user in the issue comments by the GitHub Actions bot. This must be
         # written to the the github env in a way that can be interpreted rather than read line by line.
+        organised_metadata["ADDITIONAL INFO"]["notes"] = (organised_metadata["ADDITIONAL INFO"]["notes"] +
+                                                          " !!!WARNING: This metadata was merged by force bypassing "
+                                                          f"{errors} ")
+        format_cfg_file(output_file, organised_metadata)
         with open(os.environ["GITHUB_OUTPUT"], "a") as gh:
             gh.write(f"errors<<{delimiter}\n")
-            gh.write(f"{errors}\n")
+            gh.write(f"{errors_msg}\n")
             gh.write(f"{delimiter}\n")
+            gh.write(f"filename={output_file}")
 
         sys.exit(1)
 

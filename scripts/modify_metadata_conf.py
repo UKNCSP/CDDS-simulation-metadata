@@ -183,6 +183,7 @@ def main():
             gh.write(f"warnings<<{delimiter}\n")
             gh.write(f"{warnings}\n")
             gh.write(f"{delimiter}\n")
+            gh.write(f"filename={filename}")
 
     if not validation_result.errors:
         print("Validating inputs...  SUCCESSFUL")  # Printed to the action logs for debugging
@@ -199,10 +200,15 @@ def main():
         print(errors)  # Printed to the action logs for debugging purposes
         # Note any warnings to be provided to the user in the issue comments by the GitHub Actions bot. This must be
         # written to the the github env in a way that can be interpreted rather than read line by line.
+        metadata_config["ADDITIONAL INFO"]["notes"] = (metadata_config["ADDITIONAL INFO"]["notes"] +
+                                                       ". !!!WARNING: This metadata was modified by force bypassing "
+                                                       f"{validation_result.errors}")
+        save_modified_metadata(filename, metadata_config)
         with open(os.environ["GITHUB_OUTPUT"], "a") as gh:
             gh.write(f"errors<<{delimiter}\n")
             gh.write(f"{errors}\n")
             gh.write(f"{delimiter}\n")
+            gh.write(f"filename={filename}")
 
         sys.exit(1)
 

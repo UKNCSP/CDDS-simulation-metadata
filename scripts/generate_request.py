@@ -74,6 +74,9 @@ REQUEST_TEMPLATE = {
         "streams": "",
         "variable_list_file": ""
     },
+    "inventory": {
+        "inventory_check": ""
+    },
     "misc": {
         "atmos_timestep": ""
     },
@@ -166,18 +169,25 @@ def update_request(request: dict, config: ConfigParser, issue_info: dict) -> dic
 
     var_file = (f'{VARIABLE_LIST_DIR}/{config["data"]["model_workflow_id"]}_{config["metadata"]["experiment_id"]}'
                 f'_{config["metadata"]["model_id"]}.txt')
-    basename = (f'{config["metadata"]["model_id"]}_{config["metadata"]["experiment_id"]}'
-                f'_{config["metadata"]["variant_label"]}_{issue_info["package_name"]}')
     request["data"]["variable_list_file"] = f"<UPDATE_WITH_PATH>/{var_file}"
     request["data"]["streams"] = issue_info["streams"].replace(",", "")
+
+    if issue_info["request_type"] == "JASMIN Request":
+        request["inventory"]["inventory_check"] = "False\n# Inventory is not currently supported for JASMIN"
+    else:
+        request["inventory"]["inventory_check"] = issue_info["inventory_check"]
+
+    basename = (f'{config["metadata"]["model_id"]}_{config["metadata"]["experiment_id"]}'
+                    f'_{config["metadata"]["variant_label"]}_{issue_info["package_name"]}')
     request["common"]["workflow_basename"] = basename
     request["common"]["package"] = issue_info["package_name"]
+
     request["conversion"]["mip_convert_plugin"] = identify_mip_convert_plugin(config["metadata"])
 
     return request
 
 
-def validate_request(request: dict) -> None:
+def validate_request(request: dict) -> list:
     """Validates the request file content against the cmor CMIP7 cvs.
 
     Parameters
@@ -186,10 +196,10 @@ def validate_request(request: dict) -> None:
         request: dict
         The fully populated request template fields and values as a dictionary.
 
-    Raises
+    Returns
     -------
-    RuntimeError
-        If any request file content cannot be validated against cvs.
+    list
+        A list containing any validation errors
     """
     cv = CMOR_CV_JSON
     cv_errors = []
@@ -211,11 +221,10 @@ def validate_request(request: dict) -> None:
         if request["metadata"]["parent_mip"] not in experiment_cv_info["parent_activity_id"]:
             cv_errors.append(f"parent mip does not match one of the expected values given in the cvs")
 
-    if cv_errors:
-        raise RuntimeError(f"Unable to valdidate request file against cvs:\n{cv_errors}")
+    return cv_errors
 
 
-def write_request(filename_prefix, data: SectionProxy, request: dict) -> str:
+def write_request(filename_prefix, data: SectionProxy, request: dict, errors: list) -> str:
     """Writes out the fully populated REQUEST TEMPLATE dictionary to a configuration file format.
 
     Parameters
@@ -224,6 +233,8 @@ def write_request(filename_prefix, data: SectionProxy, request: dict) -> str:
         The data section of the workflow metadata configuration file.
     request: dict
         The fully populated request template fields and values as a dictionary.
+    errors: list
+        A list containing any errors flagged in validation
 
     Returns
     -------
@@ -232,6 +243,8 @@ def write_request(filename_prefix, data: SectionProxy, request: dict) -> str:
     """
     filename = f"{filename_prefix}_request_{data['model_workflow_id']}_{request['common']['package']}.cfg"
     with open(Path("requests") / filename, "w") as f:
+        if errors:
+            f.write(f"# WARNING: This request was merged by force, bypassing {errors}")
         f.write(f"# At the point of request generation the latest CDDS release is {LATEST_CDDS_RELEASE}.\n")
         f.write("# You can activate this by running the command `source ~cdds/bin/setup_env_for_cdds "
                 f"{LATEST_CDDS_RELEASE.lstrip('v')}`\n")
@@ -278,13 +291,20 @@ def generate_request_config() -> None:
 
     # Populate the request template with values from the workflow metadata config file and re validate where possible.
     update_request(request, config, issue_info)
-    validate_request(request)
-    filename = write_request(filename_prefix, config["data"], request)
+    errors = validate_request(request)
+    filename = write_request(filename_prefix, config["data"], request, errors)
+    delim = "EOF"
 
     # Note the relative path to the generated request and assocaited variable list to help with user navigation.
     with open(os.environ["GITHUB_OUTPUT"], "a") as gh:
         gh.write(f"var_list={request['data']['variable_list_file'].replace("<UPDATE_WITH_PATH>/", "")}\n")
-        gh.write(f"request_filename={filename}")
+        gh.write(f"request_filename={filename}\n")
+        gh.write(f"errors<<{delim}\n")
+        gh.write(f"{errors}\n")
+        gh.write(f"{delim}\n")
+
+    if errors:
+        sys.exit(1)
 
 
 if __name__ == "__main__":
