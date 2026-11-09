@@ -211,39 +211,27 @@ atmos/reffclwc_tavg-al-hxy-ccl@mon:ap5  # approved
 atmos/reffclws_tavg-al-hxy-scl@mon:ap5  # approved
 atmos/reffsclwtop_tavg-u-hxy-scl@mon:ap5  # approved
 atmos/rld_tavg-alh-hxy-u@mon:ap5  # approved
-atmos/rld4co2_tavg-alh-hxy-u@mon:ap5  # approved
 atmos/rldcs_tavg-alh-hxy-u@mon:ap5  # approved
-atmos/rldcs4co2_tavg-alh-hxy-u@mon:ap5  # approved
 atmos/rlds_tavg-u-hxy-u@day:ap6  # approved
 atmos/rldscs_tavg-u-hxy-u@day:ap6  # approved
 atmos/rls_tavg-u-hxy-u@mon:ap5  # approved
 atmos/rlu_tavg-alh-hxy-u@mon:ap5  # approved
-atmos/rlu4co2_tavg-alh-hxy-u@mon:ap5  # approved
 atmos/rlucs_tavg-alh-hxy-u@mon:ap5  # approved
-atmos/rlucs4co2_tavg-alh-hxy-u@mon:ap5  # approved
 atmos/rlus_tavg-u-hxy-u@day:ap6  # approved
 atmos/rluscs_tavg-u-hxy-u@day:ap6  # approved
 atmos/rlut_tavg-u-hxy-u@day:ap6  # approved
-atmos/rlut4co2_tavg-u-hxy-u@mon:ap5  # approved
 atmos/rlutcs_tavg-u-hxy-u@day:ap6  # approved
-atmos/rlutcs4co2_tavg-u-hxy-u@mon:ap5  # approved
 atmos/rsd_tavg-alh-hxy-u@mon:ap5  # approved
-atmos/rsd4co2_tavg-alh-hxy-u@mon:ap5  # approved
 atmos/rsdcs_tavg-alh-hxy-u@mon:ap5  # approved
-atmos/rsdcs4co2_tavg-alh-hxy-u@mon:ap5  # approved
 atmos/rsdscs_tavg-u-hxy-u@day:ap6  # approved
 atmos/rsdt_tavg-u-hxy-u@day:ap6  # approved
 atmos/rss_tavg-u-hxy-u@mon:ap5  # approved
 atmos/rsu_tavg-alh-hxy-u@mon:ap5  # approved
-atmos/rsu4co2_tavg-alh-hxy-u@mon:ap5  # approved
 atmos/rsucs_tavg-alh-hxy-u@mon:ap5  # approved
-atmos/rsucs4co2_tavg-alh-hxy-u@mon:ap5  # approved
 atmos/rsus_tavg-u-hxy-u@day:ap6  # approved
 atmos/rsuscs_tavg-u-hxy-u@day:ap6  # approved
 atmos/rsut_tavg-u-hxy-u@day:ap6  # approved
-atmos/rsut4co2_tavg-u-hxy-u@mon:ap5  # approved
 atmos/rsutcs_tavg-u-hxy-u@day:ap6  # approved
-atmos/rsutcs4co2_tavg-u-hxy-u@mon:ap5  # approved
 atmos/rtmt_tavg-u-hxy-u@mon:ap5  # approved
 atmos/rv850_tpt-850hPa-hxy-air@6hr:ap7  # approved
 atmos/sci_tavg-u-hxy-u@mon:ap5  # approved
@@ -690,18 +678,30 @@ ocean/thkcellvo_tavg-ol-hxy-sea@mon:onm/grid-V  # approved, priority=low
 #atmos/ps_tavg-u-hxy-u@1hr:ap9  # known-issue, approved
 #atmos/ps_tavg-u-hxy-u@6hr:ap7  # known-issue, approved
 #atmos/ps_tpt-u-hxy-u@6hr:ap7  # known-issue, approved
+#atmos/rld4co2_tavg-alh-hxy-u@mon:ap5  # known-issue, approved
+#atmos/rldcs4co2_tavg-alh-hxy-u@mon:ap5  # known-issue, approved
 #atmos/rlds_tavg-u-hxy-u@1hr:ap9  # known-issue, approved
 #atmos/rlds_tavg-u-hxy-u@3hr:ap8  # known-issue, approved
 #atmos/rlds_tavg-u-hxy-u@6hr:ap7  # known-issue, approved
+#atmos/rlu4co2_tavg-alh-hxy-u@mon:ap5  # known-issue, approved
+#atmos/rlucs4co2_tavg-alh-hxy-u@mon:ap5  # known-issue, approved
 #atmos/rlus_tavg-u-hxy-u@3hr:ap8  # known-issue, approved
 #atmos/rlut_tavg-u-hxy-u@3hr:ap8  # known-issue, approved
+#atmos/rlut4co2_tavg-u-hxy-u@mon:ap5  # known-issue, approved
 #atmos/rlutcs_tavg-u-hxy-u@3hr:ap8  # known-issue, embargoed
+#atmos/rlutcs4co2_tavg-u-hxy-u@mon:ap5  # known-issue, approved
+#atmos/rsd4co2_tavg-alh-hxy-u@mon:ap5  # known-issue, approved
+#atmos/rsdcs4co2_tavg-alh-hxy-u@mon:ap5  # known-issue, approved
 #atmos/rsds_tavg-u-hxy-u@1hr:ap9  # known-issue, approved
 #atmos/rsds_tavg-u-hxy-u@3hr:ap8  # known-issue, approved
 #atmos/rsds_tavg-u-hxy-u@6hr:ap7  # known-issue, approved
+#atmos/rsu4co2_tavg-alh-hxy-u@mon:ap5  # known-issue, approved
+#atmos/rsucs4co2_tavg-alh-hxy-u@mon:ap5  # known-issue, approved
 #atmos/rsus_tavg-u-hxy-u@3hr:ap8  # known-issue, approved
 #atmos/rsut_tavg-u-hxy-u@3hr:ap8  # known-issue, embargoed
+#atmos/rsut4co2_tavg-u-hxy-u@mon:ap5  # known-issue, approved
 #atmos/rsutcs_tavg-u-hxy-u@3hr:ap8  # known-issue, embargoed
+#atmos/rsutcs4co2_tavg-u-hxy-u@mon:ap5  # known-issue, approved
 #atmos/sfcWind_tavg-h10m-hxy-u@1hr:ap9  # known-issue, approved
 #atmos/sfcWind_tavg-h10m-hxy-u@6hr:ap7  # known-issue, approved
 #atmos/ta_tavg-al-hxy-u@mon:ap5  # known-issue, embargoed
