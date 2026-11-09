@@ -93,7 +93,8 @@ class TestUpdateRequest(unittest.TestCase):
             'model_workflow_id': 'a-bc123',
             'request_type': 'Standard Met Office Request',
             'streams': 'ap4',
-            'package_name': 'round-1'
+            'package_name': 'round-1',
+            'inventory_check': 'True'
         }
 
         return self
@@ -156,6 +157,7 @@ class TestUpdateRequest(unittest.TestCase):
                 'start_date': '1850',
                 'streams': 'ap4',
                 'variable_list_file': '<UPDATE_WITH_PATH>/variables/v1.2.2.5/a-bc123_1pctCO2_UKCM2-0-LL.txt'},
+            'inventory': {'inventory_check': 'True'},
             'misc': {'atmos_timestep': '1200'},
             'netcdf_global_attributes': {
                 'data_specs_version': 'MIP-DS7.1.0.0',
@@ -223,6 +225,7 @@ class TestValidateRequest(unittest.TestCase):
                 'start_date': '1850',
                 'streams': 'ap4',
                 'variable_list_file': '<UPDATE_WITH_PATH>/variables/v1.2.2.5/a-bc123_1pctCO2_UKCM2-0-LL.txt'},
+            'inventory': {'inventory_check': ''},
             'misc': {'atmos_timestep': '1200'},
             'netcdf_global_attributes': {
                 'data_specs_version': 'MIP-DS7.1.0.0',
@@ -232,7 +235,7 @@ class TestValidateRequest(unittest.TestCase):
         return self
 
     def test_validate_request_success(self):
-        self.assertEqual(validate_request(self.request), None, "Incorrectly flagged valid request as invalid")
+        self.assertEqual(validate_request(self.request), [], "Incorrectly flagged valid request as invalid")
 
     def test_validate_request_experiment_failure(self):
         # Tests for invalid institution, license and experiment id.
@@ -249,22 +252,16 @@ class TestValidateRequest(unittest.TestCase):
     def test_validate_request_mip_failure(self):
         # Tests for invalid mip on a no parent branching method
         self.request["metadata"]["mip"] = "foo"
-        expected_err_msg = ("Unable to valdidate request file against cvs:\n['mip does not match one of the expected "
-                            "values given in the cvs']")
-        with self.assertRaises(RuntimeError) as context:
-            validate_request(self.request)
-        self.assertEqual(str(context.exception), expected_err_msg)
+        expected_err_msg = ["mip does not match one of the expected values given in the cvs"]
+        self.assertEqual(validate_request(self.request), expected_err_msg, "Failed to flag invalid mip")
 
     def test_validate_request_no_parent_failure(self):
         # Tests for invalid parent branching information
         self.request["metadata"]["parent_experiment_id"] = "foo"
         self.request["metadata"]["parent_mip"] = "bar"
-        expected_err_msg = ("Unable to valdidate request file against cvs:\n['parent experiment id does not match one "
-                            "of the expected values given in the cvs', 'parent mip does not match one of the expected "
-                            "values given in the cvs']")
-        with self.assertRaises(RuntimeError) as context:
-            validate_request(self.request)
-        self.assertEqual(str(context.exception), expected_err_msg)
+        expected_err_msg = ["parent experiment id does not match one of the expected values given in the cvs",
+                            "parent mip does not match one of the expected values given in the cvs"]
+        self.assertEqual(validate_request(self.request), expected_err_msg, "Failed to flag invalid parent info")
 
 
 # This is difficult to unit test since the function has multiple utilities including file creation, these should be
