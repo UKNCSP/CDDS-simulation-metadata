@@ -33,7 +33,7 @@ from constants import (
     MISC,
     REGEX_FORMAT,
 )
-from scripts.validate_metadata import Validate
+from validate_metadata import Validate
 
 REGEX_DICT = {
     "workflow_pattern": re.compile(REGEX_FORMAT["model_workflow_id"]),

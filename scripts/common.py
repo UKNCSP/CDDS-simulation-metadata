@@ -6,7 +6,7 @@ from pathlib import Path
 import json
 import os
 
-from scripts.constants import META_FIELDS
+from constants import META_FIELDS
 
 
 def read_json(source_path: Path):
