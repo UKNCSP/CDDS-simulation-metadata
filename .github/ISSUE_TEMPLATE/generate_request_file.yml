@@ -68,3 +68,14 @@ body:
       placeholder: "round-1"
     validations:
       required: true
+
+  - type: dropdown 
+    id: inventory
+    attributes:
+      label: Inventory
+      description: Turn on inventory check?
+      options:
+        - "True"
+        - "False"
+    validations:
+      required: true
