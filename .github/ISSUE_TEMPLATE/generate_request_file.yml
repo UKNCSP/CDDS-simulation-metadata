@@ -73,9 +73,10 @@ body:
     id: inventory
     attributes:
       label: Inventory Check
-      description: Turn on inventory check?
+      description: Turn on inventory check? (Met Office only)
       options:
         - "True"
         - "False"
+      default: 0
     validations:
       required: true
