@@ -68,3 +68,15 @@ body:
       placeholder: "round-1"
     validations:
       required: true
+
+  - type: dropdown 
+    id: inventory
+    attributes:
+      label: Inventory Check
+      description: Turn on inventory check? (Met Office only)
+      options:
+        - "True"
+        - "False"
+      default: 0
+    validations:
+      required: true

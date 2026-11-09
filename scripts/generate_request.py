@@ -74,6 +74,9 @@ REQUEST_TEMPLATE = {
         "streams": "",
         "variable_list_file": ""
     },
+    "inventory": {
+        "inventory_check": ""
+    },
     "misc": {
         "atmos_timestep": ""
     },
@@ -166,12 +169,19 @@ def update_request(request: dict, config: ConfigParser, issue_info: dict) -> dic
 
     var_file = (f'{VARIABLE_LIST_DIR}/{config["data"]["model_workflow_id"]}_{config["metadata"]["experiment_id"]}'
                 f'_{config["metadata"]["model_id"]}.txt')
-    basename = (f'{config["metadata"]["model_id"]}_{config["metadata"]["experiment_id"]}'
-                f'_{config["metadata"]["variant_label"]}_{issue_info["package_name"]}')
     request["data"]["variable_list_file"] = f"<UPDATE_WITH_PATH>/{var_file}"
     request["data"]["streams"] = issue_info["streams"].replace(",", "")
+
+    if issue_info["request_type"] == "JASMIN Request":
+        request["inventory"]["inventory_check"] = "False\n# Inventory is not currently supported for JASMIN"
+    else:
+        request["inventory"]["inventory_check"] = issue_info["inventory_check"]
+
+    basename = (f'{config["metadata"]["model_id"]}_{config["metadata"]["experiment_id"]}'
+                    f'_{config["metadata"]["variant_label"]}_{issue_info["package_name"]}')
     request["common"]["workflow_basename"] = basename
     request["common"]["package"] = issue_info["package_name"]
+
     request["conversion"]["mip_convert_plugin"] = identify_mip_convert_plugin(config["metadata"])
 
     return request
