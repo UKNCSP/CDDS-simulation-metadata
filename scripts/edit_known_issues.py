@@ -20,8 +20,8 @@ import re
 
 from difflib import get_close_matches
 
-from scripts.common import read_json
-from scripts.constants import MAPPINGS_FILE_LOCATION, DR_FILE_LOCATION, KNOWN_ISSUES_DICT_FILE_LOCATION
+from common import read_json
+from constants import MAPPINGS_FILE_LOCATION, DR_FILE_LOCATION, KNOWN_ISSUES_DICT_FILE_LOCATION
 
 
 def arg_parser() -> argparse.Namespace:

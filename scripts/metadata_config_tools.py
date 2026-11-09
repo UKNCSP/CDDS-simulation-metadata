@@ -6,7 +6,7 @@ from metomi.isodatetime.data import Calendar
 
 from configparser import ConfigParser
 
-from scripts.constants import WORKFLOW_METADATA_DIR
+from constants import WORKFLOW_METADATA_DIR
 
 
 class MetadataConfigTools:

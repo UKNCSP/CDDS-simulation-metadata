@@ -26,8 +26,8 @@ from pathlib import Path
 
 from metomi.isodatetime.data import Calendar
 
-from scripts.common import get_issue, process_metadata, format_message
-from scripts.constants import (
+from common import get_issue, process_metadata, format_message
+from constants import (
     DATA,
     METADATA,
     MISC,

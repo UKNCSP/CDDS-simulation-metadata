@@ -9,8 +9,8 @@ import glob
 from pathlib import Path
 from configparser import ConfigParser
 
-from scripts.constants import (HEADINGS, HEADER_ROW_TEMPLATE, ROW_TEMPLATE, CELL_TEMPLATE, TABLE_TEMPLATE, BGCOLORS,
-                               GITURL_MAPPING, HEADER, FOOTER, HYPERLINK, LAST_UPDATED)
+from constants import (HEADINGS, HEADER_ROW_TEMPLATE, ROW_TEMPLATE, CELL_TEMPLATE, TABLE_TEMPLATE, BGCOLORS,
+                       GITURL_MAPPING, HEADER, FOOTER, HYPERLINK, LAST_UPDATED)
 
 
 def get_mappings() -> list[list[str]]:
