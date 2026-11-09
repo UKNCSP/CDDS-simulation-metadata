@@ -15,7 +15,7 @@ from configparser import ConfigParser, SectionProxy
 from pathlib import Path
 from datetime import datetime
 
-from constants import MIP_TABLE_DIR, CMOR_CV_JSON, DR_VERSION, LATEST_CDDS_RELEASE
+from constants import MIP_TABLE_DIR, CMOR_CV_JSON, DR_VERSION, LATEST_CDDS_RELEASE, INVENTORY_DATABASE_LOCATION
 
 WORKFLOW_METADATA_DIR = "workflow_metadata"
 VARIABLE_LIST_DIR = f"variables/v{DR_VERSION}"
@@ -73,6 +73,10 @@ REQUEST_TEMPLATE = {
         "start_date": "",
         "streams": "",
         "variable_list_file": ""
+    },
+    "inventory": {
+        "inventory_check": "",
+        "inventory_database_location": ""
     },
     "misc": {
         "atmos_timestep": ""
@@ -166,12 +170,19 @@ def update_request(request: dict, config: ConfigParser, issue_info: dict) -> dic
 
     var_file = (f'{VARIABLE_LIST_DIR}/{config["data"]["model_workflow_id"]}_{config["metadata"]["experiment_id"]}'
                 f'_{config["metadata"]["model_id"]}.txt')
-    basename = (f'{config["metadata"]["model_id"]}_{config["metadata"]["experiment_id"]}'
-                f'_{config["metadata"]["variant_label"]}_{issue_info["package_name"]}')
     request["data"]["variable_list_file"] = f"<UPDATE_WITH_PATH>/{var_file}"
     request["data"]["streams"] = issue_info["streams"].replace(",", "")
+
+    inventory_flag = issue_info["inventory_check"]
+    request["inventory"]["inventory_check"] = inventory_flag
+    if inventory_flag == "True":
+        request["inventory"]["inventory_database_location"] = INVENTORY_DATABASE_LOCATION
+
+    basename = (f'{config["metadata"]["model_id"]}_{config["metadata"]["experiment_id"]}'
+                    f'_{config["metadata"]["variant_label"]}_{issue_info["package_name"]}')
     request["common"]["workflow_basename"] = basename
     request["common"]["package"] = issue_info["package_name"]
+
     request["conversion"]["mip_convert_plugin"] = identify_mip_convert_plugin(config["metadata"])
 
     return request

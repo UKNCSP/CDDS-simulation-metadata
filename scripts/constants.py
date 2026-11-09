@@ -192,3 +192,5 @@ FILESET_ESTIMATES_DIR = Path("fileset_storage_estimates")
 
 # Latest release version in the form `vX.Y.Z`
 LATEST_CDDS_RELEASE = requests.get("https://api.github.com/repos/MetOffice/CDDS/releases").json()[0].get("tag_name")
+
+INVENTORY_DATABASE_LOCATION = "$CDDS_ETC/inventory/inventory_cmip7.db"
