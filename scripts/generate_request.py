@@ -172,8 +172,10 @@ def update_request(request: dict, config: ConfigParser, issue_info: dict) -> dic
     request["data"]["variable_list_file"] = f"<UPDATE_WITH_PATH>/{var_file}"
     request["data"]["streams"] = issue_info["streams"].replace(",", "")
 
-    inventory_flag = issue_info["inventory_check"]
-    request["inventory"]["inventory_check"] = inventory_flag
+    if issue_info["request_type"] == "JASMIN Request":
+        request["inventory"]["inventory_check"] = "False\n# Inventory is not currently supported for JASMIN"
+    else:
+        request["inventory"]["inventory_check"] = issue_info["inventory_check"]
 
     basename = (f'{config["metadata"]["model_id"]}_{config["metadata"]["experiment_id"]}'
                     f'_{config["metadata"]["variant_label"]}_{issue_info["package_name"]}')
