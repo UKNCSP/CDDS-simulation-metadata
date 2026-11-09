@@ -52,7 +52,6 @@ jobs:
 
       - name: return issues to user
         id: check-issues
-        if: steps.create-file.outcome == 'failure'
         run: |
           if ${{ steps.create-file.outcome }} == 'failure'; then
             gh issue comment "$NUMBER" --body "$BODY"
