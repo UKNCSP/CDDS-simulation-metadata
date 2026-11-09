@@ -15,7 +15,7 @@ from configparser import ConfigParser, SectionProxy
 from pathlib import Path
 from datetime import datetime
 
-from constants import MIP_TABLE_DIR, CMOR_CV_JSON, DR_VERSION, LATEST_CDDS_RELEASE, INVENTORY_DATABASE_LOCATION
+from constants import MIP_TABLE_DIR, CMOR_CV_JSON, DR_VERSION, LATEST_CDDS_RELEASE
 
 WORKFLOW_METADATA_DIR = "workflow_metadata"
 VARIABLE_LIST_DIR = f"variables/v{DR_VERSION}"
@@ -75,8 +75,7 @@ REQUEST_TEMPLATE = {
         "variable_list_file": ""
     },
     "inventory": {
-        "inventory_check": "",
-        "inventory_database_location": ""
+        "inventory_check": ""
     },
     "misc": {
         "atmos_timestep": ""
@@ -175,8 +174,6 @@ def update_request(request: dict, config: ConfigParser, issue_info: dict) -> dic
 
     inventory_flag = issue_info["inventory_check"]
     request["inventory"]["inventory_check"] = inventory_flag
-    if inventory_flag == "True":
-        request["inventory"]["inventory_database_location"] = INVENTORY_DATABASE_LOCATION
 
     basename = (f'{config["metadata"]["model_id"]}_{config["metadata"]["experiment_id"]}'
                     f'_{config["metadata"]["variant_label"]}_{issue_info["package_name"]}')
