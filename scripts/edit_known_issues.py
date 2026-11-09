@@ -59,7 +59,6 @@ def get_valid_source_ids() -> set:
     for dictionary in mappings:
         for model in dictionary["models_in_stash"]:
             valid_source_ids.add(model)
-    print(valid_source_ids)
     return valid_source_ids
 
 

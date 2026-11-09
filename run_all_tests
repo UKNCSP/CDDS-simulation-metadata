@@ -121,6 +121,12 @@ def check_mypy_compliance(arguments: argparse.Namespace, exit_code: int) -> int:
 
 
 def run_unittests(exit_code: int):
+    environment = os.environ.copy()
+    python_paths = [CDDS_SIM_META_DIR, os.path.join(CDDS_SIM_META_DIR, 'scripts')]
+    if environment.get('PYTHONPATH'):
+        python_paths.append(environment['PYTHONPATH'])
+    environment['PYTHONPATH'] = os.pathsep.join(python_paths)
+
     for package, tests in TESTS_TO_RUN.items():
         print('\nExecuting tests for {}:'.format(package))
         for test in tests:
@@ -131,7 +137,8 @@ def run_unittests(exit_code: int):
             command_str = ' '.join(command)
             print('--> {} {}'.format(command_str, (46 - len(command_str)) * '.'), end=''),
             sys.stdout.flush()
-            process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=CDDS_SIM_META_DIR,
+                                       env=environment)
             stdoutdata, stderrdata = process.communicate()
             if process.returncode == 0:
                 info = stdoutdata.decode('utf-8').split('\n')

@@ -22,13 +22,15 @@ class MetadataConfigTools:
         if not self.config:
             raise FileNotFoundError(f"{file_path} does not exist.")
 
+        return self
+
     def set_calendar(self):
         if self._calendar == "360_day":
             Calendar.default().set_mode(self._calendar)
         elif self._calendar == "proleptic_gregorian":
             Calendar.default().set_mode("gregorian")
         else:
-            raise RuntimeError(f"Unrecognsied calednar: {self._calendar}")
+            raise RuntimeError(f"Unrecognsied calendar: {self._calendar}")
 
     @property
     def _metadata_section(self):
