@@ -39,6 +39,17 @@ review from a CDDS team member. To make any changes, you must first download it 
 If you need to update or remove information within a workflow metadata configuration file, please open an issue and
 include the relevant model workflow ID, along with a clear description of the requested change.**
 
+## Use Of Generative AI
+This repository may contain code that has been written by or with the assistance of Generative AI. Only GenAI tools that
+have been approved for use by the Met Office may be used. These currently include the Met Office's enterprise licensed
+Github Copilot and Met Office Enterprise M365 Copilot. Personal or individually licensed Copilot accounts are not
+approved for use on this repository. The Met Office reserves the right to revoke the approval of any GenAI tool at any
+time for any reason.
+
+Note: You must verify and amend as necessary all GenAI output that you intend to incorporate into CDDS as you would any
+non-AI assisted content you produce. For example: editing, proof reading, sense checking, code review, testing,
+vulnerability scanning etc.
+
 ## Registering Workflow Metadata
 To register the metadata for a new workflow or edit the metadata for an existing workflow, please navigate to the issue
 tab at the top of the page, click "new issue" and select "Add/Modify Workflow Metadata". This will open up an issue form
