@@ -1,7 +1,7 @@
 <!--(C) British Crown Copyright 2026, Met Office. Please see LICENSE.md for license details.--> 
-# CDDS CMIP7 Simulation Metadata
+# [CDDS CMIP7 Simulation Metadata](https://github.com/UKNCSP/CDDS-simulation-metadata)
 
-The Climate Data Dissemination System (CDDS) is a Python-based system that manages the reprocessing of
+The Climate Data Dissemination System ([CDDS](https://github.com/MetOffice/CDDS)) is a Python-based system that manages the reprocessing of
 HadGEM3/UKCM2 and UKESM climate model data into a ([CMOR](https://cmor.llnl.gov/)) compliant form suitable for publication and sharing.CDDS has been used for CMIP6, CMIP6Plus and has now been redeveloped to support the CMIP7 data requirements.
 
 
@@ -16,3 +16,10 @@ See [here](https://metoffice.github.io/CDDS/latest/operational_procedure/cmip7/)
 ## Contact
 
 You can contact the CDDS team via cdds@metoffice.gov.uk.
+
+
+## Repository Links
+- CDDS: [https://github.com/MetOffice/CDDS](https://github.com/MetOffice/CDDS)
+- CDDS Documentation: [https://metoffice.github.io/CDDS/latest/](https://metoffice.github.io/CDDS/latest/)
+- CDDS Simulation Metadata: [https://github.com/UKNCSP/CDDS-simulation-metadata](https://github.com/UKNCSP/CDDS-simulation-metadata)
+- CDDS CMIP7 Mappings: [https://github.com/UKNCSP/CDDS-CMIP7-mappings](https://github.com/UKNCSP/CDDS-CMIP7-mappings)

@@ -1,5 +1,7 @@
 # British Crown Copyright 2026, Met Office. Please see LICENSE.md for license details.
 site_name: CDDS CMIP7 Simulation Metadata
+repo_url: https://github.com/UKNCSP/CDDS-simulation-metadata
+repo_name: CDDS Simulation Metadata
 theme:
   name: material
   features:
@@ -20,15 +22,13 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
 nav:
-  - Home:
-    - About: index.md
+  - Home: index.md
   - Simulation Metadata Explained: simulation_information/simulation_metadata_explained.md
   - Registered Simulations:
     - The Registration Process: simulation_information/registering_a_simulation.md
     - Table Of Registered Simulations: metadata_tables/index.html
   - CMIP7 Variables:
     - CMIP7 Climate Variables: variable_information/cmip7_variables.md
-    - Baseline Climate Variables: variable_information/bcvs.md
   - CMIP7 Models:
     - UKCM2-0-LL: models/ukcm2-0-ll.md
     - UKCM2a-0-HH: models/ukcm2a-0-hh.md

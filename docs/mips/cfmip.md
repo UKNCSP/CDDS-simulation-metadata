@@ -1,4 +1,6 @@
 <!--(C) British Crown Copyright 2026, Met Office. Please see LICENSE.md for license details.--> 
+To update the information on this page please open a branch to edit the [CFMIP pages](https://github.com/UKNCSP/CDDS-simulation-metadata/blob/main/docs/mips/cfmip.md)
+
 # CFMIP
 [CFMIP](https://www.cfmip.org/) (Cloud Feedback Model Intercomparison Project) aims to improve the understanding of cloud feedbacks and their coupling with circulation, precipitation, and climate. CFMIP includes foundational experiments in the [CMIP AR7 Fast Track](https://www.wcrp-cmip.org/cmip-phases/cmip7/#cmip7_assessment_fast_track_cmip7_aft) to assess climate sensitivity and to understand patterns of surface warming.
 
@@ -9,6 +11,7 @@
 ## Experiments and Protocols
 
 
+<!--Please do not make any changes beyond this point-->
 ## Simulations Currently Registered For This MIP
 | Simulation | Model Workflow ID | In Processing? |
 | ----- | ----- | ----- |

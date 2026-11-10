@@ -1,4 +1,6 @@
-<!--(C) British Crown Copyright 2026, Met Office. Please see LICENSE.md for license details.--> 
+<!--(C) British Crown Copyright 2026, Met Office. Please see LICENSE.md for license details.-->
+To update the information on this page please open a branch to edit the [ScenarioMIP pages](https://github.com/UKNCSP/CDDS-simulation-metadata/blob/main/docs/mips/scenariomip.md)
+
 # ScenarioMIP
 [ScenarioMIP](https://wcrp-cmip.org/mips/scenariomip/) (Scenario Model Intercomparison Project) carries out Earth system model simulations driven by alternative plausible futures of emissions and land use. These include a set of scenarios, intended to be run in emission-driven mode ([GMD, 2026](https://gmd.copernicus.org/articles/19/2627/2026/)), exploring high levels of climate change (to explore high-end climate risks), medium levels of climate change (anchored to current policy), and low levels of climate change (aligned with current international agreements). This also includes plans for long-term extensions to study long-term impacts, climate change-related processes on long timescales and the (ir)reversibility of climate change.
 
@@ -9,6 +11,7 @@
 ## Experiments and Protocols
 
 
+<!--Please do not make any changes beyond this point-->
 ## Simulations Currently Registered For This MIP
 | Simulation | Model Workflow ID | In Processing? |
 | ----- | ----- | ----- |
