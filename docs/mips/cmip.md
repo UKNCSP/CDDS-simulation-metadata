@@ -1,4 +1,6 @@
-<!--(C) British Crown Copyright 2026, Met Office. Please see LICENSE.md for license details.--> 
+<!--(C) British Crown Copyright 2026, Met Office. Please see LICENSE.md for license details.-->
+To update the information on this page please open a branch to edit the [CMIP pages](https://github.com/UKNCSP/CDDS-simulation-metadata/blob/main/docs/mips/cmip.md)
+
 # CMIP
 [CMIP](https://www.wcrp-cmip.org/) (Coupled Model Intercomparison Project) aims to provide climate projections to understand past, present and future changes in climate. This has become essential to the [IPCC](https://www.ipcc.ch/) and other international and national climate assessments.
 
@@ -8,6 +10,7 @@
 ## Experiments and Protocols
 
 
+<!--Please do not make any changes beyond this point-->
 ## Simulations Currently Registered For This MIP
 | Simulation | Model Workflow ID | In Processing? |
 | ----- | ----- | ----- |

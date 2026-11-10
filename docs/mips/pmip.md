@@ -1,4 +1,6 @@
-<!--(C) British Crown Copyright 2026, Met Office. Please see LICENSE.md for license details.--> 
+<!--(C) British Crown Copyright 2026, Met Office. Please see LICENSE.md for license details.-->
+To update the information on this page please open a branch to edit the [PMIP pages](https://github.com/UKNCSP/CDDS-simulation-metadata/blob/main/docs/mips/pmip.md)
+
 # PMIP
 [PMIP](https://pmip.lsce.ipsl.fr/) (Paleoclimate Modelling Intercomparison Project) coordinates model experiments for key past periods including when the climate was at equilibrium and simulations of past changes. These experiments are designed to study the impact of changes in boundary conditions, external forcings and feedbacks of new processes progressively added in climate models. There are also efforts to benchmark model results based on paleo-data by comparing simulations of past climates against paleo-observations.
 
@@ -9,6 +11,7 @@
 ## Experiments and Protocols
 
 
+<!--Please do not make any changes beyond this point-->
 ## Simulations Currently Registered For This MIP
 | Simulation | Model Workflow ID | In Processing? |
 | ----- | ----- | ----- |
