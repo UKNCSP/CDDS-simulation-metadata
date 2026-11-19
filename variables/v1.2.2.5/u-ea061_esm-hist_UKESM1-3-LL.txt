@@ -86,6 +86,7 @@ landIce/mrfso_tavg-u-hxy-lnd@mon:ap5  # approved
 landIce/snc_tavg-u-hxy-lnd@mon:ap5  # approved
 landIce/snw_tavg-u-hxy-lnd@mon:ap5  # approved
 ocean/areacello_ti-u-hxy-u@fx:ofx  # approved
+ocean/basin_ti-u-hxy-u@fx:ofx  # approved
 ocean/deptho_ti-u-hxy-sea@fx:ofx  # approved
 ocean/hfds_tavg-u-hxy-sea@mon:onm/grid-T  # approved
 ocean/hfgeou_ti-u-hxy-sea@fx:ofx  # approved
@@ -119,11 +120,15 @@ seaIce/siv_tavg-u-hxy-si@mon:inm  # approved
 seaIce/snd_tavg-u-hxy-sn@mon:inm  # approved
 seaIce/ts_tavg-u-hxy-si@mon:ap5  # approved
 aerosol/abs550aer_tavg-u-hxy-u@mon:ap4  # approved
+aerosol/abs550dust_tavg-u-hxy-u@mon:ap4  # approved
 aerosol/bry_tavg-p39-hy-air@mon:ap4  # approved
 aerosol/c2h6_tavg-al-hxy-u@mon:ap4  # approved
 aerosol/c3h8_tavg-al-hxy-u@mon:ap4  # approved
 aerosol/cdnc_tavg-al-hxy-u@mon:ap4  # approved
 aerosol/ch3coch3_tavg-al-hxy-u@mon:ap4  # approved
+aerosol/cheaqpso4_tavg-al-hxy-u@mon:ap4  # approved
+aerosol/chegpso4_tavg-al-hxy-u@mon:ap4  # approved
+aerosol/chepsoa_tavg-u-hxy-u@mon:ap4  # approved
 aerosol/cly_tavg-p39-hy-air@mon:ap4  # approved
 aerosol/co_tavg-al-hxy-u@mon:ap4  # approved
 aerosol/depdust_tavg-u-hxy-u@mon:ap5  # approved
@@ -131,14 +136,23 @@ aerosol/drybc_tavg-u-hxy-u@mon:ap4  # approved
 aerosol/drydust_tavg-u-hxy-u@mon:ap4  # approved
 aerosol/dryo3_tavg-u-hxy-u@mon:ap4  # approved
 aerosol/dryoa_tavg-u-hxy-u@mon:ap4  # approved
+aerosol/dryso2_tavg-u-hxy-u@mon:ap4  # approved
 aerosol/dryso4_tavg-u-hxy-u@mon:ap4  # approved
 aerosol/dryss_tavg-u-hxy-u@mon:ap4  # approved
+aerosol/ec550aer_tavg-al-hxy-u@mon:ap5  # approved
+aerosol/emibc_tavg-u-hxy-u@mon:ap4  # approved
+aerosol/emibvoc_tavg-u-hxy-u@mon:ap4  # approved
 aerosol/emico_tavg-u-hxy-u@mon:ap4  # approved
+aerosol/emidms_tavg-u-hxy-u@mon:ap5  # approved
 aerosol/emidust_tavg-u-hxy-u@mon:ap4  # approved
+aerosol/eminh3_tavg-u-hxy-u@mon:ap4  # approved
 aerosol/eminox_tavg-u-hxy-u@mon:ap4  # approved
 aerosol/emioa_tavg-u-hxy-u@mon:ap4  # approved
+aerosol/emiss_tavg-u-hxy-u@mon:ap4  # approved
 aerosol/emivoc_tavg-u-hxy-u@mon:ap4  # approved
+aerosol/h2o_tavg-al-hxy-u@mon:ap4  # approved
 aerosol/hcho_tavg-al-hxy-u@mon:ap4  # approved
+aerosol/hcl_tavg-al-hxy-u@mon:ap4  # approved
 aerosol/hcl_tavg-p39-hy-air@mon:ap4  # approved
 aerosol/hno3_tavg-al-hxy-u@mon:ap4  # approved
 aerosol/hno3_tavg-p39-hy-air@mon:ap4  # approved
@@ -149,11 +163,17 @@ aerosol/lossch4_tavg-al-hxy-u@mon:ap4  # approved
 aerosol/lossco_tavg-al-hxy-u@mon:ap4  # approved
 aerosol/lwp_tavg-u-hxy-u@mon:ap4  # approved
 aerosol/mmraerh2o_tavg-al-hxy-u@mon:ap4  # approved
+aerosol/mmraerh2o_tavg-h2m-hxy-u@day:ap6  # approved
 aerosol/mmrbc_tavg-al-hxy-u@mon:ap4  # approved
+aerosol/mmrbc_tavg-h2m-hxy-u@day:ap6  # approved
 aerosol/mmrdust_tavg-al-hxy-u@mon:ap4  # approved
+aerosol/mmrdust_tavg-h2m-hxy-u@day:ap6  # approved
 aerosol/mmroa_tavg-al-hxy-u@mon:ap4  # approved
+aerosol/mmroa_tavg-h2m-hxy-u@day:ap6  # approved
 aerosol/mmrso4_tavg-al-hxy-u@mon:ap4  # approved
+aerosol/mmrso4_tavg-h2m-hxy-u@day:ap6  # approved
 aerosol/mmrss_tavg-al-hxy-u@mon:ap4  # approved
+aerosol/mmrss_tavg-h2m-hxy-u@day:ap6  # approved
 aerosol/no_tavg-al-hxy-u@mon:ap4  # approved
 aerosol/no2_tavg-al-hxy-u@mon:ap4  # approved
 aerosol/noy_tavg-p39-hy-air@mon:ap4  # approved
@@ -165,7 +185,10 @@ aerosol/od550dust_tavg-u-hxy-u@mon:ap4  # approved
 aerosol/od550lt1aer_tavg-u-hxy-u@mon:ap4  # approved
 aerosol/pan_tavg-al-hxy-u@mon:ap4  # approved
 aerosol/photo1d_tavg-al-hxy-u@mon:ap4  # approved
+aerosol/sfpm10_tavg-h2m-hxy-u@day:ap6  # approved
+aerosol/sfpm25_tavg-h2m-hxy-u@day:ap6  # approved
 aerosol/so2_tavg-al-hxy-u@mon:ap4  # approved
+aerosol/so2_tavg-h2m-hxy-u@day:ap6  # approved
 aerosol/toz_tavg-u-hxy-u@day:ap6  # approved
 aerosol/toz_tavg-u-hxy-u@mon:ap4  # approved
 aerosol/tropoz_tavg-u-hxy-u@mon:ap4  # approved
@@ -334,6 +357,7 @@ atmos/uas_tpt-h10m-hxy-u@6hr:ap7  # approved
 atmos/utendepfd_tavg-p39-hy-air@day:ap6  # approved
 atmos/utendepfd_tavg-p39-hy-air@mon:ap5  # approved
 atmos/utendnogw_tavg-p39-hy-air@day:ap6  # approved
+atmos/utendnogw_tavg-p39-hy-air@mon:ap5  # approved
 atmos/utendogw_tavg-p39-hy-air@day:ap6  # approved
 atmos/va_tavg-al-hxy-u@mon:ap4  # approved
 atmos/va_tavg-p39-hy-air@mon:ap4  # approved
@@ -552,6 +576,9 @@ atmos/tauupbl_tavg-u-hxy-u@day:ap6  # approved, priority=medium
 atmos/tauvpbl_tavg-u-hxy-u@day:ap6  # approved, priority=medium
 atmos/tdps_tavg-h2m-hxy-u@day:ap6  # approved, priority=medium
 atmos/ua_tpt-200hPa-hxy-u@6hr:ap7  # approved, priority=medium
+atmos/utendnogw_tavg-p19-hxy-air@day:ap6  # approved, priority=medium
+atmos/utendnogw_tavg-p19-hxy-air@mon:ap5  # approved, priority=medium
+atmos/utendogw_tavg-p19-hxy-air@day:ap6  # approved, priority=medium
 atmos/utendogw_tavg-p19-hxy-air@mon:ap5  # approved, priority=medium
 atmos/va_tpt-200hPa-hxy-u@6hr:ap7  # approved, priority=medium
 atmos/va_tpt-p6-hxy-air@3hr:ap8  # approved, priority=medium
@@ -663,46 +690,26 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #land/rootd_ti-u-hxy-lnd@fx:afx  # embargoed
 #land/sftgif_ti-u-hxy-u@fx:afx  # embargoed
 #land/slthick_ti-sl-hxy-lnd@fx:afx  # embargoed
-#ocean/basin_ti-u-hxy-u@fx:ofx  # embargoed
 #seaIce/siconc_tavg-u-hxy-u@day:ind  # embargoed
-#aerosol/abs550dust_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/airmass_tavg-al-hxy-u@mon:ap4  # embargoed
 #aerosol/c3h6_tavg-al-hxy-u@mon:ap4  # embargoed
 #aerosol/ccldncl_tavg-u-hxy-ccl@mon:ap5  # embargoed
-#aerosol/cheaqpso4_tavg-al-hxy-u@mon:ap4  # embargoed
-#aerosol/chegpso4_tavg-al-hxy-u@mon:ap4  # embargoed
-#aerosol/chepsoa_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/co_tavg-h2m-hxy-u@day:ap6  # embargoed
 #aerosol/cod_tavg-u-hxy-u@day:ap6  # embargoed
 #aerosol/cod_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/conccn_tavg-al-hxy-u@mon:ap5  # embargoed
 #aerosol/conccn_tpt-u-hs-u@3hr:apt  # embargoed
-#aerosol/dryso2_tavg-u-hxy-u@mon:ap4  # embargoed
-#aerosol/ec550aer_tavg-al-hxy-u@mon:ap5  # embargoed
 #aerosol/ec550aer_tpt-al-hxy-u@6hr:ap7  # embargoed
-#aerosol/emibc_tavg-u-hxy-u@mon:ap4  # embargoed
-#aerosol/emibvoc_tavg-u-hxy-u@mon:ap4  # embargoed
-#aerosol/emidms_tavg-u-hxy-u@mon:ap5  # embargoed
 #aerosol/emiisop_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/emilnox_tavg-u-hxy-u@mon:ap4  # embargoed
-#aerosol/eminh3_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/emiso2_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/emiso4_tavg-u-hxy-u@mon:ap4  # embargoed
-#aerosol/emiss_tavg-u-hxy-u@mon:ap4  # embargoed
-#aerosol/h2o_tavg-al-hxy-u@mon:ap4  # embargoed
-#aerosol/hcl_tavg-al-hxy-u@mon:ap4  # embargoed
-#aerosol/mmraerh2o_tavg-h2m-hxy-u@day:ap6  # embargoed
 #aerosol/mmraerh2o_tpt-h2m-hs-u@3hr:apt  # embargoed
-#aerosol/mmrbc_tavg-h2m-hxy-u@day:ap6  # embargoed
 #aerosol/mmrbc_tpt-h2m-hs-u@3hr:apt  # embargoed
-#aerosol/mmrdust_tavg-h2m-hxy-u@day:ap6  # embargoed
 #aerosol/mmrdust_tpt-h2m-hs-u@3hr:apt  # embargoed
-#aerosol/mmroa_tavg-h2m-hxy-u@day:ap6  # embargoed
 #aerosol/mmroa_tpt-h2m-hs-u@3hr:apt  # embargoed
 #aerosol/mmrpm2p5_tavg-al-hxy-u@mon:ap4  # embargoed
-#aerosol/mmrso4_tavg-h2m-hxy-u@day:ap6  # embargoed
 #aerosol/mmrso4_tpt-h2m-hs-u@3hr:apt  # embargoed
-#aerosol/mmrss_tavg-h2m-hxy-u@day:ap6  # embargoed
 #aerosol/mmrss_tpt-h2m-hs-u@3hr:apt  # embargoed
 #aerosol/od443aer_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/od550aer_tavg-u-hxy-u@day:ap6  # embargoed
@@ -716,9 +723,6 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #aerosol/rsutaf_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/rsutcsaf_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/sfpm10_tavg-al-hxy-u@mon:ap4  # embargoed
-#aerosol/sfpm10_tavg-h2m-hxy-u@day:ap6  # embargoed
-#aerosol/sfpm25_tavg-h2m-hxy-u@day:ap6  # embargoed
-#aerosol/so2_tavg-h2m-hxy-u@day:ap6  # embargoed
 #aerosol/so2_tpt-h2m-hs-u@3hr:apt  # embargoed
 #aerosol/tatp_tavg-u-hxy-u@mon:ap4  # embargoed
 #aerosol/ua_tavg-10hPa-hxy-air@day:ap6  # embargoed
@@ -748,7 +752,6 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/tntrlcs_tavg-al-hxy-u@mon:apu  # embargoed
 #atmos/tntrscs_tavg-al-hxy-u@mon:apu  # embargoed
 #atmos/tntscp_tavg-al-hxy-u@mon:apu  # embargoed
-#atmos/utendnogw_tavg-p39-hy-air@mon:ap5  # embargoed
 #atmosChem/cfc11_tavg-u-hm-air@mon:ap5  # embargoed
 #atmosChem/cfc12_tavg-u-hm-air@mon:ap5  # embargoed
 #atmosChem/ch3oh_tavg-al-hxy-u@mon:ap4  # embargoed
@@ -865,9 +868,6 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/snwc_tavg-u-hxy-lnd@day:ap6  # embargoed, priority=medium
 #atmos/ta_tpt-al-hxy-u@3hr:ap8  # embargoed, priority=medium
 #atmos/ua_tpt-p6-hxy-air@3hr:ap8  # embargoed, priority=medium
-#atmos/utendnogw_tavg-p19-hxy-air@day:ap6  # embargoed, priority=medium
-#atmos/utendnogw_tavg-p19-hxy-air@mon:ap5  # embargoed, priority=medium
-#atmos/utendogw_tavg-p19-hxy-air@day:ap6  # embargoed, priority=medium
 #atmosChem/flashrate_tavg-u-hxy-u@day:ap6  # embargoed, priority=medium
 #land/sweLut_tavg-u-hxy-multi@mon:ap5  # embargoed, priority=medium
 #landIce/hfdsn_tavg-u-hxy-lnd@day:ap6  # embargoed, priority=medium
@@ -939,7 +939,7 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #atmos/pr_tavg-u-hxy-u@3hr:ap8  # known-issue, approved
 #aerosol/no2_tavg-h2m-hxy-u@1hr:ap9  # known-issue, embargoed
 #aerosol/o3_tavg-h2m-hxy-u@1hr:ap9  # known-issue, embargoed
-#aerosol/sfpm25_tavg-h2m-hxy-u@1hr:ap9  # known-issue, embargoed
+#aerosol/sfpm25_tavg-h2m-hxy-u@1hr:ap9  # known-issue, approved
 #atmos/clivi_tavg-u-hxy-u@3hr:ap8  # known-issue, embargoed
 #atmos/clt_tavg-u-hxy-u@3hr:ap8  # known-issue, approved
 #atmos/clwvi_tavg-u-hxy-u@3hr:ap8  # known-issue, embargoed
@@ -1006,7 +1006,7 @@ ocean/tossq_tavg-u-hxy-sea@mon:onm/grid-T  # approved, priority=low
 #ocnBgchem/ph_tavg-ols-hxy-sea@day:ond/diad-T  # known-issue, embargoed, priority=medium
 #ocnBgchem/pp_tavg-ols-hxy-sea@mon:onm/diad-T  # known-issue, approved, priority=medium
 #ocnBgchem/si_tavg-ols-hxy-sea@mon:onm/ptrc-T  # known-issue, approved, priority=medium
-#aerosol/sfpm10_tavg-h2m-hxy-u@1hr:ap9  # known-issue, embargoed, priority=low
+#aerosol/sfpm10_tavg-h2m-hxy-u@1hr:ap9  # known-issue, approved, priority=low
 #ocnBgchem/phydiat_tavg-ols-hxy-sea@day:ond/ptrc-T  # known-issue, embargoed, priority=low
 #ocnBgchem/phymisc_tavg-ols-hxy-sea@day:ond/ptrc-T  # known-issue, embargoed, priority=low
 #aerosol/vt100_tavg-100hPa-hy-air@mon  # unknown (no stream information available)

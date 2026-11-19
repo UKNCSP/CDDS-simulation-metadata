@@ -3,11 +3,11 @@
 # CDDS Simulation Metadata For CMIP7
 [![Deploy static content to Pages](https://github.com/UKNCSP/CDDS-simulation-metadata/actions/workflows/deploy_pages.yml/badge.svg)](https://github.com/UKNCSP/CDDS-simulation-metadata/actions/workflows/deploy_pages.yml)
 
-CURRENT MAPPINGS FILE VERSION: v2026-11-06
+CURRENT MAPPINGS FILE VERSION: CDDS-v4.0.7
 
 CURRENT DATA REQUEST VERSION: 1.2.2.5
 
-CURRENT CDDS RELEASE VERSION: v4.0.6
+CURRENT CDDS RELEASE VERSION: v4.0.7
 
 This CDDS simulation metadata repository is designed to process and store CMIP7 workflow metadata. If you have a new
 workflow that you wish to register, please fill out the issue form marked 'Add/Modify Workflow Metadata'. Upon form
