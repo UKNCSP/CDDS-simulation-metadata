@@ -358,7 +358,10 @@
                 "atmos/clwvimodis_tavg-u-hxy-u@mon": "Required STASH not produced (see CDDS-simulation-metadata issue #626)",
                 "atmos/co2mass_tavg-u-hm-u@mon": "Required STASH not produced (see CDDS-simulation-metadata issue #626)",
                 "landIce/sbl_tavg-u-hxy-lnd@mon": "Required STASH not produced (see CDDS-simulation-metadata issue #626)",
-                "landIce/snm_tavg-u-hxy-lnd@mon": "Required STASH not produced (see CDDS-simulation-metadata issue #626)"
+                "landIce/snm_tavg-u-hxy-lnd@mon": "Required STASH not produced (see CDDS-simulation-metadata issue #626)",
+                "atmos/cli_tavg-al-hxy-u@day": "Required STASH not produced (see CDDS-simulation-metadata issue #627)",
+                "atmos/clw_tavg-al-hxy-u@day": "Required STASH not produced (see CDDS-simulation-metadata issue #627)",
+                "landIce/snc_tavg-u-hxy-lnd@day": "Required STASH not produced (see CDDS-simulation-metadata issue #627)"
             }
         },
         "piControl": {
