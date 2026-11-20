@@ -353,7 +353,12 @@
                 "atmos/rlucs4co2_tavg-alh-hxy-u@mon": "improper STASH/radiation call setup (see CDDS-simulation-metadata issue #558)",
                 "atmos/rlu4co2_tavg-alh-hxy-u@mon": "improper STASH/radiation call setup (see CDDS-simulation-metadata issue #558)",
                 "atmos/rldcs4co2_tavg-alh-hxy-u@mon": "improper STASH/radiation call setup (see CDDS-simulation-metadata issue #558)",
-                "atmos/rld4co2_tavg-alh-hxy-u@mon": "improper STASH/radiation call setup (see CDDS-simulation-metadata issue #558)"
+                "atmos/rld4co2_tavg-alh-hxy-u@mon": "improper STASH/radiation call setup (see CDDS-simulation-metadata issue #558)",
+                "atmos/clivimodis_tavg-u-hxy-u@mon": "Required STASH not produced (see CDDS-simulation-metadata issue #626)",
+                "atmos/clwvimodis_tavg-u-hxy-u@mon": "Required STASH not produced (see CDDS-simulation-metadata issue #626)",
+                "atmos/co2mass_tavg-u-hm-u@mon": "Required STASH not produced (see CDDS-simulation-metadata issue #626)",
+                "landIce/sbl_tavg-u-hxy-lnd@mon": "Required STASH not produced (see CDDS-simulation-metadata issue #626)",
+                "landIce/snm_tavg-u-hxy-lnd@mon": "Required STASH not produced (see CDDS-simulation-metadata issue #626)"
             }
         },
         "piControl": {
