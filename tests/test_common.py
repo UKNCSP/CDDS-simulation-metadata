@@ -2,10 +2,11 @@
 # Please see LICENSE.md for license details.
 import unittest
 import os
+import requests
 
-from unittest.mock import mock_open, patch
+from unittest.mock import MagicMock, mock_open, patch
 
-from scripts.common import read_json, get_issue, process_metadata, format_message
+from scripts.common import read_json, get_issue, process_metadata, format_message, get_latest_cdds_release
 
 
 class TestReadJson(unittest.TestCase):
@@ -91,6 +92,56 @@ class TestFormatMessage(unittest.TestCase):
 
         self.assertEqual(err_msg_result, err_msg_expected, "Failed to correctly format error message")
         self.assertEqual(warn_msg_result, warn_msg_expected, "Failed to correctly format warning message")
+
+
+class TestGetLatestCDDSRelease(unittest.TestCase):
+    def setUp(self):
+        self.mock_response = [{"tag_name": "v4.0.7"}]
+        self.expected_version = "v4.0.7"
+
+        return self
+
+    def test_get_latest_cdds_release_success(self):
+        with patch("scripts.common.requests.get") as mock_get:
+            mock_get.return_value.json.return_value = self.mock_response
+            result = get_latest_cdds_release()
+
+            self.assertEqual(result, self.expected_version)
+            mock_get.assert_called_once()
+
+    def test_get_latest_cdds_release_retry_success_second_attempt(self):
+        with patch("scripts.common.requests.get") as mock_get:
+            with patch("scripts.common.time.sleep") as mock_sleep:
+                # First call fails, second call succeeds
+                response = MagicMock()
+                response.json.return_value = self.mock_response
+                mock_get.side_effect = [requests.Timeout("Connection timeout"), response]
+                result = get_latest_cdds_release()
+
+                self.assertEqual(mock_get.call_count, 2)  # Retry twice
+                mock_sleep.assert_called_once_with(1)  # First retry waits 1 second
+
+    def test_get_latest_cdds_release_retry_success_third_attempt(self):
+        with patch("scripts.common.requests.get") as mock_get:
+            with patch("scripts.common.time.sleep") as mock_sleep:
+                # First two calls fail, third call succeeds
+                response = MagicMock()
+                response.json.return_value = self.mock_response
+                timeout = requests.Timeout("Connection timeout")
+                mock_get.side_effect = [timeout, timeout, response]
+                result = get_latest_cdds_release()
+
+                self.assertEqual(mock_get.call_count, 3)  # Retry thrice
+                sleep_calls = mock_sleep.call_args_list
+                self.assertEqual(sleep_calls[0][0][0], 1)  # First sleep: 1 second
+                self.assertEqual(sleep_calls[1][0][0], 2)  # Second sleep: 2 seconds
+
+    def test_get_latest_cdds_release_failure(self):
+        with patch("scripts.common.requests.get") as mock_get:
+            with patch("scripts.common.time.sleep") as mock_sleep:
+                mock_get.side_effect = requests.Timeout("Connection timeout")
+                with self.assertRaisesRegex(RuntimeError, "Failed to get latest CDDS release"):
+                    get_latest_cdds_release()
 
 
 if __name__ == '__main__':
