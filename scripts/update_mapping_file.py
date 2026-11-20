@@ -11,7 +11,8 @@ import os
 import requests
 import json
 
-from constants import MAPPINGS_FILE_LOCATION, DR_VERSION, LATEST_CDDS_RELEASE
+from constants import MAPPINGS_FILE_LOCATION, DR_VERSION
+from common import get_latest_cdds_release
 
 README_TEMPLATE = """
 <!--(C) British Crown Copyright 2025-2026, Met Office. Please see LICENSE.md for license details.-->
@@ -74,5 +75,6 @@ with open(MAPPINGS_FILE_LOCATION, "w") as f:
 
 badge_link = "https://github.com/UKNCSP/CDDS-simulation-metadata/actions/workflows/deploy_pages.yml/badge.svg"
 workflow_link = "https://github.com/UKNCSP/CDDS-simulation-metadata/actions/workflows/deploy_pages.yml"
+cdds_release = get_latest_cdds_release()
 with open("README.md", "w") as f:
-    f.write(README_TEMPLATE.format(badge_link, workflow_link, mapping_file_version, DR_VERSION, LATEST_CDDS_RELEASE))
+    f.write(README_TEMPLATE.format(badge_link, workflow_link, mapping_file_version, DR_VERSION, cdds_release))

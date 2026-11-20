@@ -3,8 +3,10 @@
 """Holds common functions used throughout `scripts`"""
 
 from pathlib import Path
+
 import json
 import os
+import requests
 
 from constants import META_FIELDS
 
@@ -109,3 +111,11 @@ def format_message(msg: dict[str, str], msg_type) -> str:
     warning_str = "\n".join(warnings)
 
     return warning_str
+
+
+def get_latest_cdds_release() -> str:
+    # Latest release version in the form `vX.Y.Z`
+    cdds_api_link = "https://api.github.com/repos/MetOffice/CDDS/releases"
+    latest_release = requests.get(cdds_api_link).json()[0].get("tag_name")
+
+    return latest_release

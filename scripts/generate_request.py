@@ -15,7 +15,8 @@ from configparser import ConfigParser, SectionProxy
 from pathlib import Path
 from datetime import datetime
 
-from constants import MIP_TABLE_DIR, CMOR_CV_JSON, DR_VERSION, LATEST_CDDS_RELEASE
+from constants import MIP_TABLE_DIR, CMOR_CV_JSON, DR_VERSION
+from common import get_latest_cdds_release
 
 WORKFLOW_METADATA_DIR = "workflow_metadata"
 VARIABLE_LIST_DIR = f"variables/v{DR_VERSION}"
@@ -241,13 +242,14 @@ def write_request(filename_prefix, data: SectionProxy, request: dict, errors: li
     str
         The request filename.
     """
+    release = get_latest_cdds_release()
     filename = f"{filename_prefix}_request_{data['model_workflow_id']}_{request['common']['package']}.cfg"
     with open(Path("requests") / filename, "w") as f:
         if errors:
             f.write(f"# WARNING: This request was merged by force, bypassing {errors}")
-        f.write(f"# At the point of request generation the latest CDDS release is {LATEST_CDDS_RELEASE}.\n")
+        f.write(f"# At the point of request generation the latest CDDS release is {release}.\n")
         f.write("# You can activate this by running the command `source ~cdds/bin/setup_env_for_cdds "
-                f"{LATEST_CDDS_RELEASE.lstrip('v')}`\n")
+                f"{release.lstrip('v')}`\n")
         for section_header, content in request.items():
             f.write(f"[{section_header}]\n")
             if isinstance(content, dict):
