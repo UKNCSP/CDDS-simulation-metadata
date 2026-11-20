@@ -7,6 +7,7 @@ from pathlib import Path
 import json
 import os
 import requests
+import time
 
 from constants import META_FIELDS
 
@@ -116,6 +117,18 @@ def format_message(msg: dict[str, str], msg_type) -> str:
 def get_latest_cdds_release() -> str:
     # Latest release version in the form `vX.Y.Z`
     cdds_api_link = "https://api.github.com/repos/MetOffice/CDDS/releases"
-    latest_release = requests.get(cdds_api_link).json()[0].get("tag_name")
+    max_retries = 3
 
-    return latest_release
+    for attempt in range(max_retries):
+        try:
+            response = requests.get(cdds_api_link, timeout=10)
+            response.raise_for_status()
+            latest_release = response.json()[0].get("tag_name")
+            return latest_release
+        except (requests.RequestException, IndexError, KeyError) as e:
+            if attempt < max_retries - 1:
+                wait_time = 2 ** attempt  # Exponential backoff: 1s, 2s, 4s
+                print(f"Attempt {attempt + 1} failed: {e}. Retrying in {wait_time}s...")
+                time.sleep(wait_time)
+            else:
+                raise RuntimeError("Failed to get latest CDDS release")
