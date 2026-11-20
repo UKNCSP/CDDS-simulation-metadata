@@ -177,11 +177,25 @@ def main():
     print('\n{}'.format('+' * 46))
     print('Elapsed time: {}'.format(elapsed_time))
     if exit_code == 0:
+        environment = os.environ.copy()
+        python_paths = [CDDS_SIM_META_DIR, os.path.join(CDDS_SIM_META_DIR, 'scripts')]
+        if environment.get('PYTHONPATH'):
+            python_paths.append(environment['PYTHONPATH'])
+        environment['PYTHONPATH'] = os.pathsep.join(python_paths)
+
+        for command in (['pytest', '--cov'], ['coverage', 'erase']):
+            process = subprocess.run(command, cwd=CDDS_SIM_META_DIR, env=environment)
+            if process.returncode != 0:
+                exit_code = process.returncode
+
+    if exit_code == 0:
         smiling_face = u'\U0001f604'
         print('{} {}'.format(_green('All tests succeed.'), smiling_face))
     else:
         sad_face = u'\U0001F627'
         print('{} {}'.format(_red('Some tests failed.'), sad_face))
+
+    return exit_code
 
 
 if __name__ == '__main__':
