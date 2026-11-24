@@ -53,7 +53,7 @@ jobs:
       - name: return issues to user
         id: check-issues
         run: |
-          if ${{ steps.create-file.outcome }} == 'failure'; then
+          if '${{ steps.create-file.outcome }}' == 'failure'; then
             gh issue comment "$NUMBER" --body "$BODY"
             echo "NOTE: Script failure has occured due to user input error. The user has been notified and instructed to 
             resubmit a corrected form. No further action required..."
