@@ -184,7 +184,7 @@ REGEX_DICT = {
     "variant_pattern": re.compile(REGEX_FORMAT["variant_label"]),
 }
 
-MIP_TABLE_DIR = f"$CDDS_ETC/mip_tables/CMIP7/DR-v1.2.2.6-v1.0.1"
+MIP_TABLE_DIR = f"$CDDS_ETC/mip_tables/CMIP7/DR-1.2.2.6-v1.0.1"
 LAST_UPDATED = datetime.today().strftime('%Y-%m-%d')
 MIP_DOCS_DIR = Path("docs/mips")
 
