@@ -1,5 +1,5 @@
 <!--(C) British Crown Copyright 2026, Met Office. Please see LICENSE.md for license details.--> 
-To update the information on this page please open a branch to edit the [CFMIP pages](https://github.com/UKNCSP/CDDS-simulation-metadata/blob/main/docs/mips/highresmip.md)
+To update the information on this page please open a branch to edit the [HighResMIP pages](https://github.com/UKNCSP/CDDS-simulation-metadata/blob/main/docs/mips/highresmip.md)
 
 # HighResMIP
 [HighResMIP](https://www.highresmip.org/) (High Resolution Model Intercomparison Project) aims to improve the understanding of model resolution/grid-spacing on climate simulation. [CMIP7 HighResMIP](https://highresmip.org/experiments/experiment_cmip7) has evolved their experiments from CMIP6 to include more idealised simulations to better link with CMIP, as well as shorter simulations to link with km-scale modelling efforts.
