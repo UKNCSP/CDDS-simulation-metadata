@@ -36,6 +36,7 @@ nav:
   - CMIP7 MIPs:
     - CFMIP: mips/cfmip.md
     - CMIP: mips/cmip.md
+    - HighResMIP: mips/highresmip.md
     - PMIP: mips/pmip.md
     - RFMIP: mips/rfmip.md
     - ScenarioMIP: mips/scenariomip.md
