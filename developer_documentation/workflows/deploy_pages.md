@@ -3,8 +3,10 @@
 
 ## Overview
 
-This workflow is triggered by the successful completion of [update_webview.yml](https://github.com/UKNCSP/CDDS-simulation-metadata/blob/main/.github/workflows/update_webview.yml) or via workflow dispatch. This workflow simply deploys the html created by [update_webview.yml](https://github.com/UKNCSP/CDDS-simulation-metadata/blob/main/.github/workflows/update_webview.yml) (see docs [here](https://github.com/UKNCSP/CDDS-simulation-metadata/blob/main/docs/developer_documentation/workflows/update_webview.md)) to GitHub pages.
+This workflow is triggered by the successful completion of on a cron schedule or via workflow dispatch. This workflow simply runs scripts/generate_metadata_tables.py and scripts/metadata_per_mip.py then triggers the mkdocs deployment. For instructions on how to deploy pages from the command line, see [Updating Documentation For Developers](https://github.com/UKNCSP/CDDS-simulation-metadata/blob/main/.github/developer_documentation/updating_documentation.md).
 
+> !!! Note
+> This workflow will trigger a secondary workflow on its completion which builds and deploys the documentation. This may take several minutes to complete.
 
 ## Connected workflows
 
